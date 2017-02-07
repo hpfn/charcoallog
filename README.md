@@ -5,4 +5,4 @@ First project using Django.
 
 Will not be a new idea. I am using mymoneylog (github) to manager my bank account and want to change to a Python program.
 
-login-logout. 2017-02-07
+login-logout. ugly css. 2017-02-07
