@@ -16,11 +16,13 @@
       <div id="titulo">
 	      <h1>TITULO</h1>
 	      {% if user.is_authenticated %}
-	      <li>Olá {{ user.username }}, 
-	      <a href="{% url 'accounts:logout' %}">Sair?</a></li>
-              {% else %}
-	      <li><a href="{% url 'accounts:login' %}">Entrar</a></li>
-              {% endif %}   
+	      <li>Hi {{ user.username }},
+	      <a href="{% url 'accounts:logout' %}">sign out?</a></li>
+          {% else %}
+	      <li><a href="{% url 'accounts:login' %}">sign in</a></li>
+          <li><a href="{% url 'accounts:register' %}" title="">sign up</a></li>
+          <li><a href="" title="">forgot password</a></li>
+          {% endif %}
       </div>
       <div class="content">
               {% block content %}{% endblock %}
