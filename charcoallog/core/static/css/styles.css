@@ -1,3 +1,10 @@
+body {
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
 #titulo {
 	width: 100%;
 	height: 13%;
@@ -31,27 +38,23 @@
 #central .col2 {
 	width: 80%;
 	height: 100%;
-	background-color: orange;
 }
 
 #central .col2 .row1 {
  	width: 100%;
  	height: 8%;
- 	float: none;
 	background-color: green;
 }
 
 #central .col2 .row2 {
  	width: 100%;
  	height: 8%;
- 	float: none;
 	background-color: green;
 }
 
 #central .col2 .row3 {
  	width: 100%;
  	height: 79%;
- 	float: none;
 	overflow-y: scroll;
 	background-color: grey;
 }
