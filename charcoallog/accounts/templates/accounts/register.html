@@ -3,23 +3,25 @@
 {% block content %}
 <div class="pure-g-r content-ribbon">
   <div class="pure-u-1">
-    <h2>Informe seus dados</h2>
+    <h2></h2>
     <form class="pure-form pure-form-stacked" method="post">
     {% csrf_token %}
     <fieldset>
       {{ form.non_field_errors }}
 
       {% for field in form %}
-      <div class="pure-control-group">
-        {{ field.label_tag }}
-        {{ field }}
-        {{ field.errors }}
+      <div align="center" class="pure-control-group">
+	      <ul>
+		      {{ field.label_tag }}
+		      {{ field }}
+		      {{ field.errors }}
+	      </ul>
       </div>
       {% endfor %}
 
-      <div class="pure-controls">
+      <div align="center" class="pure-controls">
         <button type="submit" class="pure-button pure-button-primary">
-		Cadastrar
+		Submit
 	</button>
       </div>
     </fieldset>
