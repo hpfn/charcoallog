@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<!--
+<!doctype html>                                                                 -->
 {% load static %}                                                               
 <html lang="en">
   <head>
@@ -6,22 +7,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Charcoallog - Financial Manager" />
     <title>Charcoallog</title>
-<!--    <link rel="stylesheet" type="text/css" 
+    <link rel="stylesheet" type="text/css" 
     href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
--->
-  <link rel="stylesheet" type="text/css"
-			 href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" type="text/css"
+    href="{% static 'css/styles.css' %}" />
   </head>
     <body>
       <div id="titulo">
-	      <h1>TITULO</h1>
+	      <h1>Charcoallog</h1>
 	      {% if user.is_authenticated %}
 	      <li>Hi {{ user.username }},
 	      <a href="{% url 'accounts:logout' %}">sign out?</a></li>
           {% else %}
-	      <li><a href="{% url 'accounts:login' %}">sign in</a></li>
-          <li><a href="{% url 'accounts:register' %}" title="">sign up</a></li>
-          <li><a href="" title="">forgot password</a></li>
+	      <ul>
+		      <!--<a href="{% url 'accounts:login' %}">sign in</a>-->
+		      <a href="{% url 'accounts:register' %}">sign up</a>
+	    	      <a href="" title="">forgot password</a>
+	      </ul>
           {% endif %}
       </div>
       <div class="content">
