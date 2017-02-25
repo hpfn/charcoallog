@@ -8,3 +8,6 @@ Will not be a new idea. I am using mymoneylog (github) to manager my bank accoun
 login-logout. ugly css. 2017-02-07
 
 trying a formset. 2017-02-22
+
+Formset doesn't apply here. One form to insert data
+and list data in db. 2017-02-25
