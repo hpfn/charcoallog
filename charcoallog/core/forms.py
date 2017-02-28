@@ -1,6 +1,7 @@
 from django import forms
 from datetime import date
-from charcoallog.core.models import Extract
+from .models import Extract
+
 
 class EditExtractForm(forms.Form):
     """
@@ -12,7 +13,7 @@ class EditExtractForm(forms.Form):
     date = forms.DateField(widget=forms.DateInput(attrs={
         'placeholder': date_today.isoformat(),
     }),
-    required=True)
+        required=True)
     money = forms.FloatField(required=True)
     description = forms.CharField(max_length=70,
                                   widget=forms.TextInput(attrs={
@@ -32,8 +33,9 @@ class EditExtractForm(forms.Form):
 
     class Meta:
         model = Extract
-        fields = ['user_name', 'date', 'money', 'description', 
-                'category', 'payment']
+        fields = ['user_name', 'date', 'money', 'description',
+                  'category', 'payment']
+
 
 class SelectExtractForm(forms.Form):
     """ Specific Columm """
