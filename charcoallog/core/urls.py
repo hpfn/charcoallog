@@ -1,7 +1,7 @@
 from django.conf.urls import url
-from charcoallog.core.views import home, titulo, rodape
-from charcoallog.core.views import row2, coluna1, form1, form2
-from charcoallog.core.views import show_data, insert_data_form, show_choice_data
+from .views import home, titulo, rodape
+from .views import row2, coluna1
+from .views import show_data, insert_data_form, show_choice_data
 
 
 urlpatterns = [
