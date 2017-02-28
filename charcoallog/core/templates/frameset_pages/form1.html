@@ -1,0 +1,23 @@
+<html>
+	<head>
+		<title>form1</title>
+	</head>
+	<body>
+		<center>
+			<p>form 1</p>
+			<form method="post" action={% url 'core:show_data' %}
+				target="show_d">
+				{% csrf_token %}
+				{{ form.non_field_errors }}
+				{% for field in form %}
+				    {{ field.label_tag }}
+				    {{ field }}
+				    {{ field.errors }}
+				    <br />
+				{% endfor %}
+				<button type='submit'>Submit</button>
+			</form>
+		</center>
+	</body>
+</html>
+

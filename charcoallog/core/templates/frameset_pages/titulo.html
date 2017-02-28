@@ -1,0 +1,19 @@
+<html>
+	<head>
+	</head>
+	<body>
+		<center>
+		<h1>Charcoallog</h1>
+		{% if user.is_authenticated %}
+		<li>Hi {{ user.username }},
+			<a href="{% url 'accounts:logout' %}" target="_top">sign out?</a></li>
+		{% else %}
+		<ul>
+			<!--<a href="{% url 'accounts:login' %}">sign in</a>-->
+			<a href="{% url 'accounts:register' %}" target="_top">sign up</a>
+			<a href="" title="">forgot password</a>
+		</ul>
+		{% endif %}
+		</center>
+	</body>
+</html>

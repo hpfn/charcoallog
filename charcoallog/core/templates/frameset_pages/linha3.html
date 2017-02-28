@@ -1,0 +1,25 @@
+<html>
+	<head>
+		<title>mostra conta</title>
+	</head>
+	<body>
+		<p>exibe movimentacao conta</p>
+		<p>linha 3</p>
+		<h3>EXTRATO MOVIMENTACAO CONTA</h3>
+		{% for b in builds %}
+		<!-- {{ b.user_name }} hidden field -->
+		    {{ b.date }}
+		    {% if b.money < 0 %}
+		       <font color="red">
+			    {{ b.money }}
+		       </font>
+		    {% else %}
+		            {{ b.money }}
+	            {% endif %}
+		    {{ b.description }}
+		    {{ b.category }}
+		    {{ b.payment }}
+		    <br />
+		{% endfor %}
+	</body>
+</html>

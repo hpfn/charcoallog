@@ -1,0 +1,18 @@
+<html>
+	<head>
+		<title>row2</title>
+	</head>
+	<FRAMESET COLS="20%, 80%">
+		<FRAME SRC={% url 'core:coluna1' %} NORESIZE SCROLLING="NO">
+		<frameset ROWS="10%, 10%, 80%">
+			<FRAME SRC="linha1.html" NORESIZE SCROLLING="NO">
+			<FRAME SRC="linha2.html" NORESIZE SCROLLING="NO">
+			<FRAME SRC={% url 'core:show_data' %} NAME="show_d"
+			NORESIZE SCROLLING="YES">
+		</frameset>
+		<noframes>
+			<body>
+			</body>
+		</noframes>
+	</FRAMESET>
+</html>
