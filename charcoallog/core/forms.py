@@ -34,3 +34,11 @@ class EditExtractForm(forms.Form):
         model = Extract
         fields = ['user_name', 'date', 'money', 'description', 
                 'category', 'payment']
+
+class SelectExtractForm(forms.Form):
+    """ Specific Columm """
+    user_name = forms.CharField(max_length=30)
+    columm = forms.CharField(max_length=70)
+
+    class Meta:
+        fields = ['user_name', 'columm']
