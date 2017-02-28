@@ -4,6 +4,16 @@
 <div id="central">
 	<div class="col1">
 		<h3>FORMULARIOS</h3>
+		<form method="get">
+		   {% csrf_token %}
+		   {{ get_form.non_field_errors }}
+		   {% for f in get_form %}
+		      {{ f.label_tag }}
+		      {{ f }}
+		      {{ f.errors }}
+		   {% endfor %}
+		   <button type='submit'>Submit</button>
+		</form>
 	</div>
 	<div class="col2">
 		<div class="row1">
@@ -11,6 +21,7 @@
 		</div>
 		<div class="row2">
 			<h3>Formulario par incluir gastos</h3>
+			<!--
 			<form method="post">
 				{% csrf_token %}
 				{{ form.non_field_errors }}
@@ -21,6 +32,7 @@
 				{% endfor %}
 				<button type='submit'>Submit</button>
 			</form>
+			-->
 		</div>
 		<div class="row3">
 			<h3>EXTRATO MOVIMENTACAO CONTA</h3>
