@@ -143,3 +143,22 @@ def insert_data_form(request):
     }
 
     return render(request, template_name, context)
+
+def show_total(request):
+    user = request.user
+
+    payment_iterator = Extract.objects.filter(user_name=user).values_list('payment').iterator()
+    payment_list = set([i for i in payment_iterator])
+
+    total_account = []
+
+    for conta in payment_list:
+        total_account.append(Extract.objects.filter(user_name=user, payment=conta[0]).aggregate(Sum('money')))
+
+    print(total_account)
+    template_name = 'frameset_pages/linha1.html'
+    context = {
+        'payment_list': payment_list,
+        'total_account': total_account,
+    }
+    return render(request, template_name, context)
