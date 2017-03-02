@@ -5,17 +5,17 @@
 	<body>
 		<center>
 			<p>form 1</p>
-			<form method="post" action={% url 'core:show_data' %}
-				target="show_d">
-				{% csrf_token %}
-				{{ form.non_field_errors }}
-				{% for field in form %}
-				    {{ field.label_tag }}
-				    {{ field }}
-				    {{ field.errors }}
-				    <br />
-				{% endfor %}
-				<button type='submit'>Submit</button>
+			<form method="post" action={% url 'core:show_data' %} target="show_d">
+			{% csrf_token %}
+			{{ form.non_field_errors }}
+			<input id="id_user_name" type="hidden" name="user_name" value="{{ user.username }}">
+			{{ form.date }}
+			{{ form.money }}
+			{{ form.description }}
+			{{ form.category }}
+			{{ form.payment }}
+			{{ form.errors }}
+			<button type='submit'>Submit</button>
 			</form>
 		</center>
 	</body>

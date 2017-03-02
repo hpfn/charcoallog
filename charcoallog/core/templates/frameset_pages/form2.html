@@ -9,12 +9,11 @@
 				target="show_d">
 				{% csrf_token %}
 				{{ get_form.non_field_errors }}
-				{% for f in get_form %}
-				    {{ f.label_tag }}
-				    {{ f }}
-				    {{ f.errors }}
-				{% endfor %}
-				<button type='submit'>Submit</button>
+			    <input id="id_user_name" type="hidden" name="user_name" value="{{ user.username }}">
+			    search:<br />
+			    {{ get_form.columm }}
+			    {{ get_form.errors }}
+			    <button type='submit'>Submit</button>
 			</form>
 		</center>
 	</body>
