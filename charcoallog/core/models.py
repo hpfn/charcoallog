@@ -5,6 +5,9 @@ class ExtractManager(models.Manager):
     def search(self, query):
         return self.get_queryset().filter(models.Q(user_name__contains=query).order_by('date'))
 
+    def delete(self,query):
+        return self.filter(query).delete()
+
 class Extract(models.Model):
     user_name = models.CharField('Name', max_length=30)
     date = models.DateField('Date')
