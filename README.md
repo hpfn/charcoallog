@@ -17,4 +17,4 @@ A form to insert data and other to choose
 what to show. 2017-02-28
 
 Remove from db. Hidden user_name. 
-Total 'money'. 2017-03-02
+Total 'money'. show_total view. 2017-03-02
