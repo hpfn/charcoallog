@@ -153,13 +153,15 @@ def show_total(request):
     total_account = [Extract.objects.filter(user_name=user, payment=conta[0]).aggregate(Sum('money'))
                      for conta in payment_list]
 
-    #for conta in payment_list:
-    #    total_account.append(Extract.objects.filter(user_name=user, payment=conta[0]).aggregate(Sum('money')))
+    saldo = 0.0
+    for resto in total_account:
+        saldo += float(resto['money__sum'])
 
-    print(total_account)
+
     template_name = 'frameset_pages/linha1.html'
     context = {
         'payment_list': payment_list,
         'total_account': total_account,
+        'saldo': saldo
     }
     return render(request, template_name, context)
