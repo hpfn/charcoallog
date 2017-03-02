@@ -51,6 +51,7 @@ def show_data(request):
     if request.method == 'POST':
         form = EditExtractForm(request.POST)
 
+
         if form.is_valid():
             newdata = []
             user_name = form.cleaned_data.get('user_name')
@@ -59,14 +60,20 @@ def show_data(request):
             description = form.cleaned_data.get('description')
             category = form.cleaned_data.get('category')
             payment = form.cleaned_data.get('payment')
-            # if all vars
+            remove = form.cleaned_data.get('remove')
+            # if all vars, but no remove.
             newdata.append(Extract(user_name=user_name, date=date,
                                    money=money, description=description, category=category,
                                    payment=payment))
 
             try:
                 with transaction.atomic():
-                    Extract.objects.bulk_create(newdata)
+                    if remove:
+                        Extract.objects.filter(user_name=user_name, date=date,
+                                               money=money, description=description,
+                                               category=category, payment=payment).delete()
+                    else:
+                        Extract.objects.bulk_create(newdata)
                     # notify user is ok ? messages()
             except IntegrityError:
                 # messages()
