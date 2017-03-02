@@ -8,18 +8,29 @@
 		<h3>EXTRATO MOVIMENTACAO CONTA</h3>
 		{% for b in builds %}
 		<!-- {{ b.user_name }} hidden field -->
-		    {{ b.date }}
+			<form method="post">
+				{% csrf_token %}
+            <input type="hidden" name="user_name" value="{{ b.user_name }}" />
+		    {{ b.date|date:"Y-m-d" }}
+            <input type="hidden" name="date" value="{{ b.date|date:"Y-m-d" }}" />
 		    {% if b.money < 0 %}
-		       <font color="red">
+		        <font color="red">
+                {{ b.money }}
+				</font>
+			{% else %}
 			    {{ b.money }}
-		       </font>
-		    {% else %}
-		            {{ b.money }}
-	            {% endif %}
-		    {{ b.description }}
+			{% endif %}
+			<input type="hidden" name="money" value="{{ b.money }}" />
+			{{ b.description }}
+			<input type="hidden" name="description" value="{{ b.description }}" />
 		    {{ b.category }}
+			<input type="hidden" name="category" value="{{ b.category }}" />
 		    {{ b.payment }}
-		    <br />
+			<input type="hidden" name="payment" value="{{ b.payment }}" />
+			<input type="hidden" name="remove" value="True" />
+				<button type="submit">Remove</button>
+			</form>
 		{% endfor %}
+		</form>
 	</body>
 </html>
