@@ -150,10 +150,11 @@ def show_total(request):
     payment_iterator = Extract.objects.filter(user_name=user).values_list('payment').iterator()
     payment_list = set([i for i in payment_iterator])
 
-    total_account = []
+    total_account = [Extract.objects.filter(user_name=user, payment=conta[0]).aggregate(Sum('money'))
+                     for conta in payment_list]
 
-    for conta in payment_list:
-        total_account.append(Extract.objects.filter(user_name=user, payment=conta[0]).aggregate(Sum('money')))
+    #for conta in payment_list:
+    #    total_account.append(Extract.objects.filter(user_name=user, payment=conta[0]).aggregate(Sum('money')))
 
     print(total_account)
     template_name = 'frameset_pages/linha1.html'
