@@ -5,7 +5,13 @@
 	<body>
 		<center>
 			<p>contas e saldo</p>
-			<p>linha 1</p>
+			{% for item in payment_list %}
+			{{ item }}
+			{% endfor %}
+            <br />
+            {% for total in total_account %}
+            {{ total }}
+            {% endfor %}
 		</center>
 	</body>
 </html>
