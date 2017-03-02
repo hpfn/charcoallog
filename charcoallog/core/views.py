@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 # from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError, transaction
+from django.db.models import Sum
 from .models import Extract
 from .forms import EditExtractForm, SelectExtractForm
 
@@ -47,10 +48,10 @@ def rodape(request):
 def show_data(request):
     user = request.user
     builds = Extract.objects.filter(user_name=user).order_by('date')
+    total = Extract.objects.filter(user_name=user).aggregate(Sum('money'))
 
     if request.method == 'POST':
         form = EditExtractForm(request.POST)
-
 
         if form.is_valid():
             newdata = []
@@ -74,7 +75,7 @@ def show_data(request):
                                                category=category, payment=payment).delete()
                     else:
                         Extract.objects.bulk_create(newdata)
-                    # notify user is ok ? messages()
+                        # notify user is ok ? messages()
             except IntegrityError:
                 # messages()
                 print("An error happened")
@@ -82,6 +83,7 @@ def show_data(request):
 
         # return redirect('core:home')
         builds = Extract.objects.filter(user_name=user).order_by('date')
+        total = Extract.objects.filter(user_name=user).aggregate(Sum('money'))
 
     elif request.method == 'GET':
         get_form = SelectExtractForm(request.GET)
@@ -90,20 +92,30 @@ def show_data(request):
             user_name = get_form.cleaned_data.get('user_name')
             columm = get_form.cleaned_data.get('columm')
 
-            builds = Extract.objects.filter(user_name=user_name,
-                                            payment=columm).order_by('date')
-
-            if not builds:
+            if columm.lower() == 'all':
+                builds = Extract.objects.filter(user_name=user_name).order_by('date')
+                total = Extract.objects.filter(user_name=user_name).aggregate(Sum('money'))
+            else:
                 builds = Extract.objects.filter(user_name=user_name,
-                                                category=columm).order_by('date')
+                                                payment=columm).order_by('date')
+                total = Extract.objects.filter(user_name=user_name,
+                                               payment=columm).aggregate(Sum('money'))
 
-            if not builds:
-                builds = Extract.objects.filter(user_name=user_name,
-                                                description=columm).order_by('date')
+                if not builds:
+                    builds = Extract.objects.filter(user_name=user_name,
+                                                    category=columm).order_by('date')
+                    total = Extract.objects.filter(user_name=user_name,
+                                                   category=columm).aggregate(Sum('money'))
+                if not builds:
+                    builds = Extract.objects.filter(user_name=user_name,
+                                                    description=columm).order_by('date')
+                    total = Extract.objects.filter(user_name=user_name,
+                                                   description=columm).aggregate(Sum('money'))
 
     template_name = 'frameset_pages/linha3.html'
     context = {
         'builds': builds,
+        'total': total,
     }
 
     return render(request, template_name, context)
