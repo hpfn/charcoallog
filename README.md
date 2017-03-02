@@ -14,4 +14,6 @@ and list data in db. 2017-02-25
 
 Using a html frameset to split the page.
 A form to insert data and other to choose 
-what to show. 2017-02-28.
+what to show. 2017-02-28
+
+Remove from db. Hidden user_name. 2017-03-02
