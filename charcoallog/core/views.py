@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 from .models import Extract
 from .forms import EditExtractForm, SelectExtractForm
+from datetime import date
 
 
 # Create your views here.
@@ -34,6 +35,8 @@ def show_data(request):
     user = request.user
     builds = False  # Extract.objects.filter(user_name=user).order_by('date')
     total = False  # Extract.objects.filter(user_name=user).aggregate(Sum('money'))
+    d = date.today()
+    d = d.strftime('%Y-%m-01')
 
     if request.method == 'POST':
         form = EditExtractForm(request.POST)
@@ -41,8 +44,8 @@ def show_data(request):
         if form.is_valid():
             Extract.objects.insert_by_post(form)
 
-        # builds = Extract.objects.filter(user_name=user).order_by('date')
-        # total = Extract.objects.filter(user_name=user).aggregate(Sum('money'))
+            # builds = Extract.objects.filter(user_name=user).order_by('date')
+            # total = Extract.objects.filter(user_name=user).aggregate(Sum('money'))
 
     elif request.method == 'GET':
         get_form = SelectExtractForm(request.GET)
@@ -51,8 +54,8 @@ def show_data(request):
             builds, total = Extract.objects.search_from_get(get_form)
 
     if not builds:
-        builds = Extract.objects.filter(user_name=user).order_by('date')
-        total = Extract.objects.filter(user_name=user).aggregate(Sum('money'))
+        builds = Extract.objects.filter(user_name=user).filter(date__gte=d).order_by('date')
+        total = Extract.objects.filter(user_name=user).filter(date__gte=d).aggregate(Sum('money'))
 
     template_name = 'frameset_pages/linha3.html'
     context = {
