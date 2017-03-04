@@ -40,11 +40,18 @@ class EditExtractForm(forms.Form):
 
 class SelectExtractForm(forms.Form):
     """ Specific Columm """
-    user_name = forms.CharField(max_length=30, widget=forms.HiddenInput(), required=True)
+    date_today = date.today()
+
+    user_name = forms.CharField(max_length=30, widget=forms.HiddenInput(),
+                                required=True)
     columm = forms.CharField(max_length=70, required=True)
+    from_date = forms.DateField(widget=forms.DateInput(attrs={
+        'placeholder': date_today.isoformat(), }), required=True)
+    to_date = forms.DateField(widget=forms.DateInput(attrs={
+        'placeholder': date_today.isoformat(), }), required=True)
 
     class Meta:
-        fields = ['user_name', 'columm']
+        fields = ['user_name', 'columm', 'from_date', 'to_date']
 
 # class RemoveForm(forms.Form):
 #
