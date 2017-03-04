@@ -18,3 +18,5 @@ what to show. 2017-02-28
 
 Remove from db. Hidden user_name. 
 Total 'money'. show_total view. 2017-03-02
+
+Main change: date range on search. 2017-03-04
