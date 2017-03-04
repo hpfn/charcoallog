@@ -6,32 +6,48 @@
 		<p>exibe movimentacao conta</p>
 		<p>linha 3</p>
 		<h3>EXTRATO MOVIMENTACAO CONTA</h3>
+		<table>
 		{% for b in builds %}
-		<!-- {{ b.user_name }} hidden field -->
-			<form method="post">
-				{% csrf_token %}
-            <input type="hidden" name="user_name" value="{{ b.user_name }}" />
-		    {{ b.date|date:"Y-m-d" }}
-            <input type="hidden" name="date" value="{{ b.date|date:"Y-m-d" }}" />
-		    {% if b.money < 0 %}
-		        <font color="red">
-                {{ b.money }}
-				</font>
-			{% else %}
-			    {{ b.money }}
-			{% endif %}
-			<input type="hidden" name="money" value="{{ b.money }}" />
-			{{ b.description }}
-			<input type="hidden" name="description" value="{{ b.description }}" />
-		    {{ b.category }}
-			<input type="hidden" name="category" value="{{ b.category }}" />
-		    {{ b.payment }}
-			<input type="hidden" name="payment" value="{{ b.payment }}" />
-			<input type="hidden" name="remove" value="True" />
-				<button type="submit">Remove</button>
-			</form>
+            <tr>
+                <td>
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="user_name" value="{{ b.user_name }}" />
+                </td>
+                <td>
+                    {{ b.date|date:"Y-m-d" }}
+                    <input type="hidden" name="date" value="{{ b.date|date:"Y-m-d" }}" />
+                </td>
+                <td>
+                    {% if b.money < 0 %}
+                        <font color="red">
+                            {{ b.money }}
+                        </font>
+                    {% else %}
+                        {{ b.money }}
+                    {% endif %}
+                    <input type="hidden" name="money" value="{{ b.money }}" />
+                </td>
+                <td>
+                    {{ b.description }}
+                    <input type="hidden" name="description" value="{{ b.description }}" />
+                </td>
+                <td>
+                    {{ b.category }}
+                    <input type="hidden" name="category" value="{{ b.category }}" />
+                </td>
+                <td>
+                    {{ b.payment }}
+                    <input type="hidden" name="payment" value="{{ b.payment }}" />
+                </td>
+                <td>
+                    <input type="hidden" name="remove" value="True" />
+                    <button type="submit">Remove</button>
+                    </form>
+                </td>
+            </tr>
 		{% endfor %}
-        Total: {{ total }}
-		</form>
+        </table>
+        Total: {{ total.money__sum }}
 	</body>
 </html>
