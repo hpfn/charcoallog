@@ -5,13 +5,14 @@
 	<body>
 		<center>
 			<p>form 2</p>
-			<form method="get" action={% url 'core:show_data' %}
-				target="show_d">
+			<form method="get" action="{% url 'core:show_data' %}" target="show_d">
 				{% csrf_token %}
 				{{ get_form.non_field_errors }}
 			    <input id="id_user_name" type="hidden" name="user_name" value="{{ user.username }}">
 			    search:<br />
 			    {{ get_form.columm }}
+			    {{ get_form.from_date }}
+			    {{ get_form.to_date }}
 			    {{ get_form.errors }}
 			    <button type='submit'>Submit</button>
 			</form>
