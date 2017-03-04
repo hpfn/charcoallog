@@ -32,8 +32,8 @@ def rodape(request):
 @login_required
 def show_data(request):
     user = request.user
-    builds = Extract.objects.filter(user_name=user).order_by('date')
-    total = Extract.objects.filter(user_name=user).aggregate(Sum('money'))
+    builds = False  # Extract.objects.filter(user_name=user).order_by('date')
+    total = False  # Extract.objects.filter(user_name=user).aggregate(Sum('money'))
 
     if request.method == 'POST':
         form = EditExtractForm(request.POST)
@@ -41,14 +41,18 @@ def show_data(request):
         if form.is_valid():
             Extract.objects.insert_by_post(form)
 
-        builds = Extract.objects.filter(user_name=user).order_by('date')
-        total = Extract.objects.filter(user_name=user).aggregate(Sum('money'))
+        # builds = Extract.objects.filter(user_name=user).order_by('date')
+        # total = Extract.objects.filter(user_name=user).aggregate(Sum('money'))
 
     elif request.method == 'GET':
         get_form = SelectExtractForm(request.GET)
 
         if get_form.is_valid():
             builds, total = Extract.objects.search_from_get(get_form)
+
+    if not builds:
+        builds = Extract.objects.filter(user_name=user).order_by('date')
+        total = Extract.objects.filter(user_name=user).aggregate(Sum('money'))
 
     template_name = 'frameset_pages/linha3.html'
     context = {
