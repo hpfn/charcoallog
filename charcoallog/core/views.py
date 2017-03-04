@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect
-from django.core.urlresolvers import reverse
+from django.shortcuts import render
+# from django.core.urlresolvers import reverse
 # from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from django.db import IntegrityError, transaction
+# from django.db import IntegrityError, transaction
 from django.db.models import Sum
 from .models import Extract
 from .forms import EditExtractForm, SelectExtractForm
