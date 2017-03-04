@@ -6,14 +6,20 @@
 	<body>
 		<center>
 			<p>contas e saldo</p>
+            <table>
+                <tr>
 			{% for item in payment_list %}
-			{{ item }}
+                    <td>{{ item }}</td>
 			{% endfor %}
-            <br />
+                    <td>saldo</td>
+                </tr>
+                <tr>
             {% for total in total_account %}
-            {{ total }}
+                    <td>{{ total.money__sum }}</td>
             {% endfor %}
-            saldo = {{ saldo }}
+                    <td>{{ saldo }}</td>
+                </tr>
+            </table>
 		</center>
 	</body>
 </html>
