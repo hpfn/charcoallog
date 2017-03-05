@@ -21,8 +21,8 @@ def titulo(request):
 
 
 @login_required
-def row2(request):
-    return render(request, "frameset_pages/row2.html")
+def middle(request):
+    return render(request, "frameset_pages/middle.html")
 
 
 @login_required
