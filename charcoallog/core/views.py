@@ -16,8 +16,8 @@ def home(request):
 
 
 @login_required
-def titulo(request):
-    return render(request, "frameset_pages/titulo.html")
+def title(request):
+    return render(request, "frameset_pages/title.html")
 
 
 @login_required
