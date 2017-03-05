@@ -51,7 +51,6 @@ class ExtractManager(models.Manager):
                     date__lte=to_date).aggregate(Sum('money'))
 
         return builds, total
-        # return self.get_queryset().filter(models.Q(user_name__contains=query).order_by('date'))
 
     def insert_by_post(self, form):
         newdata = []
@@ -64,7 +63,8 @@ class ExtractManager(models.Manager):
         remove = form.cleaned_data.get('remove')
         # if all vars, but no remove.
         newdata.append(Extract(user_name=user_name, date=date, money=money,
-                               description=description, category=category, payment=payment))
+                               description=description, category=category,
+                               payment=payment))
 
         try:
             with transaction.atomic():
