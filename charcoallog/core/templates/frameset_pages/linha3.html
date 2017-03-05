@@ -1,12 +1,26 @@
 <html>
 	<head>
 		<title>mostra conta</title>
+		<style type="text/css">
+                body{
+			background-color:#666;
+		}
+		#box {
+			background:#CCC;
+			width: 90%;
+			height: auto;
+			margin: auto;
+	 		padding:10px;
+			text-align:center;
+			-moz-border-radius:7px;
+			-webkit-border-radius:7px;
+			border-radius:7px;
+		}
+		</style>
 	</head>
 	<body>
-		<p>exibe movimentacao conta</p>
-		<p>linha 3</p>
-		<h3>EXTRATO MOVIMENTACAO CONTA</h3>
-		<table cellpadding="5" cellspacing="10">
+		<div id="box">
+		<table cellpadding="5" cellspacing="30">
 		{% for b in builds %}
             <tr>
                 <td>
@@ -48,6 +62,8 @@
             </tr>
 		{% endfor %}
         </table>
-        Total: {{ total.money__sum }}
+	<br />
+	<b>Total</b>: {{ total.money__sum }}
+	</div>
 	</body>
 </html>

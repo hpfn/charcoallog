@@ -1,10 +1,25 @@
 <html>
 	<head>
 		<title>form2</title>
+		<style type="text/css">
+                body{
+			background-color:#666;
+		}
+		#box {
+			background:#CCC;
+			width:90%;
+			height:70%;
+			margin: auto;
+			padding:10px;
+			text-align:center;
+			-moz-border-radius:7px;
+			-webkit-border-radius:7px;
+			border-radius:7px;
+		}
+		</style>
 	</head>
 	<body>
-		<center>
-			<p>form 2</p>
+		<div id="box">
 			<form method="get" action="{% url 'core:show_data' %}" target="show_d">
 				{% csrf_token %}
 				{{ get_form.non_field_errors }}
@@ -16,7 +31,7 @@
 			    {{ get_form.errors }}
 			    <button type='submit'>Submit</button>
 			</form>
-		</center>
+		</div>
 	</body>
 </html>
 

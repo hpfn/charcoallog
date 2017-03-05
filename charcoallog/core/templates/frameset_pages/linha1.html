@@ -2,24 +2,48 @@
 	<head>
 		<meta http-equiv="refresh" content="2">
 		<title>contas</title>
+		<style type="text/css">
+		body{
+			background-color:#666;
+		}
+		#box {
+		background:#CCC;
+		width: 90%;
+		height: 60%;
+		margin: auto;
+		padding:10px;
+		text-align:center;
+
+		-moz-border-radius:7px;
+		-webkit-border-radius:7px;
+		 border-radius:7px;
+		 }
+		</style>
 	</head>
 	<body>
-		<center>
-			<p>contas e saldo</p>
-            <table>
+	    <div id="box">
+	    <table align="left" cellpadding="10">
                 <tr>
 			{% for item in payment_list %}
-                    <td>{{ item }}</td>
+			<td><b>{{ item }}</b></td>
 			{% endfor %}
-                    <td>saldo</td>
+			<td><b>what's left</b></td>
                 </tr>
                 <tr>
             {% for total in total_account %}
-                    <td>{{ total.money__sum }}</td>
+                    <td align="center">
+			    {% if total.money__sum < 0 %}
+			    <font color="red">
+				    {{ total.money__sum }}
+		            </font>
+		            {% else %}
+		    		    {{ total.money__sum }}
+		            {% endif %}
+		    </td>
             {% endfor %}
-                    <td>{{ saldo }}</td>
+                    <td align="center">{{ saldo }}</td>
                 </tr>
             </table>
-		</center>
+	    </div>
 	</body>
 </html>

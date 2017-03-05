@@ -2,13 +2,12 @@
 	<head>
 		<title>xxxxxxxxxx</title>
 	</head>
-	<frameset ROWS="20%,70%,10%" FRAMEBORDER="1" FRAMESPACING="2">
+	<frameset ROWS="13%,80%,7%" FRAMEBORDER="1">
 		<frame NAME="titulo" src={% url 'core:titulo' %} NORESIZE 
-		borderCOLOR="#3F85B8">
+		borderCOLOR="#666">
 		<frame NAME="contas_formulario" src={% url 'core:row2' %} NORESIZE 
-		borderCOLOR="#4086C6">
-		<frame NAME="footer" src={% url 'core:rodape' %} NORESIZE 
-		borderCOLOR="#4086C6">
+		borderCOLOR="#666">
+		<frame NAME="footer" src="{% url 'core:rodape' %}" NORESIZE>
 	</frameset>
 	<body>
 	</body>

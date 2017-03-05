@@ -1,19 +1,25 @@
 <html>
 	<head>
+		<style type="text/css">
+                body {
+			background-color: #666;
+		}
+		</style>
 	</head>
 	<body>
-		<center>
-		<h1>Charcoallog</h1>
+		<h1 align="center">Charcoallog</h1>
 		{% if user.is_authenticated %}
-		<li>Hi {{ user.username }},
-			<a href="{% url 'accounts:logout' %}" target="_top">sign out?</a></li>
+		<h5 align="left">Hi {{ user.username }},
+			<a href="{% url 'accounts:logout' %}" target="_top">sign out?</a></h5>
+		<!--
 		{% else %}
-		<ul>
+		<ul>-->
 			<!--<a href="{% url 'accounts:login' %}">sign in</a>-->
+			<!--
 			<a href="{% url 'accounts:register' %}" target="_top">sign up</a>
 			<a href="" title="">forgot password</a>
 		</ul>
+		-->
 		{% endif %}
-		</center>
 	</body>
 </html>

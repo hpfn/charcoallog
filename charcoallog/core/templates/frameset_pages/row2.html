@@ -2,14 +2,16 @@
 	<head>
 		<title>row2</title>
 	</head>
-	<FRAMESET COLS="20%, 80%">
-		<frameset ROWS="50%,50%" FRAMEBORDER="1" FRAMESPACING="2">
+	<FRAMESET COLS="20%, 80%" FRAMEBORDER="0">
+		<frameset ROWS="50%,50%">
 			<FRAME SRC="{% url 'core:form1' %}" NAME="superior">
 			<FRAME SRC="{% url 'core:form2' %}" NAME="inferior">
 		</frameset>
-		<frameset ROWS="20%, 10%, 70%">
+		<frameset ROWS="30%, 70%">
 			<FRAME SRC="linha1.html" NORESIZE SCROLLING="NO">
+			<!--
 			<FRAME SRC="linha2.html" NORESIZE SCROLLING="NO">
+			-->
 			<FRAME SRC="{% url 'core:show_data' %}" NAME="show_d"
 			NORESIZE SCROLLING="YES">
 		</frameset>
