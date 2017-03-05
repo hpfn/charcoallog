@@ -93,10 +93,12 @@ def insert_data_form(request):
 def show_total(request):
     user = request.user
 
-    payment_iterator = Extract.objects.filter(user_name=user).values_list('payment').iterator()
-    payment_list = set([i for i in payment_iterator])
+    payment_iterator = Extract.objects.filter(user_name=user).values_list(
+        'payment').iterator()
+    payment_list = set([i[0] for i in payment_iterator])
 
-    total_account = [Extract.objects.filter(user_name=user, payment=conta[0]).aggregate(Sum('money'))
+    total_account = [Extract.objects.filter(
+        user_name=user, payment=conta).aggregate(Sum('money'))
                      for conta in payment_list]
 
     saldo = 0.0
