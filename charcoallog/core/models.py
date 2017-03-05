@@ -16,22 +16,22 @@ class ExtractManager(models.Manager):
         to_date = form.cleaned_data.get('to_date')
 
         if columm.lower() == 'all':
-            builds = self.filter(user_name=user_name).filter(
+            bills = self.filter(user_name=user_name).filter(
                 date__gte=from_date,
                 date__lte=to_date).order_by('date')
             total = self.filter(user_name=user_name).filter(
                 date__gte=from_date,
                 date__lte=to_date).aggregate(Sum('money'))
         else:
-            builds = self.filter(user_name=user_name, payment=columm).filter(
+            bills = self.filter(user_name=user_name, payment=columm).filter(
                 date__gte=from_date, date__lte=to_date).order_by('date')
             total = self.filter(user_name=user_name,
                                 payment=columm).filter(
                 date__gte=from_date,
                 date__lte=to_date).aggregate(Sum('money'))
 
-            if not builds:
-                builds = self.filter(user_name=user_name,
+            if not bills:
+                bills = self.filter(user_name=user_name,
                                      category=columm).filter(
                     date__gte=from_date,
                     date__lte=to_date).order_by('date')
@@ -40,8 +40,8 @@ class ExtractManager(models.Manager):
                     date__gte=from_date,
                     date__lte=to_date).aggregate(Sum('money'))
 
-            if not builds:
-                builds = self.filter(user_name=user_name,
+            if not bills:
+                bills = self.filter(user_name=user_name,
                                      description=columm).filter(
                     date__gte=from_date,
                     date__lte=to_date).order_by('date')
@@ -50,7 +50,7 @@ class ExtractManager(models.Manager):
                     date__gte=from_date,
                     date__lte=to_date).aggregate(Sum('money'))
 
-        return builds, total
+        return bills, total
 
     def insert_by_post(self, form):
         newdata = []
