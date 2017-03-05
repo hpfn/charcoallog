@@ -57,7 +57,7 @@ def show_data(request):
         builds = Extract.objects.filter(user_name=user).filter(date__gte=d).order_by('date')
         total = Extract.objects.filter(user_name=user).filter(date__gte=d).aggregate(Sum('money'))
 
-    template_name = 'frameset_pages/linha3.html'
+    template_name = 'frameset_pages/line3.html'
     context = {
         'builds': builds,
         'total': total,
@@ -105,7 +105,7 @@ def show_total(request):
     for resto in total_account:
         saldo += float(resto['money__sum'])
 
-    template_name = 'frameset_pages/linha1.html'
+    template_name = 'frameset_pages/line1.html'
     context = {
         'payment_list': payment_list,
         'total_account': total_account,

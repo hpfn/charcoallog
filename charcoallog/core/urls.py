@@ -10,8 +10,8 @@ urlpatterns = [
     url(r'^frameset_pages/middle.html$', middle, name='middle'),
     url(r'^frameset_pages/form1.html$', insert_data_form, name='form1'),
     url(r'^frameset_pages/form2.html$', show_choice_data, name='form2'),
-    url(r'^frameset_pages/linha1.html$', show_total, name='show_total'),
+    url(r'^frameset_pages/line1.html$', show_total, name='show_total'),
     # url(r'^frameset_pages/linha2.html$', show_data, name='show_data'),
-    url(r'^frameset_pages/linha3.html$', show_data, name='show_data'),
+    url(r'^frameset_pages/line3.html$', show_data, name='show_data'),
     url(r'^frameset_pages/rodape.html$', rodape, name='rodape'),
 ]
