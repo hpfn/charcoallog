@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from .views import home, title, rodape
+from .views import home, title, bottom
 from .views import middle
 from .views import insert_data_form
 from .views import show_data, show_choice_data, show_total
@@ -13,5 +13,5 @@ urlpatterns = [
     url(r'^frameset_pages/line1.html$', show_total, name='show_total'),
     # url(r'^frameset_pages/linha2.html$', show_data, name='show_data'),
     url(r'^frameset_pages/line3.html$', show_data, name='show_data'),
-    url(r'^frameset_pages/rodape.html$', rodape, name='rodape'),
+    url(r'^frameset_pages/bottom.html$', bottom, name='bottom'),
 ]

@@ -26,8 +26,8 @@ def middle(request):
 
 
 @login_required
-def rodape(request):
-    return render(request, "frameset_pages/rodape.html")
+def bottom(request):
+    return render(request, "frameset_pages/bottom.html")
 
 
 @login_required
