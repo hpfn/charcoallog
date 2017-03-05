@@ -9,7 +9,8 @@ class EditExtractForm(forms.Form):
     """
     date_today = date.today()
 
-    user_name = forms.CharField(max_length=30, widget=forms.HiddenInput(), required=True)
+    user_name = forms.CharField(max_length=30, widget=forms.HiddenInput(),
+                                required=True)
     date = forms.DateField(widget=forms.DateInput(attrs={
         'placeholder': date_today.isoformat(),
     }),
