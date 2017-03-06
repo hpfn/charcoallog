@@ -14,7 +14,7 @@ class ExtractManager(models.Manager):
         columm = form.cleaned_data.get('columm')
         from_date = form.cleaned_data.get('from_date')
         to_date = form.cleaned_data.get('to_date')
-        value = {(columm, )}
+        value = {(columm,)}
         # makes hard to debug
         bills = False
         total = False
@@ -28,30 +28,31 @@ class ExtractManager(models.Manager):
                 date__lte=to_date).aggregate(Sum('money'))
         elif value.issubset(set(self.filter(user_name=user_name).values_list('payment'))):
             bills = self.filter(user_name=user_name, payment=columm).filter(
-                date__gte=from_date, date__lte=to_date).order_by('date')
+                date__gte=from_date,
+                date__lte=to_date).order_by('date')
             total = self.filter(user_name=user_name,
                                 payment=columm).filter(
                 date__gte=from_date,
                 date__lte=to_date).aggregate(Sum('money'))
         elif value.issubset(set(self.filter(user_name=user_name).values_list('category'))):
-                bills = self.filter(user_name=user_name,
-                                     category=columm).filter(
-                    date__gte=from_date,
-                    date__lte=to_date).order_by('date')
-                total = self.filter(user_name=user_name,
-                                    category=columm).filter(
-                    date__gte=from_date,
-                    date__lte=to_date).aggregate(Sum('money'))
+            bills = self.filter(user_name=user_name,
+                                category=columm).filter(
+                date__gte=from_date,
+                date__lte=to_date).order_by('date')
+            total = self.filter(user_name=user_name,
+                                category=columm).filter(
+                date__gte=from_date,
+                date__lte=to_date).aggregate(Sum('money'))
 
         elif value.issubset(set(self.filter(user_name=user_name).values_list('description'))):
-                bills = self.filter(user_name=user_name,
-                                     description=columm).filter(
-                    date__gte=from_date,
-                    date__lte=to_date).order_by('date')
-                total = self.filter(user_name=user_name,
-                                    description=columm).filter(
-                    date__gte=from_date,
-                    date__lte=to_date).aggregate(Sum('money'))
+            bills = self.filter(user_name=user_name,
+                                description=columm).filter(
+                date__gte=from_date,
+                date__lte=to_date).order_by('date')
+            total = self.filter(user_name=user_name,
+                                description=columm).filter(
+                date__gte=from_date,
+                date__lte=to_date).aggregate(Sum('money'))
 
         return bills, total
 
