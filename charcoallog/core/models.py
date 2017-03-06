@@ -14,6 +14,10 @@ class ExtractManager(models.Manager):
         columm = form.cleaned_data.get('columm')
         from_date = form.cleaned_data.get('from_date')
         to_date = form.cleaned_data.get('to_date')
+        value = {(columm, )}
+        # makes hard to debug
+        bills = False
+        total = False
 
         if columm.lower() == 'all':
             bills = self.filter(user_name=user_name).filter(
@@ -22,15 +26,14 @@ class ExtractManager(models.Manager):
             total = self.filter(user_name=user_name).filter(
                 date__gte=from_date,
                 date__lte=to_date).aggregate(Sum('money'))
-        else:
+        elif value.issubset(set(self.filter(user_name=user_name).values_list('payment'))):
             bills = self.filter(user_name=user_name, payment=columm).filter(
                 date__gte=from_date, date__lte=to_date).order_by('date')
             total = self.filter(user_name=user_name,
                                 payment=columm).filter(
                 date__gte=from_date,
                 date__lte=to_date).aggregate(Sum('money'))
-
-            if not bills:
+        elif value.issubset(set(self.filter(user_name=user_name).values_list('category'))):
                 bills = self.filter(user_name=user_name,
                                      category=columm).filter(
                     date__gte=from_date,
@@ -40,7 +43,7 @@ class ExtractManager(models.Manager):
                     date__gte=from_date,
                     date__lte=to_date).aggregate(Sum('money'))
 
-            if not bills:
+        elif value.issubset(set(self.filter(user_name=user_name).values_list('description'))):
                 bills = self.filter(user_name=user_name,
                                      description=columm).filter(
                     date__gte=from_date,
