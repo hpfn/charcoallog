@@ -33,6 +33,7 @@ def bottom(request):
 @login_required
 def show_data(request):
     user = request.user
+    # makes hard to debug
     bills = False  # Extract.objects.filter(user_name=user).order_by('date')
     total = False  # Extract.objects.filter(user_name=user).aggregate(Sum('money'))
     d = date.today()
