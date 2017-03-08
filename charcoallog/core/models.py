@@ -11,7 +11,8 @@ from django.core.urlresolvers import reverse
 
 class ExtractManager(models.Manager):
     def search_from_get(self, request_get, form):
-        user_name = form.cleaned_data.get('user_name')
+        # user_name = form.cleaned_data.get('user_name')
+        user_name = request_get.user
         columm = form.cleaned_data.get('columm')
         from_date = form.cleaned_data.get('from_date')
         to_date = form.cleaned_data.get('to_date')
