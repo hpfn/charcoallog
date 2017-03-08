@@ -1,5 +1,5 @@
 from django.shortcuts import redirect
-# from django.contrib import messages
+from django.contrib import messages
 from django.db import models
 from django.db.models import Sum
 from django.db import IntegrityError, transaction
@@ -10,7 +10,7 @@ from django.core.urlresolvers import reverse
 # import Q ?
 
 class ExtractManager(models.Manager):
-    def search_from_get(self, form):
+    def search_from_get(self, request_get, form):
         user_name = form.cleaned_data.get('user_name')
         columm = form.cleaned_data.get('columm')
         from_date = form.cleaned_data.get('from_date')
@@ -53,7 +53,9 @@ class ExtractManager(models.Manager):
 
             return bills, total
 
-        return False, False
+        else:
+            messages.error(request_get, "Invalid search!")
+            return redirect('core:show_data'), 0
 
     def insert_by_post(self, form):
         newdata = []

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 # from django.core.urlresolvers import reverse
-# from django.http import HttpResponse
+# from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 # from django.db import IntegrityError, transaction
 from django.db.models import Sum
@@ -52,7 +52,7 @@ def show_data(request):
         get_form = SelectExtractForm(request.GET)
 
         if get_form.is_valid():
-            bills, total = Extract.objects.search_from_get(get_form)
+            bills, total = Extract.objects.search_from_get(request, get_form)
 
     if not bills:
         bills = Extract.objects.filter(user_name=user).filter(date__gte=d).order_by('date')
@@ -105,6 +105,7 @@ def show_total(request):
     saldo = 0.0
     for resto in total_account:
         saldo += float(resto['money__sum'])
+
 
     template_name = 'frameset_pages/line1.html'
     context = {
