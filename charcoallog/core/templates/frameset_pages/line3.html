@@ -20,17 +20,26 @@
 	</head>
 	<body>
 		<div id="box">
-		<table cellpadding="5" cellspacing="30">
+		{% if messages %}
+		<ul class="messages">
+		{% for message in messages %}
+		<li>{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+		{% endfor %}
+		</ul>
+		{% else %}
+		<table align="center" cellpadding="3" cellspacing="20">
 		{% for b in bills %}
+            <form method="post">
+                {% csrf_token %}
             <tr>
                 <td>
-                    <form method="post">
-                        {% csrf_token %}
-                        <input type="hidden" name="user_name" value="{{ b.user_name }}" />
+                    <input type="hidden" name="user_name" value="{{ b.user_name }}" />
                 </td>
                 <td>
+			<font size="2">
                     {{ b.date|date:"Y-m-d" }}
                     <input type="hidden" name="date" value="{{ b.date|date:"Y-m-d" }}" />
+			</font>
                 </td>
                 <td>
                     {% if b.money < 0 %}
@@ -43,27 +52,43 @@
                     <input type="hidden" name="money" value="{{ b.money }}" />
                 </td>
                 <td>
+		    <font size="2">
                     {{ b.description }}
                     <input type="hidden" name="description" value="{{ b.description }}" />
+		    </font>
                 </td>
                 <td>
+		    <font size="2">
                     {{ b.category }}
                     <input type="hidden" name="category" value="{{ b.category }}" />
+		    </font>
                 </td>
                 <td>
+			<font size="2">
                     {{ b.payment }}
                     <input type="hidden" name="payment" value="{{ b.payment }}" />
+			</font>
                 </td>
                 <td>
                     <input type="hidden" name="remove" value="True" />
+		    <font size="2">
                     <button type="submit">Remove</button>
-                    </form>
+		    </font>
                 </td>
             </tr>
+            </tr></form>
 		{% endfor %}
         </table>
 	<br />
-	<b>Total</b>: {{ total.money__sum }}
+	<b>Total</b>:
+	 {% if total.money__sum < 0 %}
+			    <font color="red">
+				    {{ total.money__sum }}
+			    </font>
+	{% else %}
+			{{ total.money__sum }}
+	{% endif %}
+	{% endif %}
 	</div>
 	</body>
 </html>

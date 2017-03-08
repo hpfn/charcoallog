@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<meta http-equiv="refresh" content="2">
+		<meta http-equiv="refresh" content="3">
 		<title>contas</title>
 		<style type="text/css">
 		body{
@@ -8,11 +8,13 @@
 		}
 		#box {
 		background:#CCC;
-		width: 90%;
+		width: 89%;
 		height: 60%;
-		margin: auto;
-		padding:10px;
-		text-align:center;
+		margin-left: 4%;
+		margin-right: auto;
+		margin-top: 40px;
+		padding: 10px;
+		text-align: left;
 
 		-moz-border-radius:7px;
 		-webkit-border-radius:7px;
@@ -21,7 +23,7 @@
 		</style>
 	</head>
 	<body>
-	    <div id="box">
+	    <div align="left" id="box">
 	    <table align="left" cellpadding="10">
                 <tr>
 			{% for item in payment_list %}

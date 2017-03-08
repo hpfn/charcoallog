@@ -3,14 +3,18 @@
 		<style type="text/css">
                 body {
 			background-color: #666;
+			font-size: 8px;
+		}
+		h1 {
+			Font-size: 30px;
 		}
 		</style>
 	</head>
 	<body>
 		<h1 align="center">Charcoallog</h1>
 		{% if user.is_authenticated %}
-		<h5 align="left">Hi {{ user.username }},
-			<a href="{% url 'accounts:logout' %}" target="_top">sign out?</a></h5>
+		<b align="left">Hi {{ user.username }},
+			<a href="{% url 'accounts:logout' %}" target="_top">sign out?</a></b>
 		<!--
 		{% else %}
 		<ul>-->
