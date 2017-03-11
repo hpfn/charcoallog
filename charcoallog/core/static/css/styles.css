@@ -12,7 +12,7 @@ body {
 
 #titulo {
 	width: 100%;
-	height: 13%;
+	height: 12%;
 	text-align: center;
 	background-color: #666;
 	margin-bottom: 2px;
@@ -20,12 +20,12 @@ body {
 
 #central {
 	width: 100%;
-	height: 82%;
+	height: 81%;
 }
 
 #rodape {
 	width: 100%;
-	height: 5%;
+	height: 3%;
 	margin-top: 2px;
 	font-size: 8px;
 	text-align: center;
