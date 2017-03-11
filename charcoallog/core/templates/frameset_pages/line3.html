@@ -14,13 +14,13 @@
                 <td>
                     <input type="hidden" name="user_name" value="{{ b.user_name }}" />
                 </td>
-                <td>
+                <td width="90">
 			<font size="2">
                     {{ b.date|date:"Y-m-d" }}
                     <input type="hidden" name="date" value='{{ b.date|date:"Y-m-d" }}' />
 			</font>
                 </td>
-                <td>
+                <td width="90">
                     {% if b.money < 0 %}
                         <font color="red">
                             {{ b.money }}
@@ -30,19 +30,19 @@
                     {% endif %}
                     <input type="hidden" name="money" value="{{ b.money }}" />
                 </td>
-                <td>
+                <td width="90">
 		    <font size="2">
                     {{ b.description }}
                     <input type="hidden" name="description" value="{{ b.description }}" />
 		    </font>
                 </td>
-                <td>
+                <td width="90">
 		    <font size="2">
                     {{ b.category }}
                     <input type="hidden" name="category" value="{{ b.category }}" />
 		    </font>
                 </td>
-                <td>
+                <td width="90">
 			<font size="2">
                     {{ b.payment }}
                     <input type="hidden" name="payment" value="{{ b.payment }}" />
