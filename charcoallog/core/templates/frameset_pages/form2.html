@@ -1,37 +1,15 @@
-<html>
-	<head>
-		<title>form2</title>
-		<style type="text/css">
-                body{
-			background-color:#666;
-		}
-		#box {
-			background:#CCC;
-			width:90%;
-			height:70%;
-			margin: auto;
-			padding:10px;
-			text-align:center;
-			-moz-border-radius:7px;
-			-webkit-border-radius:7px;
-			border-radius:7px;
-		}
-		</style>
-	</head>
-	<body>
-		<div id="box">
-			<form method="get" action="{% url 'core:show_data' %}" target="show_d">
-				{% csrf_token %}
-				{{ get_form.non_field_errors }}
-			    <input id="id_user_name" type="hidden" name="user_name" value="{{ user.username }}">
-			    search:<br />
-			    {{ get_form.columm }}
-			    {{ get_form.from_date }}
-			    {{ get_form.to_date }}
-			    {{ get_form.errors }}
-			    <button type='submit'>Submit</button>
-			</form>
-		</div>
-	</body>
-</html>
+<div id="box_form2">
+    <form method="get">
+<!--	action="{% url 'core:show_data' %}" target="show_d"> -->
+	{% csrf_token %}
+	{{ get_form.non_field_errors }}
+	<input id="id_user_name" type="hidden" name="user_name" value="{{ user.username }}">
+	{{ get_form.columm }}
+	{{ get_form.from_date }}
+	{{ get_form.to_date }}
+	{{ get_form.errors }}
+	<br />
+	<button type='submit'>Submit</button>
+    </form>
+</div>
 

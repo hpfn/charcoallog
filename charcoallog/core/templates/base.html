@@ -16,21 +16,20 @@
       <div id="titulo">
 	      <h1>Charcoallog</h1>
 	      {% if user.is_authenticated %}
-	      <li>Hi {{ user.username }},
-	      <a href="{% url 'accounts:logout' %}">sign out?</a></li>
+	      <h6 align="left"> Hi {{ user.username }},
+	      <a href="{% url 'accounts:logout' %}">sign out?</a>
+          </h6>
           {% else %}
-	      <ul>
-		      <!--<a href="{% url 'accounts:login' %}">sign in</a>-->
+	          <!--<a href="{% url 'accounts:login' %}">sign in</a>-->
 		      <a href="{% url 'accounts:register' %}">sign up</a>
 	    	      <a href="" title="">forgot password</a>
-	      </ul>
-          {% endif %}
+	      {% endif %}
       </div>
       <div class="content">
               {% block content %}{% endblock %}
-              <div id="rodape">
-		      <h4>RODAPE</h4>
-	      </div>
+      </div>
+      <div id="rodape">
+	      charcoallog released under GPL-3+
       </div>
     </body>
 </html>

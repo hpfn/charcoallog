@@ -12,22 +12,21 @@ from datetime import date
 # Create your views here.
 @login_required
 def home(request):
-    return render(request, "principal.html")
+    bills, total = show_data(request)
+    form = EditExtractForm()
+    get_form = SelectExtractForm()
+    payment_list, total_account, saldo = show_total(request)
 
-
-@login_required
-def title(request):
-    return render(request, "frameset_pages/title.html")
-
-
-@login_required
-def middle(request):
-    return render(request, "frameset_pages/middle.html")
-
-
-@login_required
-def bottom(request):
-    return render(request, "frameset_pages/bottom.html")
+    context = {
+        'bills': bills,
+        'total': total,
+        'form': form,
+        'get_form': get_form,
+        'payment_list': payment_list,
+        'total_account': total_account,
+        'saldo': saldo,
+    }
+    return render(request, "home.html", context)
 
 
 @login_required
@@ -45,9 +44,6 @@ def show_data(request):
         if form.is_valid():
             Extract.objects.insert_by_post(form)
 
-            # bills = Extract.objects.filter(user_name=user).order_by('date')
-            # total = Extract.objects.filter(user_name=user).aggregate(Sum('money'))
-
     elif request.method == 'GET':
         get_form = SelectExtractForm(request.GET)
 
@@ -58,39 +54,10 @@ def show_data(request):
         bills = Extract.objects.filter(user_name=user).filter(date__gte=d).order_by('date')
         total = Extract.objects.filter(user_name=user).filter(date__gte=d).aggregate(Sum('money'))
 
-    template_name = 'frameset_pages/line3.html'
-    context = {
-        'bills': bills,
-        'total': total,
-    }
-
-    return render(request, template_name, context)
+    return bills, total
 
 
 @login_required
-def show_choice_data(request):
-    get_form = SelectExtractForm()
-
-    template_name = "frameset_pages/form2.html"
-    context = {
-        'get_form': get_form,
-    }
-
-    return render(request, template_name, context)
-
-
-@login_required
-def insert_data_form(request):
-    form = EditExtractForm()
-
-    template_name = "frameset_pages/form1.html"
-    context = {
-        'form': form,
-    }
-
-    return render(request, template_name, context)
-
-
 def show_total(request):
     user = request.user
 
@@ -106,11 +73,4 @@ def show_total(request):
     for resto in total_account:
         saldo += float(resto['money__sum'])
 
-
-    template_name = 'frameset_pages/line1.html'
-    context = {
-        'payment_list': payment_list,
-        'total_account': total_account,
-        'saldo': saldo
-    }
-    return render(request, template_name, context)
+    return payment_list, total_account, saldo

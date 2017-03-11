@@ -1,36 +1,15 @@
-<html>
-	<head>
-		<title>mostra conta</title>
-		<style type="text/css">
-                body{
-			background-color:#666;
-		}
-		#box {
-			background:#CCC;
-			width: 90%;
-			height: auto;
-			margin: auto;
-	 		padding:10px;
-			text-align:center;
-			-moz-border-radius:7px;
-			-webkit-border-radius:7px;
-			border-radius:7px;
-		}
-		</style>
-	</head>
-	<body>
-		<div id="box">
-		{% if messages %}
-		<ul class="messages">
+<div id="box_line3" class="scroll">
+	{% if messages %}
+	<ul class="messages">
 		{% for message in messages %}
-		<li>{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+		<li>{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
 		{% endfor %}
-		</ul>
-		{% else %}
-		<table align="center" cellpadding="3" cellspacing="20">
-		{% for b in bills %}
-            <form method="post">
-                {% csrf_token %}
+	</ul>
+	{% else %}
+        {% for b in bills %}
+        <form method="post">
+        {% csrf_token %}
+        <table align="center" cellpadding="2">
             <tr>
                 <td>
                     <input type="hidden" name="user_name" value="{{ b.user_name }}" />
@@ -38,7 +17,7 @@
                 <td>
 			<font size="2">
                     {{ b.date|date:"Y-m-d" }}
-                    <input type="hidden" name="date" value="{{ b.date|date:"Y-m-d" }}" />
+                    <input type="hidden" name="date" value='{{ b.date|date:"Y-m-d" }}' />
 			</font>
                 </td>
                 <td>
@@ -76,19 +55,17 @@
 		    </font>
                 </td>
             </tr>
-            </tr></form>
-		{% endfor %}
         </table>
+    </form>
+    {% endfor %}
 	<br />
 	<b>Total</b>:
-	 {% if total.money__sum < 0 %}
+		{% if total.money__sum < 0 %}
 			    <font color="red">
 				    {{ total.money__sum }}
 			    </font>
-	{% else %}
+	        {% else %}
 			{{ total.money__sum }}
+	        {% endif %}
 	{% endif %}
-	{% endif %}
-	</div>
-	</body>
-</html>
+</div>

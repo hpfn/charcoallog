@@ -1,28 +1,6 @@
-<html>
-	<head>
-		<title>form1</title>
-		<style type="text/css">
-		body{
-			background-color:#666;
-		}
-		#box {
-			background:#CCC;
-			width:90%;
-			height:70%;
-			margin-top: 40px;
-			margin-left: auto;
-			margin-right: auto;
-			padding:10px;
-			text-align:center;
-			-moz-border-radius:7px;
-			-webkit-border-radius:7px;
-			border-radius:7px;
-		}
-		</style>
-	</head>
-	<body>
-		<div id="box">
-			<form method="post" action={% url 'core:show_data' %} target="show_d">
+<div id="box_form1">
+	<form method="post"> 
+<!--	action={% url 'core:show_data' %} target="show_d"> -->
 			{% csrf_token %}
 			{{ form.non_field_errors }}
 			<input id="id_user_name" type="hidden" name="user_name" value="{{ user.username }}">
@@ -34,7 +12,5 @@
 			{{ form.errors }}
 			<button type='submit'>Submit</button>
 			</form>
-		</div>
-	</body>
-</html>
+</div>
 

@@ -3,48 +3,16 @@
 {% block content %}
 <div id="central">
 	<div class="col1">
-		<h3>FORMULARIOS</h3>
-		<form method="get">
-		   {% csrf_token %}
-		   {{ get_form.non_field_errors }}
-		   {% for f in get_form %}
-		      {{ f.label_tag }}
-		      {{ f }}
-		      {{ f.errors }}
-		   {% endfor %}
-		   <button type='submit'>Submit</button>
-		</form>
+		{% include 'frameset_pages/form1.html' %}
+		<br /><br />
+		{% include 'frameset_pages/form2.html' %}
 	</div>
 	<div class="col2">
 		<div class="row1">
-			<h3>MENU TOTAL DE CADA CONTA E TOTAL FINAL</h3>
+			{% include 'frameset_pages/line1.html' %}
 		</div>
 		<div class="row2">
-			<h3>Formulario par incluir gastos</h3>
-			<!--
-			<form method="post">
-				{% csrf_token %}
-				{{ form.non_field_errors }}
-				{% for field in form %}
-				    {{ field.label_tag }}
-				    {{ field }}
-				    {{ field.errors }}
-				{% endfor %}
-				<button type='submit'>Submit</button>
-			</form>
-			-->
-		</div>
-		<div class="row3">
-			<h3>EXTRATO MOVIMENTACAO CONTA</h3>
-			{% for b in builds %}
-			<!-- {{ b.user_name }} hidden field -->
-			    {{ b.date }}
-			    {{ b.money }}
-			    {{ b.description }}
-			    {{ b.category }}
-			    {{ b.payment }}
-			    <br />
-			{% endfor %}
+			{% include 'frameset_pages/line3.html' %} 
 		</div>
 	</div>
 </div>

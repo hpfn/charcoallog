@@ -1,51 +1,36 @@
-<html>
-	<head>
-		<meta http-equiv="refresh" content="3">
-		<title>contas</title>
-		<style type="text/css">
-		body{
-			background-color:#666;
-		}
-		#box {
-		background:#CCC;
-		width: 89%;
-		height: 60%;
-		margin-left: 4%;
-		margin-right: auto;
-		margin-top: 40px;
-		padding: 10px;
-		text-align: left;
-
-		-moz-border-radius:7px;
-		-webkit-border-radius:7px;
-		 border-radius:7px;
-		 }
-		</style>
-	</head>
-	<body>
-	    <div align="left" id="box">
-	    <table align="left" cellpadding="10">
+<div id="box_line1">
+	<table align="left" cellpadding="10">
                 <tr>
 			{% for item in payment_list %}
-			<td><b>{{ item }}</b></td>
+			<td><font size="2"><b>{{ item }}</b></font></td>
 			{% endfor %}
-			<td><b>what's left</b></td>
+			<td><font size="2"><b>what's left</b></font></td>
                 </tr>
                 <tr>
             {% for total in total_account %}
                     <td align="center">
 			    {% if total.money__sum < 0 %}
-			    <font color="red">
+			    <font size="2" color="red">
 				    {{ total.money__sum }}
 		            </font>
 		            {% else %}
+			    <font size="2">
 		    		    {{ total.money__sum }}
+		            </font>
 		            {% endif %}
 		    </td>
             {% endfor %}
-                    <td align="center">{{ saldo }}</td>
+                    <td align="center">
+			    <font size="2">
+			    {% if saldo < 0 %}
+	                    <font color="red">
+				    {{ saldo }}
+		            </font>
+			    {% else %}
+			            {{ saldo }}
+			    {% endif %}
+		            </font>
+		    </td>
                 </tr>
-            </table>
-	    </div>
-	</body>
-</html>
+       </table>
+</div>
