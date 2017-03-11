@@ -77,7 +77,8 @@ class ExtractManager(models.Manager):
                 if remove:
                     self.filter(user_name=user_name, date=date,
                                 money=money, description=description,
-                                category=category, payment=payment).delete()
+                                category=category, payment=payment).order_by(
+                        'id')[0].delete()
                 else:
                     self.bulk_create(newdata)
                     # notify user is ok ? messages()
@@ -85,6 +86,8 @@ class ExtractManager(models.Manager):
             # messages()
             print("An error happened")
             return redirect(reverse('Extract-settings'))
+        except IndexError:
+            print("Do not Refresh the page!!!")
 
     def delete(self, query):
         return self.filter(query).delete()
