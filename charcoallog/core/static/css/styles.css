@@ -1,6 +1,6 @@
 body {
     overflow: hidden;
-    margin-top: 3px;
+    margin-top: 22x;
     margin-right: 10px;
     margin-left: 10px;
     margin-bottom: 5px;
@@ -20,7 +20,7 @@ body {
 
 #central {
 	width: 100%;
-	height: 81%;
+	height: 80%;
 }
 
 #rodape {
@@ -57,8 +57,7 @@ body {
 
 #central .col2 .row2 {
  	width: 100%;
- 	height: 80%;
-	overflow: hidden;
+ 	height: 77%;
 	background-color: #666;
 }
 
