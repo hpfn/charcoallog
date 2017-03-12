@@ -59,7 +59,6 @@ class ExtractManager(models.Manager):
             return redirect('core:show_data'), 0
 
     def insert_by_post(self, form):
-        newdata = []
         user_name = form.cleaned_data.get('user_name')
         date = form.cleaned_data.get('date')
         money = form.cleaned_data.get('money')
@@ -67,20 +66,17 @@ class ExtractManager(models.Manager):
         category = form.cleaned_data.get('category')
         payment = form.cleaned_data.get('payment')
         remove = form.cleaned_data.get('remove')
-        # if all vars, but no remove.
-        newdata.append(Extract(user_name=user_name, date=date, money=money,
-                               description=description, category=category,
-                               payment=payment))
 
         try:
             with transaction.atomic():
                 if remove:
-                    self.filter(user_name=user_name, date=date,
-                                money=money, description=description,
-                                category=category, payment=payment).order_by(
-                        'id')[0].delete()
+                    self.filter(user_name=user_name, date=date, money=money,
+                                description=description, category=category,
+                                payment=payment).order_by('id')[0].delete()
                 else:
-                    self.bulk_create(newdata)
+                    self.create(user_name=user_name, date=date, money=money,
+                                description=description, category=category,
+                                payment=payment)
                     # notify user is ok ? messages()
         except IntegrityError:
             # messages()
