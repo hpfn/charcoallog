@@ -61,9 +61,9 @@ def show_data(request):
 def show_total(request):
     user = request.user
 
-    payment_iterator = Extract.objects.filter(user_name=user).values_list(
-        'payment').iterator()
-    payment_list = set([i[0] for i in payment_iterator])
+    payment_iterator = set(Extract.objects.filter(user_name=user).values_list(
+        'payment'))
+    payment_list = [i[0] for i in payment_iterator]
 
     total_account = [Extract.objects.filter(
         user_name=user, payment=conta).aggregate(Sum('money'))
