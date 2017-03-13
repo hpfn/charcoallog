@@ -6,6 +6,16 @@
 		{% endfor %}
 	</ul>
 	{% else %}
+        <br />
+        <b>Total</b>:
+        {% if total.money__sum < 0 %}
+        <font color="red">
+            {{ total.money__sum|floatformat:2 }}
+        </font>
+        {% else %}
+            {{ total.money__sum|floatformat:2 }}
+        {% endif %}
+        <br />
         {% for b in bills %}
         <form method="post">
         {% csrf_token %}
@@ -59,13 +69,5 @@
     </form>
     {% endfor %}
 	<br />
-	<b>Total</b>:
-		{% if total.money__sum < 0 %}
-			    <font color="red">
-				    {{ total.money__sum|floatformat:2 }}
-			    </font>
-	        {% else %}
-			{{ total.money__sum|floatformat:2 }}
-	        {% endif %}
 	{% endif %}
 </div>
