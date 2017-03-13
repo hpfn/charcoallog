@@ -52,7 +52,7 @@ def show_data(request):
             return Extract.objects.search_from_get(request, get_form)
 
     # if not bills:
-    bills = Extract.objects.filter(user_name=user).filter(date__gte=d).order_by('date')
+    bills = Extract.objects.filter(user_name=user).filter(date__gte=d).order_by('-date')
     total = Extract.objects.filter(user_name=user).filter(date__gte=d).aggregate(Sum('money'))
 
     return bills, total
