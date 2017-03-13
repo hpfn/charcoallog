@@ -33,8 +33,8 @@ def home(request):
 def show_data(request):
     user = request.user
     # makes hard to debug
-    bills = False  # Extract.objects.filter(user_name=user).order_by('date')
-    total = False  # Extract.objects.filter(user_name=user).aggregate(Sum('money'))
+    # bills = False  # Extract.objects.filter(user_name=user).order_by('date')
+    # total = False  # Extract.objects.filter(user_name=user).aggregate(Sum('money'))
     d = date.today()
     d = d.strftime('%Y-%m-01')
 
@@ -48,11 +48,12 @@ def show_data(request):
         get_form = SelectExtractForm(request.GET)
 
         if get_form.is_valid():
-            bills, total = Extract.objects.search_from_get(request, get_form)
+            # bills, total = Extract.objects.search_from_get(request, get_form)
+            return Extract.objects.search_from_get(request, get_form)
 
-    if not bills:
-        bills = Extract.objects.filter(user_name=user).filter(date__gte=d).order_by('date')
-        total = Extract.objects.filter(user_name=user).filter(date__gte=d).aggregate(Sum('money'))
+    # if not bills:
+    bills = Extract.objects.filter(user_name=user).filter(date__gte=d).order_by('date')
+    total = Extract.objects.filter(user_name=user).filter(date__gte=d).aggregate(Sum('money'))
 
     return bills, total
 
