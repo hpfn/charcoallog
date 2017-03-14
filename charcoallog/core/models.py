@@ -16,7 +16,7 @@ class ExtractManager(models.Manager):
         columm = form.cleaned_data.get('columm')
         from_date = form.cleaned_data.get('from_date')
         to_date = form.cleaned_data.get('to_date')
-        value = {(columm,)}
+        # value = {(columm,)}
 
         if columm.lower() == 'all':
             bills = self.filter(user_name=user_name).filter(
