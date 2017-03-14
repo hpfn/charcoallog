@@ -27,7 +27,8 @@ class ExtractManager(models.Manager):
 
             return bills, total
 
-        elif value.issubset(set(self.filter(user_name=user_name).values_list('payment'))):
+        # elif value.issubset(set(self.filter(user_name=user_name).values_list('payment'))):
+        elif self.filter(user_name=user_name, payment__contains=columm):
             bills = self.filter(user_name=user_name, payment=columm).filter(
                 date__gte=from_date, date__lte=to_date).order_by('-date')
 
@@ -36,7 +37,8 @@ class ExtractManager(models.Manager):
 
             return bills, total
 
-        elif value.issubset(set(self.filter(user_name=user_name).values_list('category'))):
+        # elif value.issubset(set(self.filter(user_name=user_name).values_list('category'))):
+        elif self.filter(user_name=user_name, category__contains=columm):
             bills = self.filter(user_name=user_name, category=columm).filter(
                 date__gte=from_date, date__lte=to_date).order_by('-date')
 
@@ -45,7 +47,8 @@ class ExtractManager(models.Manager):
 
             return bills, total
 
-        elif value.issubset(set(self.filter(user_name=user_name).values_list('description'))):
+        # elif value.issubset(set(self.filter(user_name=user_name).values_list('description'))):
+        elif self.filter(user_name=user_name, description__contains=columm):
             bills = self.filter(user_name=user_name, description=columm).filter(
                 date__gte=from_date, date__lte=to_date).order_by('-date')
 
