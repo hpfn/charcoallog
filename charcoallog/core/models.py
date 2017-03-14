@@ -74,9 +74,10 @@ class ExtractManager(models.Manager):
                                 description=description, category=category,
                                 payment=payment).order_by('id')[0].delete()
                 else:
-                    self.create(user_name=user_name, date=date, money=money,
-                                description=description, category=category,
-                                payment=payment)
+                    form.save()
+                    # self.create(user_name=user_name, date=date, money=money,
+                    #            description=description, category=category,
+                    #            payment=payment)
                     # notify user is ok ? messages()
         except IntegrityError:
             # messages()
