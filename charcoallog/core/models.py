@@ -59,17 +59,24 @@ class ExtractManager(models.Manager):
             return redirect('core:show_data'), 0
 
     def insert_by_post(self, form):
-        user_name = form.cleaned_data.get('user_name')
-        date = form.cleaned_data.get('date')
-        money = form.cleaned_data.get('money')
-        description = form.cleaned_data.get('description')
-        category = form.cleaned_data.get('category')
-        payment = form.cleaned_data.get('payment')
-        remove = form.cleaned_data.get('remove')
+        # user_name = form.cleaned_data.get('user_name')
+        # date = form.cleaned_data.get('date')
+        # money = form.cleaned_data.get('money')
+        # description = form.cleaned_data.get('description')
+        # category = form.cleaned_data.get('category')
+        # payment = form.cleaned_data.get('payment')
+        # remove = form.cleaned_data.get('remove')
 
         try:
             with transaction.atomic():
-                if remove:
+                if form.cleaned_data.get('remove'):
+                    user_name = form.cleaned_data.get('user_name')
+                    date = form.cleaned_data.get('date')
+                    money = form.cleaned_data.get('money')
+                    description = form.cleaned_data.get('description')
+                    category = form.cleaned_data.get('category')
+                    payment = form.cleaned_data.get('payment')
+
                     self.filter(user_name=user_name, date=date, money=money,
                                 description=description, category=category,
                                 payment=payment).order_by('id')[0].delete()
