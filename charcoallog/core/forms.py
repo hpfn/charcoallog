@@ -3,7 +3,7 @@ from datetime import date
 from .models import Extract
 
 
-class EditExtractForm(forms.Form):
+class EditExtractForm(forms.ModelForm):
     """
     Form for individual user account
     """
