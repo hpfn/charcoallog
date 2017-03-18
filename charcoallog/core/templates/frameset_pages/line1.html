@@ -11,11 +11,11 @@
                     <td align="center">
 			    {% if total.money__sum < 0 %}
 			    <font size="2" color="red">
-				    {{ total.money__sum|floatformat:2 }}
+				    {{ total.money__sum }}
 		            </font>
 		            {% else %}
 			    <font size="2">
-		    		    {{ total.money__sum|floatformat:2 }}
+		    		    {{ total.money__sum }}
 		            </font>
 		            {% endif %}
 		    </td>
@@ -24,10 +24,10 @@
 			    <font size="2">
 			    {% if saldo < 0 %}
 	                    <font color="red">
-				    {{ saldo|floatformat:2 }}
+				    {{ saldo }}
 		            </font>
 			    {% else %}
-			            {{ saldo|floatformat:2 }}
+			            {{ saldo }}
 			    {% endif %}
 		            </font>
 		    </td>
