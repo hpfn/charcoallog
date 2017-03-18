@@ -59,7 +59,7 @@ class ExtractManager(models.Manager):
 
         else:
             messages.error(request_get, "Invalid search!")
-            return redirect('core:show_data'), 0
+            return redirect('core:home'), 0
 
     def insert_by_post(self, form):
         # user_name = form.cleaned_data.get('user_name')

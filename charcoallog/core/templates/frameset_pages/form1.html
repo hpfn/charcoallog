@@ -1,6 +1,5 @@
 <div id="box_form1">
-	<form method="post"> 
-<!--	action={% url 'core:show_data' %} target="show_d"> -->
+	<form method="post">
 			{% csrf_token %}
 			{{ form.non_field_errors }}
 			<input id="id_user_name" type="hidden" name="user_name" value="{{ user.username }}">
