@@ -15,10 +15,10 @@
         <b>Total</b>:
         {% if total.money__sum < 0 %}
         <font color="red">
-            {{ total.money__sum|floatformat:2 }}
+            {{ total.money__sum }}
         </font>
         {% else %}
-            {{ total.money__sum|floatformat:2 }}
+            {{ total.money__sum }}
         {% endif %}
         <br />
         {% for b in bills %}

@@ -15,7 +15,7 @@ class EditExtractForm(forms.ModelForm):
         'placeholder': date_today.isoformat(),
     }),
         required=True)
-    money = forms.FloatField(initial=0.0, required=True)
+    money = forms.DecimalField(initial=0.0, required=True)
     description = forms.CharField(max_length=70,
                                   widget=forms.TextInput(attrs={
                                       'placeholder': 'specific_place',
