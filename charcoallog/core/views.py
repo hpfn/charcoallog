@@ -70,8 +70,8 @@ def show_total(request):
         user_name=user, payment=conta).aggregate(Sum('money'))
                      for conta in payment_list]
 
-    saldo = 0.0
+    saldo = 0
     for resto in total_account:
-        saldo += float(resto['money__sum'])
+        saldo += resto['money__sum']
 
     return payment_list, total_account, saldo
