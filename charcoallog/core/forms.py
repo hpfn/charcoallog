@@ -1,20 +1,27 @@
 from django import forms
 from datetime import date
 from .models import Extract
+# http://stackoverflow.com/questions/5449604/django-calendar-widget-in-a-custom-form
+# needs to edit the template
+# from django.contrib.admin.widgets import AdminDateWidget
+
+# class CalendarWidget(forms.TextInput):
+#    class Media:
+#        css = {
+#            'all': '/static/css/calendar-blue.css'
+#        }
+#        js = ('/static/jscalendar/calendar.min.js',
+#              '/static/jscalendar/calendar-setup.min.js')
 
 
 class EditExtractForm(forms.ModelForm):
     """
     Form for individual user account
     """
-    date_today = date.today()
-
     user_name = forms.CharField(max_length=30, widget=forms.HiddenInput(),
                                 required=True)
-    date = forms.DateField(widget=forms.DateInput(attrs={
-        'placeholder': date_today.isoformat(),
-    }),
-        required=True)
+    # date = forms.DateField(widget=CalendarWidget, required=True)
+    date = forms.DateField(widget=forms.SelectDateWidget, required=True)
     money = forms.DecimalField(initial=0.0, required=True)
     description = forms.CharField(max_length=70,
                                   widget=forms.TextInput(attrs={
@@ -46,10 +53,12 @@ class SelectExtractForm(forms.Form):
     user_name = forms.CharField(max_length=30, widget=forms.HiddenInput(),
                                 required=True)
     columm = forms.CharField(max_length=70, required=True)
-    from_date = forms.DateField(widget=forms.DateInput(attrs={
-        'placeholder': date_today.isoformat(), }), required=True)
-    to_date = forms.DateField(widget=forms.DateInput(attrs={
-        'placeholder': date_today.isoformat(), }), required=True)
+    # from_date = forms.DateField(widget=forms.DateInput(attrs={
+    #    'placeholder': date_today.isoformat(), }), required=True)
+    from_date = forms.DateField(widget=forms.SelectDateWidget, required=True)
+    # to_date = forms.DateField(widget=forms.DateInput(attrs={
+    #    'placeholder': date_today.isoformat(), }), required=True)
+    to_date = forms.DateField(widget=forms.SelectDateWidget, required=True)
 
     class Meta:
         fields = ['user_name', 'columm', 'from_date', 'to_date']
