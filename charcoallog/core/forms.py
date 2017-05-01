@@ -24,7 +24,7 @@ class EditExtractForm(forms.ModelForm):
     user_name = forms.CharField(max_length=30, widget=forms.HiddenInput(),
                                 required=True)
     # date = forms.DateField(widget=CalendarWidget, required=True)
-    date = forms.DateField(widget=forms.SelectDateWidget, required=True)
+    date = forms.DateField(widget=forms.SelectDateWidget, initial=date.today(), required=True)
     money = forms.DecimalField(initial=0.0, required=True)
     description = forms.CharField(max_length=70,
                                   widget=forms.TextInput(attrs={
