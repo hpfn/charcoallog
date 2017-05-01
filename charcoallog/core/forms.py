@@ -1,6 +1,9 @@
 from django import forms
 from datetime import date
 from .models import Extract
+# more recent
+# https://codedump.io/share/3seZkm5xb6mu/1/using-django-timedate-widgets-in-custom-form
+# very old
 # http://stackoverflow.com/questions/5449604/django-calendar-widget-in-a-custom-form
 # needs to edit the template
 # from django.contrib.admin.widgets import AdminDateWidget
