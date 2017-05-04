@@ -24,7 +24,8 @@ class EditExtractForm(forms.ModelForm):
     user_name = forms.CharField(max_length=30, widget=forms.HiddenInput(),
                                 required=True)
     # date = forms.DateField(widget=CalendarWidget, required=True)
-    date = forms.DateField(widget=forms.SelectDateWidget, initial=date.today(), required=True)
+    # date = forms.DateField(widget=forms.SelectDateWidget, initial=date.today(), required=True)
+    date = forms.DateField(required=True)
     money = forms.DecimalField(initial=0.0, required=True)
     description = forms.CharField(max_length=70,
                                   widget=forms.TextInput(attrs={
@@ -59,9 +60,11 @@ class SelectExtractForm(forms.Form):
     # from_date = forms.DateField(widget=forms.DateInput(attrs={
     #    'placeholder': date_today.isoformat(), }), required=True)
     from_date = forms.DateField(widget=forms.SelectDateWidget, required=True)
+    # from_date = forms.DateField(required=True)
     # to_date = forms.DateField(widget=forms.DateInput(attrs={
     #    'placeholder': date_today.isoformat(), }), required=True)
     to_date = forms.DateField(widget=forms.SelectDateWidget, required=True)
+    # to_date = forms.DateField(required=True)
 
     class Meta:
         fields = ['user_name', 'columm', 'from_date', 'to_date']
