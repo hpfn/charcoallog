@@ -25,7 +25,7 @@ class ExtractManager(models.Manager):
             total = self.filter(user_name=user_name).filter(
                 date__gte=from_date, date__lte=to_date).aggregate(Sum('money'))
 
-            return bills, total
+            #return bills, total
 
         # elif value.issubset(set(self.filter(user_name=user_name).values_list('payment'))):
         elif self.filter(user_name=user_name, payment__contains=columm):
@@ -35,7 +35,7 @@ class ExtractManager(models.Manager):
             total = self.filter(user_name=user_name, payment=columm).filter(
                 date__gte=from_date, date__lte=to_date).aggregate(Sum('money'))
 
-            return bills, total
+            #return bills, total
 
         # elif value.issubset(set(self.filter(user_name=user_name).values_list('category'))):
         elif self.filter(user_name=user_name, category__contains=columm):
@@ -45,7 +45,7 @@ class ExtractManager(models.Manager):
             total = self.filter(user_name=user_name, category=columm).filter(
                 date__gte=from_date, date__lte=to_date).aggregate(Sum('money'))
 
-            return bills, total
+            #return bills, total
 
         # elif value.issubset(set(self.filter(user_name=user_name).values_list('description'))):
         elif self.filter(user_name=user_name, description__contains=columm):
@@ -55,11 +55,13 @@ class ExtractManager(models.Manager):
             total = self.filter(user_name=user_name, description=columm).filter(
                 date__gte=from_date, date__lte=to_date).aggregate(Sum('money'))
 
-            return bills, total
+            #return bills, total
 
         else:
             messages.error(request_get, "Invalid search!")
             return redirect('core:home'), 0
+
+        return bills, total
 
     def insert_by_post(self, form):
         # user_name = form.cleaned_data.get('user_name')
@@ -71,20 +73,22 @@ class ExtractManager(models.Manager):
         # remove = form.cleaned_data.get('remove')
 
         try:
-            with transaction.atomic():
-                if form.cleaned_data.get('remove'):
-                    user_name = form.cleaned_data.get('user_name')
-                    date = form.cleaned_data.get('date')
-                    money = form.cleaned_data.get('money')
-                    description = form.cleaned_data.get('description')
-                    category = form.cleaned_data.get('category')
-                    payment = form.cleaned_data.get('payment')
-
-                    self.filter(user_name=user_name, date=date, money=money,
-                                description=description, category=category,
-                                payment=payment).order_by('id')[0].delete()
-                else:
-                    form.save()
+            #with transaction.atomic():
+            if form.cleaned_data.get('remove'):
+                del form.cleaned_data['remove']
+                    #user_name = form.cleaned_data.get('user_name')
+                    #date = form.cleaned_data.get('date')
+                    #money = form.cleaned_data.get('money')
+                    #description = form.cleaned_data.get('description')
+                    #category = form.cleaned_data.get('category')
+                    #payment = form.cleaned_data.get('payment')
+                    #
+                    #self.filter(user_name=user_name, date=date, money=money,
+                    #            description=description, category=category,
+                    #            payment=payment).order_by('id')[0].delete()
+                self.filter(**form.cleaned_data).order_by('id')[0].delete()
+            else:
+                form.save()
                     # self.create(user_name=user_name, date=date, money=money,
                     #            description=description, category=category,
                     #            payment=payment)
