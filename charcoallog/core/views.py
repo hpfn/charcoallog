@@ -51,6 +51,7 @@ def show_data(request):
         form = EditExtractForm(request.POST)
 
         if form.is_valid():
+            form.cleaned_data['user_name'] = user
             Extract.objects.insert_by_post(form)
             #return  HttpResponseRedirect(reverse('core:exit'))
             #return HttpResponseRedirect(reverse('core:home'))
