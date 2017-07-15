@@ -1,7 +1,8 @@
 # domestic stuff
 db.sqlite3
 .idea/
-
+.env
+*.deb
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
