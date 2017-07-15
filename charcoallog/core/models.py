@@ -4,6 +4,7 @@ from django.db import IntegrityError
 from django.db import models
 from django.db.models import Sum
 from django.shortcuts import redirect
+from django.db.models import Q
 
 
 # from django.utils import timezone
@@ -24,41 +25,48 @@ class ExtractManager(models.Manager):
 
             total = self.filter(user_name=user_name).filter(
                 date__gte=from_date, date__lte=to_date).aggregate(Sum('money'))
-
-            # return bills, total
-
-        # elif value.issubset(set(self.filter(user_name=user_name).values_list('payment'))):
-        elif self.filter(user_name=user_name, payment__contains=columm):
-            bills = self.filter(user_name=user_name, payment=columm).filter(
-                date__gte=from_date, date__lte=to_date)
-
-            total = self.filter(user_name=user_name, payment=columm).filter(
-                date__gte=from_date, date__lte=to_date).aggregate(Sum('money'))
-
-            # return bills, total
-
-        # elif value.issubset(set(self.filter(user_name=user_name).values_list('category'))):
-        elif self.filter(user_name=user_name, category__contains=columm):
-            bills = self.filter(user_name=user_name, category=columm).filter(
-                date__gte=from_date, date__lte=to_date)
-
-            total = self.filter(user_name=user_name, category=columm).filter(
-                date__gte=from_date, date__lte=to_date).aggregate(Sum('money'))
-
-            # return bills, total
-
-        # elif value.issubset(set(self.filter(user_name=user_name).values_list('description'))):
-        elif self.filter(user_name=user_name, description__contains=columm):
-            bills = self.filter(user_name=user_name, description=columm).filter(
-                date__gte=from_date, date__lte=to_date)
-
-            total = self.filter(user_name=user_name, description=columm).filter(
-                date__gte=from_date, date__lte=to_date).aggregate(Sum('money'))
-
-            # return bills, total
-
         else:
-            messages.error(request_get, "Invalid search!")
+            bills = self.filter(user_name=user_name).filter(
+                Q(payment=columm) | Q(category=columm) | Q(description=columm)).filter(
+                date__gte=from_date, date__lte=to_date)
+
+            total = self.filter(user_name=user_name).filter(
+                Q(payment=columm) | Q(category=columm) | Q(description=columm)).filter(
+                date__gte=from_date, date__lte=to_date).aggregate(Sum('money'))
+
+        ## elif value.issubset(set(self.filter(user_name=user_name).values_list('payment'))):
+        # elif self.filter(user_name=user_name, payment__contains=columm).exists():
+        #    bills = self.filter(user_name=user_name, payment=columm).filter(
+        #        date__gte=from_date, date__lte=to_date)
+        #
+        #    total = self.filter(user_name=user_name, payment=columm).filter(
+        #        date__gte=from_date, date__lte=to_date).aggregate(Sum('money'))
+        #
+        #    # return bills, total
+        #
+        ## elif value.issubset(set(self.filter(user_name=user_name).values_list('category'))):
+        # elif self.filter(user_name=user_name, category__contains=columm).exists():
+        #    bills = self.filter(user_name=user_name, category=columm).filter(
+        #        date__gte=from_date, date__lte=to_date)
+        #
+        #    total = self.filter(user_name=user_name, category=columm).filter(
+        #        date__gte=from_date, date__lte=to_date).aggregate(Sum('money'))
+        #
+        #    # return bills, total
+        #
+        ## elif value.issubset(set(self.filter(user_name=user_name).values_list('description'))):
+        # elif self.filter(user_name=user_name, description__contains=columm).exists():
+        #    bills = self.filter(user_name=user_name, description=columm).filter(
+        #        date__gte=from_date, date__lte=to_date)
+        #
+        #    total = self.filter(user_name=user_name, description=columm).filter(
+        #        date__gte=from_date, date__lte=to_date).aggregate(Sum('money'))
+        #
+        #    # return bills, total
+        #
+
+        if not bills.exists():
+            messages.error(request_get, "' %s ' is an Invalid search!" % columm)
             return redirect('core:home'), 0
 
         return bills, total
