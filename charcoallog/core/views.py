@@ -15,14 +15,14 @@ from datetime import date
 # Create your views here.
 @login_required
 def home(request):
-    try:
-        bills, total = show_data(request)
-    except ValueError as e:
-        user = request.user
-        d = date.today()
-        d = d.strftime('%Y-%m-01')
-        bills = Extract.objects.filter(user_name=user).filter(date__gte=d)
-        total = Extract.objects.filter(user_name=user).filter(date__gte=d).aggregate(Sum('money'))
+    # try:
+    bills, total = show_data(request)
+    # except ValueError as e:
+    #    user = request.user
+    #    d = date.today()
+    #    d = d.strftime('%Y-%m-01')
+    #    bills = Extract.objects.filter(user_name=user).filter(date__gte=d)
+    #    total = Extract.objects.filter(user_name=user).filter(date__gte=d).aggregate(Sum('money'))
     form = EditExtractForm()
     get_form = SelectExtractForm()
     payment_list, total_account, saldo = show_total(request)
