@@ -82,12 +82,12 @@ class ExtractManager(models.Manager):
         except IntegrityError:
             # messages()
             print("An error happened")
-            return redirect(reverse('Extract-settings'))
+            # return redirect(reverse('Extract-settings'))
         except IndexError:
             print("Do not Refresh the page!!!")
 
-    def delete(self, query):
-        return self.filter(query).delete()
+    # def delete(self, query):
+    #    return self.filter(query).delete()
 
 
 class Extract(models.Model):
