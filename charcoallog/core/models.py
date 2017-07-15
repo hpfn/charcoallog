@@ -25,13 +25,13 @@ class ExtractManager(models.Manager):
             total = self.filter(user_name=user_name).filter(
                 date__gte=from_date, date__lte=to_date).aggregate(Sum('money'))
         else:
-            bills = self.filter(user_name=user_name).filter(
-                Q(payment=columm) | Q(category=columm) | Q(description=columm)).filter(
-                date__gte=from_date, date__lte=to_date)
+            bills = self.filter(user_name=user_name, date__gte=from_date, date__lte=to_date).filter(
+                Q(payment=columm) | Q(category=columm) | Q(description=columm))
+                #.filter(
+                #date__gte=from_date, date__lte=to_date)
 
-            total = self.filter(user_name=user_name).filter(
-                Q(payment=columm) | Q(category=columm) | Q(description=columm)).filter(
-                date__gte=from_date, date__lte=to_date).aggregate(Sum('money'))
+            total = self.filter(user_name=user_name, date__gte=from_date, date__lte=to_date).filter(
+                Q(payment=columm) | Q(category=columm) | Q(description=columm)).aggregate(Sum('money'))
 
         # # elif value.issubset(set(self.filter(user_name=user_name).values_list('payment'))):
         # elif self.filter(user_name=user_name, payment__contains=columm).exists():
