@@ -1,15 +1,18 @@
 # from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render, redirect
+from datetime import date
+
 # from django.core.urlresolvers import reverse
 # from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 # from django.db import IntegrityError, transaction
 from django.db.models import Sum
-# from django.urls import reverse
+from django.shortcuts import render
 
-from .models import Extract
 from .forms import EditExtractForm, SelectExtractForm
-from datetime import date
+from .models import Extract
+
+
+# from django.urls import reverse
 
 
 # Create your views here.
@@ -46,15 +49,14 @@ def show_data(request):
     d = date.today()
     d = d.strftime('%Y-%m-01')
 
-
     if request.method == 'POST':
         form = EditExtractForm(request.POST)
 
         if form.is_valid():
             form.cleaned_data['user_name'] = user
             Extract.objects.insert_by_post(form)
-            #return  HttpResponseRedirect(reverse('core:exit'))
-            #return HttpResponseRedirect(reverse('core:home'))
+            # return  HttpResponseRedirect(reverse('core:exit'))
+            # return HttpResponseRedirect(reverse('core:home'))
 
     elif request.method == 'GET':
         get_form = SelectExtractForm(request.GET)
@@ -88,5 +90,5 @@ def show_total(request):
 
     return payment_list, total_account, saldo
 
-#def exit(request):
+# def exit(request):
 #    return HttpResponseRedirect(reverse('core:home'))
