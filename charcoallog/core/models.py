@@ -6,17 +6,12 @@ from django.db.models import Sum
 from django.shortcuts import redirect
 
 
-# from django.utils import timezone
-# import Q ?
-
 class ExtractManager(models.Manager):
     def search_from_get(self, request_get, form):
-        # user_name = form.cleaned_data.get('user_name')
         user_name = request_get.user
         columm = form.cleaned_data.get('columm')
         from_date = form.cleaned_data.get('from_date')
         to_date = form.cleaned_data.get('to_date')
-        # value = {(columm,)}
 
         if columm.lower() == 'all':
             bills = self.filter(user_name=user_name).filter(
@@ -27,42 +22,9 @@ class ExtractManager(models.Manager):
         else:
             bills = self.filter(user_name=user_name, date__gte=from_date, date__lte=to_date).filter(
                 Q(payment=columm) | Q(category=columm) | Q(description=columm))
-                #.filter(
-                #date__gte=from_date, date__lte=to_date)
 
             total = self.filter(user_name=user_name, date__gte=from_date, date__lte=to_date).filter(
                 Q(payment=columm) | Q(category=columm) | Q(description=columm)).aggregate(Sum('money'))
-
-        # # elif value.issubset(set(self.filter(user_name=user_name).values_list('payment'))):
-        # elif self.filter(user_name=user_name, payment__contains=columm).exists():
-        #    bills = self.filter(user_name=user_name, payment=columm).filter(
-        #        date__gte=from_date, date__lte=to_date)
-        #
-        #    total = self.filter(user_name=user_name, payment=columm).filter(
-        #        date__gte=from_date, date__lte=to_date).aggregate(Sum('money'))
-        #
-        #    # return bills, total
-        #
-        # # elif value.issubset(set(self.filter(user_name=user_name).values_list('category'))):
-        # elif self.filter(user_name=user_name, category__contains=columm).exists():
-        #    bills = self.filter(user_name=user_name, category=columm).filter(
-        #        date__gte=from_date, date__lte=to_date)
-        #
-        #    total = self.filter(user_name=user_name, category=columm).filter(
-        #        date__gte=from_date, date__lte=to_date).aggregate(Sum('money'))
-        #
-        #    # return bills, total
-        #
-        # # elif value.issubset(set(self.filter(user_name=user_name).values_list('description'))):
-        # elif self.filter(user_name=user_name, description__contains=columm).exists():
-        #    bills = self.filter(user_name=user_name, description=columm).filter(
-        #        date__gte=from_date, date__lte=to_date)
-        #
-        #    total = self.filter(user_name=user_name, description=columm).filter(
-        #        date__gte=from_date, date__lte=to_date).aggregate(Sum('money'))
-        #
-        #    # return bills, total
-        #
 
         if not bills.exists():
             messages.error(request_get, "' %s ' is an Invalid search!" % columm)
@@ -84,9 +46,6 @@ class ExtractManager(models.Manager):
             # return redirect(reverse('Extract-settings'))
         except IndexError:
             print("Do not Refresh the page!!!")
-
-            # def delete(self, query):
-            #    return self.filter(query).delete()
 
 
 class Extract(models.Model):
