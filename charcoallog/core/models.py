@@ -1,10 +1,9 @@
 from django.contrib import messages
-from django.core.urlresolvers import reverse
 from django.db import IntegrityError
 from django.db import models
+from django.db.models import Q
 from django.db.models import Sum
 from django.shortcuts import redirect
-from django.db.models import Q
 
 
 # from django.utils import timezone
@@ -34,7 +33,7 @@ class ExtractManager(models.Manager):
                 Q(payment=columm) | Q(category=columm) | Q(description=columm)).filter(
                 date__gte=from_date, date__lte=to_date).aggregate(Sum('money'))
 
-        ## elif value.issubset(set(self.filter(user_name=user_name).values_list('payment'))):
+        # # elif value.issubset(set(self.filter(user_name=user_name).values_list('payment'))):
         # elif self.filter(user_name=user_name, payment__contains=columm).exists():
         #    bills = self.filter(user_name=user_name, payment=columm).filter(
         #        date__gte=from_date, date__lte=to_date)
@@ -44,7 +43,7 @@ class ExtractManager(models.Manager):
         #
         #    # return bills, total
         #
-        ## elif value.issubset(set(self.filter(user_name=user_name).values_list('category'))):
+        # # elif value.issubset(set(self.filter(user_name=user_name).values_list('category'))):
         # elif self.filter(user_name=user_name, category__contains=columm).exists():
         #    bills = self.filter(user_name=user_name, category=columm).filter(
         #        date__gte=from_date, date__lte=to_date)
@@ -54,7 +53,7 @@ class ExtractManager(models.Manager):
         #
         #    # return bills, total
         #
-        ## elif value.issubset(set(self.filter(user_name=user_name).values_list('description'))):
+        # # elif value.issubset(set(self.filter(user_name=user_name).values_list('description'))):
         # elif self.filter(user_name=user_name, description__contains=columm).exists():
         #    bills = self.filter(user_name=user_name, description=columm).filter(
         #        date__gte=from_date, date__lte=to_date)
@@ -86,8 +85,8 @@ class ExtractManager(models.Manager):
         except IndexError:
             print("Do not Refresh the page!!!")
 
-    # def delete(self, query):
-    #    return self.filter(query).delete()
+            # def delete(self, query):
+            #    return self.filter(query).delete()
 
 
 class Extract(models.Model):
