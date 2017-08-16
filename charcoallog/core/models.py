@@ -36,6 +36,8 @@ class ExtractManager(models.Manager):
         try:
             if form.cleaned_data.get('remove'):
                 del form.cleaned_data['remove']
+                # checked before save. duplicate entry no more
+                # self.filter(**form.cleaned_data).order_by('id')[0].delete()
                 self.filter(**form.cleaned_data).order_by('id')[0].delete()
             else:
                 form.save()
@@ -44,7 +46,7 @@ class ExtractManager(models.Manager):
             # messages()
             print("An error happened")
             # return redirect(reverse('Extract-settings'))
-        except IndexError:
+        except IndexError:  # checked before save. this will not be printed
             print("Do not Refresh the page!!!")
 
 
@@ -57,6 +59,14 @@ class Extract(models.Model):
     payment = models.CharField('Payment', max_length=70)
 
     objects = ExtractManager()
+
+    def save(self, *args, **kwargs):
+        if Extract.objects.filter(user_name=self.user_name, date=self.date, money=self.money,
+                                  description=self.description, category=self.category,
+                                  payment=self.payment).exists():
+            return 
+        else:
+            super(Extract, self).save(*args, **kwargs)
 
     class Meta:
         ordering = ['-date']
