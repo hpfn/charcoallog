@@ -38,7 +38,7 @@ class ExtractManager(models.Manager):
                 del form.cleaned_data['remove']
                 # checked before save. duplicate entry no more
                 # self.filter(**form.cleaned_data).order_by('id')[0].delete()
-                self.filter(**form.cleaned_data).order_by('id')[0].delete()
+                self.filter(**form.cleaned_data).delete()
             else:
                 form.save()
                 # notify user is ok ? messages()
@@ -64,7 +64,7 @@ class Extract(models.Model):
         if Extract.objects.filter(user_name=self.user_name, date=self.date, money=self.money,
                                   description=self.description, category=self.category,
                                   payment=self.payment).exists():
-            return 
+            return
         else:
             super(Extract, self).save(*args, **kwargs)
 
