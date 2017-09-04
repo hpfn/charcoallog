@@ -14,7 +14,7 @@ body {
 	width: 100%;
 	height: 12%;
 	text-align: center;
-	background-color: #666;
+	background-color: #999;
 	margin-bottom: 2px;
 }
 
@@ -29,7 +29,7 @@ body {
 	margin-top: 2px;
 	font-size: 8px;
 	text-align: center;
-	background-color: #666;
+	background-color: #999;
 }
 
 
@@ -40,25 +40,25 @@ body {
 #central .col1 {
 	width: 20%;
 	height: 100%;
-	background-color: #666;
+	background-color: #EEE;
 }
 
 #central .col2 {
 	width: 80%;
 	height: 100%;
-	background-color: #666;
+	background-color: #EEE;
 }
 
 #central .col2 .row1 {
  	width: 100%;
  	height: 20%;
-	background-color: #666;
+	background-color: #EEE;
 }
 
 #central .col2 .row2 {
  	width: 100%;
  	height: 77%;
-	background-color: #666;
+	background-color: #EEE;
 }
 
 #box_form1 {
