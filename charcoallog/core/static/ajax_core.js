@@ -1,5 +1,5 @@
 $(function() {
-    $('#update_form').submit(function(e) {
+    $('form').submit(function(e) {
         e.preventDefault();
         var data_v = $(this).serialize();
         console.log(data_v);
