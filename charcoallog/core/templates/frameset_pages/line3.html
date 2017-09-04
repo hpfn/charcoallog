@@ -22,13 +22,17 @@
         {% endif %}
         <br />
         {% for b in bills %}
-        <form method="post">
+        <form method="post" id="update_form">
         {% csrf_token %}
         <table align="center" cellpadding="2">
             <tr>
                 <td>
                     <input type="hidden" name="user_name" value="{{ b.user_name }}" />
                 </td>
+		<td>
+			<input name="id" value="{{ b.id }}" disabled />
+		</td>
+
                 <td width="90">
 			<font size="2">
                     {{ b.date|date:"Y-m-d" }}
