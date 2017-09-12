@@ -22,7 +22,7 @@
         {% endif %}
         <br />
         {% for b in bills %}
-        <form method="post">
+        <form method="post" id="{{ b.id }}">
         {% csrf_token %}
         <table align="center" cellpadding="2" >
             <tr>
