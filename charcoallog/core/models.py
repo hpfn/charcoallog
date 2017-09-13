@@ -34,11 +34,18 @@ class ExtractManager(models.Manager):
 
     def insert_by_post(self, form):
         try:
-            if form.cleaned_data.get('remove'):
-                del form.cleaned_data['remove']
+            what_to_do = form.cleaned_data.get('update_rm')
+            print(form.cleaned_data.get('id'))
+            del form.cleaned_data['update_rm']
+
+            if what_to_do == 'remove':
+                #del form.cleaned_data['update_rm']
+                # del form.cleaned_data['id']
                 # checked before save. duplicate entry no more
                 # self.filter(**form.cleaned_data).order_by('id')[0].delete()
                 self.filter(**form.cleaned_data).delete()
+            elif what_to_do == 'update':
+                print("ATUALIZAR")
             else:
                 form.save()
                 # notify user is ok ? messages()

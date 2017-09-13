@@ -22,13 +22,15 @@ class EditExtractForm(forms.ModelForm):
     """
     Form for individual user account
     """
-    remove = forms.BooleanField(widget=forms.HiddenInput(), required=False)
+    CHOICES = (('update', '1',), ('remove', '2',))
+    update_rm = forms.ChoiceField(widget=forms.RadioSelect, choices=CHOICES, required=False)
 
     class Meta:
         model = Extract
         fields = ['user_name', 'date', 'money', 'description',
                   'category', 'payment']
         widgets = {
+            #'id': forms.HiddenInput(),
             'user_name': forms.HiddenInput(),
             'description': forms.TextInput(attrs={
                 'placeholder': 'specific_place'}),
