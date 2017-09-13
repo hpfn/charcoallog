@@ -10,7 +10,6 @@ $(function() {
             data: data_v,
             success: function(content) {
                 if ( data_v[8].value == 'remove' ) {
-                    console.log("HEY!!!")
                     $('#'+data_v[2].value).remove();
                 }
             },

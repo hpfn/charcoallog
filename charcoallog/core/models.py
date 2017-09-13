@@ -35,8 +35,9 @@ class ExtractManager(models.Manager):
     def insert_by_post(self, form):
         try:
             what_to_do = form.cleaned_data.get('update_rm')
-            print(form.cleaned_data.get('id'))
             del form.cleaned_data['update_rm']
+            id_for_update = form.cleaned_data.get('pk')
+            del form.cleaned_data['pk']
 
             if what_to_do == 'remove':
                 #del form.cleaned_data['update_rm']
@@ -45,7 +46,9 @@ class ExtractManager(models.Manager):
                 # self.filter(**form.cleaned_data).order_by('id')[0].delete()
                 self.filter(**form.cleaned_data).delete()
             elif what_to_do == 'update':
-                print("ATUALIZAR")
+                print(id_for_update)
+                self.filter(id=id_for_update, user_name=form.cleaned_data['user_name']).delete()
+                form.save()
             else:
                 form.save()
                 # notify user is ok ? messages()
