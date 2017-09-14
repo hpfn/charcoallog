@@ -60,12 +60,18 @@ def show_total(request):
         'payment'))
     payment_list = [i[0] for i in payment_iterator]
 
-    total_account = [Extract.objects.filter(
-        user_name=user, payment=conta).aggregate(Sum('money'))
-                     for conta in payment_list]
+    #total_account = [Extract.objects.filter(
+    #    user_name=user, payment=conta).aggregate(Sum('money'))
+    #                 for conta in payment_list]
+
+    total_account = dict()
+    for conta in payment_list:
+        total_account[conta] = Extract.objects.filter(
+            user_name=user, payment=conta).aggregate(Sum('money'))
+
 
     saldo = 0
-    for resto in total_account:
+    for resto in total_account.values():
         saldo += resto['money__sum']
 
     return payment_list, total_account, saldo
