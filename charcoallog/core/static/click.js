@@ -9,6 +9,8 @@ $(function() {
     $("#box_line3 input").focusout(function() {
         if ( $(this).val() < 0 ) {
             $(this).css('color', 'red');
+        } else {
+            $(this).css('color', 'black');
         }
     });
 });
