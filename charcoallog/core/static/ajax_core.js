@@ -12,6 +12,7 @@ $(function() {
                 }
                 if ( data_v[8].value == 'update' ) {
                     //$('#'+data_v[2].value + ' input:radio[name=update_rm]').attr('checked', false);
+                    $('#'+data_v[2].value + ' input:radio[name=update_rm]')[1].checked = true;
                     $('#'+data_v[2].value + " input").attr('readonly', 'true');
                 }
             },
