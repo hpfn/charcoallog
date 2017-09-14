@@ -3,14 +3,16 @@ $(function() {
         e.preventDefault();
         var data_v = $(this).serializeArray();
 
-        $('#'+data_v[2]).attr('readonly', 'true');
-
         $.post({
             url: '/',
             data: data_v,
             success: function(content) {
                 if ( data_v[8].value == 'remove' ) {
                     $('#'+data_v[2].value).remove();
+                }
+                if ( data_v[8].value == 'update' ) {
+                    //$('#'+data_v[2].value + ' input:radio[name=update_rm]').attr('checked', false);
+                    $('#'+data_v[2].value + " input").attr('readonly', 'true');
                 }
             },
             error: function(content) {
