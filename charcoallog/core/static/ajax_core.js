@@ -3,7 +3,7 @@ $(function() {
         e.preventDefault();
         var data_v = $(this).serializeArray();
 
-        $('input').attr('readonly', 'true');
+        $('#'+data_v[2]).attr('readonly', 'true');
 
         $.post({
             url: '/',
