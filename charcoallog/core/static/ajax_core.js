@@ -17,9 +17,7 @@ $(function() {
                     var account_1 = $('#'+data_v[7].value).text().trim();
                     console.log($('#'+data_v[7].value).text().trim());
                     // value on line1.html + sent value + old form value # fix it
-                    // there is a Uncaught SyntaxError: missing ')' that results want I want
-                    //                 $('#'+data_v[7].value).text().trim()
-                    account_1 = Number($('#'+data_v[7].value.text().trim()) + Number(data_v[4].value) + Number(account_1) ;
+                    account_1 = Number(account_1) + Number(data_v[4].value);
                     $('#'+data_v[7].value).text(account_1);
                     console.log(account_1);
                     console.log(data_v[7].value);
