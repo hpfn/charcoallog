@@ -1,4 +1,5 @@
 from datetime import date
+from collections import OrderedDict
 
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
@@ -13,14 +14,15 @@ def home(request):
     bills, total = show_data(request)
     form = EditExtractForm()
     get_form = SelectExtractForm()
-    payment_list, total_account, saldo = show_total(request)
+    # payment_list, total_account, saldo = show_total(request)
+    total_account, saldo = show_total(request)
 
     context = {
         'bills': bills,
         'total': total,
         'form': form,
         'get_form': get_form,
-        'payment_list': payment_list,
+        # 'payment_list': payment_list,
         'total_account': total_account,
         'saldo': saldo,
     }
@@ -74,4 +76,5 @@ def show_total(request):
     for resto in total_account.values():
         saldo += resto['money__sum']
 
-    return payment_list, total_account, saldo
+    # return payment_list, total_account, saldo
+    return OrderedDict(sorted(total_account.items())), saldo
