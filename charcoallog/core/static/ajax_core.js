@@ -15,8 +15,10 @@ $(function() {
                     $('#'+data_v[2].value + ' input:radio[name=update_rm]')[1].checked = true;
                     $('#'+data_v[2].value + " input").attr('readonly', 'true');
                     var account_1 = $('#'+data_v[7].value).text().trim();
-                    account_1 = Number(account_1) + Number(data_v[4].value);
+                    account_1 = Number(data_v[4].value) + Number(account_1) ;
                     $('#'+data_v[7].value).text(account_1);
+                    console.log(account_1);
+                    console.log(data_v[7].value);
                 }
             },
             error: function(content) {
