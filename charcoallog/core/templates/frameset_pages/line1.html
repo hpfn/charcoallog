@@ -25,7 +25,8 @@
             {% endfor %}
                 <td align="center">
 				<font size="2"><b>what's left</b></font> <br>
-			    <font size="2">
+			    <div id="left">
+					<font size="2">
 			    {% if saldo < 0 %}
 	                <font color="red">
 				    {{ saldo }}
@@ -34,6 +35,7 @@
 			        {{ saldo }}
 			    {% endif %}
 		        </font>
+				</div>
 		        </td>
             </tr>
        </table>

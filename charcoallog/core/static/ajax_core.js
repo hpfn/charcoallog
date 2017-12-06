@@ -31,8 +31,8 @@ $(function() {
             url: '/',
             data: data_v,
             success: function(content) {
-                console.log("old money before submit")
-                console.log(old_money);
+                //console.log("old money before submit")
+                //console.log(old_money);
                 if ( data_v[8].value == 'remove' ) {
                     $('#'+data_v[2].value).remove();
                 }
@@ -52,7 +52,25 @@ $(function() {
                     //console.log(less_old_money);
                     //console.log('resultado da op');
                     //console.log(account_1);
-                    //console.log(data_v[7].value);
+                    var tentativa = $('#box_line1').text().trim();
+                    tentativa = tentativa.split(' ');
+
+
+                    tentativa = tentativa.filter(Number);
+
+
+//                    console.log(tentativa[0].trim());
+                    //console.log(tentativa[1].trim());
+                    //console.log(tentativa[2].trim());
+                    //console.log(tentativa[55].trim());
+                    console.log(tentativa.length);
+                    for (var i = 0; i < tentativa.length; i++) {
+                        console.log(tentativa[i].trim());
+                    }
+                    $('#left').text(tentativa[0]);
+                    //console.log(nova_tentativa);
+                    //console.log();
+                    //console.log(data_v[9].value);
                 }
             },
             error: function(content) {
