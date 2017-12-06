@@ -49,7 +49,8 @@ def show_data(request):
             return Extract.objects.search_from_get(request, get_form)
 
     bills = Extract.objects.filter(user_name=user).filter(date__gte=d)
-    total = Extract.objects.filter(user_name=user).filter(date__gte=d).aggregate(Sum('money'))
+    #total = Extract.objects.filter(user_name=user).filter(date__gte=d).aggregate(Sum('money'))
+    total = bills.aggregate(Sum('money'))
 
     return bills, total
 
