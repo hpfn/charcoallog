@@ -54,6 +54,9 @@ $(function() {
                         //$('#'+data_v[7].value).text(account_1);
                         //$("[id^="+data_v[7].value.split(' ')[0]).text(account_1);
                         $("[id='"+data_v[7].value+"']").text(account_1);
+                        if (Number(account_1) < 0) {
+                            $("[id='"+data_v[7].value+"']").css('color', 'red');
+                        }
                         // update what's left
                         var tentativa = $('#box_line1').text().trim();
                         tentativa = tentativa.split(' ');
@@ -70,6 +73,9 @@ $(function() {
                         //}
                         //var total_left = tentativa.reduce(getSum);
                         $('#left').text(total_left);
+                        if (Number(total_left) < 0) {
+                            $("#left").css('color', 'red');
+                        }
                     }
                 }
             },
