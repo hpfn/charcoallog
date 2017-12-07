@@ -26,51 +26,51 @@ $(function() {
     $("#box_line3 form").on('submit', function(e) {
         e.preventDefault();
         var data_v = $(this).serializeArray();
+        console.log(data_v);
 
         $.post({
             url: '/',
             data: data_v,
             success: function(content) {
-                //console.log("old money before submit")
-                //console.log(old_money);
                 if ( data_v[8].value == 'remove' ) {
                     $('#'+data_v[2].value).remove();
                 }
                 if ( data_v[8].value == 'update' ) {
+                    // form back to default
                     $('#'+data_v[2].value + ' input:radio[name=update_rm]')[1].checked = true;
                     $('#'+data_v[2].value + " input").attr('readonly', 'true');
-                    // update total of each account. line1.html
-                    var old_total_account = $('#'+data_v[7].value).text().trim();
-                    var less_old_money = Number(old_total_account) - Number(old_money);
-                    var account_1 = Number(less_old_money) + Number(data_v[4].value);
-                    $('#'+data_v[7].value).text(account_1);
-                    //console.log('old total account');
-                    //console.log(old_total_account);
-                    //console.log('valor antigo');
-                    //console.log(old_money);
-                    //console.log('total antigo - valor antigo');
-                    //console.log(less_old_money);
-                    //console.log('resultado da op');
-                    //console.log(account_1);
-                    var tentativa = $('#box_line1').text().trim();
-                    tentativa = tentativa.split(' ');
+                    if ( old_money ) {
+                        console.log("tem old money");
+                        // update total of account. line1.html
+                        //var old_total_account = $("[id~="+data_v[7].value+"]").text().trim();
+                        var old_total_account = $("[id^="+data_v[7].value.split(' ')[0]).text().trim();
+                        //var old_total_account = $('#'+data_v[7].value).text().trim();
+                        var less_old_money = Number(old_total_account) - Number(old_money);
+                        var account_1 = Number(less_old_money) + Number(data_v[4].value);
+                        console.log($('#'+data_v[7].value));
+                        console.log(old_total_account);
+                        console.log(less_old_money);
+                        console.log(account_1);
+                        //$('#'+data_v[7].value).text(account_1);
+                        $("[id^="+data_v[7].value.split(' ')[0]).text(account_1);
+                        //$("[id~="+data_v[7].value+"]").text(account_1);
+                        // update what's left
+                        var tentativa = $('#box_line1').text().trim();
+                        tentativa = tentativa.split(' ');
+                        tentativa = tentativa.filter(Number);
+                        tentativa.pop();
+                        var total_left = 0;
+                        for (var i = 0; i < tentativa.length; i++) {
+                            tentativa[i] = tentativa[i].trim();
+                            total_left = total_left + Number(tentativa[i]);
+                        }
 
-
-                    tentativa = tentativa.filter(Number);
-
-
-//                    console.log(tentativa[0].trim());
-                    //console.log(tentativa[1].trim());
-                    //console.log(tentativa[2].trim());
-                    //console.log(tentativa[55].trim());
-                    console.log(tentativa.length);
-                    for (var i = 0; i < tentativa.length; i++) {
-                        console.log(tentativa[i].trim());
+                        //function getSum(total, num) {
+                        //    return total + num;
+                        //}
+                        //var total_left = tentativa.reduce(getSum);
+                        $('#left').text(total_left);
                     }
-                    $('#left').text(tentativa[0]);
-                    //console.log(nova_tentativa);
-                    //console.log();
-                    //console.log(data_v[9].value);
                 }
             },
             error: function(content) {
