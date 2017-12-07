@@ -42,8 +42,8 @@ $(function() {
                     if ( old_money ) {
                         console.log("tem old money");
                         // update total of account. line1.html
-                        //var old_total_account = $("[id~="+data_v[7].value+"]").text().trim();
-                        var old_total_account = $("[id^="+data_v[7].value.split(' ')[0]).text().trim();
+                        var old_total_account = $("[id='"+data_v[7].value+"']").text().trim();
+                        //var old_total_account = $("[id^="+data_v[7].value.split(' ')[0]).text().trim();
                         //var old_total_account = $('#'+data_v[7].value).text().trim();
                         var less_old_money = Number(old_total_account) - Number(old_money);
                         var account_1 = Number(less_old_money) + Number(data_v[4].value);
@@ -52,8 +52,8 @@ $(function() {
                         console.log(less_old_money);
                         console.log(account_1);
                         //$('#'+data_v[7].value).text(account_1);
-                        $("[id^="+data_v[7].value.split(' ')[0]).text(account_1);
-                        //$("[id~="+data_v[7].value+"]").text(account_1);
+                        //$("[id^="+data_v[7].value.split(' ')[0]).text(account_1);
+                        $("[id='"+data_v[7].value+"']").text(account_1);
                         // update what's left
                         var tentativa = $('#box_line1').text().trim();
                         tentativa = tentativa.split(' ');
