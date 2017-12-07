@@ -34,6 +34,26 @@ $(function() {
             success: function(content) {
                 if ( data_v[8].value == 'remove' ) {
                     $('#'+data_v[2].value).remove();
+                    var old_total_account = $("[id='"+data_v[7].value+"']").text().trim();
+                    var less_old_money = Number(old_total_account) - Number(data_v[4].value);
+                    $("[id='"+data_v[7].value+"']").text(less_old_money);
+                    if (Number(less_old_money) < 0) {
+                        $("[id='"+data_v[7].value+"']").css('color', 'red');
+                    }
+
+                    var tentativa = $('#box_line1').text().trim();
+                    tentativa = tentativa.split(' ');
+                    tentativa = tentativa.filter(Number);
+                    tentativa.pop();
+                    var total_left = 0;
+                    for (var i = 0; i < tentativa.length; i++) {
+                        tentativa[i] = tentativa[i].trim();
+                        total_left = total_left + Number(tentativa[i]);
+                    }
+                    $('#left').text(total_left);
+                    if (Number(total_left) < 0) {
+                        $("#left").css('color', 'red');
+                    }
                 }
                 if ( data_v[8].value == 'update' ) {
                     // form back to default
