@@ -1,5 +1,6 @@
 $(function() {
-    var old_money;
+    var old_money = 0;
+    var old_account = 0;
     $("#box_line3 input").bind('click', function() {
         if ( $(this).val() == 'update') {
             //console.log( $(this).val() );
@@ -12,6 +13,12 @@ $(function() {
             old_money = $(this).val();
             //console.log('focus in');
             //console.log(old_money);
+        }
+        if ( $(this).attr("id") == 'payment') {
+            old_account = $(this).val();
+            console.log("payment");
+            //var old_account = $("[id='payment']").val();
+            console.log(old_account);
         }
     });
     $("#box_line3 input").focusout(function() {
@@ -27,6 +34,8 @@ $(function() {
         e.preventDefault();
         var data_v = $(this).serializeArray();
         console.log(data_v);
+        //console.log('account name');
+        console.log(old_account);
 
         $.post({
             url: '/',
@@ -74,6 +83,14 @@ $(function() {
                             $("[id='"+data_v[7].value+"']").css('color', 'red');
                         }
                         whats_left();
+                        old_money = 0;
+                    }
+                    var description = $("[id='"+data_v[5].value+"']").text().trim();
+                    var category = $("[id='"+data_v[6].value+"']").text().trim();
+                    if ( old_account  && old_account != $("[id='"+data_v[7].value+"']").text().trim()) {
+                            console.log('valores diferentes');
+                            console.log(old_account);
+                            old_account = 0;
                     }
                 }
             },
