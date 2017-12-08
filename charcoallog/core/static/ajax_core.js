@@ -3,22 +3,15 @@ $(function() {
     var old_account = 0;
     $("#box_line3 input").bind('click', function() {
         if ( $(this).val() == 'update') {
-            //console.log( $(this).val() );
-            //console.log("clicked");
             $(this).parents("table").find('input').removeAttr('readonly');
         }
     });
     $("#box_line3 input").focusin(function() {
         if ( Number.isFinite(Number($(this).val())) ) {
             old_money = $(this).val();
-            //console.log('focus in');
-            //console.log(old_money);
         }
         if ( $(this).attr("id") == 'payment') {
             old_account = $(this).val();
-            console.log("payment");
-            //var old_account = $("[id='payment']").val();
-            console.log(old_account);
         }
     });
     $("#box_line3 input").focusout(function() {
@@ -33,14 +26,18 @@ $(function() {
     $("#box_line3 form").on('submit', function(e) {
         e.preventDefault();
         var data_v = $(this).serializeArray();
-        console.log(data_v);
-        //console.log('account name');
-        console.log(old_account);
 
         $.post({
             url: '/',
             data: data_v,
             success: function(content) {
+                function red_css(number, id_name) {
+                    if (Number(number) < 0) {
+                        $(id_name).css('color', 'red');
+                    } else {
+                        $(id_name).css('color', 'black');
+                    }
+                }
                 function whats_left() {
                     // update value
                     var tentativa = $('#box_line1').text().trim();
@@ -53,15 +50,14 @@ $(function() {
                         total_left = total_left + Number(tentativa[i]);
                     }
                     $('#left').text(total_left);
-                    if (Number(total_left) < 0) {
-                        $("#left").css('color', 'red');
-                    }
-
+                    red_css(total_left, "#left");
                 }
                 function old_account_value(val) {
+                    // update value
                     old_account_money = $("[id='"+old_account+"']").text().trim();
                     old_actual_money = Number(old_account_money) - Number(val);
                     $("[id='"+old_account+"']").text(old_actual_money);
+                    red_css(old_actual_money, "[id='"+old_account+"']");
                 }
                 if ( data_v[8].value == 'remove' ) {
                     $('#'+data_v[2].value).remove();
@@ -69,15 +65,14 @@ $(function() {
                     var old_total_account = $("[id='"+data_v[7].value+"']").text().trim();
                     var less_old_money = Number(old_total_account) - Number(data_v[4].value);
                     $("[id='"+data_v[7].value+"']").text(less_old_money);
-                    if (Number(less_old_money) < 0) {
-                        $("[id='"+data_v[7].value+"']").css('color', 'red');
-                    }
+                    red_css(less_old_money, "[id='"+data_v[7].value+"']");
                     whats_left();
                 }
                 if ( data_v[8].value == 'update' ) {
                     // form back to default
                     $('#'+data_v[2].value + ' input:radio[name=update_rm]')[1].checked = true;
                     $('#'+data_v[2].value + " input").attr('readonly', 'true');
+                    // update line1.html
                     if ( old_account ) {
                         if ( old_money ) {
                             old_account_value(old_money);
@@ -88,17 +83,15 @@ $(function() {
                         new_account_money = $("[id='"+data_v[7].value+"']").text().trim();
                         new_actual_money = Number(new_account_money) + Number(data_v[4].value);
                         $("[id='"+data_v[7].value+"']").text(new_actual_money);
+                        red_css(new_actual_money, "[id='"+data_v[7].value+"']");
                         whats_left();
                         old_account = 0;
                     } else if ( old_money ) {
-                        // update value. line1.html
                         var old_total_account = $("[id='"+data_v[7].value+"']").text().trim();
                         var less_old_money = Number(old_total_account) - Number(old_money);
                         var account_1 = Number(less_old_money) + Number(data_v[4].value);
                         $("[id='"+data_v[7].value+"']").text(account_1);
-                        if (Number(account_1) < 0) {
-                            $("[id='"+data_v[7].value+"']").css('color', 'red');
-                        }
+                        red_css(account_1, "[id='"+data_v[7].value+"']");
                         whats_left();
                         old_money = 0;
                     }
