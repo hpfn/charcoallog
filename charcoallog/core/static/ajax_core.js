@@ -58,6 +58,11 @@ $(function() {
                     }
 
                 }
+                function old_account_value(val) {
+                    old_account_money = $("[id='"+old_account+"']").text().trim();
+                    old_actual_money = Number(old_account_money) - Number(val);
+                    $("[id='"+old_account+"']").text(old_actual_money);
+                }
                 if ( data_v[8].value == 'remove' ) {
                     $('#'+data_v[2].value).remove();
                     // update value. line1.html
@@ -75,14 +80,10 @@ $(function() {
                     $('#'+data_v[2].value + " input").attr('readonly', 'true');
                     if ( old_account ) {
                         if ( old_money ) {
-                            old_account_money = $("[id='"+old_account+"']").text().trim();
-                            old_actual_money = Number(old_account_money) - Number(old_money);
-                            $("[id='"+old_account+"']").text(old_actual_money);
+                            old_account_value(old_money);
                             old_money = 0;
                         } else {
-                            old_account_money = $("[id='"+old_account+"']").text().trim();
-                            old_actual_money = Number(old_account_money) - Number(data_v[4].value);
-                            $("[id='"+old_account+"']").text(old_actual_money)
+                            old_account_value(data_v[4].value);
                         }
                         new_account_money = $("[id='"+data_v[7].value+"']").text().trim();
                         new_actual_money = Number(new_account_money) + Number(data_v[4].value);
