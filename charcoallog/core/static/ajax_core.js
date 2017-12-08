@@ -75,10 +75,17 @@ $(function() {
                     $('#'+data_v[2].value + " input").attr('readonly', 'true');
                     if ( old_account ) {
                         if ( old_money ) {
-                            //old_account val - old_money
-                            //data_v[7].value + data_v[4].value
-                            //old_money = 0;
-                            console.log('implementar old account com old money');
+                            old_account_money = $("[id='"+old_account+"']").text().trim();
+                            old_actual_money = Number(old_account_money) - Number(old_money);
+                            $("[id='"+old_account+"']").text(old_actual_money);
+                            new_account_money = $("[id='"+data_v[7].value+"']").text().trim();
+                            new_actual_money = Number(new_account_money) + Number(data_v[4].value);
+                            $("[id='"+data_v[7].value+"']").text(new_actual_money);
+                            old_money = 0;
+                            console.log(old_money);
+                            console.log(data_v[4].value);
+                            console.log(old_account_money);
+                            console.log(new_actual_money);
                         } else {
                             old_account_money = $("[id='"+old_account+"']").text().trim();
                             old_actual_money = Number(old_account_money) - Number(data_v[4].value);
@@ -86,11 +93,11 @@ $(function() {
                             new_account_money = $("[id='"+data_v[7].value+"']").text().trim();
                             new_actual_money = Number(new_account_money) + Number(data_v[4].value);
                             $("[id='"+data_v[7].value+"']").text(new_actual_money);
-                            console.log(data_v[4].value);
-                            console.log(old_account_money);
-                            console.log(new_actual_money);
+                            //console.log(data_v[4].value);
+                            //console.log(old_account_money);
+                            //console.log(new_actual_money);
                         }
-
+                        whats_left();
                         old_account = 0;
                     } else if ( old_money ) {
                         // update value. line1.html
