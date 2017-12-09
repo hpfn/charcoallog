@@ -1,5 +1,21 @@
 from django.db import models
-from .manager import ExtractManager
+from django.db.models import Sum, Q
+
+# from .manager import ExtractManager
+
+
+class ExtractStatementQuerySet(models.QuerySet):
+    def user_logged(self, user_name):
+        return self.filter(user_name=user_name)
+
+    def date_range(self, from_date, to_date):
+        return self.filter(date__gte=from_date, date__lte=to_date)
+
+    def which_field(self, column):
+        return self.filter(Q(payment=column) | Q(category=column) | Q(description=column))
+
+    def total(self):
+        return self.aggregate(Sum('money'))
 
 
 class Extract(models.Model):
@@ -10,7 +26,7 @@ class Extract(models.Model):
     category = models.CharField('Category', max_length=70)
     payment = models.CharField('Payment', max_length=70)
 
-    objects = ExtractManager()
+    objects = models.Manager.from_queryset(ExtractStatementQuerySet)()
 
     def save(self, *args, **kwargs):
         if Extract.objects.filter(user_name=self.user_name, date=self.date, money=self.money,
