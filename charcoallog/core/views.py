@@ -48,15 +48,18 @@ def show_data(request):
 
 @login_required
 def show_total(request):
-    payment_iterator = set(Extract.objects.user_logged(request.user).values_list(
-        'payment'))
-    # payment_list = [i[0] for i in payment_iterator]
+    payment_iterator = set(Extract.objects.user_logged(
+        request.user).values_list('payment'))
 
-    total_account = dict()
-    for set_value in payment_iterator:
-        conta = set_value[0]
-        total_account[conta] = Extract.objects.user_logged(request.user).filter(
-            payment=conta).total()
+    total_account = {
+        conta[0]: Extract.objects.user_logged(request.user).filter(
+            payment=conta[0]).total() for conta in payment_iterator
+    }
+    # total_account = dict()
+    # for set_value in payment_iterator:
+    #    conta = set_value[0]
+    #    total_account[conta] = Extract.objects.user_logged(request.user).filter(
+    #        payment=conta).total()
 
     saldo = sum([resto['money__sum']for resto in total_account.values()])
 
