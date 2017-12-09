@@ -18,35 +18,28 @@ def search_from_get(request_get, form):
             from_date, to_date).which_field(column)
 
     if not bills.exists():
-        messages.error(request_get, "' %s ' is an Invalid search!" % column)
-        return redirect('core:home'), 0
+        messages.error(request_get,
+                       "' %s ' is an Invalid search or wrong date!" % column)
+        return redirect('core:home')
 
-    return bills  # , bills.total()
+    return bills
 
 
 def insert_by_post(form):
-    try:
-        what_to_do = form.cleaned_data.get('update_rm')
-        del form.cleaned_data['update_rm']
-        id_for_update = form.cleaned_data.get('pk')
-        del form.cleaned_data['pk']
+    what_to_do = form.cleaned_data.get('update_rm')
+    del form.cleaned_data['update_rm']
+    id_for_update = form.cleaned_data.get('pk')
+    del form.cleaned_data['pk']
 
-        if what_to_do == 'remove':
-            Extract.objects.filter(**form.cleaned_data).delete()
-        elif what_to_do == 'update':
-            obj = Extract.objects.get(id=id_for_update, user_name=form.cleaned_data['user_name'])
-            obj.date = form.cleaned_data['date']
-            obj.money = form.cleaned_data['money']
-            obj.description = form.cleaned_data['description']
-            obj.category = form.cleaned_data['category']
-            obj.payment = form.cleaned_data['payment']
-            obj.save(update_fields=['date', 'money', 'description', 'category', 'payment'])
-        else:
-            form.save()
-            # notify user is ok ? messages()
-    except IntegrityError:
-        # messages()
-        print("An error happened")
-        # return redirect(reverse('Extract-settings'))
-    except IndexError:  # checked before save. this will not be printed
-        print("Do not Refresh the page!!!")
+    if what_to_do == 'remove':
+        Extract.objects.filter(**form.cleaned_data).delete()
+    elif what_to_do == 'update':
+        obj = Extract.objects.get(id=id_for_update, user_name=form.cleaned_data['user_name'])
+        obj.date = form.cleaned_data['date']
+        obj.money = form.cleaned_data['money']
+        obj.description = form.cleaned_data['description']
+        obj.category = form.cleaned_data['category']
+        obj.payment = form.cleaned_data['payment']
+        obj.save(update_fields=['date', 'money', 'description', 'category', 'payment'])
+    else:
+        form.save()
