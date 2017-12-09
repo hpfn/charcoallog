@@ -3,16 +3,15 @@ from .models import Extract
 
 
 def search_from_get(request_get, form):
-    user_name = request_get.user
     column = form.cleaned_data.get('column')
     from_date = form.cleaned_data.get('from_date')
     to_date = form.cleaned_data.get('to_date')
 
     if column.lower() == 'all':
-        bills = Extract.objects.user_logged(user_name).date_range(
+        bills = Extract.objects.user_logged(request_get.user).date_range(
             from_date, to_date)
     else:
-        bills = Extract.objects.user_logged(user_name).date_range(
+        bills = Extract.objects.user_logged(request_get.user).date_range(
             from_date, to_date).which_field(column)
 
     if bills.exists():
