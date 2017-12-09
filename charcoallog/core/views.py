@@ -50,15 +50,14 @@ def show_data(request):
 def show_total(request):
     payment_iterator = set(Extract.objects.user_logged(request.user).values_list(
         'payment'))
-    payment_list = [i[0] for i in payment_iterator]
+    # payment_list = [i[0] for i in payment_iterator]
 
     total_account = dict()
-    for conta in payment_list:
+    for set_value in payment_iterator:
+        conta = set_value[0]
         total_account[conta] = Extract.objects.user_logged(request.user).filter(
             payment=conta).total()
 
-    saldo = 0
-    for resto in total_account.values():
-        saldo += resto['money__sum']
+    saldo = sum([resto['money__sum']for resto in total_account.values()])
 
     return OrderedDict(sorted(total_account.items())), saldo
