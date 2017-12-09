@@ -21,7 +21,7 @@ def search_from_get(request_get, form):
         messages.error(request_get, "' %s ' is an Invalid search!" % column)
         return redirect('core:home'), 0
 
-    return bills, bills.total()
+    return bills  # , bills.total()
 
 
 def insert_by_post(form):
