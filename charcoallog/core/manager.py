@@ -1,6 +1,4 @@
 from django.contrib import messages
-from django.db import IntegrityError
-from django.shortcuts import redirect
 from .models import Extract
 
 
@@ -17,12 +15,11 @@ def search_from_get(request_get, form):
         bills = Extract.objects.user_logged(user_name).date_range(
             from_date, to_date).which_field(column)
 
-    if not bills.exists():
-        messages.error(request_get,
-                       "' %s ' is an Invalid search or wrong date!" % column)
-        return redirect('core:home')
+    if bills.exists():
+        return bills
 
-    return bills
+    messages.error(request_get,
+                   "' %s ' is an Invalid search or wrong date!" % column)
 
 
 def insert_by_post(form):
