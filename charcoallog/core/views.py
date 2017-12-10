@@ -7,10 +7,10 @@ from .service import ShowData  # insert_by_post, search_from_get
 @login_required
 def home(request):
     bills = ShowData(request)
-    if request.method == 'POST':
-        bills_query = bills.method_post()
-    else:
-        bills_query = bills.method_get()
+    # if request.method == 'POST':
+    #    bills_query = bills.method_post()
+    #else:
+    bills_query = bills.method_get()
 
     total_account, saldo = bills.show_total()
 

@@ -14,13 +14,16 @@ class ShowData:
         self.query_user = self.query_root.user_logged(self.request.user)
         self.query_default = self.query_user.filter(date__gte=self.month_01)
 
+        if self.request.method == 'POST':
+            self.method_post()
+
     def method_post(self):
         form = EditExtractForm(self.request.POST)
 
         if form.is_valid():
             self.insert_by_post(form)
 
-        return self.query_default
+        # return self.query_default
 
     def method_get(self):
         bills = 0
