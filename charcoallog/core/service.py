@@ -17,7 +17,6 @@ class ShowData:
         form = EditExtractForm(self.request.POST)
 
         if form.is_valid():
-            form.cleaned_data['user_name'] = self.request.user
             self.insert_by_post(form)
 
         return self.query_default
