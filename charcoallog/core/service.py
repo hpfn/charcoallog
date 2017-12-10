@@ -10,8 +10,9 @@ class ShowData:
     def __init__(self, request):
         self.request = request
         self.month_01 = date.today().strftime('%Y-%m-01')
-        self.query_root = Extract.objects.user_logged(self.request.user)
-        self.query_default = self.query_root.filter(date__gte=self.month_01)
+        self.query_root = Extract.objects
+        self.query_user = self.query_root.user_logged(self.request.user)
+        self.query_default = self.query_user.filter(date__gte=self.month_01)
 
     def method_post(self):
         form = EditExtractForm(self.request.POST)
@@ -36,9 +37,9 @@ class ShowData:
         to_date = form.cleaned_data.get('to_date')
 
         if column.lower() == 'all':
-            bills = self.query_root.date_range(from_date, to_date)
+            bills = self.query_user.date_range(from_date, to_date)
         else:
-            bills = self.query_root.date_range(from_date, to_date).which_field(column)
+            bills = self.query_user.date_range(from_date, to_date).which_field(column)
 
         if bills.exists():
             return bills
@@ -53,9 +54,9 @@ class ShowData:
         del form.cleaned_data['pk']
 
         if what_to_do == 'remove':
-            Extract.objects.filter(**form.cleaned_data).delete()
+            self.query_root.filter(**form.cleaned_data).delete()
         elif what_to_do == 'update':
-            obj = Extract.objects.get(id=id_for_update, user_name=self.request.user)
+            obj = self.query_root.get(id=id_for_update, user_name=self.request.user)
             obj.date = form.cleaned_data['date']
             obj.money = form.cleaned_data['money']
             obj.description = form.cleaned_data['description']
