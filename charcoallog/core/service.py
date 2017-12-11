@@ -15,6 +15,7 @@ class ShowData:
         self.query_root = Extract.objects
         self.query_user = self.query_root.user_logged(self.request.user)
         self.query_default = self.query_user.filter(date__gte=self.month_01)
+        self.query_default_total = self.query_default.total()
         self.account_values = 0
 
         if self.request.method == 'POST':
