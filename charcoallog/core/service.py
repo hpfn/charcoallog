@@ -13,16 +13,16 @@ from .get_service import MethodGet
 class ShowData:
     def __init__(self, request):
         self.request = request
-        #self.editextractform = EditExtractForm
-        #self.selectextractform = SelectExtractForm
-        #self.month_01 = date.today().strftime('%Y-%m-01')
-        self.query_root = Extract.objects
-        self.query_user = self.query_root.user_logged(self.request.user)
+        # self.editextractform = EditExtractForm
+        # self.selectextractform = SelectExtractForm
+        # self.month_01 = date.today().strftime('%Y-%m-01')
+        # self.query_root = Extract.objects
+        self.query_user = Extract.objects.user_logged(self.request.user)
         # self.query_default = self.query_user.filter(date__gte=self.month_01)
         # self.query_default_total = self.query_default.total()
         self.account_values = 0
 
-        self.form1 = MethodPost(self.request, self.query_root)  # , self.editextractform)
+        self.form1 = MethodPost(self.request, self.query_user)  # , self.editextractform)
         self.form2 = MethodGet(self.request, self.query_user)  # , self.selectextractform)
         #self.method_get()
         #self.choose_method()
@@ -84,10 +84,10 @@ class ShowData:
     #         obj.save(update_fields=['date', 'money', 'description', 'category', 'payment'])
 
     def account_names(self):
-        payment_iterator = set(self.query_root.values_list('payment'))
+        payment_iterator = set(self.query_user.values_list('payment'))
 
         account = {
-            conta[0]: self.query_root.filter(payment=conta[0]).total()
+            conta[0]: self.query_user.filter(payment=conta[0]).total()
             for conta in payment_iterator
         }
 
