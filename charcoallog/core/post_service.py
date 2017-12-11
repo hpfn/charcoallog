@@ -2,9 +2,9 @@ from .forms import EditExtractForm
 
 
 class MethodPost:
-    def __init__(self, request, query_root):  # , editextractform):
+    def __init__(self, request, query_user):  # , editextractform):
         self.request = request
-        self.query_root = query_root
+        self.query_user = query_user
         self.editextractform = EditExtractForm
 
         self.method_post()
@@ -26,9 +26,9 @@ class MethodPost:
         if not what_to_do:
             form.save()
         elif what_to_do == 'remove':
-            self.query_root.filter(**form.cleaned_data).delete()
+            self.query_user.filter(**form.cleaned_data).delete()
         elif what_to_do == 'update':
-            obj = self.query_root.get(id=id_for_update, user_name=self.request.user)
+            obj = self.query_user.get(id=id_for_update, user_name=self.request.user)
             obj.date = form.cleaned_data['date']
             obj.money = form.cleaned_data['money']
             obj.description = form.cleaned_data['description']
