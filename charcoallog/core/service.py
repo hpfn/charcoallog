@@ -9,6 +9,8 @@ from .models import Extract
 class ShowData:
     def __init__(self, request):
         self.request = request
+        self.editextractform = EditExtractForm
+        self.selectextractform = SelectExtractForm
         self.month_01 = date.today().strftime('%Y-%m-01')
         self.query_root = Extract.objects
         self.query_user = self.query_root.user_logged(self.request.user)
@@ -20,13 +22,13 @@ class ShowData:
             self.method_get()
 
     def method_post(self):
-        form = EditExtractForm(self.request.POST)
+        form = self.editextractform(self.request.POST)
 
         if form.is_valid():
             self.insert_by_post(form)
 
     def method_get(self):
-        get_form = SelectExtractForm(self.request.GET)
+        get_form = self.selectextractform(self.request.GET)
 
         if get_form.is_valid():
             self.search_from_get(get_form)
