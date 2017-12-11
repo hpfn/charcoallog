@@ -1,7 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-# from .forms import EditExtractForm, SelectExtractForm
-from .service import ShowData  # insert_by_post, search_from_get
+from .service import ShowData
 
 
 @login_required
