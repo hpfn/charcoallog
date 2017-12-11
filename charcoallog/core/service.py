@@ -15,7 +15,7 @@ class ShowData:
         self.query_root = Extract.objects
         self.query_user = self.query_root.user_logged(self.request.user)
         self.query_default = self.query_user.filter(date__gte=self.month_01)
-        self.total_account_values = 0
+        self.account_values = 0
 
         if self.request.method == 'POST':
             self.method_post()
@@ -74,15 +74,15 @@ class ShowData:
     def account_names(self):
         payment_iterator = set(self.query_root.values_list('payment'))
 
-        total_account = {
+        account = {
             conta[0]: self.query_root.filter(payment=conta[0]).total()
             for conta in payment_iterator
         }
 
         # saldo = sum([resto['money__sum']for resto in total_account.values()])
-        self.total_account_values = total_account.values()
+        self.account_values = account.values()
 
-        return OrderedDict(sorted(total_account.items()))  # , saldo
+        return OrderedDict(sorted(account.items()))  # , saldo
 
     def saldo(self):
-        return sum([resto['money__sum']for resto in self.total_account_values])
+        return sum([resto['money__sum']for resto in self.account_values])
