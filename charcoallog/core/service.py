@@ -85,5 +85,5 @@ class ShowData:
 
         return OrderedDict(sorted(account.items()))  # , saldo
 
-    def saldo(self):
+    def whats_left(self):
         return sum([resto['money__sum']for resto in self.account_values])
