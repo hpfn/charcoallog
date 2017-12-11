@@ -14,8 +14,10 @@ class ShowData:
         self.query_user = self.query_root.user_logged(self.request.user)
         self.query_default = self.query_user.filter(date__gte=self.month_01)
 
-        self.method_post()
-        self.method_get()
+        if self.request.method == 'POST':
+            self.method_post()
+        else:
+            self.method_get()
 
     def method_post(self):
         form = EditExtractForm(self.request.POST)
