@@ -40,29 +40,29 @@ class ShowData:
     #     if form.is_valid():
     #         self.insert_by_post(form)
 
-    def method_get(self):
-        get_form = self.selectextractform(self.request.GET)
-
-        if get_form.is_valid():
-            self.search_from_get(get_form)
-
-    def search_from_get(self, form):
-        column = form.cleaned_data.get('column')
-        from_date = form.cleaned_data.get('from_date')
-        to_date = form.cleaned_data.get('to_date')
-
-        if column.lower() == 'all':
-            bills = self.query_user.date_range(from_date, to_date)
-        else:
-            bills = self.query_user.date_range(from_date, to_date).which_field(column)
-
-        if bills.exists():
-            self.query_default = bills
-        else:
-             messages.error(
-                 self.request,
-                 "' %s ' is an Invalid search or wrong date!" % column
-             )
+    # def method_get(self):
+    #     get_form = self.selectextractform(self.request.GET)
+    #
+    #     if get_form.is_valid():
+    #         self.search_from_get(get_form)
+    #
+    # def search_from_get(self, form):
+    #     column = form.cleaned_data.get('column')
+    #     from_date = form.cleaned_data.get('from_date')
+    #     to_date = form.cleaned_data.get('to_date')
+    #
+    #     if column.lower() == 'all':
+    #         bills = self.query_user.date_range(from_date, to_date)
+    #     else:
+    #         bills = self.query_user.date_range(from_date, to_date).which_field(column)
+    #
+    #     if bills.exists():
+    #         self.query_default = bills
+    #     else:
+    #          messages.error(
+    #              self.request,
+    #              "' %s ' is an Invalid search or wrong date!" % column
+    #          )
 
     # def insert_by_post(self, form):
     #     what_to_do = form.cleaned_data.get('update_rm')
