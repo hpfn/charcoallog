@@ -1,7 +1,7 @@
 <div id="box_line1">
 	<table align="left" cellpadding="10">
             <tr>
-            {% for key, value in total_account.account_names.items %}
+            {% for key, value in show_data.account_names.items %}
                 <td align="center">
 					<b>{{ key }}</b> <br>
 					<div id="{{ key }}">
@@ -21,12 +21,12 @@
 				<font size="2"><b>what's left</b></font> <br>
 			    <div id="left">
 					<font size="2">
-			    {% if saldo.saldo < 0 %}
+			    {% if show_data.saldo < 0 %}
 	                <font color="red">
-				    {{ saldo.saldo }}
+				    {{ show_data.saldo }}
 		            </font>
 			    {% else %}
-			        {{ saldo.saldo }}
+			        {{ show_data.saldo }}
 			    {% endif %}
 		        </font>
 				</div>

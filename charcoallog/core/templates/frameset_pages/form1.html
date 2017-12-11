@@ -1,15 +1,15 @@
 <div id="box_form1">
 	<form method="post">
 			{% csrf_token %}
-			{{ form.editextracform.non_field_errors }}
+			{{ show_data.editextracform.non_field_errors }}
 			<input id="id_user_name" type="hidden" name="user_name" value="{{ user.username }}">
-			<!-- {{ form.date }} -->
+			<!-- {{ show_data.date }} -->
 		    <input type="text" id="datepicker" name="date" required="True"/>
-			{{ form.editextractform.money }}
-			{{ form.editextractform.description }}
-			{{ form.editextractform.category }}
-			{{ form.editextractform.payment }}
-			{{ form.editextractform.errors }}
+			{{ show_data.editextractform.money }}
+			{{ show_data.editextractform.description }}
+			{{ show_data.editextractform.category }}
+			{{ show_data.editextractform.payment }}
+			{{ show_data.editextractform.errors }}
 			<button type='submit'>Submit</button>
 			</form>
 </div>
