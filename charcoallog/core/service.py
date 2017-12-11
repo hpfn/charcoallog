@@ -14,7 +14,6 @@ class ShowData:
         self.query_user = self.query_root.user_logged(self.request.user)
         self.query_default = self.query_user.filter(date__gte=self.month_01)
 
-        #if self.request.method == 'POST':
         self.method_post()
         self.method_get()
 
@@ -24,16 +23,11 @@ class ShowData:
         if form.is_valid():
             self.insert_by_post(form)
 
-        # return self.query_default
-
     def method_get(self):
-        # bills = 0
         get_form = SelectExtractForm(self.request.GET)
 
         if get_form.is_valid():
             self.search_from_get(get_form)
-
-        # return bills or self.query_default
 
     def search_from_get(self, form):
         column = form.cleaned_data.get('column')
@@ -48,8 +42,10 @@ class ShowData:
         if bills.exists():
             self.query_default = bills
         else:
-            messages.error(self.request,
-                       "' %s ' is an Invalid search or wrong date!" % column)
+            messages.error(
+                self.request,
+                "' %s ' is an Invalid search or wrong date!" % column
+            )
 
     def insert_by_post(self, form):
         what_to_do = form.cleaned_data.get('update_rm')
@@ -69,8 +65,6 @@ class ShowData:
             obj.category = form.cleaned_data['category']
             obj.payment = form.cleaned_data['payment']
             obj.save(update_fields=['date', 'money', 'description', 'category', 'payment'])
-        # else:
-        #    form.save()
 
     def show_total(self):
         payment_iterator = set(self.query_root.values_list('payment'))
