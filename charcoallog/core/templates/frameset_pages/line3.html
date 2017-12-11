@@ -13,15 +13,15 @@
 	{% else %}
         <br />
         <b>Total</b>:
-        {% if show_data.query_default.total.money__sum < 0 %}
+        {% if show_data.form2.query_default.total.money__sum < 0 %}
         <font color="red">
-            {{ show_data.query_default.total.money__sum }}
+            {{ show_data.form2.query_default.total.money__sum }}
         </font>
         {% else %}
-            {{ show_data.query_default.total.money__sum }}
+            {{ show_data.form2.query_default.total.money__sum }}
         {% endif %}
         <br />
-        {% for b in show_data.query_default %}
+        {% for b in show_data.form2.query_default %}
         <form method="post" id="{{ b.id }}">
         {% csrf_token %}
         <table align="center" cellpadding="2" >
