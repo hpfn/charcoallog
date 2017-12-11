@@ -21,6 +21,8 @@ class MethodPost:
         id_for_update = form.cleaned_data.get('pk')
         del form.cleaned_data['pk']
 
+        form.cleaned_data['user_name'] = self.request.user
+
         if not what_to_do:
             form.save()
         elif what_to_do == 'remove':
