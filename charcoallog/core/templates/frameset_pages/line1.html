@@ -1,13 +1,7 @@
 <div id="box_line1">
 	<table align="left" cellpadding="10">
-            {# <tr> #}
-			{#    {% for item in payment_list %} #}
-			    {# <td><font size="2"><b>{{ item }}</b></font></td> #}
-			    {# {% endfor %} #}
-			    {# <td><font size="2"><b>what's left</b></font></td> #}
-            {# </tr> #}
             <tr>
-            {% for key, value in total_account.items %}
+            {% for key, value in total_account.account_names.items %}
                 <td align="center">
 					<b>{{ key }}</b> <br>
 					<div id="{{ key }}">
@@ -27,12 +21,12 @@
 				<font size="2"><b>what's left</b></font> <br>
 			    <div id="left">
 					<font size="2">
-			    {% if saldo < 0 %}
+			    {% if saldo.saldo < 0 %}
 	                <font color="red">
-				    {{ saldo }}
+				    {{ saldo.saldo }}
 		            </font>
 			    {% else %}
-			        {{ saldo }}
+			        {{ saldo.saldo }}
 			    {% endif %}
 		        </font>
 				</div>

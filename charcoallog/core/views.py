@@ -10,11 +10,11 @@ def home(request):
     #total_account, saldo = bills.show_total()
 
     context = {
-        'bills': bills.query_default,
-        'total': bills.query_default.total(),
-        'form': bills.editextractform,
-        'get_form': bills.selectextractform,
-        'total_account': bills.account_names(),
-        'saldo': bills.saldo(),
+        'bills': bills,
+        'total': bills,
+        'form': bills,
+        'get_form': bills,
+        'total_account': bills,
+        'saldo': bills,
     }
     return render(request, "home.html", context)

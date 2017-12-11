@@ -43,8 +43,8 @@ class EditExtractForm(forms.ModelForm):
 
 class SelectExtractForm(forms.Form):
     """ Specific Columm """
-    user_name = forms.CharField(max_length=30, widget=forms.HiddenInput(),
-                                required=True)
+    # user_name = forms.CharField(max_length=30, widget=forms.HiddenInput(),
+    #                            required=True)
     column = forms.CharField(max_length=70, required=True)
     from_date = forms.DateField(widget=forms.SelectDateWidget, required=True)
     to_date = forms.DateField(widget=forms.SelectDateWidget, required=True)
