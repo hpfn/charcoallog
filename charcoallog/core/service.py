@@ -4,7 +4,7 @@ from datetime import date
 # from django.contrib import messages
 from django.contrib import messages
 
-from .forms import EditExtractForm, SelectExtractForm
+# from .forms import EditExtractForm, SelectExtractForm
 from .models import Extract
 from .post_service import MethodPost
 from .get_service import MethodGet
@@ -14,7 +14,7 @@ class ShowData:
     def __init__(self, request):
         self.request = request
         #self.editextractform = EditExtractForm
-        self.selectextractform = SelectExtractForm
+        #self.selectextractform = SelectExtractForm
         #self.month_01 = date.today().strftime('%Y-%m-01')
         self.query_root = Extract.objects
         self.query_user = self.query_root.user_logged(self.request.user)
