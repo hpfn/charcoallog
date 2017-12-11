@@ -1,16 +1,16 @@
 <div id="box_form2">
     <form method="get">
 	{% csrf_token %}
-	{{ show_data.selectextractform.non_field_errors }}
+	{{ show_data.form2.selectextractform.non_field_errors }}
 	{# <input id="id_user_name" type="hidden" name="user_name" value="{{ user.username }}"> #}
-	{{ show_data.selectextractform.column }}
+	{{ show_data.form2.selectextractform.column }}
 	<!-- doesn't work, in use already-->
 	<!-- <input type="text" id="datepicker" name="from_date" required="True"/> -->
-	{{ show_data.selectextractform.from_date }}
+	{{ show_data.form2.selectextractform.from_date }}
 	<!-- doesn't work, in use already -->
 	<!-- <input type="text" id="datepicker" name="to_date" required="True"/> -->
-	{{ show_data.selectextractform.to_date }}
-	{{ show_data.selectextractform.errors }}
+	{{ show_data.form2.selectextractform.to_date }}
+	{{ show_data.form2.selectextractform.errors }}
 	<br />
 	<button type='submit'>Submit</button>
     </form>
