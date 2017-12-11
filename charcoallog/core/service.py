@@ -57,7 +57,9 @@ class ShowData:
         id_for_update = form.cleaned_data.get('pk')
         del form.cleaned_data['pk']
 
-        if what_to_do == 'remove':
+        if not what_to_do:
+            form.save()
+        elif what_to_do == 'remove':
             self.query_root.filter(**form.cleaned_data).delete()
         elif what_to_do == 'update':
             obj = self.query_root.get(id=id_for_update, user_name=self.request.user)
@@ -67,8 +69,8 @@ class ShowData:
             obj.category = form.cleaned_data['category']
             obj.payment = form.cleaned_data['payment']
             obj.save(update_fields=['date', 'money', 'description', 'category', 'payment'])
-        else:
-            form.save()
+        # else:
+        #    form.save()
 
     def show_total(self):
         payment_iterator = set(self.query_root.values_list('payment'))
