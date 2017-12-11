@@ -14,8 +14,9 @@ class ShowData:
         self.query_user = self.query_root.user_logged(self.request.user)
         self.query_default = self.query_user.filter(date__gte=self.month_01)
 
-        if self.request.method == 'POST':
-            self.method_post()
+        #if self.request.method == 'POST':
+        self.method_post()
+        self.method_get()
 
     def method_post(self):
         form = EditExtractForm(self.request.POST)
@@ -26,13 +27,13 @@ class ShowData:
         # return self.query_default
 
     def method_get(self):
-        bills = 0
+        # bills = 0
         get_form = SelectExtractForm(self.request.GET)
 
         if get_form.is_valid():
-            bills = self.search_from_get(get_form)
+            self.search_from_get(get_form)
 
-        return bills or self.query_default
+        # return bills or self.query_default
 
     def search_from_get(self, form):
         column = form.cleaned_data.get('column')
@@ -45,9 +46,9 @@ class ShowData:
             bills = self.query_user.date_range(from_date, to_date).which_field(column)
 
         if bills.exists():
-            return bills
-
-        messages.error(self.request,
+            self.query_default = bills
+        else:
+            messages.error(self.request,
                        "' %s ' is an Invalid search or wrong date!" % column)
 
     def insert_by_post(self, form):

@@ -10,13 +10,14 @@ def home(request):
     # if request.method == 'POST':
     #    bills_query = bills.method_post()
     #else:
-    bills_query = bills.method_get()
+    # bills.method_get()
+    #bills_query = bills.query_default  # method_get()
 
     total_account, saldo = bills.show_total()
 
     context = {
-        'bills': bills_query,
-        'total': bills_query.total(),
+        'bills': bills.query_default,
+        'total': bills.query_default.total(),
         'form': EditExtractForm(),
         'get_form': SelectExtractForm(),
         'total_account': total_account,
