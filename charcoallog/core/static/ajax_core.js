@@ -89,8 +89,8 @@ $(function() {
                         } else {
                             old_account_value(data_v[4].value);
                         }
-                        new_account_money = $("[id='"+data_v[7].value+"']").text().trim();
-                        new_actual_money = Number(new_account_money) + Number(data_v[4].value);
+                        var new_account_money = $("[id='"+data_v[7].value+"']").text().trim();
+                        var new_actual_money = Number(new_account_money) + Number(data_v[4].value);
                         $("[id='"+data_v[7].value+"']").text(new_actual_money);
                         red_css(new_actual_money, "[id='"+data_v[7].value+"']");
                         total_value(old_money, data_v[4].value);
