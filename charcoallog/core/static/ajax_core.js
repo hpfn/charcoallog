@@ -59,6 +59,14 @@ $(function() {
                     $("[id='"+old_account+"']").text(old_actual_money);
                     red_css(old_actual_money, "[id='"+old_account+"']");
                 }
+                function total_value(old_v, new_v) {
+                    // update Total in line3.html
+                    var old_total_value = $("#total").text().trim();
+                    var old_total_value_less_old_money = Number(old_total_value) - Number(old_v);
+                    var new_total_value = Number(old_total_value_less_old_money) + Number(new_v);
+                    $("#total").text(new_total_value);
+                    red_css(new_total_value, "#total");
+                }
                 if ( data_v[8].value == 'remove' ) {
                     $('#'+data_v[2].value).remove();
                     // update value. line1.html
@@ -66,6 +74,7 @@ $(function() {
                     var less_old_money = Number(old_total_account) - Number(data_v[4].value);
                     $("[id='"+data_v[7].value+"']").text(less_old_money);
                     red_css(less_old_money, "[id='"+data_v[7].value+"']");
+                    total_value(data_v[4].value, 0);
                     whats_left();
                 }
                 if ( data_v[8].value == 'update' ) {
@@ -84,6 +93,7 @@ $(function() {
                         new_actual_money = Number(new_account_money) + Number(data_v[4].value);
                         $("[id='"+data_v[7].value+"']").text(new_actual_money);
                         red_css(new_actual_money, "[id='"+data_v[7].value+"']");
+                        total_value(old_money, data_v[4].value);
                         whats_left();
                         old_account = 0;
                     } else if ( old_money ) {
@@ -92,6 +102,15 @@ $(function() {
                         var account_1 = Number(less_old_money) + Number(data_v[4].value);
                         $("[id='"+data_v[7].value+"']").text(account_1);
                         red_css(account_1, "[id='"+data_v[7].value+"']");
+                        //whats_left();
+                        //old_money = 0;
+                        // update Total in line3.html
+                        total_value(old_money, data_v[4].value);
+                        //var old_total_value = $("#total").text().trim();
+                        //var old_total_value_less_old_money = Number(old_total_value) - Number(old_money);
+                        //var new_total_value = Number(old_total_value_less_old_money) + Number(data_v[4].value);
+                        //$("#total").text(new_total_value);
+                        //red_css(new_total_value, "#total");
                         whats_left();
                         old_money = 0;
                     }

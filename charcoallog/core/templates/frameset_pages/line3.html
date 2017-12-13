@@ -13,6 +13,7 @@
 	{% else %}
         <br />
         <b>Total</b>:
+        <div id="total">
         {% if show_data.form2.query_default.total.money__sum < 0 %}
         <font color="red">
             {{ show_data.form2.query_default.total.money__sum }}
@@ -20,6 +21,7 @@
         {% else %}
             {{ show_data.form2.query_default.total.money__sum }}
         {% endif %}
+        </div>
         <br />
         {% for b in show_data.form2.query_default %}
         <form method="post" id="{{ b.id }}">
