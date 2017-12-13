@@ -33,9 +33,9 @@ class EditExtractForm(forms.ModelForm):
         widgets = {
             'user_name': forms.HiddenInput(),
             'description': forms.TextInput(attrs={
-                'placeholder': 'specific_place'}),
+                'placeholder': 'description'}),
             'category': forms.TextInput(attrs={
-                'placeholder': 'type of place/activity'}),
+                'placeholder': 'category'}),
             'payment': forms.TextInput(attrs={
                 'placeholder': 'account used'})
         }
