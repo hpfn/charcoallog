@@ -26,7 +26,6 @@ class ShowData:
         }
 
         self.account_values = account.values()
-        print(type(account.values()))
 
         return OrderedDict(sorted(account.items()))
 
