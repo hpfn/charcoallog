@@ -12,7 +12,8 @@ class ExtractStatementQuerySet(models.QuerySet):
         return self.filter(date__gte=from_date, date__lte=to_date)
 
     def which_field(self, column):
-        return self.filter(Q(payment=column) | Q(category=column) | Q(description=column))
+        return self.filter(Q(payment=column) | Q(category=column) |
+                           Q(description=column)).filter(~Q(category__startswith='transfer'))
 
     def total(self):
         return self.aggregate(Sum('money'))
