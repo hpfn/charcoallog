@@ -2,7 +2,7 @@ from .forms import EditExtractForm
 
 
 class MethodPost:
-    def __init__(self, request, query_user):  # , editextractform):
+    def __init__(self, request, query_user):
         self.request = request
         self.query_user = query_user
         self.editextractform = EditExtractForm
