@@ -3,8 +3,9 @@ from datetime import date
 from django.contrib import messages
 from .forms import SelectExtractForm
 
+
 class MethodGet:
-    def __init__(self, request, query_user):  #, selectextractform):
+    def __init__(self, request, query_user):
         self.request = request
         self.month_01 = date.today().strftime('%Y-%m-01')
         self.query_user = query_user
