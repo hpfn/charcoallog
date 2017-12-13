@@ -6,10 +6,14 @@ from .post_service import MethodPost
 
 
 class ShowData:
+    """
+    :type account_values: dictionary views
+          dict.values()
+    """
     def __init__(self, request):
         self.request = request
         self.query_user = Extract.objects.user_logged(self.request.user)
-        self.account_values = 0
+        self.account_values = None
         self.form1 = MethodPost(self.request, self.query_user)
         self.form2 = MethodGet(self.request, self.query_user)
 
@@ -22,8 +26,10 @@ class ShowData:
         }
 
         self.account_values = account.values()
+        print(type(account.values()))
 
         return OrderedDict(sorted(account.items()))
 
     def whats_left(self):
         return sum([resto['money__sum'] for resto in self.account_values])
+
