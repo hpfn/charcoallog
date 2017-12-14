@@ -11,6 +11,7 @@ Python program.
 
 Transfer between accounts will not appear after a search<br>
 (second form - only one field to fill and two dates to<br>
-set) if category starts with 'transfer'.
+set) if category starts with 'transfer'. Unless you search<br>
+for 'all'.
 
 
