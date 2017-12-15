@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from django.contrib.auth.views import login, logout
-from charcoallog.accounts.views import register
+from .views import register
 
 urlpatterns = [
         url(r'^entrar/', login,
