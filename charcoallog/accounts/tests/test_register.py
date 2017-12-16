@@ -1,4 +1,5 @@
-from django.test import TestCase
+from django.test import TestCase, Client
+from django.contrib.auth.forms import AuthenticationForm
 
 from ..forms import RegisterForm
 
@@ -8,9 +9,11 @@ class RegisterPageTest(TestCase):
         self.response = self.client.get('/conta/cadastre-se/')
 
     def test_status_code(self):
+        """ status code must be 200 """
         self.assertEqual(200, self.response.status_code)
 
     def test_template(self):
+        """ Must use accounts/register.html template """
         self.assertTemplateUsed(self.response, 'accounts/register.html')
 
     def test_html_register_form(self):
@@ -24,6 +27,7 @@ class RegisterPageTest(TestCase):
         self.assertContains(self.response, 'type="submit"', 1)
 
     def test_csrf(self):
+        """ must have csrf token"""
         self.assertContains(self.response, 'csrfmiddlewaretoken')
 
     def test_has_form(self):
@@ -35,3 +39,12 @@ class RegisterPageTest(TestCase):
         """ Form must have two fields """
         form = self.response.context['form']
         self.assertSequenceEqual(['username', 'password1', 'password2', 'email'], list(form.fields))
+
+    #def test_redirect_to_login(self):
+    #    data = dict(username='teste', password1='1qa2ws3ed',
+    #                passsword2='1qa2ws3ed', email='teste@teste.com')
+
+    #    resp_post = self.client.post('/conta/cadastre-se/', data)
+    #    self.assertRedirects(resp_post, 'http://127.0.0.1:8000/conta/entrar/?next=/')
+
+
