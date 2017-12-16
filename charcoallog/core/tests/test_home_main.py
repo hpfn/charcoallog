@@ -1,5 +1,5 @@
-from django.test import TestCase, Client
 from django.contrib.auth.models import User
+from django.test import TestCase
 
 
 class HomeFailTest(TestCase):
@@ -15,9 +15,9 @@ class HomeOKTest(TestCase):
         user = User.objects.create(username='teste')
         user.set_password('1qa2ws3ed')
         user.save()
-        self.c = Client()
-        self.login_in = self.c.login(username='teste', password='1qa2ws3ed')
-        self.response = self.c.get('/')
+
+        self.login_in = self.client.login(username='teste', password='1qa2ws3ed')
+        self.response = self.client.get('/')
 
     def test_login(self):
         self.assertTrue(self.login_in)
