@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.test import TestCase
 
 from ..forms import RegisterForm
@@ -17,13 +18,18 @@ class RegisterPageTest(TestCase):
 
     def test_html_register_form(self):
         """" Html must contain input tags """
-        self.assertContains(self.response, '<form')
-        self.assertContains(self.response, '<input', 5)
-        self.assertContains(self.response, 'type="text"', 1)
-        self.assertContains(self.response, 'type="password"', 2)
-        self.assertContains(self.response, 'type="email"', 1)
-        self.assertContains(self.response, '<button', 1)
-        self.assertContains(self.response, 'type="submit"', 1)
+        tags = (
+            ('<form', 1),
+            ('<input', 5),
+            ('type="text"', 1),
+            ('type="password"', 2),
+            ('type="email"', 1),
+            ('<button', 1),
+            ('type="submit"', 1)
+        )
+        for text, count in tags:
+            with self.subTest():
+                self.assertContains(self.response, text, count)
 
     def test_csrf(self):
         """ must have csrf token"""
@@ -40,7 +46,7 @@ class RegisterPageTest(TestCase):
         self.assertSequenceEqual(['username', 'password1', 'password2', 'email'], list(form.fields))
 
 
-class RedirectTest(TestCase):
+class RedirectOKTest(TestCase):
     def test_redirect_to_login(self):
         data = dict(username='blablabla',
                     password1='1qa2ws3ed',
@@ -50,3 +56,19 @@ class RedirectTest(TestCase):
         self.assertRedirects(resp_post, '/conta/entrar/')
 
 
+class RedirectFailTest(TestCase):
+    def test_no_redirect_to_login(self):
+        """
+        If POST fails, do not redirect. In this case
+        the user already exists.
+        """
+        user = User.objects.create(username='teste')
+        user.set_password('1qa2ws3ed')
+        user.save()
+
+        data = dict(username='teste',
+                    password1='1qa2ws3ed',
+                    password2='1qa2ws3ed',
+                    email='blablabla@teste.com')
+        resp_post = self.client.post('/conta/cadastre-se/', data)
+        self.assertEqual(200, resp_post.status_code)
