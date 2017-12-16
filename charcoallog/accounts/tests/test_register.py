@@ -40,11 +40,14 @@ class RegisterPageTest(TestCase):
         form = self.response.context['form']
         self.assertSequenceEqual(['username', 'password1', 'password2', 'email'], list(form.fields))
 
-    #def test_redirect_to_login(self):
-    #    data = dict(username='teste', password1='1qa2ws3ed',
-    #                passsword2='1qa2ws3ed', email='teste@teste.com')
 
-    #    resp_post = self.client.post('/conta/cadastre-se/', data)
-    #    self.assertRedirects(resp_post, 'http://127.0.0.1:8000/conta/entrar/?next=/')
+class RedirectTest(TestCase):
+    def test_redirect_to_login(self):
+        data = dict(username='blablabla',
+                    password1='1qa2ws3ed',
+                    password2='1qa2ws3ed',
+                    email='blablabla@teste.com')
+        resp_post = self.client.post('/conta/cadastre-se/', data)
+        self.assertRedirects(resp_post, '/conta/entrar/')
 
 
