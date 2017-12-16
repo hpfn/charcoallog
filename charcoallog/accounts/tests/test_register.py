@@ -40,11 +40,6 @@ class RegisterPageTest(TestCase):
         form = self.response.context['form']
         self.assertIsInstance(form, RegisterForm)
 
-    def test_form_has_fields(self):
-        """ Form must have 4 fields """
-        form = self.response.context['form']
-        self.assertSequenceEqual(['username', 'password1', 'password2', 'email'], list(form.fields))
-
 
 class RedirectOKTest(TestCase):
     def test_redirect_to_login(self):
