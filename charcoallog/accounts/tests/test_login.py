@@ -43,7 +43,3 @@ class LoginPageTest(TestCase):
         form = self.response.context['form']
         self.assertIsInstance(form, AuthenticationForm)
 
-    def test_form_has_fields(self):
-        """ Form must have two fields """
-        form = self.response.context['form']
-        self.assertSequenceEqual(['username', 'password'], list(form.fields))
