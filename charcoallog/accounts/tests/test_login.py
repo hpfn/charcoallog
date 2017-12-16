@@ -2,8 +2,10 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.test import TestCase, Client
 
 
-class RedirectToLoginTest(TestCase):
-    """ Using Django login, but testing anyway """
+class LoginPageTest(TestCase):
+    """ Using Django login, but testing anyway
+        success login test is done in core/tests
+    """
     def setUp(self):
         self.c = Client()
         self.response = self.c.get('/', follow=True)
@@ -22,12 +24,17 @@ class RedirectToLoginTest(TestCase):
 
     def test_html_login_form(self):
         """ Html must contain input tags """
-        self.assertContains(self.response, '<form')
-        self.assertContains(self.response, '<input', 3)
-        self.assertContains(self.response, 'type="text"', 1)
-        self.assertContains(self.response, 'type="password"', 1)
-        self.assertContains(self.response, '<button', 1)
-        self.assertContains(self.response, 'type="submit"', 1)
+        tags = (
+            ('<form', 1),
+            ('<input', 3),
+            ('type="text"', 1),
+            ('type="password"', 1),
+            ('<button', 1),
+            ('type="submit"', 1)
+        )
+        for text, count in tags:
+            with self.subTest():
+                self.assertContains(self.response, text, count)
 
     def test_csrf(self):
         self.assertContains(self.response, 'csrfmiddlewaretoken')
