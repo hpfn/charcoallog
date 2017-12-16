@@ -1,5 +1,4 @@
-from django.test import TestCase, Client
-from django.contrib.auth.forms import AuthenticationForm
+from django.test import TestCase
 
 from ..forms import RegisterForm
 
