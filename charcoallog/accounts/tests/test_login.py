@@ -1,5 +1,5 @@
 from django.contrib.auth.forms import AuthenticationForm
-from django.test import TestCase, Client
+from django.test import TestCase
 
 
 class LoginPageTest(TestCase):
@@ -7,18 +7,17 @@ class LoginPageTest(TestCase):
         success login test is done in core/tests
     """
     def setUp(self):
-        self.c = Client()
-        self.response = self.c.get('/', follow=True)
+        self.response = self.client.get('/', follow=True)
 
     def test_login_fail(self):
         """ Login should be false. We did not make a login """
-        self.assertFalse(self.c.login(username='teste', password='1qa2ws3ed'))
+        self.assertFalse(self.client.login(username='teste', password='1qa2ws3ed'))
 
     def test_status_code(self):
         """ Must return status code 200 """
         self.assertEqual(200, self.response.status_code)
 
-    def test_redirect(self):
+    def test_follow_true(self):
         """ Template should be accounts/login.html """
         self.assertTemplateUsed(self.response, 'accounts/login.html')
 
