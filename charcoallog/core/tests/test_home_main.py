@@ -7,7 +7,7 @@ class HomeFailTest(TestCase):
         self.response = self.client.get('/')
 
     def test_fail_response(self):
-        self.assertEqual(302, self.response.status_code)
+        self.assertRedirects(self.response, '/conta/entrar/?next=/')
 
 
 class HomeOKTest(TestCase):
