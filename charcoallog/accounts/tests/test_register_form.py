@@ -1,6 +1,7 @@
 from django.test import TestCase
 
-from ..forms import RegisterForm
+#from ..forms import RegisterForm
+from charcoallog.accounts.forms import RegisterForm
 
 
 class RegisterFormTest(TestCase):

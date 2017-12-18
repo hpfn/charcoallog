@@ -1,7 +1,8 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from ..forms import RegisterForm
+#from ..forms import RegisterForm
+from charcoallog.accounts.forms import RegisterForm
 
 
 class RegisterPageTest(TestCase):
