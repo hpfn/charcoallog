@@ -40,31 +40,3 @@ class RegisterPageTest(TestCase):
         """ Context must have register form """
         form = self.response.context['form']
         self.assertIsInstance(form, RegisterForm)
-
-
-class RedirectOKTest(TestCase):
-    def test_redirect_to_login(self):
-        data = dict(username='blablabla',
-                    password1='1qa2ws3ed',
-                    password2='1qa2ws3ed',
-                    email='blablabla@teste.com')
-        resp_post = self.client.post('/conta/cadastre-se/', data)
-        self.assertRedirects(resp_post, '/conta/entrar/')
-
-
-class RedirectFailTest(TestCase):
-    def test_no_redirect_to_login(self):
-        """
-        If POST fails, do not redirect. In this case
-        the user already exists.
-        """
-        user = User.objects.create(username='teste')
-        user.set_password('1qa2ws3ed')
-        user.save()
-
-        data = dict(username='teste',
-                    password1='1qa2ws3ed',
-                    password2='1qa2ws3ed',
-                    email='blablabla@teste.com')
-        resp_post = self.client.post('/conta/cadastre-se/', data)
-        self.assertEqual(200, resp_post.status_code)
