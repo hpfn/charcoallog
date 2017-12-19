@@ -41,7 +41,7 @@ class HomeContextTest(TestCase):
 
     def test_csrf(self):
         """" must have csrf token"""
-        self.assertContains(self.response, 'csrfmiddlewaretoken')
+        self.assertContains(self.response, 'csrfmiddlewaretoken', 2)
 
     def test_bottom_id(self):
         self.assertContains(self.response, '<b>charcoallog released under GPL-3+</b>')
