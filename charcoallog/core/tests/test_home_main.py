@@ -6,7 +6,8 @@ class HomeFailTest(TestCase):
     def setUp(self):
         self.response = self.client.get('/')
 
-    def test_fail_response(self):
+    def test_redirect_response(self):
+        """ No login yet. Redirects to login page"""
         self.assertRedirects(self.response, '/conta/entrar/?next=/')
 
 
