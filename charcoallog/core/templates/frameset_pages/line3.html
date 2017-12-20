@@ -18,11 +18,9 @@
         <font color="red">
             {{ show_data.form2.query_default.total.money__sum }}
         </font>
-        {% endif %}
-        {% if show_data.form2.query_default.total.money__sum > 0 %}
+        {% elif show_data.form2.query_default.total.money__sum >= 0 %}
             {{ show_data.form2.query_default.total.money__sum }}
-        {% endif %}
-        {% if not show_data.form2.query_default.total.money__sum %}
+        {% else %}
             <font color="red">
             Wrong date or invalid search
             </font>
