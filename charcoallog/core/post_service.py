@@ -2,16 +2,18 @@ from .forms import EditExtractForm
 
 
 class MethodPost:
-    def __init__(self, request, query_user):
-        self.request = request
+    def __init__(self, request_method, request_post, request_user, query_user):
+        self.request_method = request_method
+        self.request_post = request_post
+        self.request_user = request_user
         self.query_user = query_user
         self.editextractform = EditExtractForm
 
-        if self.request.method == 'POST':
+        if self.request_method == 'POST':
             self.method_post()
 
     def method_post(self):
-        form = self.editextractform(self.request.POST)
+        form = self.editextractform(self.request_post)
 
         if form.is_valid():
             self.insert_by_post(form)
@@ -22,14 +24,14 @@ class MethodPost:
         id_for_update = form.cleaned_data.get('pk')
         del form.cleaned_data['pk']
 
-        form.cleaned_data['user_name'] = self.request.user
+        form.cleaned_data['user_name'] = self.request_user
 
         if not what_to_do:
             form.save()
         elif what_to_do == 'remove':
             self.query_user.filter(**form.cleaned_data).delete()
         elif what_to_do == 'update':
-            obj = self.query_user.get(id=id_for_update, user_name=self.request.user)
+            obj = self.query_user.get(id=id_for_update, user_name=self.request_user)
             obj.date = form.cleaned_data['date']
             obj.money = form.cleaned_data['money']
             obj.description = form.cleaned_data['description']

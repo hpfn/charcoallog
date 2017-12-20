@@ -5,8 +5,8 @@ from .forms import SelectExtractForm
 
 
 class MethodGet:
-    def __init__(self, request, query_user):
-        self.request = request
+    def __init__(self, request_qet, query_user):
+        self.request = request_qet
         self.month_01 = date.today().strftime('%Y-%m-01')
         self.query_user = query_user
         self.query_default = self.query_user.filter(date__gte=self.month_01)
@@ -16,7 +16,7 @@ class MethodGet:
         self.method_get()
 
     def method_get(self):
-        get_form = self.selectextractform(self.request.GET)
+        get_form = self.selectextractform(self.request)
 
         if get_form.is_valid():
             self.search_from_get(get_form)
