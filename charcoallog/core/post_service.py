@@ -9,7 +9,7 @@ class MethodPost:
         self.query_user = query_user
         self.editextractform = EditExtractForm
 
-        if self.request_method == 'POST':
+        if request_method == 'POST':
             self.method_post()
 
     def method_post(self):
