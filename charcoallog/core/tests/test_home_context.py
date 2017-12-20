@@ -31,7 +31,6 @@ class HomeContextTest(TestCase):
             ('<input', 9),
             ('<select', 6),
             ('type="text"', 5),
-            # ('type="hidden"', 3),
             ('<button', 2),
             ('type=\'submit\'', 2)
         )
@@ -42,6 +41,15 @@ class HomeContextTest(TestCase):
     def test_csrf(self):
         """" must have csrf token"""
         self.assertContains(self.response, 'csrfmiddlewaretoken', 2)
+
+    def test_total_line3(self):
+        """ Total must be None at first time """
+        self.assertContains(self.response, 'None', 1)
+
+    def test_whats_left(self):
+        """ Whats left must be zero at first time """
+        zero = self.response.context['show_data']
+        self.assertEqual(zero.whats_left, 0)
 
     def test_bottom_id(self):
         self.assertContains(self.response, '<b>charcoallog released under GPL-3+</b>')
