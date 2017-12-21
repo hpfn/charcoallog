@@ -14,13 +14,14 @@ from charcoallog.core.service import ShowData
 class ServiceLayerTest(TestCase):
     def setUp(self):
         user_name = 'teste'
+        self.account_name = 'principal'
         data = dict(
             user_name=user_name,
             date='2017-12-21',
             money='10.00',
             description='test',
             category='test',
-            payment='principal'
+            payment=self.account_name
         )
         others_data = dict(
             user_name='other',
@@ -28,7 +29,7 @@ class ServiceLayerTest(TestCase):
             money='100.00',
             description='test',
             category='test',
-            payment='principal'
+            payment=self.account_name
         )
 
         Extract.objects.create(**data)
@@ -49,10 +50,12 @@ class ServiceLayerTest(TestCase):
         self.assertIsInstance(self.response.line1, Line1)
 
     def test_account_names_attr(self):
-        self.assertEqual(
+        self.assertDictEqual(
             self.response.account_names,
-            OrderedDict([('principal', {'money__sum': Decimal('10.00')})])
+            OrderedDict([(self.account_name, {'money__sum': Decimal('10.00')})])
         )
+        #for key in self.response.account_names.keys():
+        #    self.assertEqual(key, self.account_name)
 
     def test_get_total(self):
         """ whats_left attribute must be 10 for user teste """
