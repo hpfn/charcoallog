@@ -1,4 +1,3 @@
-from decimal import Decimal
 from django.db.models import QuerySet
 from django.test import TestCase
 
@@ -30,17 +29,8 @@ class ValidGetMethod(TestCase):
             category='test',
             payment='principal'
         )
-        others_data = dict(
-            user_name='other',
-            date='2017-12-21',
-            money='100.00',
-            description='test',
-            category='test',
-            payment='principal'
-        )
 
         Extract.objects.create(**data)
-        Extract.objects.create(**others_data)
 
         query_user = Extract.objects.user_logged('teste')
         search_data = dict(column='all', from_date='2017-12-01', to_date='2017-12-31')
@@ -59,11 +49,6 @@ class ValidGetMethod(TestCase):
             after a valid search.
         """
         self.assertIsInstance(self.response.query_default, QuerySet)
-
-    def test_get_total(self):
-        """ query_default_total attribute must be 10 for user teste """
-        self.assertEqual(self.response.query_default_total,
-                         {'money__sum': Decimal('10.00')})
 
 
 class InvalidSearch(TestCase):
@@ -84,20 +69,3 @@ class InvalidSearch(TestCase):
         search_data = dict(column='all', from_date='2017-01-01', to_date='2017-01-01')
         response = MethodGet('GET', search_data, self.query_user)
         self.assertEqual(response.query_default, None)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
