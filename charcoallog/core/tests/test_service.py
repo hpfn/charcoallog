@@ -50,12 +50,7 @@ class ServiceLayerTest(TestCase):
         self.assertIsInstance(self.response.line1, Line1)
 
     def test_account_names_attr(self):
-        self.assertDictEqual(
-            self.response.account_names,
-            OrderedDict([(self.account_name, {'money__sum': Decimal('10.00')})])
-        )
-        #for key in self.response.account_names.keys():
-        #    self.assertEqual(key, self.account_name)
+        self.assertIn(self.account_name, self.response.account_names)
 
     def test_get_total(self):
         """ whats_left attribute must be 10 for user teste """
