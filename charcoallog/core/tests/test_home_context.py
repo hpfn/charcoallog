@@ -24,8 +24,8 @@ class HomeContextTest(TestCase):
     def test_logout_link(self):
         self.assertContains(self.response, '<a href')
 
-    def test_html_register_forms(self):
-        """" Html must contain input tags """
+    def test_html_forms_initial(self):
+        """" Html must contain input tags at first time """
         tags = (
             ('<form', 2),
             ('<input', 9),
