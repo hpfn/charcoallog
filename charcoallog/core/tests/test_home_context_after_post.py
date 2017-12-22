@@ -23,7 +23,10 @@ class HomeAfterPostTest(TestCase):
         self.response = self.client.get('/')
 
     def test_html_forms_after_insert_data(self):
-        """" Html must contain input tags after a POST """
+        """"
+            Html must contain extra html tags after insert data.
+            line3.html file.
+        """
         tags = (
             ('<form', 3),
             ('<input', 19),
