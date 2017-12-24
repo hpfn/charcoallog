@@ -34,11 +34,14 @@ class ValidPostMethod(TestCase):
 
     def test_form_save(self):
         select_data = Extract.objects.get(id='1')
-        self.assertEqual(self.data.get('user_name'), select_data.user_name)
-        self.assertEqual(self.data.get('date'), select_data.date.strftime('%Y-%m-%d'))
-        self.assertEqual(Decimal(self.data.get('money')), select_data.money)
-        self.assertEqual(self.data.get('description'), select_data.description)
-        self.assertEqual(self.data.get('category'), select_data.category)
-        self.assertEqual(self.data.get('payment'), select_data.payment)
-        # self.assertEqual(self.data.get('update_rm'), select_data.update_rm)
-        # self.assertEqual(self.data.get('pk'), select_data.pk)
+        select_dict = dict(
+            user_name=select_data.user_name,
+            date=select_data.date.strftime('%Y-%m-%d'),
+            money=str(select_data.money),
+            description=select_data.description,
+            category=select_data.category,
+            payment=select_data.payment,
+            update_rm='',
+            pk=''
+        )
+        self.assertDictEqual(self.data, select_dict)
