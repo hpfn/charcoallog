@@ -10,7 +10,7 @@ class ShowData:
         self.form1 = MethodPost(request_method, request_post, request_user, self.query_user)
         self.form2 = MethodGet(request_method, request_get, self.query_user)
         self.line1 = Line1(self.query_user)
-        self.account_names = self.line1.account_names()
-        self.whats_left = self.line1.whats_left()
+        # self.account_names = self.line1.account_names()
+        # self.whats_left = self.line1.whats_left()
 
 

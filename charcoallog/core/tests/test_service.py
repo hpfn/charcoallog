@@ -50,8 +50,12 @@ class ServiceLayerTest(TestCase):
         self.assertIsInstance(self.response.line1, Line1)
 
     def test_account_names_attr(self):
-        self.assertIn(self.account_name, self.response.account_names)
+        self.assertIn(self.account_name, self.response.line1.account_names())
 
     def test_get_total(self):
-        """ whats_left attribute must be 10 for user teste """
-        self.assertEqual(self.response.whats_left, Decimal('10.00'))
+        """
+            whats_left attribute must be 10 for user teste
+            line1.account_names must be run before whats_left
+        """
+        self.response.line1.account_names()
+        self.assertEqual(self.response.line1.whats_left(), Decimal('10.00'))

@@ -48,9 +48,12 @@ class HomeContextTest(TestCase):
         self.assertContains(self.response, 'Wrong date or invalid search', 1)
 
     def test_whats_left(self):
-        """ Whats left must be zero at first time """
+        """
+            Whats left must be zero at first time
+            check line1.account_names
+        """
         zero = self.response.context['show_data']
-        self.assertEqual(zero.whats_left, 0)
+        self.assertEqual(zero.line1.whats_left(), 0)
 
     def test_bottom_id(self):
         self.assertContains(self.response, '<b>charcoallog released under GPL-3+</b>')
