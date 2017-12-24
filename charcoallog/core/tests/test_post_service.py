@@ -8,9 +8,9 @@ from charcoallog.core.post_service import MethodPost
 
 class ValidPostMethod(TestCase):
     def setUp(self):
-        user = 'teste'
+        self.user = 'teste'
         self.data = dict(
-            user_name=user,
+            user_name=self.user,
             date='2017-12-21',
             money='10.00',
             description='test',
@@ -20,8 +20,8 @@ class ValidPostMethod(TestCase):
             pk=''
         )
 
-        query_user = Extract.objects.user_logged(user)
-        self.response = MethodPost('POST', self.data, user, query_user)
+        self.query_user = Extract.objects.user_logged(self.user)
+        self.response = MethodPost('POST', self.data, self.user, self.query_user)
 
     def test_editextractform_instance(self):
         """
@@ -33,7 +33,7 @@ class ValidPostMethod(TestCase):
         self.assertTrue(self.response.form.is_valid())
 
     def test_form_save(self):
-        select_data = Extract.objects.get(id='1')
+        select_data = Extract.objects.get(id=1)
         select_dict = dict(
             user_name=select_data.user_name,
             date=select_data.date.strftime('%Y-%m-%d'),
@@ -45,3 +45,21 @@ class ValidPostMethod(TestCase):
             pk=''
         )
         self.assertDictEqual(self.data, select_dict)
+
+    def test_delete_data(self):
+        self.data['update_rm'] = 'remove'
+        MethodPost('POST', self.data, self.user, self.query_user)
+        self.assertIsNone(Extract.objects.filter(id=1).first())
+
+    def test_update_data(self):
+        self.data['update_rm'] = 'update'
+        self.data['category'] = 'new_category'
+        self.data['pk'] = 1
+        MethodPost('POST', self.data, self.user, self.query_user)
+        select_data = Extract.objects.get(id=1)
+        self.assertEqual(self.data['category'], select_data.category)
+
+
+
+
+
