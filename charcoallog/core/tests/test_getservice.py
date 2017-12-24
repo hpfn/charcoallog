@@ -43,6 +43,9 @@ class ValidGetMethod(TestCase):
         """
         self.assertIsInstance(self.response.get_form, SelectExtractForm)
 
+    def test_valid_form(self):
+        self.assertTrue(self.response.get_form.is_valid())
+
     def test_valid_search(self):
         """
             query_default attribute must be a QuerySet instance
