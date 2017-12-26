@@ -3,6 +3,9 @@ db.sqlite3
 .idea/
 .env
 *.deb
+staticfiles
+charcoallog_nginx.conf
+uwsgi.ini
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
