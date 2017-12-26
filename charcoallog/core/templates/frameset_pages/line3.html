@@ -1,16 +1,16 @@
 <div id="box_line3" class="scroll">
-	{% if messages %}
-	<ul class="messages">
-		{% for message in messages %}
-		{% if message.tags %}
-            <li class="{{ message.tags }}">
-        {% else%}
-                <li>
-        {% endif %}
-                    {{ message }}</li>
-		{% endfor %}
-	</ul>
-	{% else %}
+	{# {% if messages %} #}
+	{# <ul class="messages"> #}
+	{# 	{% for message in messages %} #}
+	{# 	{% if message.tags %} #}
+    {#         <li class="{{ message.tags }}"> #}
+    {#     {% else%} #}
+    {#             <li> #}
+    {#     {% endif %} #}
+    {#                 {{ message }}</li> #}
+	{# 	{% endfor %} #}
+	{# </ul> #}
+	{# {% else %} #}
         <br />
         <b>Total</b>:
         <div id="total">
@@ -70,5 +70,5 @@
     </form>
     {% endfor %}
 	<br />
-	{% endif %}
+	{# {% endif %} #}
 </div>
