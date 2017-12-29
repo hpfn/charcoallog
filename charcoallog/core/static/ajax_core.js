@@ -32,8 +32,13 @@ $(function() {
             data: data_v,
             success: function(content, data) {
                 //var obj = JSON.parse(content);
-                console.log(content.accounts['principal']['money__sum']);
-                console.log(content.whats_left);
+                //console.log(content.accounts['principal']['money__sum']);
+                //console.log(content.whats_left);
+                // account - index | currency - value['money__sum']
+                $.each(content.accounts, function(index, value) {
+                    console.log(index);
+                    console.log(value['money__sum']);
+                })
                 function red_css(number, id_name) {
                     if (Number(number) < 0) {
                         $(id_name).css('color', 'red');
