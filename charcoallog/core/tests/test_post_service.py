@@ -1,4 +1,3 @@
-from decimal import Decimal
 from django.test import TestCase
 
 from charcoallog.core.forms import EditExtractForm
@@ -46,19 +45,19 @@ class ValidPostMethod(TestCase):
         )
         self.assertDictEqual(self.data, select_dict)
 
-    def test_delete_data(self):
-        self.data['update_rm'] = 'remove'
-        MethodPost('POST', self.data, self.user, self.query_user)
-        self.assertIsNone(Extract.objects.filter(id=1).first())
-
-    def test_update_data(self):
-        self.data['update_rm'] = 'update'
-        self.data['category'] = 'new_category'
-        self.data['pk'] = 1
-        MethodPost('POST', self.data, self.user, self.query_user)
-        select_data = Extract.objects.get(id=1)
-        self.assertEqual(self.data['category'], select_data.category)
-
+#    def test_delete_data(self):
+#        self.data['update_rm'] = 'remove'
+#        MethodPost('POST', self.data, self.user, self.query_user)
+#        self.assertIsNone(Extract.objects.filter(id=1).first())
+#
+#    def test_update_data(self):
+#        self.data['update_rm'] = 'update'
+#        self.data['category'] = 'new_category'
+#        self.data['pk'] = 1
+#        MethodPost('POST', self.data, self.user, self.query_user)
+#        select_data = Extract.objects.get(id=1)
+#        self.assertEqual(self.data['category'], select_data.category)
+#
 
 
 
