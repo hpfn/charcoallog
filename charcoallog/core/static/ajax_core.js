@@ -28,9 +28,12 @@ $(function() {
         var data_v = $(this).serializeArray();
 
         $.post({
-            url: '/',
+            url: '/ajax_post/',
             data: data_v,
-            success: function(content) {
+            success: function(content, data) {
+                //var obj = JSON.parse(content);
+                console.log(content.accounts['principal']['money__sum']);
+                console.log(content.whats_left);
                 function red_css(number, id_name) {
                     if (Number(number) < 0) {
                         $(id_name).css('color', 'red');
