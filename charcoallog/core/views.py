@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.views.decorators.http import require_POST
 
 from charcoallog.core.forms import EditExtractForm
 from charcoallog.core.line1_service import Line1
@@ -28,6 +28,15 @@ def ajax_post(request):
         del form.cleaned_data['pk']
 
         form.cleaned_data['user_name'] = request.user
+
+        payment = form.cleaned_data.get('payment')
+        payment = Extract.objects.user_logged(request.user).filter(
+            payment=payment).first()
+
+        if not payment:
+            # messages.error(request, "You can not fill account entry with
+            #                          a new account name from here")
+            return redirect('core:home')
 
         if what_to_do == 'remove':
             Extract.objects.user_logged(request.user).filter(**form.cleaned_data).delete()
