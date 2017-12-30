@@ -46,6 +46,8 @@ class AjaxPostTest(TestCase):
         self.client.post('/ajax_post/', self.data)
         data = Extract.objects.get(id=1)
         self.assertEqual(data.payment, 'cartao credito')
+        # no test if a payment does not already exist
+        # do not allow create a account name from an update
 
     def test_json_response(self):
         self.data['payment'] = 'cartao credito'
@@ -59,3 +61,4 @@ class AjaxPostTest(TestCase):
              {'accounts': {'cartao credito': {'money__sum': '-10.00'}},
               'whats_left': '-10.00'}
         )
+
