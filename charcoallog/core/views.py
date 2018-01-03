@@ -1,10 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.views.decorators.http import require_POST
 
 from charcoallog.core.forms import EditExtractForm
-from charcoallog.core.get_service import MethodGet
 from charcoallog.core.line1_service import Line1
 from charcoallog.core.models import Extract
 from .service import ShowData
@@ -59,6 +58,6 @@ def ajax_post(request):
 
     data = {'accounts': line1.account_names(),
             'whats_left': line1.whats_left()}
-            # 'total_line3': total_line3.query_default_total['money__sum']}
+    # 'total_line3': total_line3.query_default_total['money__sum']}
 
     return JsonResponse(data)
