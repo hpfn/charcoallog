@@ -60,7 +60,9 @@ $(function() {
 
                     console.log(not_present);
                     if ( not_present ) {
-                        $("[id='"+data_v[7].value+"']").text('0');
+                        //$("[id='"+data_v[7].value+"']").text('0');
+                        $("[id='"+data_v[7].value+"']").remove();
+
                     }
 
                     var new_total_value = content.total_line3;
