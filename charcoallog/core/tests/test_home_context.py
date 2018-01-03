@@ -17,6 +17,9 @@ class HomeContextTest(TestCase):
         """ status code must be 200 """
         self.assertEqual(200, self.response.status_code)
 
+    def test_template(self):
+        self.assertTemplateUsed(self.response, 'home.html')
+
     def test_context_only_instance(self):
         show_data = self.response.context['show_data']
         self.assertIsInstance(show_data, ShowData)
