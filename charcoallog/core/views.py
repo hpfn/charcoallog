@@ -34,7 +34,7 @@ def ajax_post(request):
             payment=payment).first()
 
         if not payment_confirm:
-            //print('not payment_confirm')
+            # print('not payment_confirm')
             # send this to JS alert
             data = {'no_account': True,
                     'message': 'You can not set a new account name from here'}
