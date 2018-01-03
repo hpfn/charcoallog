@@ -30,10 +30,11 @@ def ajax_post(request):
         form.cleaned_data['user_name'] = request.user
 
         payment = form.cleaned_data.get('payment')
-        payment = Extract.objects.user_logged(request.user).filter(
+        payment_confirm = Extract.objects.user_logged(request.user).filter(
             payment=payment).first()
 
-        if not payment:
+        if not payment_confirm:
+            print('not payment_confirm')
             # messages.error(request, "You can not fill account entry with
             #                          a new account name from here")
             return redirect('core:home')
