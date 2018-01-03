@@ -49,6 +49,8 @@ def ajax_post(request):
             obj.category = form.cleaned_data['category']
             obj.payment = form.cleaned_data['payment']
             obj.save(update_fields=['date', 'money', 'description', 'category', 'payment'])
+            print(id_for_update)
+            print(obj.payment)
 
     line1 = Line1(Extract.objects.user_logged(request.user))
     data = {'accounts': line1.account_names(),
