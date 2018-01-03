@@ -52,6 +52,8 @@ def ajax_post(request):
             obj.save(update_fields=['date', 'money', 'description', 'category', 'payment'])
 
     line1 = Line1(Extract.objects.user_logged(request.user))
+    # Get the TOTAL for line3.html. Save extra lines in ajax_core.js
+    # total_line3 = MethodGet("POST", request.POST, Extract.objects.user_logged(request.user))
     data = {'accounts': line1.account_names(),
             'whats_left': line1.whats_left()}
 
