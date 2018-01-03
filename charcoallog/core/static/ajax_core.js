@@ -10,10 +10,10 @@ $(function() {
         if ( Number.isFinite(Number($(this).val())) ) {
             old_money = $(this).val();
         }
-        if ( $(this).attr("id") == 'payment') {
-            old_account = $(this).val();
-            //console.log(old_account);
-        }
+        //if ( $(this).attr("id") == 'payment') {
+        //    old_account = $(this).val();
+        //    console.log(old_account);
+        //}
     });
     $("#box_line3 input").focusout(function() {
         if ( $(this).val() < 0 ) {
@@ -45,9 +45,9 @@ $(function() {
                 } else {
                     var not_present = true;
                     $.each(content.accounts, function(index, value) {
-                        //console.log(index);
+                        console.log(index);
                         //console.log(value['money__sum']);
-                        if ( index == old_account) {
+                        if ( index == data_v[7].value) {
                             not_present = false;
                         }
                         $("[id='"+index+"']").text(value['money__sum']);
@@ -58,10 +58,14 @@ $(function() {
                     $("#left").text(content.whats_left);
                     red_css(content.whats_left, "#left");
 
+                    console.log(not_present);
                     if ( not_present ) {
-                        //console.log('AQUI ' + old_account);
-                        $("[id='"+old_account+"']").text('0');
+                        $("[id='"+data_v[7].value+"']").text('0');
                     }
+
+                    var new_total_value = content.total_line3;
+                    $("#total").text(new_total_value);
+                    red_css(new_total_value, "#total");
 
                     function total_value(old_v, new_v) {
                         // update Total in line3.html
