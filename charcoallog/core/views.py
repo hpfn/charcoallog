@@ -35,9 +35,10 @@ def ajax_post(request):
 
         if not payment_confirm:
             print('not payment_confirm')
-            # messages.error(request, "You can not fill account entry with
-            #                          a new account name from here")
-            return redirect('core:home')
+            # send this to JS alert
+            data = {'no_account': True,
+                    'message': 'You can not set a new account name from here'}
+            return JsonResponse(data)
 
         if what_to_do == 'remove':
             Extract.objects.user_logged(request.user).filter(**form.cleaned_data).delete()
@@ -49,8 +50,6 @@ def ajax_post(request):
             obj.category = form.cleaned_data['category']
             obj.payment = form.cleaned_data['payment']
             obj.save(update_fields=['date', 'money', 'description', 'category', 'payment'])
-            print(id_for_update)
-            print(obj.payment)
 
     line1 = Line1(Extract.objects.user_logged(request.user))
     data = {'accounts': line1.account_names(),

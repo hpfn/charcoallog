@@ -43,40 +43,41 @@ class AjaxPostTest(TestCase):
         """
         self.assertEqual(405, self.client.get('/ajax_post/').status_code)
 
-    def test_ajax_remove(self):
-        self.data['update_rm'] = 'remove'
-        self.data['pk'] = ''
-        self.client.post('/ajax_post/', self.data)
-        no_data = Extract.objects.filter(id=1).first()
-        self.assertFalse(no_data)
-
     def test_ajax_update(self):
         to_update = dict(
             user_name='teste',
             date='2017-12-21',
-            money='10.00',
+            money='30.00',
             description='test',
             category='test',
             payment='principal',
             update_rm='update',
             pk=2
         )
-        self.client.post('/ajax_post/', to_update)
-        data = Extract.objects.user_logged('teste').get(id=2)
-        self.assertEqual(data.payment, 'principal')
-        # no test if a payment does not already exist
-        # do not allow create a account name from an update
+        response = self.client.post('/ajax_post/', to_update)
+        self.assertJSONEqual(
+            response.content,
+            {'accounts': {'principal': {'money__sum': '40.00'}},
+            'whats_left': '40.00'}
+        )
 
-    #def test_json_response(self):
-    #    self.data['payment'] = 'cartao credito'
-    #    self.data['money'] = -10.00
-    #    self.data['update_rm'] = 'update'
-    #    self.data['pk'] = 1
-    #    response = self.client.post('/ajax_post/', self.data)
-    #
-    #    self.assertJSONEqual(
-    #         response.content,
-    #         {'accounts': {'cartao credito': {'money__sum': '-10.00'}},
-    #          'whats_left': '-10.00'}
-    #    )
-    #
+    def test_ajax_remove(self):
+        self.data['update_rm'] = 'remove'
+        self.data['pk'] = ''
+        response = self.client.post('/ajax_post/', self.data)
+        self.assertJSONEqual(
+            response.content,
+            {'accounts': {'cartao credito': {'money__sum': '10.00'}},
+            'whats_left': '10.00'}
+        )
+
+    def test_ajax_fail_update(self):
+        self.data['payment'] = 'blablabla'
+        self.data['update_rm'] = 'update'
+        self.data['pk'] = ''
+        response = self.client.post('/ajax_post/', self.data)
+        self.assertJSONEqual(
+            response.content,
+            {'no_account': True,
+            'message': 'You can not set a new account name from here'}
+        )
