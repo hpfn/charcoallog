@@ -54,7 +54,7 @@ class AjaxPostTest(TestCase):
             update_rm='update',
             pk=2
         )
-        response = self.client.post('/ajax_post/', to_update)
+        response = self.client.post('/ajax_post/', to_update, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertJSONEqual(
             response.content,
             {'accounts': {'principal': {'money__sum': '40.00'}},
@@ -64,7 +64,7 @@ class AjaxPostTest(TestCase):
     def test_ajax_remove(self):
         self.data['update_rm'] = 'remove'
         self.data['pk'] = ''
-        response = self.client.post('/ajax_post/', self.data)
+        response = self.client.post('/ajax_post/', self.data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertJSONEqual(
             response.content,
             {'accounts': {'cartao credito': {'money__sum': '10.00'}},
@@ -75,7 +75,7 @@ class AjaxPostTest(TestCase):
         self.data['payment'] = 'blablabla'
         self.data['update_rm'] = 'update'
         self.data['pk'] = ''
-        response = self.client.post('/ajax_post/', self.data)
+        response = self.client.post('/ajax_post/', self.data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertJSONEqual(
             response.content,
             {'no_account': True,

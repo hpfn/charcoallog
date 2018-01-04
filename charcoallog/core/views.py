@@ -21,7 +21,7 @@ def home(request):
 @require_POST
 def ajax_post(request):
     form = EditExtractForm(request.POST)
-    if form.is_valid():
+    if form.is_valid() and request.is_ajax():
         what_to_do = form.cleaned_data.get('update_rm')
         del form.cleaned_data['update_rm']
         id_for_update = form.cleaned_data.get('pk')
