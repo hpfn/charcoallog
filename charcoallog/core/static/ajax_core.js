@@ -45,7 +45,7 @@ $(function() {
                 } else {
                     var not_present = true;
                     $.each(content.accounts, function(index, value) {
-                        console.log(index);
+                        //console.log(index);
                         //console.log(value['money__sum']);
                         if ( index == data_v[7].value) {
                             not_present = false;
@@ -58,7 +58,7 @@ $(function() {
                     $("#left").text(content.whats_left);
                     red_css(content.whats_left, "#left");
 
-                    console.log(not_present);
+                    //console.log(not_present);
                     if ( not_present ) {
                         //$("[id='"+data_v[7].value+"']").text('0');
                         $("[id='"+data_v[7].value+"']").remove();
@@ -87,7 +87,10 @@ $(function() {
                         // form back to default
                         $('#'+data_v[2].value + ' input:radio[name=update_rm]')[1].checked = true;
                         $('#'+data_v[2].value + " input").attr('readonly', 'true');
-                        total_value(old_money, data_v[4].value);
+                        console.log(old_money);
+                        if ( old_money ) {
+                            total_value(old_money, data_v[4].value);
+                        }
                     }
                 }
             },
