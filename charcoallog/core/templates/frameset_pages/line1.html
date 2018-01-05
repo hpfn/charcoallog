@@ -3,6 +3,7 @@
             <tr>
             {% for key, value in show_data.line1.account_names.items %}
                 <td align="center">
+					<div class="{{ key }}">
 					<b>{{ key }}</b> <br>
 					<div id="{{ key }}">
 						{% if value.money__sum < 0 %}
@@ -14,6 +15,7 @@
 							{{ value.money__sum }}
 						</font>
 						{% endif %}
+					</div>
 					</div>
 		        </td>
             {% endfor %}
