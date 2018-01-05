@@ -5,6 +5,9 @@ $(function() {
         if ( $(this).val() == 'update') {
             $(this).parents("table").find('input').removeAttr('readonly');
         }
+        if ( $(this).val() == 'remove') {
+            $(this).parents("table").find('input').attr('readonly', true);
+        }
     });
     $("#box_line3 input").focusin(function() {
         if ( Number.isFinite(Number($(this).val())) ) {
