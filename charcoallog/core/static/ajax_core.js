@@ -10,10 +10,10 @@ $(function() {
         if ( Number.isFinite(Number($(this).val())) ) {
             old_money = $(this).val();
         }
-        //if ( $(this).attr("id") == 'payment') {
-        //    old_account = $(this).val();
-        //    console.log(old_account);
-        //}
+        if ( $(this).attr("id") == 'payment') {
+            old_account = $(this).val();
+            //console.log(old_account);
+        }
     });
     $("#box_line3 input").focusout(function() {
         if ( $(this).val() < 0 ) {
@@ -39,17 +39,24 @@ $(function() {
                         $(id_name).css('color', 'black');
                     }
                 }
-                // do not forget to check old_Account on view
+
                 if (content.no_account) {
                     alert(content.message);
                 } else {
                     var not_present = true;
                     $.each(content.accounts, function(index, value) {
-                        //console.log(index);
-                        //console.log(value['money__sum']);
-                        if ( index == data_v[7].value) {
-                            not_present = false;
+                        if ( old_account ) {
+                            if ( index == old_account ) {
+                                //console.log('false para old_account');
+                                not_present = false;
+                            }
+                        } else {
+                            if ( index == data_v[7].value ) {
+                                //console.log('false para data_v');
+                                not_present = false;
+                            }
                         }
+
                         $("[id='"+index+"']").text(value['money__sum']);
                         red_css(value['money__sum'], "[id='"+index+"']");
 
@@ -58,10 +65,15 @@ $(function() {
                     $("#left").text(content.whats_left);
                     red_css(content.whats_left, "#left");
 
-                    //console.log(not_present);
+                    //console.log(old_account);
+                    //console.log(data_v[7].value);
+                    console.log(not_present);
                     if ( not_present ) {
-                        //$("[id='"+data_v[7].value+"']").text('0');
-                        $("[id='"+data_v[7].value+"']").remove();
+                        if ( old_account) {
+                            $("[id='"+old_account+"']").text('0');
+                        } else {
+                            $("[class='"+data_v[7].value+"").remove();
+                        }
 
                     }
 
@@ -87,7 +99,7 @@ $(function() {
                         // form back to default
                         $('#'+data_v[2].value + ' input:radio[name=update_rm]')[1].checked = true;
                         $('#'+data_v[2].value + " input").attr('readonly', 'true');
-                        console.log(old_money);
+                        //console.log(old_money);
                         if ( old_money ) {
                             total_value(old_money, data_v[4].value);
                         }
