@@ -23,23 +23,19 @@ def ajax_post(request):
     data = dict()
     form = EditExtractForm(request.POST)
     if form.is_valid() and request.is_ajax():
-        what_to_do = form.cleaned_data.get('update_rm')
-        id_for_update = form.cleaned_data.get('pk')
         payment = form.cleaned_data.get('payment')
-
-        del form.cleaned_data['update_rm']
-        del form.cleaned_data['pk']
-
-        form.cleaned_data['user_name'] = request.user
-
         query_user = Extract.objects.user_logged(request.user)
 
-        payment_confirm = query_user.filter(payment=payment).first()
-
-        if not payment_confirm:
+        if not query_user.filter(payment=payment).first():
             data = {'no_account': True,
                     'message': 'You can not set a new account name from here'}
         else:
+            what_to_do = form.cleaned_data.get('update_rm')
+            id_for_update = form.cleaned_data.get('pk')
+            del form.cleaned_data['update_rm']
+            del form.cleaned_data['pk']
+            form.cleaned_data['user_name'] = request.user
+
             if what_to_do == 'remove':
                 query_user.filter(**form.cleaned_data).delete()
             elif what_to_do == 'update':
