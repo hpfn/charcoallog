@@ -48,7 +48,7 @@ class HomeContextTest(TestCase):
 
     def test_total_line3(self):
         """ Total must be 'Wrong date or invalid search' at first time """
-        self.assertContains(self.response, 'Wrong date or invalid search', 1)
+        self.assertContains(self.response, 'Nothing for these dates or invalid search.', 1)
 
     def test_whats_left(self):
         """
