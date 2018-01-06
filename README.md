@@ -34,3 +34,4 @@ python contrib/env_gen.py
 python manage.py migrate
 ```
 
+Run `python create_data.py` to create data sample.
