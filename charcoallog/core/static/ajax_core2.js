@@ -1,5 +1,9 @@
 $(function() {
   $('.money-delete').on('click', function() {
-    $(this).parent().parent().remove()
+    let url = $(this).data('url')
+    let $this = $(this)
+    $.get(url, function(data) {
+      $this.parent().parent().remove()
+    });
   });
 });

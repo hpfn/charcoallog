@@ -33,7 +33,7 @@
             <td>{{ obj.payment }}</td>
             <td>
               <span class="span-is-link money-edit"><i class="fa fa-edit"></i></span>
-              <span class="span-is-link money-delete"><i class="fa fa-close"></i></span>
+              <span class="span-is-link money-delete" data-url="{% url 'core:money_delete' obj.pk %}"><i class="fa fa-close"></i></span>
             </td>
           </tr>
         {% endfor %}
