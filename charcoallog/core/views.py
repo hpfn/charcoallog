@@ -63,6 +63,18 @@ def ajax_post(request):
     return JsonResponse(data)
 
 
+def money_edit(request, pk):
+    obj = Extract.objects.get(pk=pk)
+    obj.date = request.POST.get('date')
+    obj.money = request.POST.get('money')
+    obj.description = request.POST.get('description')
+    obj.category = request.POST.get('category')
+    obj.payment = request.POST.get('payment')
+    obj.save()
+    response = {'status': 'updated'}
+    return JsonResponse(response)
+
+
 def money_delete(request, pk):
     obj = Extract.objects.get(pk=pk)
     obj.delete()
