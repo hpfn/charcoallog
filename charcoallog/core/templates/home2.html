@@ -1,22 +1,22 @@
 {% extends "base.html" %}
 
 {% block header %}
-  <h1>Charcoallog <span style="font-size:.4em"><a href="{% url 'core:home' %}">Version 1</a></span></h1>
+  <h1>Charcoallog V2 <span style="font-size:.4em"><a href="{% url 'core:home' %}">Version 1</a></span></h1>
 {% endblock header %}
 
 {% block content %}
 <div id="central">
 	<div class="col1">
-		{% include 'frameset_pages/form1.html' %}
+		{% include 'frameset_pages2/form1.html' %}
 		<br /><br />
-		{% include 'frameset_pages/form2.html' %}
+		{% include 'frameset_pages2/form2.html' %}
 	</div>
 	<div class="col2">
 		<div class="row1">
-			{% include 'frameset_pages/line1.html' %}
+			{% include 'frameset_pages2/line1.html' %}
 		</div>
 		<div class="row2">
-			{% include 'frameset_pages/line3.html' %} 
+			{% include 'frameset_pages2/line3.html' %} 
 		</div>
 	</div>
 </div>
