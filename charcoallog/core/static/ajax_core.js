@@ -105,7 +105,7 @@ $(function() {
                         //console.log(old_money);
                         //if ( old_money ) {
                             //total_value(old_money, data_v[4].value);
-                        }
+                        //}
                     }
                 }
             },
