@@ -16,11 +16,11 @@ def home(request):
     }
     return render(request, "home.html", context)
 
-
 @login_required
 def home2(request):
-    object_list = Extract.objects.all()
-    context = {'object_list': object_list}
+    context = {
+        'object_list': Extract.objects.all()
+    }
     return render(request, "home2.html", context)
 
 
@@ -46,15 +46,13 @@ def ajax_post(request):
             if what_to_do == 'remove':
                 query_user.filter(**form.cleaned_data).delete()
             elif what_to_do == 'update':
-                # , user_name=self.request_user)
-                obj = query_user.get(id=id_for_update)
+                obj = query_user.get(id=id_for_update)  # , user_name=self.request_user)
                 obj.date = form.cleaned_data['date']
                 obj.money = form.cleaned_data['money']
                 obj.description = form.cleaned_data['description']
                 obj.category = form.cleaned_data['category']
                 obj.payment = form.cleaned_data['payment']
-                obj.save(update_fields=['date', 'money',
-                                        'description', 'category', 'payment'])
+                obj.save(update_fields=['date', 'money', 'description', 'category', 'payment'])
 
             line1 = Line1(query_user)
             data = {'accounts': line1.account_names(),
