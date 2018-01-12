@@ -14,4 +14,11 @@ Transfer between accounts will not appear after a search<br>
 set) if category starts with 'transfer'. Unless you search<br>
 for 'all'.
 
+You can transfer between accounts like:  
+
+ - description: account name to receive credit
+ - category: 'transfer'
+ - payment: account name to lost credit
+ 
+
 
