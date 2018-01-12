@@ -24,7 +24,7 @@ class Extract(models.Model):
     user_name = models.CharField('Name', max_length=30)
     date = models.DateField('Date')
     money = models.DecimalField(
-        'Money', max_digits=8, decimal_places=2, null=False, blank=False)
+        'Money', max_digits=12, decimal_places=2, null=False, blank=False)
     description = models.CharField('Description', max_length=70)
     category = models.CharField('Category', max_length=70)
     payment = models.CharField('Payment', max_length=70)
