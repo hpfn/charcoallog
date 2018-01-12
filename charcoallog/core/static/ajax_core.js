@@ -73,7 +73,7 @@ $(function() {
                     console.log(not_present);
                     if ( not_present ) {
                         if ( old_account) {
-                            $("[id='"+old_account+"']").text('0');
+                            $("[class='"+old_account+"']").text('0');
                         } else {
                             $("[class='"+data_v[7].value+"").remove();
                         }
