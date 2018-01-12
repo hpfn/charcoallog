@@ -46,7 +46,7 @@ class MethodPost:
 
         money_f = self.form.cleaned_data['money'] * -1
         payment_f = self.form.cleaned_data['description']
-        description_f = 'credit to ' + self.form.cleaned_data['description']
+        description_f = 'credit from ' + self.form.cleaned_data['payment']
         Extract.objects.create(
             user_name=self.request_user,
             date=self.form.cleaned_data['date'],
