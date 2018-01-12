@@ -1,3 +1,4 @@
+from charcoallog.core.models import Extract
 from .forms import EditExtractForm
 
 
@@ -23,20 +24,23 @@ class MethodPost:
         self.form = self.editextractform(self.request_post)
 
         if self.form.is_valid():
-            self.insert_by_post(self.form)
+            self.insert_by_post()
         else:
             print('INVALID')
 
-    def insert_by_post(self, form):
-        what_to_do = form.cleaned_data.get('update_rm')
-        del form.cleaned_data['update_rm']
+    def insert_by_post(self):
+        what_to_do = self.form.cleaned_data.get('update_rm')
+        del self.form.cleaned_data['update_rm']
         # id_for_update = form.cleaned_data.get('pk')
-        del form.cleaned_data['pk']
+        del self.form.cleaned_data['pk']
 
-        form.cleaned_data['user_name'] = self.request_user
+        self.form.cleaned_data['user_name'] = self.request_user
 
         if not what_to_do:
-            form.save()
+            self.form.save()
+            if self.form.cleaned_data['category'].startswith('transfer'):
+                print(self.form.cleaned_data['category'])
+                self.transfer_between_accounts()
         # elif what_to_do == 'remove':
         #     self.query_user.filter(**form.cleaned_data).delete()
         # elif what_to_do == 'update':
@@ -47,3 +51,10 @@ class MethodPost:
         #     obj.category = form.cleaned_data['category']
         #     obj.payment = form.cleaned_data['payment']
         #     obj.save(update_fields=['date', 'money', 'description', 'category', 'payment'])
+
+    def transfer_between_accounts(self):
+        self.form.cleaned_data['money'] = self.form.cleaned_data['money'] * -1
+        self.form.cleaned_data['payment'] = self.form.cleaned_data['description']
+        self.form.cleaned_data['description'] = 'credit to ' + self.form.cleaned_data['description']
+        self.form.save()
+
