@@ -1,4 +1,3 @@
-from django.contrib import admin
-from .models import Extract
+# from django.contrib import admin
 
-admin.site.register(Extract)
+# Register your models here.

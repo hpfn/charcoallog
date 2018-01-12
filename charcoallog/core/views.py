@@ -19,7 +19,7 @@ def home(request):
 @login_required
 def home2(request):
     context = {
-        'object_list': Extract.objects.all()
+        'show_data': ShowData(request.method, request.GET, request.POST, request.user),
     }
     return render(request, "home2.html", context)
 
