@@ -1,5 +1,5 @@
 $(function() {
-    //var old_money = 0;
+    var old_money = 0;
     var old_account = 0;
     $("#box_line3 input").bind('click', function() {
         if ( $(this).val() == 'update') {
@@ -10,9 +10,9 @@ $(function() {
         }
     });
     $("#box_line3 input").focusin(function() {
-        //if ( Number.isFinite(Number($(this).val())) ) {
-        //    old_money = $(this).val();
-        //}
+        if ( Number.isFinite(Number($(this).val())) ) {
+            old_money = $(this).val();
+        }
         if ( $(this).attr("id") == 'payment') {
             old_account = $(this).val();
             //console.log(old_account);
@@ -80,22 +80,22 @@ $(function() {
 
                     }
 
-                    var new_total_value = content.total_line3;
-                    $("#total").text(new_total_value);
-                    red_css(new_total_value, "#total");
+                    //var new_total_value = content.total_line3;
+                    //$("#total").text(new_total_value);
+                    //red_css(new_total_value, "#total");
 
-                    //function total_value(old_v, new_v) {
+                    function total_value(old_v, new_v) {
                         // update Total in line3.html
-                    //    var old_total_value = $("#total").text().trim();
-                    //    var old_total_value_less_old_money = Number(old_total_value) - Number(old_v);
-                    //    var new_total_value = Number(old_total_value_less_old_money) + Number(new_v);
-                    //    $("#total").text(new_total_value);
-                    //    red_css(new_total_value, "#total");
-                    //}
+                        var old_total_value = $("#total").text().trim();
+                        var old_total_value_less_old_money = Number(old_total_value) - Number(old_v);
+                        var new_total_value = Number(old_total_value_less_old_money) + Number(new_v);
+                        $("#total").text(new_total_value);
+                        red_css(new_total_value, "#total");
+                    }
 
                     if ( data_v[8].value == 'remove' ) {
                         $('#'+data_v[2].value).remove();
-                        //total_value(data_v[4].value, 0);
+                        total_value(data_v[4].value, 0);
                     }
 
                     if ( data_v[8].value == 'update' ) {
@@ -103,9 +103,9 @@ $(function() {
                         $('#'+data_v[2].value + ' input:radio[name=update_rm]')[1].checked = true;
                         $('#'+data_v[2].value + " input").attr('readonly', 'true');
                         //console.log(old_money);
-                        //if ( old_money ) {
-                            //total_value(old_money, data_v[4].value);
-                        //}
+                        if ( old_money ) {
+                            total_value(old_money, data_v[4].value);
+                        }
                     }
                 }
             },
