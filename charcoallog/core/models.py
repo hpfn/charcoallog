@@ -30,9 +30,11 @@ class Extract(models.Model):
     objects = models.Manager.from_queryset(ExtractStatementQuerySet)()
 
     def save(self, *args, **kwargs):
-        if Extract.objects.filter(id=self.id, user_name=self.user_name, date=self.date, money=self.money,
-                                  description=self.description, category=self.category,
-                                  payment=self.payment).exists():
+        if Extract.objects.filter(
+                id=self.id, user_name=self.user_name,
+                date=self.date, money=self.money,
+                description=self.description, category=self.category,
+                payment=self.payment).exists():
             pass
             #   return
         else:
