@@ -5,7 +5,6 @@ from django.db.models import Sum, Q
 
 
 class ExtractStatementQuerySet(models.QuerySet):
-
     def user_logged(self, user_name):
         return self.filter(user_name=user_name)
 
@@ -23,28 +22,19 @@ class ExtractStatementQuerySet(models.QuerySet):
 class Extract(models.Model):
     user_name = models.CharField('Name', max_length=30)
     date = models.DateField('Date')
-    money = models.DecimalField(
-        'Money', max_digits=12, decimal_places=2, null=False, blank=False)
+    money = models.DecimalField('Money', max_digits=12, decimal_places=2, null=False, blank=False)
     description = models.CharField('Description', max_length=70)
     category = models.CharField('Category', max_length=70)
     payment = models.CharField('Payment', max_length=70)
 
     objects = models.Manager.from_queryset(ExtractStatementQuerySet)()
 
-    def __str__(self):
-        return self.description
-
     def save(self, *args, **kwargs):
-        extract = Extract.objects.filter(
-            user_name=self.user_name,
-            date=self.date,
-            money=self.money,
-            description=self.description,
-            category=self.category,
-            payment=self.payment)
-
-        if extract.exists():
+        if Extract.objects.filter(user_name=self.user_name, date=self.date, money=self.money,
+                                  description=self.description, category=self.category,
+                                  payment=self.payment).exists():
             pass
+            #   return
         else:
             super(Extract, self).save(*args, **kwargs)
 
