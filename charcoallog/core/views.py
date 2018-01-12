@@ -16,13 +16,6 @@ def home(request):
     }
     return render(request, "home.html", context)
 
-@login_required
-def home2(request):
-    context = {
-        'show_data': ShowData(request.method, request.GET, request.POST, request.user),
-    }
-    return render(request, "home2.html", context)
-
 
 @login_required
 @require_POST

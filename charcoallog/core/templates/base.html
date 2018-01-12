@@ -26,7 +26,7 @@
   </head>
     <body>
       <div id="titulo">
-	      {% block header %}{% endblock %}
+	      <h1>Charcoallog</h1>
 	      {% if user.is_authenticated %}
 	      <h6 align="left"> Hi {{ user.username }},
 	      <a href="{% url 'accounts:logout' %}">sign out?</a>
