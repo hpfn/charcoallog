@@ -1,5 +1,5 @@
 $(function() {
-    var old_money = 0;
+    //var old_money = 0;
     var old_account = 0;
     $("#box_line3 input").bind('click', function() {
         if ( $(this).val() == 'update') {
@@ -10,9 +10,9 @@ $(function() {
         }
     });
     $("#box_line3 input").focusin(function() {
-        if ( Number.isFinite(Number($(this).val())) ) {
-            old_money = $(this).val();
-        }
+        //if ( Number.isFinite(Number($(this).val())) ) {
+        //    old_money = $(this).val();
+        //}
         if ( $(this).attr("id") == 'payment') {
             old_account = $(this).val();
             //console.log(old_account);
