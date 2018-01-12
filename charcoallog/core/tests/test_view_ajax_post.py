@@ -47,7 +47,7 @@ class AjaxPostTest(TestCase):
         to_update = dict(
             user_name='teste',
             date='2017-12-21',
-            money='30.00',
+            money='10.00',
             description='test',
             category='test',
             payment='principal',
@@ -57,8 +57,8 @@ class AjaxPostTest(TestCase):
         response = self.client.post('/ajax_post/', to_update, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertJSONEqual(
             response.content,
-            {'accounts': {'principal': {'money__sum': '40.00'}},
-            'whats_left': '40.00'}
+            {'accounts': {'principal': {'money__sum': '20.00'}},
+            'whats_left': '20.00'}
         )
 
     def test_ajax_remove(self):
