@@ -39,7 +39,7 @@ class MethodPost:
         if not what_to_do:
             self.form.save()
             if self.form.cleaned_data['category'].startswith('transfer'):
-                print(self.form.cleaned_data['category'])
+                # print(self.form.cleaned_data['category'])
                 self.transfer_between_accounts()
 
     def transfer_between_accounts(self):
