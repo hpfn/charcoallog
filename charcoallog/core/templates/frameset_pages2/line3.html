@@ -12,7 +12,7 @@
   <div id="total">
   </div>
   {% if object_list %}
-    <table class="pure-table" align="center" style="background-color: #fff; font-size: .85em">
+    <table class="pure-table" align="center" style="background-color: #fff">
       <thead>
         <tr>
           <th>Date</th>
@@ -32,8 +32,8 @@
             <td>{{ obj.category }}</td>
             <td>{{ obj.payment }}</td>
             <td>
-              <span class="span-is-link money-edit" data-url="{% url 'core:money_edit' obj.pk %}"><i class="fa fa-edit"></i></span>
-              <span class="span-is-link money-delete" data-url="{% url 'core:money_delete' obj.pk %}"><i class="fa fa-trash-o"></i></span>
+              <span class="span-is-link money-edit" data-url="{ url 'core:money_edit' obj.pk %}"><i class="fa fa-edit"></i></span>
+              <span class="span-is-link money-delete" data-url="{% url 'core:money_delete' obj.pk %}"><i class="fa fa-close"></i></span>
             </td>
           </tr>
         {% endfor %}
