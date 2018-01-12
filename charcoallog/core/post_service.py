@@ -41,20 +41,19 @@ class MethodPost:
             if self.form.cleaned_data['category'].startswith('transfer'):
                 print(self.form.cleaned_data['category'])
                 self.transfer_between_accounts()
-        # elif what_to_do == 'remove':
-        #     self.query_user.filter(**form.cleaned_data).delete()
-        # elif what_to_do == 'update':
-        #     obj = self.query_user.get(id=id_for_update)  # , user_name=self.request_user)
-        #     obj.date = form.cleaned_data['date']
-        #     obj.money = form.cleaned_data['money']
-        #     obj.description = form.cleaned_data['description']
-        #     obj.category = form.cleaned_data['category']
-        #     obj.payment = form.cleaned_data['payment']
-        #     obj.save(update_fields=['date', 'money', 'description', 'category', 'payment'])
 
     def transfer_between_accounts(self):
-        self.form.cleaned_data['money'] = self.form.cleaned_data['money'] * -1
-        self.form.cleaned_data['payment'] = self.form.cleaned_data['description']
-        self.form.cleaned_data['description'] = 'credit to ' + self.form.cleaned_data['description']
-        self.form.save()
+
+        money_f = self.form.cleaned_data['money'] * -1
+        payment_f = self.form.cleaned_data['description']
+        description_f = 'credit to ' + self.form.cleaned_data['description']
+        Extract.objects.create(
+            user_name=self.request_user,
+            date=self.form.cleaned_data['date'],
+            money=money_f,
+            description=description_f,
+            category=self.form.cleaned_data['category'],
+            payment=payment_f
+        )
+        #print(self.form.cleaned_data['payment'])
 
