@@ -61,10 +61,3 @@ def ajax_post(request):
                     'whats_left': line1.whats_left()}
 
     return JsonResponse(data)
-
-
-def money_delete(request, pk):
-    obj = Extract.objects.get(pk=pk)
-    obj.delete()
-    response = {'status': 'deleted'}
-    return JsonResponse(response)
