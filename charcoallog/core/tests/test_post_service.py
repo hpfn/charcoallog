@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.test import TestCase
 
 from charcoallog.core.forms import EditExtractForm
@@ -45,20 +46,39 @@ class ValidPostMethod(TestCase):
         )
         self.assertDictEqual(self.data, select_dict)
 
-#    def test_delete_data(self):
-#        self.data['update_rm'] = 'remove'
-#        MethodPost('POST', self.data, self.user, self.query_user)
-#        self.assertIsNone(Extract.objects.filter(id=1).first())
-#
-#    def test_update_data(self):
-#        self.data['update_rm'] = 'update'
-#        self.data['category'] = 'new_category'
-#        self.data['pk'] = 1
-#        MethodPost('POST', self.data, self.user, self.query_user)
-#        select_data = Extract.objects.get(id=1)
-#        self.assertEqual(self.data['category'], select_data.category)
-#
 
+class TransferBetweenAccounts(TestCase):
+    def setUp(self):
+        self.user = 'teste'
+        self.account_1 = 'principal'
+        self.account_2 = 'cartao credito'
+        self.value = '-10.00'
+        self.value_after_transfer = '10.00'
+        self.data = dict(
+            user_name=self.user,
+            date='2017-12-21',
+            money=self.value,
+            description=self.account_2,
+            category='transfer',
+            payment=self.account_1,
+        )
 
+        self.query_user = Extract.objects.user_logged(self.user)
+        self.response = MethodPost('POST', self.data, self.user, self.query_user)
 
+    def test_negative_transfer_name(self):
+        p_data = self.query_user.get(id=1)
+        self.assertEqual(p_data.payment, self.account_1)
+
+    def test_negative_transfer_value(self):
+        p_data = self.query_user.get(id=1)
+        self.assertEqual(p_data.money, Decimal(self.value))
+
+    def test_positive_transfer_name(self):
+        c_c_data = self.query_user.get(id=2)
+        self.assertEqual(c_c_data.payment, self.account_2)
+
+    def test_positive_transfer_value(self):
+        c_c_data = self.query_user.get(id=2)
+        self.assertEqual(c_c_data.money, Decimal(self.value_after_transfer))
 
