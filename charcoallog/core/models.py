@@ -30,6 +30,8 @@ class Extract(models.Model):
     objects = models.Manager.from_queryset(ExtractStatementQuerySet)()
 
     def save(self, *args, **kwargs):
+        # this seems useless. a reload will create
+        # a new entry
         if Extract.objects.filter(
                 id=self.id, user_name=self.user_name,
                 date=self.date, money=self.money,
