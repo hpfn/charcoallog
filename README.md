@@ -18,7 +18,7 @@ You can transfer between accounts like:
 
  - description: account name to receive credit
  - category: 'transfer'
- - payment: account name to lost credit
+ - payment: account name which credit came from
  
 
 
