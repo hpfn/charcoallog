@@ -22,38 +22,40 @@ class MethodPost:
 
     def method_post(self):
         self.form = self.editextractform(self.request_post)
-
         if self.form.is_valid():
+            del self.form.cleaned_data['update_rm']
+            del self.form.cleaned_data['pk']
+            self.form.cleaned_data['user_name'] = self.request_user
+
             self.insert_by_post()
-        else:
-            print('INVALID')
+            self.transfer_between_accounts()
 
     def insert_by_post(self):
-        what_to_do = self.form.cleaned_data.get('update_rm')
-        del self.form.cleaned_data['update_rm']
-        # id_for_update = form.cleaned_data.get('pk')
-        del self.form.cleaned_data['pk']
+        # what_to_do = self.form.cleaned_data.get('update_rm')
+        # del self.form.cleaned_data['update_rm']
+        # # id_for_update = form.cleaned_data.get('pk')
+        # del self.form.cleaned_data['pk']
 
-        self.form.cleaned_data['user_name'] = self.request_user
+        # self.form.cleaned_data['user_name'] = self.request_user
 
-        if not what_to_do:
-            self.form.save()
-            if self.form.cleaned_data['category'].startswith('transfer'):
+        #if not what_to_do:
+        self.form.save()
+        #    if self.form.cleaned_data['category'].startswith('transfer'):
                 # print(self.form.cleaned_data['category'])
-                self.transfer_between_accounts()
+        #        self.transfer_between_accounts()
 
     def transfer_between_accounts(self):
-
-        money_f = self.form.cleaned_data['money'] * -1
-        payment_f = self.form.cleaned_data['description']
-        description_f = 'credit from ' + self.form.cleaned_data['payment']
-        Extract.objects.create(
-            user_name=self.request_user,
-            date=self.form.cleaned_data['date'],
-            money=money_f,
-            description=description_f,
-            category=self.form.cleaned_data['category'],
-            payment=payment_f
-        )
+        if self.form.cleaned_data['category'].startswith('transfer'):
+            money_f = self.form.cleaned_data['money'] * -1
+            payment_f = self.form.cleaned_data['description']
+            description_f = 'credit from ' + self.form.cleaned_data['payment']
+            Extract.objects.create(
+                user_name=self.request_user,
+                date=self.form.cleaned_data['date'],
+                money=money_f,
+                description=description_f,
+                category=self.form.cleaned_data['category'],
+                payment=payment_f
+            )
         #print(self.form.cleaned_data['payment'])
 
