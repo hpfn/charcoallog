@@ -31,18 +31,7 @@ class MethodPost:
             self.transfer_between_accounts()
 
     def insert_by_post(self):
-        # what_to_do = self.form.cleaned_data.get('update_rm')
-        # del self.form.cleaned_data['update_rm']
-        # # id_for_update = form.cleaned_data.get('pk')
-        # del self.form.cleaned_data['pk']
-
-        # self.form.cleaned_data['user_name'] = self.request_user
-
-        #if not what_to_do:
         self.form.save()
-        #    if self.form.cleaned_data['category'].startswith('transfer'):
-                # print(self.form.cleaned_data['category'])
-        #        self.transfer_between_accounts()
 
     def transfer_between_accounts(self):
         if self.form.cleaned_data.get('category').startswith('transfer'):
@@ -57,5 +46,5 @@ class MethodPost:
                 category=self.form.cleaned_data.get('category'),
                 payment=payment_f
             )
-        #print(self.form.cleaned_data['payment'])
+
 
