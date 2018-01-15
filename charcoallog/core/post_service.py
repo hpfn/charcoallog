@@ -45,16 +45,16 @@ class MethodPost:
         #        self.transfer_between_accounts()
 
     def transfer_between_accounts(self):
-        if self.form.cleaned_data['category'].startswith('transfer'):
-            money_f = self.form.cleaned_data['money'] * -1
-            payment_f = self.form.cleaned_data['description']
-            description_f = 'credit from ' + self.form.cleaned_data['payment']
+        if self.form.cleaned_data.get('category').startswith('transfer'):
+            money_f = self.form.cleaned_data.get('money') * -1
+            payment_f = self.form.cleaned_data.get('description')
+            description_f = 'credit from ' + self.form.cleaned_data.get('payment')
             Extract.objects.create(
                 user_name=self.request_user,
-                date=self.form.cleaned_data['date'],
+                date=self.form.cleaned_data.get('date'),
                 money=money_f,
                 description=description_f,
-                category=self.form.cleaned_data['category'],
+                category=self.form.cleaned_data.get('category'),
                 payment=payment_f
             )
         #print(self.form.cleaned_data['payment'])
