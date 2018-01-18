@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'charcoallog.core',
     'charcoallog.accounts',
+    'charcoallog.bank',
+    'charcoallog.investment',
 ]
 
 MIDDLEWARE = [
