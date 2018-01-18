@@ -18,7 +18,7 @@ class HomeContextTest(TestCase):
         self.assertEqual(200, self.response.status_code)
 
     def test_template(self):
-        self.assertTemplateUsed(self.response, 'home.html')
+        self.assertTemplateUsed(self.response, 'bank/home.html')
 
     def test_context_only_instance(self):
         show_data = self.response.context['show_data']
