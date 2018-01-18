@@ -20,7 +20,8 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^', include('charcoallog.core.urls', namespace='core')),
-    url(r'^conta/', include('charcoallog.accounts.urls', namespace='accounts')), 
+    url(r'^conta/', include('charcoallog.accounts.urls', namespace='accounts')),
+    url(r'^bank/', include('charcoallog.bank.urls', namespace='bank')),
     url(r'^admin/', admin.site.urls),
 ]
 
