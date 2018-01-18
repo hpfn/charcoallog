@@ -14,7 +14,7 @@ def home(request):
     context = {
         'show_data': ShowData(request.method, request.GET, request.POST, request.user),
     }
-    return render(request, "home.html", context)
+    return render(request, "bank/home.html", context)
 
 
 @login_required
