@@ -4,16 +4,14 @@
 {% block content %}
 <div id="central">
 	<div class="col1">
-		{% include 'frameset_pages/form1.html' %}
-		<br /><br />
-		{% include 'frameset_pages/form2.html' %}
+		<a href="{% url 'bank:home' %}">bank app</a>
 	</div>
 	<div class="col2">
 		<div class="row1">
-			{% include 'frameset_pages/line1.html' %}
+			blank row 1
 		</div>
 		<div class="row2">
-			{% include 'frameset_pages/line3.html' %} 
+			blank row 2
 		</div>
 	</div>
 </div>
