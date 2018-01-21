@@ -32,7 +32,7 @@ $(function() {
         var data_v = $(this).serializeArray();
 
         $.post({
-            url: '/ajax_post/',
+            url: 'ajax_post/',
             data: data_v,
             success: function(content, data) {
                 function red_css(number, id_name) {
