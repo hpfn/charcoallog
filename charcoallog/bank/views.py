@@ -8,6 +8,7 @@ from charcoallog.bank.line1_service import Line1
 from charcoallog.bank.models import Extract
 from .service import ShowData
 
+
 @login_required
 def home(request):
     context = {
