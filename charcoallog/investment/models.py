@@ -21,6 +21,6 @@
 #     date = models.DateField()
 #     # money invested
 #     money = models.DecimalField(max_digits=8, decimal_places=2)
-#     kind_of_investment = models.ForeignKey(KindOfInvest)
+#     kind_of_investment = models.ForeignKey(KindOfInvest, on_delete=models.CASCADE)
 #     brokerage_name = models.ManyToManyField(BrokerFirm)
 
