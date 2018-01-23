@@ -14,7 +14,7 @@
 #     segment = models.CharField(max_length=10)
 #     # VALOR cada acao, taxa Tesouro, taxa CDB, valor de compra|venda FII
 #     tx_or_price = models.DecimalField(max_length=8, decimal_places=2)
-#     quant = models.DecimalField(max_length=8)
+#     quant = models.DecimalField(max_length=8, decimal_places=2)
 #
 #
 # class InvestmentDetails(models.Model):
