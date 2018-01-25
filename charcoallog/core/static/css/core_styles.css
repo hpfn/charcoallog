@@ -33,22 +33,6 @@ body {
 }
 
 
-#central .col1, #central .col2 {
-	float: left;
-}
-
-#central .col1 {
-	width: 20%;
-	height: 100%;
-	background-color: #EEE;
-}
-
-#central .col2 {
-	width: 80%;
-	height: 100%;
-	background-color: #EEE;
-}
-
 #central .col2 .row1 {
  	width: 100%;
  	height: 20%;
