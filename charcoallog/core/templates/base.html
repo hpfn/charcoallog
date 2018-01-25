@@ -14,13 +14,15 @@
   </head>
     <body>
       <div id="titulo">
-	      <h1>Charcoallog</h1>
+          <h1><a href="{% url 'core:home' %}">Charcoallog</a></h1>
+          <br />
 	      {% if user.is_authenticated %}
-	      <h6 align="left"> Hi {{ user.username }},
+          <div font-size="5" align="left"> Hi {{ user.username }},</div>
+          <div align="left">
 	      <a href="{% url 'accounts:logout' %}">sign out?</a> -
           <a href="{% url 'bank:home' %}">bank app</a> -
           <a href="#">investment app</a>
-          </h6>
+          </div>
           {% else %}
 	          <!--<a href="{% url 'accounts:login' %}">sign in</a>-->
 		      <a href="{% url 'accounts:register' %}">sign up</a>
