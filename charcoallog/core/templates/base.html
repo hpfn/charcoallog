@@ -29,7 +29,9 @@
 	      <h1>Charcoallog</h1>
 	      {% if user.is_authenticated %}
 	      <h6 align="left"> Hi {{ user.username }},
-	      <a href="{% url 'accounts:logout' %}">sign out?</a>
+	      <a href="{% url 'accounts:logout' %}">sign out?</a> -
+          <a href="{% url 'bank:home' %}">bank app</a> -
+          <a href="#">investment app</a>
           </h6>
           {% else %}
 	          <!--<a href="{% url 'accounts:login' %}">sign in</a>-->
