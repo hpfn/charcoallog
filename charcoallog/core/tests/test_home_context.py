@@ -1,5 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
+from django.shortcuts import resolve_url as r
+from charcoallog.bank.line1_service import Line1
 
 
 class HomeContextTest(TestCase):
@@ -9,7 +11,7 @@ class HomeContextTest(TestCase):
         user.save()
 
         self.login_in = self.client.login(username='teste', password='1qa2ws3ed')
-        self.response = self.client.get('/')
+        self.response = self.client.get(r('core:home'))
 
     def test_status_code(self):
         """ status code must be 200 """
@@ -20,3 +22,8 @@ class HomeContextTest(TestCase):
 
     def test_html_link(self):
         self.assertContains(self.response, '<a href', 3)
+
+    def test_context_only_instance(self):
+        line1 = self.response.context['line1']
+        self.assertIsInstance(line1, Line1)
+
