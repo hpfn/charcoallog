@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 from django.shortcuts import resolve_url as r
-from charcoallog.bank.line1_service import Line1
+from charcoallog.bank.brief_bank_service import BriefBank
 
 
 class HomeContextTest(TestCase):
@@ -25,5 +25,5 @@ class HomeContextTest(TestCase):
 
     def test_context_only_instance(self):
         line1 = self.response.context['line1']
-        self.assertIsInstance(line1, Line1)
+        self.assertIsInstance(line1, BriefBank)
 

@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.views.decorators.http import require_POST
 
 from charcoallog.bank.forms import EditExtractForm
-from charcoallog.bank.line1_service import Line1
+from charcoallog.bank.brief_bank_service import BriefBank
 from charcoallog.bank.models import Extract
 from .service import ShowData
 
@@ -32,7 +32,7 @@ def ajax_post(request):
             data = update_data(query_user, id_for_update, form)
 
         if not data:
-            line1 = Line1(query_user)
+            line1 = BriefBank(query_user)
             data = {'accounts': line1.account_names(),
                     'whats_left': line1.whats_left()}
 

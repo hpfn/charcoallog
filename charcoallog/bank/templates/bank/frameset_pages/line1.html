@@ -1,7 +1,7 @@
 <div id="box_line1">
 	<table align="left" cellpadding="10">
             <tr>
-            {% for key, value in show_data.line1.account_names.items %}
+            {% for key, value in show_data.brief_bank.account_names.items %}
                 <td align="center">
 					<div class="{{ key }}">
 					<b>{{ key }}</b> <br>
@@ -23,12 +23,12 @@
 				<font size="2"><b>what's left</b></font> <br>
 			    <div id="left">
 					<font size="2">
-			    {% if show_data.line1.whats_left < 0 %}
+			    {% if show_data.brief_bank.whats_left < 0 %}
 	                <font color="red">
-				    {{ show_data.line1.whats_left }}
+				    {{ show_data.brief_bank.whats_left }}
 		            </font>
 			    {% else %}
-			        {{ show_data.line1.whats_left }}
+			        {{ show_data.brief_bank.whats_left }}
 			    {% endif %}
 		        </font>
 				</div>

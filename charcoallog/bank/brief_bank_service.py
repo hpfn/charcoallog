@@ -1,7 +1,7 @@
 from collections import OrderedDict
 
 
-class Line1:
+class BriefBank:
     """
     :type account_values: dictionary views
           dict.values()
