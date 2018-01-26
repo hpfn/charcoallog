@@ -5,7 +5,7 @@ from django.db.models import QuerySet
 from django.test import TestCase
 
 from charcoallog.bank.get_service import MethodGet
-from charcoallog.bank.line1_service import Line1
+from charcoallog.bank.brief_bank_service import BriefBank
 from charcoallog.bank.models import Extract
 from charcoallog.bank.post_service import MethodPost
 from charcoallog.bank.service import ShowData
@@ -47,7 +47,7 @@ class ServiceLayerTest(TestCase):
         self.assertIsInstance(self.response.form2, MethodGet)
 
     def test_line1_instance(self):
-        self.assertIsInstance(self.response.line1, Line1)
+        self.assertIsInstance(self.response.line1, BriefBank)
 
     # def test_line1_account_names(self):
     #     self.assertIn(self.account_name, self.response.line1.account_names())

@@ -1,7 +1,7 @@
 from decimal import Decimal
 from django.test import TestCase
 
-from charcoallog.bank.line1_service import Line1
+from charcoallog.bank.brief_bank_service import BriefBank
 from charcoallog.bank.models import Extract
 
 
@@ -20,7 +20,7 @@ class Line1Test(TestCase):
 
         Extract.objects.create(**data)
         query_user = Extract.objects.user_logged(user_name)
-        self.response = Line1(query_user)
+        self.response = BriefBank(query_user)
         self.line1_account_name = self.response.account_names()
 
     def test_line1_account_names(self):
