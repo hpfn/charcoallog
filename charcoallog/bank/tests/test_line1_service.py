@@ -5,7 +5,7 @@ from charcoallog.bank.brief_bank_service import BriefBank
 from charcoallog.bank.models import Extract
 
 
-class Line1Test(TestCase):
+class BriefBankTest(TestCase):
     def setUp(self):
         user_name = 'teste'
         self.account_name = 'principal'
@@ -21,10 +21,10 @@ class Line1Test(TestCase):
         Extract.objects.create(**data)
         query_user = Extract.objects.user_logged(user_name)
         self.response = BriefBank(query_user)
-        self.line1_account_name = self.response.account_names()
+        self.brief_bank_account_name = self.response.account_names()
 
     def test_line1_account_names(self):
-        self.assertIn(self.account_name, self.line1_account_name)
+        self.assertIn(self.account_name, self.brief_bank_account_name)
 
     def test_line1_whats_left(self):
         """
