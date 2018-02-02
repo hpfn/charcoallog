@@ -5,10 +5,16 @@ from bs4 import BeautifulSoup
 
 class Scrap:
     def __init__(self):
-        self.html_doc = request.urlopen('http://www.portalbrasil.net/indices_selic.htm')
+        self.html_doc = request.urlopen('https://www.bcb.gov.br/Pec/Copom/Port/taxaSelic.asp')
         self.soup = BeautifulSoup(self.html_doc, 'html.parser')
-        table = self.soup.find_all("div", align="center")
-        self.tabela = table[3]
+        tabela = self.soup.find_all("td", class_="centralizado")
+        lst_tabela = []
+        for x, i in enumerate(tabela):
+            if '2017' in str(i):
+                celula = i.string + ' = ' + tabela[x+1].string
+                lst_tabela.append(celula)
+        self.tabela = lst_tabela
+
         # tables.remove('table')
         # print(tables.count('table'))
 
