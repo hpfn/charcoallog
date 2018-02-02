@@ -3,10 +3,10 @@ from django.shortcuts import render
 
 from charcoallog.bank.brief_bank_service import BriefBank
 from charcoallog.bank.models import Extract
+from charcoallog.core.service import BuildHome
 
 
 @login_required
 def home(request):
-    query_user = Extract.objects.user_logged(request.user)
-    context = {'line1': BriefBank(query_user)}
+    context = {'build_home': BuildHome(request.user)}
     return render(request, "home.html", context)

@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 from django.shortcuts import resolve_url as r
 from charcoallog.bank.brief_bank_service import BriefBank
+from charcoallog.core.service import BuildHome
 
 
 class HomeContextTest(TestCase):
@@ -24,6 +25,6 @@ class HomeContextTest(TestCase):
         self.assertContains(self.response, '<a href', 4)
 
     def test_context_only_instance(self):
-        line1 = self.response.context['line1']
-        self.assertIsInstance(line1, BriefBank)
+        line1 = self.response.context['build_home']
+        self.assertIsInstance(line1, BuildHome)
 

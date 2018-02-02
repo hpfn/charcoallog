@@ -1,74 +1,7 @@
 <div id="box_line3" class="scroll">
-	{# {% if messages %} #}
-	{# <ul class="messages"> #}
-	{# 	{% for message in messages %} #}
-	{# 	{% if message.tags %} #}
-    {#         <li class="{{ message.tags }}"> #}
-    {#     {% else%} #}
-    {#             <li> #}
-    {#     {% endif %} #}
-    {#                 {{ message }}</li> #}
-	{# 	{% endfor %} #}
-	{# </ul> #}
-	{# {% else %} #}
-        <br />
-        <b>Total</b>:
-        <div id="total">
-        {% if show_data.form2.query_default.total.money__sum < 0 %}
-        <font color="red">
-            {{ show_data.form2.query_default.total.money__sum }}
-        </font>
-        {% elif show_data.form2.query_default.total.money__sum >= 0 %}
-            {{ show_data.form2.query_default.total.money__sum }}
-        {% else %}
-            <font color="red">
-            Nothing for these dates or invalid search.
-            </font>
-        {% endif %}
-        </div>
-        <br />
-        {% for b in show_data.form2.query_default %}
-        <form method="post" id="{{ b.id }}">
-        {% csrf_token %}
-        <table align="center" cellpadding="2" >
-            <tr>
-                <td>
-                    <input type="hidden" name="user_name" id="user_name" value="{{ b.user_name }}" />
-                </td>
-                <td>
-                    <input type="hidden" name="pk" id="id" value="{{ b.id }}" />
-                </td>
-                <td>
-                    <input name="date" id="date" value='{{ b.date|date:"Y-m-d" }}' size="8" style="font-size:9px" readonly />
-                </td>
-                <td>
-                    {% if b.money < 0 %}
-                    <input name="money" id="money" value="{{ b.money }}" size="8" style="font-size:9px;color:red" readonly />
-                   {% else %}
-                   <input name="money" value="{{ b.money }}" size="8" style="font-size:9px" readonly />
-                   {% endif %}
-                </td>
-                <td>
-                    <input name="description" id="description" value="{{ b.description }}" size="30" style="font-size:9px" readonly />
-                </td>
-                <td>
-		            <input name="category" id="category" value="{{ b.category }}" size="15"  style="font-size:9px" readonly />
-                </td>
-                <td>
-                    <input name="payment" id="payment" value="{{ b.payment }}" size="15" style="font-size:9px" readonly />
-                </td>
-                <td>
-                    <input type="radio" name="update_rm" value="update" />update
-                    <input type="radio" name="update_rm" value="remove" checked  />remove
-                <td>
-                    <font size="2">
-                    <button type='submit' style="font-size:9px" >Send</button>
-		            </font>
-                </td>
-            </tr>
-        </table>
-    </form>
-    {% endfor %}
+    <br />
+        <b>Selic</b>
+        <b>IPCA</b>
+        <b>IBOV</b>
 	<br />
-	{# {% endif %} #}
 </div>
