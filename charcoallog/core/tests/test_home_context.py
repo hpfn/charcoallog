@@ -25,6 +25,6 @@ class HomeContextTest(TestCase):
         self.assertContains(self.response, '<a href', 4)
 
     def test_context_only_instance(self):
-        line1 = self.response.context['build_home']
-        self.assertIsInstance(line1, BuildHome)
+        build_home = self.response.context['build_home']
+        self.assertIsInstance(build_home, BuildHome)
 
