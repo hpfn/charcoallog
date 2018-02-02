@@ -23,12 +23,12 @@
 				<font size="2"><b>what's left</b></font> <br>
 			    <div id="left">
 					<font size="2">
-			    {% if line1.whats_left < 0 %}
+			    {% if build_home.line1.whats_left < 0 %}
 	                <font color="red">
-				    {{ line1.whats_left }}
+				    {{ build_home.line1.whats_left }}
 		            </font>
 			    {% else %}
-			        {{ line1.whats_left }}
+			        {{ build_home.line1.whats_left }}
 			    {% endif %}
 		        </font>
 				</div>
