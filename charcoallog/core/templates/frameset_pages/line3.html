@@ -1,7 +1,11 @@
 <div id="box_line3" class="scroll">
     <br />
-        <b>Selic</b>
-        <b>IPCA</b>
-        <b>IBOV</b>
+    <b>IPCA</b><br />
+    <b>IBOV</b><br />
+    <b>tratar tabela selic</b><br />
+        {% for txt in build_home.tabela %}
+            {{ txt }}
+        {% endfor %}
+
 	<br />
 </div>
