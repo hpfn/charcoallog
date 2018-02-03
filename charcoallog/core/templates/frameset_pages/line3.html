@@ -11,9 +11,8 @@
             </td>
             <td>' '</td>
             <td>
-                <table>
-
-                {% for txt_col1, txt in build_home.ibov_info.items %}
+                <table cellpadding="5">
+                 {% for txt_col1, txt in build_home.ibov_info.items %}
                     <tr>
                         <td  align="left"> {{ txt_col1 }} </td>
                         {% for i in txt %}
@@ -21,7 +20,6 @@
                         {% endfor %}
                     </tr>
                 {% endfor %}
-
                 </table>
             </td>
             <td>' '</td>
