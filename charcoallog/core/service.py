@@ -8,4 +8,5 @@ class BuildHome:
         self.query_user = Extract.objects.user_logged(request_user)
         self.line1 = BriefBank(self.query_user)
         tabela = Scrap()
-        self.tabela = tabela.tabela
+        self.selic_info = tabela.selic_info()
+        self.ibov_info = tabela.ibov_info()

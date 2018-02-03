@@ -4,6 +4,10 @@ from charcoallog.core.scrap_line3_service import Scrap
 
 
 class ScrapTest(TestCase):
-    def test_bs4_instance(self):
+    def test_selic_info_type(self):
         context = Scrap()
-        self.assertIsInstance(context.soup, BeautifulSoup)
+        self.assertIsInstance(context.selic_info(), type(list()))
+
+    def test_ibov_info_type(self):
+        context = Scrap()
+        self.assertIsInstance(context.ibov_info(), type(dict()))
