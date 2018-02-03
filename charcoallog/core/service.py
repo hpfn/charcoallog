@@ -10,3 +10,4 @@ class BuildHome:
         tabela = Scrap()
         self.selic_info = tabela.selic_info()
         self.ibov_info = tabela.ibov_info()
+        self.ipca_info = tabela.ipca_info()

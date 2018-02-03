@@ -24,7 +24,14 @@
             </td>
             <td>' '</td>
             <td>
-                ipca
+                <table cellpadding="5">
+                {% for ano, tx in build_home.ipca_info.items %}
+                    <tr>
+                        <td>{{ ano }}</td>
+                        <td>{{ tx }}</td>
+                    </tr>
+                {% endfor %}
+                </table>
             </td>
         </tr>
     </table>

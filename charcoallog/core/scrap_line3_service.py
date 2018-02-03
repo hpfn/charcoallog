@@ -2,7 +2,6 @@ import re
 from urllib import request
 from urllib.error import HTTPError
 
-import itertools
 from bs4 import BeautifulSoup
 
 
@@ -10,6 +9,7 @@ class Scrap:
     def __init__(self):
         self.selic_address = 'https://www.bcb.gov.br/Pec/Copom/Port/taxaSelic.asp'
         self.ibov_address = 'https://br.advfn.com/bolsa-de-valores/bovespa/ibovespa-IBOV/historico'
+        self.ipca_address = 'http://www.indiceseindicadores.com.br/ipca/'
 
     def selic_info(self):
         html_doc = request.urlopen(self.selic_address)
@@ -52,4 +52,34 @@ class Scrap:
         except HTTPError:
             return ['http error']
 
+    def ipca_info(self):
+        html_doc = request.urlopen(self.ipca_address)
+        soup = BeautifulSoup(html_doc, 'html.parser')
+        tabela_hdr = soup.find("thead")
+        # rm_tag = re.compile('<t(h|d).*;">(<strong>)?')
+        letters = re.compile('[A-Z][a-z][a-z]')
+        lttr = re.findall(letters, str(tabela_hdr))
+        lttr.pop()
 
+        tabela_bd = soup.find("tbody")
+        ano = re.compile(r'\b(?P<ano>[0-9]{4})\b')
+        get_ano = re.findall(ano, str(tabela_bd))
+        get_ano = [x for x in get_ano if not x == '']
+
+        #taxas = re.compile(r'\b(?P<indice>[0-9]{,2},[0-9]{2})\b')
+        #taxas = re.compile(r'\b(?P<ano>[0-9,]{4,5})\b')
+        taxas = re.compile(r'<(strong|b)>\b(?P<indice>[0-9]{,2},[0-9]{2})\b</(strong|b)>')
+        get_tx = re.findall(taxas, str(tabela_bd))
+        get_tx = [i[1] for i in get_tx]
+        get_tx = [i.replace(',', '.') for i in get_tx]
+        get_tx = [i for i in get_tx if float(i) > 2.0]
+
+        tx_ano_dict = {}
+        for ano, tx in zip(get_ano[:10], get_tx[:10]):
+            tx_ano_dict[ano] = tx
+
+
+        print(get_ano[:10])
+        print(get_tx[:10])
+        
+        return tx_ano_dict
