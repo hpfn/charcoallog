@@ -70,8 +70,8 @@ class Scrap:
         #taxas = re.compile(r'\b(?P<ano>[0-9,]{4,5})\b')
         taxas = re.compile(r'<(strong|b)>\b(?P<indice>[0-9]{,2},[0-9]{2})\b</(strong|b)>')
         get_tx = re.findall(taxas, str(tabela_bd))
-        get_tx = [i[1] for i in get_tx]
-        get_tx = [i.replace(',', '.') for i in get_tx]
+        get_tx = [i[1].replace(',', '.') for i in get_tx]
+        #get_tx = [i.replace(',', '.') for i in get_tx]
         get_tx = [i for i in get_tx if float(i) > 2.0]
 
         tx_ano_dict = {}
