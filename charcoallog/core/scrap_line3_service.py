@@ -72,7 +72,7 @@ class Scrap:
         get_tx = re.findall(taxas, str(tabela_bd))
         get_tx = [i[1].replace(',', '.') for i in get_tx]
         #get_tx = [i.replace(',', '.') for i in get_tx]
-        get_tx = [i for i in get_tx if float(i) > 1.5]
+        get_tx = [i for i in get_tx if float(i) > 1.0]
 
         tx_ano_dict = {}
         for ano, tx in zip(get_ano[:10], get_tx[:10]):
