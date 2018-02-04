@@ -36,7 +36,7 @@ class Scrap:
             req = request.Request(self.ibov_address, headers=hdr)
             html_doc = request.urlopen(req)
             soup = BeautifulSoup(html_doc, 'html.parser')
-            tabela_hdr = soup.find_all("th", class_=re.compile("Column(1|2|10).?(ColumnLast)? (String|Numeric)"))
+            # tabela_hdr = soup.find_all("th", class_=re.compile("Column(1|2|10).?(ColumnLast)? (String|Numeric)"))
             column1 = soup.find_all("td", class_="String Column1")
             column2 = soup.find_all("td", class_="Numeric Column2")
             column3 = soup.find_all("td", class_="Numeric Column10 ColumnLast")
