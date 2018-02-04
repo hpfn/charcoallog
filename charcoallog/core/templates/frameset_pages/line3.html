@@ -4,10 +4,14 @@
         <tr><td>Selic</td><td>Ibov</td><td>IPCA</td></tr>
         <tr>
             <td>
-                {% for txt in build_home.selic_info %}
-                    {{ txt }}
-                    <br />
-                {% endfor %}
+                <table cellpadding="5">
+                {% for period, tx in build_home.selic_info.items %}
+                <tr>
+                    <td>{{ period }}</td>
+                    <td align="right">{{ tx }}</td>
+                </tr>
+                    {% endfor %}
+                </table>
             </td>
 
             <td>

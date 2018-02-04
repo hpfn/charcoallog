@@ -15,11 +15,10 @@ class Scrap:
         html_doc = request.urlopen(self.selic_address)
         soup = BeautifulSoup(html_doc, 'html.parser')
         tabela = soup.find_all("td", class_="centralizado")
-        lst_tabela = []
-        for x, i in enumerate(tabela):
-            if '2017' in str(i):
-                celula = i.string + ' = ' + tabela[x+1].string
-                lst_tabela.append(celula)
+        # Use datetime for '2017' and '2018'
+        lst_tabela = {i.string: tabela[x+1].string
+                      for x, i in enumerate(tabela)
+                      if '2017' in i.string or '2018' in i.string}
 
         return lst_tabela
 
