@@ -55,29 +55,29 @@ class Scrap:
     def ipca_info(self):
         html_doc = request.urlopen(self.ipca_address)
         soup = BeautifulSoup(html_doc, 'html.parser')
-        tabela_hdr = soup.find("thead")
+        # tabela_hdr = soup.find("thead")
         # rm_tag = re.compile('<t(h|d).*;">(<strong>)?')
-        letters = re.compile('[A-Z][a-z][a-z]')
-        lttr = re.findall(letters, str(tabela_hdr))
-        lttr.pop()
+        # letters = re.compile('[A-Z][a-z][a-z]')
+        # lttr = re.findall(letters, str(tabela_hdr))
+        # lttr.pop()
+        # print(lttr)
 
         tabela_bd = soup.find("tbody")
-        ano = re.compile(r'\b(?P<ano>[0-9]{4})\b')
+        ano = re.compile(r'<strong>\b(?P<ano>[0-9]{4})\b</strong>')
         get_ano = re.findall(ano, str(tabela_bd))
-        get_ano = [x for x in get_ano if not x == '']
+        # get_ano = [x for x in get_ano]
 
-        #taxas = re.compile(r'\b(?P<indice>[0-9]{,2},[0-9]{2})\b')
-        #taxas = re.compile(r'\b(?P<ano>[0-9,]{4,5})\b')
+        # taxas = re.compile(r'\b(?P<indice>[0-9]{,2},[0-9]{2})\b')
+        # taxas = re.compile(r'\b(?P<ano>[0-9,]{4,5})\b')
         taxas = re.compile(r'<(strong|b)>\b(?P<indice>[0-9]{,2},[0-9]{2})\b</(strong|b)>')
         get_tx = re.findall(taxas, str(tabela_bd))
         get_tx = [i[1].replace(',', '.') for i in get_tx]
-        #get_tx = [i.replace(',', '.') for i in get_tx]
-        get_tx = [i for i in get_tx if float(i) > 1.0]
+        # get_tx = [i.replace(',', '.') for i in get_tx]
+        get_tx = [i for i in get_tx if float(i) > 0.85]
 
         tx_ano_dict = {}
         for ano, tx in zip(get_ano[:10], get_tx[:10]):
             tx_ano_dict[ano] = tx
-
 
         print(get_ano[:10])
         print(get_tx[:10])
