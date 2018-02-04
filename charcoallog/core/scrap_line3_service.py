@@ -1,7 +1,7 @@
 import re
 from urllib import request
 from urllib.error import HTTPError
-
+from datetime import date
 from bs4 import BeautifulSoup
 
 
@@ -12,15 +12,19 @@ class Scrap:
         self.ipca_address = 'http://www.indiceseindicadores.com.br/ipca/'
 
     def selic_info(self):
+        data = date.today()
+        this_year = data.strftime("%Y")
+        last_year = str(int(this_year) - 1)
+
         html_doc = request.urlopen(self.selic_address)
         soup = BeautifulSoup(html_doc, 'html.parser')
         tabela = soup.find_all("td", class_="centralizado")
-        # Use datetime for '2017' and '2018'
-        lst_tabela = {i.string: tabela[x+1].string
-                      for x, i in enumerate(tabela)
-                      if '2017' in i.string or '2018' in i.string}
 
-        return lst_tabela
+        tabela_dict = {i.string: tabela[x+1].string
+                       for x, i in enumerate(tabela)
+                       if last_year in i.string or this_year in i.string}
+
+        return tabela_dict
 
     def ibov_info(self):
         try:
