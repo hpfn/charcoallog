@@ -1,7 +1,7 @@
 <div id="box_line3" class="scroll">
     <br />
-    <table>
-        <tr><td>Selic</td><td></td><td>Ibov</td><td></td><td>IPCA</td></tr>
+    <table cellpadding="15">
+        <tr><td>Selic</td><td>Ibov</td><td>IPCA</td></tr>
         <tr>
             <td>
                 {% for txt in build_home.selic_info %}
@@ -9,7 +9,7 @@
                     <br />
                 {% endfor %}
             </td>
-            <td>' '</td>
+
             <td>
                 <table cellpadding="5">
                  {% for txt_col1, txt in build_home.ibov_info.items %}
@@ -22,7 +22,7 @@
                 {% endfor %}
                 </table>
             </td>
-            <td>' '</td>
+
             <td>
                 <table cellpadding="5">
                 {% for ano, tx in build_home.ipca_info.items %}
