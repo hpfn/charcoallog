@@ -56,7 +56,7 @@ class HomeContextTest(TestCase):
             check line1.account_names
         """
         zero = self.response.context['show_data']
-        self.assertEqual(zero.line1.whats_left(), 0)
+        self.assertEqual(zero.brief_bank.whats_left(), 0)
 
     def test_bottom_id(self):
         self.assertContains(self.response, '<b>charcoallog released under GPL-3+</b>')
