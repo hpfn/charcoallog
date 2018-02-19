@@ -47,7 +47,7 @@ class ServiceLayerTest(TestCase):
         self.assertIsInstance(self.response.form2, MethodGet)
 
     def test_line1_instance(self):
-        self.assertIsInstance(self.response.line1, BriefBank)
+        self.assertIsInstance(self.response.brief_bank, BriefBank)
 
     # def test_line1_account_names(self):
     #     self.assertIn(self.account_name, self.response.line1.account_names())
