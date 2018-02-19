@@ -15,7 +15,7 @@ class ScrapTest(TestCase):
         ]
         for content in contents:
             with self.subTest():
-                self.assertIsInstance(content, type(dict()))
+                self.assertIsInstance(content, type(list()))
 
     # def test_selic_info_type(self):
     #     self.assertIsInstance(self.context.selic_info(), type(dict()))
