@@ -5,7 +5,7 @@
         <tr>
             <td>
                 <table cellpadding="5">
-                {% for period, tx in build_home.selic_info.items %}
+                {% for period, tx in build_home.selic_info %}
                 <tr>
                     <td>{{ period }}</td>
                     <td align="right">{{ tx }}</td>
@@ -16,7 +16,7 @@
 
             <td>
                 <table cellpadding="5">
-                 {% for txt_col1, txt in build_home.ibov_info.items %}
+                 {% for txt_col1, txt in build_home.ibov_info %}
                     <tr>
                         <td  align="left"> {{ txt_col1 }} </td>
                         {% for i in txt %}
@@ -29,7 +29,7 @@
 
             <td>
                 <table cellpadding="5">
-                {% for ano, tx in build_home.ipca_info.items %}
+                {% for ano, tx in build_home.ipca_info %}
                     <tr>
                         <td>{{ ano }}</td>
                         <td>{{ tx }}</td>

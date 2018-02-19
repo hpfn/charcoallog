@@ -20,9 +20,14 @@ class Scrap:
         soup = BeautifulSoup(html_doc, 'html.parser')
         tabela = soup.find_all("td", class_="centralizado")
 
-        tabela_dict = {i.string: tabela[x+1].string
+#        tabela_dict = {i.string: tabela[x+1].string
+#                       for x, i in enumerate(tabela)
+#                       if last_year in i.string or this_year in i.string}
+
+        tabela_dict = [[i.string, tabela[x+1].string]
                        for x, i in enumerate(tabela)
-                       if last_year in i.string or this_year in i.string}
+                       if last_year in i.string or this_year in i.string]
+
 
         return tabela_dict
 
@@ -47,15 +52,12 @@ class Scrap:
             column3 = soup.find_all("td", class_="Numeric Column10 ColumnLast")
             column3.insert(0, tabela_hdr[2])
 
-            # head_th = ''
-            # for i in tabela_hdr:
-            #     head_th += i.string
-            #     head_th += ' '
-            #head_dict = {}
-            #head_dict['Periodo'] = ['Abertura', 'Percentual']
-            head_dict = {col1.string: [col2.string, col3.string]
-                         for col1, col2, col3 in zip(column1, column2, column3)}
-            #    head_dict[col1.string] = [col2.string, col3.string]
+
+            #head_dict = {col1.string: [col2.string, col3.string]
+            #             for col1, col2, col3 in zip(column1, column2, column3)}
+
+            head_dict = [[col1.string, [col2.string, col3.string]]
+                         for col1, col2, col3 in zip(column1, column2, column3)]
 
             return head_dict
         except HTTPError:
@@ -77,9 +79,9 @@ class Scrap:
         get_tx = [i[2] for i in get_tx]
         #get_tx = [i for i in get_tx if float(i) > 0.85]
 
-        tx_ano_dict = {ano: tx for ano, tx in zip(get_ano[:10], get_tx[:10])}
-
-        print(get_ano[:10])
-        print(get_tx[:10])
+        #tx_ano_dict = {ano: tx for ano, tx in zip(get_ano[:10], get_tx[:10])}
+        tx_ano_dict = [[ano, tx] for ano, tx in zip(get_ano[:10], get_tx[:10])]
+        #print(get_ano[:10])
+        #print(get_tx[:10])
         
         return tx_ano_dict
