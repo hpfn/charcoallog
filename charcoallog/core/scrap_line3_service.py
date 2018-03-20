@@ -73,10 +73,10 @@ class Scrap:
         get_ano = re.findall(ano, str(tabela_bd))
 
         # taxas = re.compile(r'<(strong|b)>\b(?P<indice>[0-9]{,2},[0-9]{2})\b</(strong|b)>')
-        taxas = re.compile(r'<td style="text-align: right; width: 71.8854px; height: 21.*px;"><span style="font-size: 10pt;">(<(strong|b)>)?\b(?P<indice>[0-9]{,2},[0-9]{2})\b(</(strong|b)>)?</span></td>')
+        taxas = re.compile(r'<td style="text-align: right; width: [0-9.]{3,}px; height: [0-9.]{2,}px;">(<span style="font-size: 10pt;">)?(<(strong|b)>)?\b(?P<indice>[0-9]{,2},[0-9]{2})\b(</(strong|b)>)?(</span>)?</td>')
 
         get_tx = re.findall(taxas, str(tabela_bd))
-        get_tx = [i[2] for i in get_tx]
+        get_tx = [i[3] for i in get_tx]
         #get_tx = [i for i in get_tx if float(i) > 0.85]
 
         #tx_ano_dict = {ano: tx for ano, tx in zip(get_ano[:10], get_tx[:10])}
