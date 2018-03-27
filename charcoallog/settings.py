@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'test_without_migrations',
+    'django_extensions',
     'charcoallog.core',
     'charcoallog.accounts',
     'charcoallog.bank',
