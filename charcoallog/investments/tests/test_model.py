@@ -1,5 +1,5 @@
 from django.test import TestCase
-from charcoallog.investment.models import InvestmentDetails, KindOfInvest, BrokerFirm
+from charcoallog.investments.models import InvestmentDetails, KindOfInvest, BrokerFirm
 
 
 class InvestmentModelTest(TestCase):

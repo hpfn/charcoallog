@@ -22,7 +22,7 @@ urlpatterns = [
     url(r'^', include('charcoallog.core.urls', namespace='core')),
     url(r'^conta/', include('charcoallog.accounts.urls', namespace='accounts')),
     url(r'^bank/', include('charcoallog.bank.urls', namespace='bank')),
-    url(r'^investment/', include('charcoallog.investment.urls', namespace='investment')),
+    url(r'^investments/', include('charcoallog.investments.urls', namespace='investments')),
     url(r'^admin/', admin.site.urls),
 ]
 
