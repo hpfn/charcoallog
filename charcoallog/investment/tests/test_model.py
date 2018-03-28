@@ -1,23 +1,20 @@
 from django.test import TestCase
+from charcoallog.investment.models import InvestmentDetails, KindOfInvest, BrokerFirm
 
 
 class InvestmentModelTest(TestCase):
     def test_create(self):
         """ WTTD M3A03 """
-        obj = InvestmentDetails(
+        InvestmentDetails.objects.create(
             date='2018-03-27',
-            money='94.42',
-            #kind_of_investment=models.ForeignKey(KindOfInvest, on_delete=models.CASCADE),
-            # Nome Acao, Tesouro, CDB, FII
-            kind='Títulos Públicos',
-            # Qual acao, tesouro, banco(CDB), cod FII
-            which_target='Tesouro Direto',
-            # PN|ON, NTNB|SELIC|LTF, carencia CDB, QUANT FII
-            segment='Selic 2023',
-            # VALOR cada acao, taxa Tesouro, taxa CDB, valor de compra|venda FII
-            tx_or_price='0.01',
-            quant='1',
-            brokerage_name='Ativa'
+            money=94.42,
+            kind_of_investment=KindOfInvest(
+                kind='Títulos Públicos',
+                which_target='Tesouro Direto',
+                segment='Selic 2023',
+                tx_or_price=0.01,
+                quant=1.00,
+            ),
+            brokerage_name=BrokerFirm(brokerage='Ativa')
         )
-        obj.save()
-        self.assertTrue(InvestmentDetail.objects.exists())
+        self.assertTrue(InvestmentDetails.objects.exists())
