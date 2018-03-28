@@ -14,7 +14,7 @@ class InvestmentHomeOkTest(TestCase):
     def test_login(self):
         self.assertTrue(self.login_in)
 
-    def test_get_root(self):
+    def test_get_status_code(self):
         self.assertEqual(200, self.response.status_code)
 
     def test_template(self):
