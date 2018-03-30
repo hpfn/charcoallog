@@ -1,5 +1,7 @@
 from django.shortcuts import render
+from charcoallog.investments.forms import InvestmentForm
 
-# Create your views here.
+
 def home(request):
-    return render(request, 'investments/home.html')
+    context = {'form': InvestmentForm()}
+    return render(request, 'investments/home.html', context)
