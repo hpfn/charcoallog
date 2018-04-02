@@ -1,8 +1,5 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-
-from charcoallog.bank.brief_bank_service import BriefBank
-from charcoallog.bank.models import Extract
 from charcoallog.core.service import BuildHome
 
 
