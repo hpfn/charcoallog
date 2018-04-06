@@ -1,67 +1,37 @@
-body {
-    overflow: hidden;
-    margin-top: 22x;
-    margin-right: 10px;
-    margin-left: 10px;
-    margin-bottom: 5px;
-}
-
-.scroll {
-	overflow: auto;
-}
-
-#titulo {
-	width: 100%;
-	height: 12%;
-	text-align: center;
-	background-color: #999;
-	margin-bottom: 2px;
-}
-
-#central {
+#bank_central {
 	width: 100%;
 	height: 80%;
 }
 
-#rodape {
-	width: 100%;
-	height: 3%;
-	margin-top: 2px;
-	font-size: 8px;
-	text-align: center;
-	background-color: #999;
-}
-
-
-#central .col1, #central .col2 {
+#bank_central .bank_col1, #bank_central .bank_col2 {
 	float: left;
 }
 
-#central .col1 {
+#bank_central .bank_col1 {
 	width: 20%;
 	height: 100%;
 	background-color: #EEE;
 }
 
-#central .col2 {
+#bank_central .bank_col2 {
 	width: 80%;
 	height: 100%;
 	background-color: #EEE;
 }
 
-#central .col2 .row1 {
+#bank_central .bank_col2 .bank_row1 {
  	width: 100%;
  	height: 20%;
 	background-color: #EEE;
 }
 
-#central .col2 .row2 {
+#bank_central .bank_col2 .bank_row2 {
  	width: 100%;
  	height: 77%;
 	background-color: #EEE;
 }
 
-#box_form1 {
+#bank_box_form1 {
     font-size: 10px;
 	background: #CCC;
 	width:90%;
@@ -75,7 +45,7 @@ body {
 	border-radius:7px;
 }
 
-#box_form2 {
+#bank_box_form2 {
     font-size: 10px;
 	background:#CCC;
 	width:90%;
@@ -89,7 +59,7 @@ body {
 	border-radius:7px;
 }
 
-#box_line1 {
+#bank_box_line1 {
 	background: #CCC;
 	width: 90%;
 	height: 62%;
@@ -102,7 +72,7 @@ body {
 	border-radius:7px;
 }
 
-#box_line3 {
+#bank_box_line3 {
 	background: #CCC;
 	width: 90%;
 	height: 90%;

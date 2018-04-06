@@ -1,18 +1,18 @@
-{% extends "bank/base.html" %}
+{% extends "base.html" %}
 
 
 {% block content %}
-<div id="central">
-	<div class="col1">
+<div id="bank_central">
+	<div class="bank_col1">
 		{% include 'bank/frameset_pages/form1.html' %}
 		<br /><br />
 		{% include 'bank/frameset_pages/form2.html' %}
 	</div>
-	<div class="col2">
-		<div class="row1">
+	<div class="bank_col2">
+		<div class="bank_row1">
 			{% include 'bank/frameset_pages/line1.html' %}
 		</div>
-		<div class="row2">
+		<div class="bank_row2">
 			{% include 'bank/frameset_pages/line3.html' %}
 		</div>
 	</div>
