@@ -24,7 +24,7 @@ class HomeContextTest(TestCase):
         show_data = self.response.context['show_data']
         self.assertIsInstance(show_data, ShowData)
 
-    def test_logout_link(self):
+    def test_number_of_href(self):
         self.assertContains(self.response, '<a href', 4)
 
     def test_html_forms_initial(self):
