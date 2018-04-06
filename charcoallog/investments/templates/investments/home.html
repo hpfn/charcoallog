@@ -1,14 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "bank/base.html" %}
 
 
-
-
-
-</body>
-</html>
+{% block content %}
+<div id="central">
+    <div class="col1">
+        {% include 'bank/frameset_pages/form1.html' %}
+    </div>
+    <div class="col2">
+        <div class="row1">
+            {# include 'bank/frameset_pages/line1.html' #}
+        </div>
+        <div class="row2">
+            {# include 'bank/frameset_pages/line3.html' #}
+        </div>
+    </div>
+</div>
+{% endblock %}
