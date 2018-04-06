@@ -47,7 +47,6 @@ class HomeContextTest(TestCase):
         self.assertContains(self.response, 'csrfmiddlewaretoken', 2)
 
     def test_total_line3(self):
-        """ Total must be 'Wrong date or invalid search' at first time """
         self.assertContains(self.response, 'Nothing for these dates or invalid search.', 1)
 
     def test_whats_left(self):
