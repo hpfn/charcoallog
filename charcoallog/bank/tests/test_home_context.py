@@ -25,7 +25,7 @@ class HomeContextTest(TestCase):
         self.assertIsInstance(show_data, ShowData)
 
     def test_logout_link(self):
-        self.assertContains(self.response, '<a href', 1)
+        self.assertContains(self.response, '<a href', 4)
 
     def test_html_forms_initial(self):
         """" Html must contain input tags at first time """
