@@ -1,7 +1,7 @@
 $(function() {
     var old_money = 0;
     var old_account = 0;
-    $("#box_line3 input").bind('click', function() {
+    $("#bank_box_line3 input").bind('click', function() {
         if ( $(this).val() == 'update') {
             $(this).parents("table").find('input').removeAttr('readonly');
         }
@@ -9,7 +9,7 @@ $(function() {
             $(this).parents("table").find('input').attr('readonly', true);
         }
     });
-    $("#box_line3 input").focusin(function() {
+    $("#bank_box_line3 input").focusin(function() {
         if ( Number.isFinite(Number($(this).val())) ) {
             old_money = $(this).val();
         }
@@ -18,7 +18,7 @@ $(function() {
             //console.log(old_account);
         }
     });
-    $("#box_line3 input").focusout(function() {
+    $("#bank_box_line3 input").focusout(function() {
         if ( $(this).val() < 0 ) {
             $(this).css('color', 'red');
         } else {
@@ -27,7 +27,7 @@ $(function() {
     });
 
 
-    $("#box_line3 form").on('submit', function(e) {
+    $("#bank_box_line3 form").on('submit', function(e) {
         e.preventDefault();
         var data_v = $(this).serializeArray();
 

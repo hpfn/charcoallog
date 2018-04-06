@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 
 {% block content %}
 <div id="bank_central">
@@ -18,3 +18,19 @@
 	</div>
 </div>
 {% endblock %}
+
+{% block head_javascript %}
+{# jquery for calendar and line3.html #}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="{% static 'django_csrf.js' %}"></script>
+<script type="text/javascript" src="{% static 'ajax_core.js' %}"></script>
+{# <script src="{% static 'click.js' %}"></script> #}
+<script>
+        $( function() {
+            $( "#datepicker" ).datepicker();
+        } );
+</script>
+{% endblock %}
+
