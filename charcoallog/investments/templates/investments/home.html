@@ -6,47 +6,7 @@
 </head>
 <body>
 
-<h2>formulario</h2>
-<form action="." method="post">
-    {% csrf_token %}
-    <p>
-        <label for="{{ form.date.id_for_label }}">{{ form.date.label }}</label>
-        {{ form.date.errors }}
-        {{ form.date }}
-    </p>
 
-    <p>
-        <label for="{{ form.money.id_for_label }}">{{ form.money.label }}</label>
-        {{ form.money.errors }}
-        {{ form.money }}
-    </p>
-
-    <p>
-        <label for="{{ form.kind.id_for_label }}">{{ form.kind.label }}</label>
-        {{ form.kind.errors }}
-        {{ form.kind }}
-    </p>
-
-    <p>
-        <label for="{{ form.which_target.id_for_label }}">{{ form.which_target.label }}</label>
-        {{ form.which_target.errors }}
-        {{ form.which_target }}
-    </p>
-
-    <p>
-        <label for="{{ form.tx_op.id_for_label }}">{{ form.tx_op.label }}</label>
-        {{ form.tx_op.errors }}
-        {{ form.tx_op }}
-    </p>
-
-    <p>
-        <label for="{{form.brokerage.id_for_label }}">{{ form.brokerage.label }}</label>
-        {{ form.brokerage.errors }}
-        {{ form.brokerage }}
-    </p>
-
-    <input type="submit" value="Submit" />
-</form>
 
 
 
