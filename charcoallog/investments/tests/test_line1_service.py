@@ -22,8 +22,8 @@ class BriefInvestmentTest(TestCase):
         Investment.objects.create(**data)
         #query_user = Extract.objects.user_logged(user_name)
         self.response = BriefInvestment()
-        self.brief_investment_brokerage = self.response.brokerage_names()
-        self.brief_investment_type = self.response.investment_types()
+        self.brief_investment_brokerage = self.response.brokerage_or_invest_type('brokerage')  # self.response.brokerage_names()
+        self.brief_investment_type = self.response.brokerage_or_invest_type('kind')  # self.response.investment_types()
 
     def test_line1_borkerage_names(self):
         """ Brokerage Name """
@@ -35,10 +35,10 @@ class BriefInvestmentTest(TestCase):
 
     def test_line1_brokerage_total_amount(self):
         """ How much money at brokerage """
-        self.assertEqual(self.response.total_amount(), Decimal('10.00'))
+        self.assertEqual(self.response.total_amount(self.brief_investment_brokerage.values()), Decimal('10.00'))
 
     def test_investment_type_total_amount(self):
         """ How much money by investment """
-        self.assertEqual(self.response.investment_total_amount(), Decimal('10.00'))
+        self.assertEqual(self.response.total_amount(self.brief_investment_type.values()), Decimal('10.00'))
 
 
