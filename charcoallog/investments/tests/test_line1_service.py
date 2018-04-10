@@ -27,7 +27,7 @@ class BriefInvestmentTest(TestCase):
         """ Brokerage Name """
         self.assertIn(self.brokerage_name, self.brief_investment_brokerage)
 
-    def test_line1_whats_left(self):
+    def test_line1_brokerage_total_amount(self):
         """
             How much money at brokerage
         """
