@@ -1,4 +1,20 @@
 from django.db import models
+from django.db.models import Sum
+
+
+class InvestmentStatementQuerySet(models.QuerySet):
+    # def user_logged(self, user_name):
+    #     return self.filter(user_name=user_name)
+    #
+    # def date_range(self, from_date, to_date):
+    #     return self.filter(date__gte=from_date, date__lte=to_date)
+    #
+    # def which_field(self, column):
+    #     return self.filter(Q(payment=column) | Q(category=column) |
+    #                        Q(description=column)).filter(~Q(category__startswith='transfer'))
+
+    def total(self):
+        return self.aggregate(Sum('money'))
 
 
 class BasicData(models.Model):
@@ -20,6 +36,8 @@ class InvestmentDetails(BasicData):
 class Investment(BasicData):
     tx_op = models.DecimalField(max_digits=4, decimal_places=2)
     brokerage = models.CharField(max_length=15)
+
+    objects = models.Manager.from_queryset(InvestmentStatementQuerySet)()
 
     def save(self, **kwargs):
         super(Investment, self).save(**kwargs)
