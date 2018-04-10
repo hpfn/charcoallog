@@ -23,7 +23,7 @@ class BriefInvestmentTest(TestCase):
         self.response = BriefInvestment()
         self.brief_investment_brokerage = self.response.brokerage_names()
 
-    def test_line1_account_names(self):
+    def test_line1_borkerage_names(self):
         """ Brokerage Name """
         self.assertIn(self.brokerage_name, self.brief_investment_brokerage)
 
