@@ -1,40 +1,55 @@
 from collections import OrderedDict
-
+from django.db.models import Q
 from charcoallog.investments.models import Investment
 
 
 class BriefInvestment:
     def __init__(self):
         self.query_user = Investment.objects
-        self.account_values = None
-        self.investment_amount = None
+        self.account = {}
+        # self.investment_type = {}
 
-    def brokerage_names(self):
-        names_iterator = set(self.query_user.values_list('brokerage'))
+    def brokerage_or_invest_type(self, brk_or_invest_t):
+        names_iterator = set(self.query_user.values_list(brk_or_invest_t))
 
-        account = {
-            conta[0]: self.query_user.filter(brokerage=conta[0]).total()
-            for conta in names_iterator
+        self.account = {
+            k[0]: self.query_user.filter(Q(brokerage=k[0]) | Q(kind=k[0])).total()
+            for k in names_iterator
         }
 
-        self.account_values = account.values()
+        # self.account_values = account.values()
 
-        return OrderedDict(sorted(account.items()))
+        return OrderedDict(sorted(self.account.items()))
 
-    def total_amount(self):
-        return sum([resto['money__sum'] for resto in self.account_values])
+    @staticmethod
+    def total_amount(values):
+        return sum([resto['money__sum'] for resto in values])
+    #        return sum([resto['money__sum'] for resto in self.account.values()])
 
-    def investment_types(self):
-        names_iterator = set(self.query_user.values_list('kind'))
+    # def brokerage_names(self):
+    #     names_iterator = set(self.query_user.values_list('brokerage'))
+    #
+    #     self.account = {
+    #         conta[0]: self.query_user.filter(brokerage=conta[0]).total()
+    #         for conta in names_iterator
+    #     }
+    #
+    #     # self.account_values = account.values()
+    #
+    #     return OrderedDict(sorted(self.account.items()))
 
-        account = {
-            conta[0]: self.query_user.filter(kind=conta[0]).total()
-            for conta in names_iterator
-        }
+# def investment_types(self):
+#     names_iterator = set(self.query_user.values_list('kind'))
+#
+#     self.investment_type = {
+#         type[0]: self.query_user.filter(kind=type[0]).total()
+#         for type in names_iterator
+#     }
+#
+#     # self.investment_amount = invest_type.values()
+#
+#     return OrderedDict(sorted(self.investment_type.items()))
 
-        self.investment_amount = account.values()
-
-        return OrderedDict(sorted(account.items()))
-
-    def investment_total_amount(self):
-        return sum([resto['money__sum'] for resto in self.investment_amount])
+# def investment_total_amount(self):
+#     return sum([resto['money__sum'] for resto in self.investment_type.values()])
+#
