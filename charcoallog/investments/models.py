@@ -20,3 +20,23 @@ class InvestmentDetails(BasicData):
 class Investment(BasicData):
     tx_op = models.DecimalField(max_digits=4, decimal_places=2)
     brokerage = models.CharField(max_length=15)
+
+    def save(self, **kwargs):
+        super(Investment, self).save(**kwargs)
+
+        data = {
+            'date': self.date,
+            'money': self.money,
+            'kind': self.kind,
+            'which_target': self.which_target,
+            'segment': '---',
+            'tx_or_price': 00.00,
+            'quant': 00.00
+        }
+        InvestmentDetails.objects.create(**data)
+
+
+
+
+
+
