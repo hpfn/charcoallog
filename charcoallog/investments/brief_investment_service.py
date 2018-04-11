@@ -4,8 +4,8 @@ from charcoallog.investments.models import Investment
 
 
 class BriefInvestment:
-    def __init__(self):
-        self.query_user = Investment.objects
+    def __init__(self, user_name):
+        self.query_user = Investment.objects.user_logged(user_name)
         self.account = {}
         # self.investment_type = {}
 

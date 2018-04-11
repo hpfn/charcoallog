@@ -3,9 +3,9 @@ from django.db.models import Sum
 
 
 class InvestmentStatementQuerySet(models.QuerySet):
-    # def user_logged(self, user_name):
-    #     return self.filter(user_name=user_name)
-    #
+    def user_logged(self, user_name):
+        return self.filter(user_name=user_name)
+
     # def date_range(self, from_date, to_date):
     #     return self.filter(date__gte=from_date, date__lte=to_date)
     #
@@ -18,12 +18,14 @@ class InvestmentStatementQuerySet(models.QuerySet):
 
 
 class BasicData(models.Model):
+    user_name = models.CharField(max_length=30)
     date = models.DateField()
     money = models.DecimalField(max_digits=8, decimal_places=2)
     # Acao, Titulo Publico, CDB, FII
     kind = models.CharField(max_length=20)
     # Qual acao, titulo publico, banco(CDB), cod FII
     which_target = models.CharField(max_length=20)
+
 
 class InvestmentDetails(BasicData):
     # PN|ON, NTNB|SELIC|LTF, carencia CDB, sobre FII
@@ -43,6 +45,7 @@ class Investment(BasicData):
         super(Investment, self).save(**kwargs)
 
         data = {
+            'user_name': self.user_name,
             'date': self.date,
             'money': self.money,
             'kind': self.kind,

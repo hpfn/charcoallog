@@ -5,7 +5,8 @@ from charcoallog.investments.models import Investment, InvestmentDetails
 class InvestmentModelTest(TestCase):
     """ M3A03 - WTTD """
     def setUp(self):
-        Investment.objects.create(
+        data = dict(
+            user_name='teste',
             date='2018-03-27',
             tx_op=00.00,
             money=94.42,
@@ -13,6 +14,7 @@ class InvestmentModelTest(TestCase):
             which_target='Tesouro Direto',
             brokerage='Ativa'
         )
+        Investment.objects.create(**data)
 
     def test_investments_exists(self):
         """ Test if investment is created"""

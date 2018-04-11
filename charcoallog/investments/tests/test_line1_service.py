@@ -1,4 +1,4 @@
-from decimal import Decimal
+# from decimal import Decimal
 from django.test import TestCase
 from charcoallog.investments.brief_investment_service import BriefInvestment
 from charcoallog.investments.models import Investment
@@ -6,11 +6,11 @@ from charcoallog.investments.models import Investment
 
 class BriefInvestmentTest(TestCase):
     def setUp(self):
-        #user_name = 'teste'
+        user_name = 'teste'
         self.brokerage_name = 'ATIVA'
         self.kind = 'Títulos Públicos'
         data = dict(
-            #user_name=user_name,
+            user_name=user_name,
             date='2018-03-27',
             tx_op=00.00,
             money='10.00',
@@ -21,9 +21,9 @@ class BriefInvestmentTest(TestCase):
 
         Investment.objects.create(**data)
         #query_user = Extract.objects.user_logged(user_name)
-        self.response = BriefInvestment()
-        self.brief_investment_brokerage = self.response.brokerage_or_invest_type('brokerage')  # self.response.brokerage_names()
-        self.brief_investment_type = self.response.brokerage_or_invest_type('kind')  # self.response.investment_types()
+        self.response = BriefInvestment(user_name)
+        self.brief_investment_brokerage = self.response.brokerage_or_invest_type('brokerage')
+        self.brief_investment_type = self.response.brokerage_or_invest_type('kind')
 
     def test_line1_borkerage_names(self):
         """ Brokerage Name """
