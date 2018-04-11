@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 from charcoallog.investments.forms import InvestmentForm
+from charcoallog.investments.service import ShowData
+
 
 class InvestmentHomeOkTest(TestCase):
     def setUp(self):
@@ -49,5 +51,8 @@ class InvestmentHomeOkTest(TestCase):
             list(form.fields)
         )
 
+    def test_show_data(self):
+        data = self.response.context['methodget']
+        self.assertIsInstance(data, ShowData)
 
 

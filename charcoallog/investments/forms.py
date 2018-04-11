@@ -9,3 +9,8 @@ class InvestmentForm(forms.Form):
     which_target = forms.CharField()
     tx_op = forms.DecimalField()
     brokerage = forms.CharField()
+
+    # class Meta:
+    #     model = Investment
+    #     fields = ['date', 'money', 'kind',
+    #               'which_target, 'tx_op', 'brokerage']

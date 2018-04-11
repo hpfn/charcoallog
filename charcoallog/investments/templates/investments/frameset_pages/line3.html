@@ -1,0 +1,39 @@
+<div id="invest_box_line3" class="scroll">
+    {% for b in show_data.methodget.query_default %}
+    <form method="post">
+        {% csrf_token %}
+        <table align="center" cellpadding="2" >
+            <tr>
+                {# <td> #}
+                    {# <input type="hidden" name="pk" id="id" value="{{ b.id }}" /> #}
+                {# </td> #}
+                <td>
+                    {{ b.date }}
+                </td>
+                <td>
+                    {{ b.money }}
+                </td>
+                <td>
+                    {{ b.kind }}
+                </td>
+                <td>
+                    {{ b.which_target }}
+                </td>
+                <td>
+                    {{ b.tx_op }}
+                </td>
+                <td>
+                    {{ b.brokerage }}
+                </td>
+                <td>
+                    <font size="2">
+                        <button type='submit' style="font-size:9px" >Send</button>
+                    </font>
+                </td>
+            </tr>
+        </table>
+    </form>
+    {% endfor %}
+    <br />
+    {# {% endif %} #}
+</div>
