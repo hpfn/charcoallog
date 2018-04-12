@@ -9,6 +9,7 @@ from charcoallog.investments.post_service import MethodPost
 class RQST:
     pass
 
+
 class ValidPostMethod(TestCase):
     def setUp(self):
         self.user = 'teste'
