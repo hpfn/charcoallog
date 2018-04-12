@@ -31,7 +31,7 @@ class ValidPostMethod(TestCase):
 
     def test_investmentform_instance(self):
         """
-            investmentform attr must be a EditExtractForm instance.
+            investmentform attr must be a InvestmentForm instance.
         """
         self.assertIsInstance(self.response.investmentform(), InvestmentForm)
 
