@@ -44,10 +44,10 @@ class InvestmentHomeOkTest(TestCase):
         self.assertIsInstance(form, InvestmentForm)
 
     def test_form_has_fields(self):
-        """ Form must have 6 fields"""
+        """ Form must have 7 fields"""
         form = self.response.context['form']
         self.assertSequenceEqual(
-            ['date', 'money', 'kind', 'which_target', 'tx_op', 'brokerage'],
+            ['user_name', 'date', 'money', 'kind', 'which_target', 'tx_op', 'brokerage'],
             list(form.fields)
         )
 
