@@ -41,9 +41,8 @@ class Investment(BasicData):
 
     objects = models.Manager.from_queryset(InvestmentStatementQuerySet)()
 
-    def save(self, **kwargs):
-        print(self.user_name)
-        super(Investment, self).save(**kwargs)
+    def save(self, *args, **kwargs):
+        super(Investment, self).save(*args, **kwargs)
 
         data = {
             'user_name': self.user_name,
@@ -55,6 +54,7 @@ class Investment(BasicData):
             'tx_or_price': 00.00,
             'quant': 00.00
         }
+
         InvestmentDetails.objects.create(**data)
 
 
