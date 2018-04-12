@@ -6,6 +6,9 @@ from charcoallog.investments.models import Investment
 from charcoallog.investments.post_service import MethodPost
 
 
+class RQST:
+    pass
+
 class ValidPostMethod(TestCase):
     def setUp(self):
         self.user = 'teste'
@@ -20,7 +23,10 @@ class ValidPostMethod(TestCase):
         )
 
         self.query_user = Investment.objects.user_logged(self.user)
-        self.response = MethodPost('POST', self.data, self.user, self.query_user)
+        RQST.method = 'POST'
+        RQST.POST = self.data
+        RQST.user = self.user
+        self.response = MethodPost(RQST, self.query_user)
 
     def test_investmentform_instance(self):
         """

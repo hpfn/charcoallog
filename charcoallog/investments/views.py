@@ -6,5 +6,5 @@ from charcoallog.investments.service import ShowData
 def home(request):
     context = {
         'form': InvestmentForm(),
-        'show_data': ShowData(request.user)}
+        'show_data': ShowData(request)}
     return render(request, 'investments/home.html', context)

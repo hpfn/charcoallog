@@ -5,9 +5,15 @@ from charcoallog.investments.get_service import MethodGet
 from charcoallog.investments.service import ShowData
 
 
+class RQST:
+    pass
+
 class ServiceTest(TestCase):
     def setUp(self):
-        self.service = ShowData('teste')
+        RQST.method = None
+        RQST.POST = {}
+        RQST.user = 'teste'
+        self.service = ShowData(RQST)
 
     def test_query_set(self):
         self.assertIsInstance(self.service.query_user, QuerySet)

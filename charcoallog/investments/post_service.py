@@ -2,22 +2,21 @@ from charcoallog.investments.forms import InvestmentForm
 
 
 class MethodPost:
-    def __init__(self, method, data, user, query_user):
+    def __init__(self, request, query_user):
         """"
-        :param request_method: POST or GET
-        :param request_post: dict()
-        :param request_user: request.user
-        :param query_user: Extract models instance
+        :param request:
+        :param query_user: Investment instance
         """
         # self.request_method = method
-        self.request_post = data  # request_post
-        self.request_post['user_name'] = user
+        self.request_post = request.POST  # request_post
+        # self.request_post['user_name'] = request_user
         # self.request_user = user  # request_user
         self.query_user = query_user
         self.investmentform = InvestmentForm
         self.form = None
 
-        if method == 'POST':
+        if request.method == 'POST':
+            self.request_post['user_name'] = request.user
             self.method_post()
 
     def method_post(self):
