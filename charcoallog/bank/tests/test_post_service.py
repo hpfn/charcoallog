@@ -12,7 +12,7 @@ class ValidPostMethod(TestCase):
         self.data = dict(
             user_name=self.user,
             date='2017-12-21',
-            money='10.00',
+            money=10.00,
             description='test',
             category='test',
             payment='principal',
@@ -37,7 +37,7 @@ class ValidPostMethod(TestCase):
         select_dict = dict(
             user_name=select_data.user_name,
             date=select_data.date.strftime('%Y-%m-%d'),
-            money=str(select_data.money),
+            money=Decimal(select_data.money),
             description=select_data.description,
             category=select_data.category,
             payment=select_data.payment,
