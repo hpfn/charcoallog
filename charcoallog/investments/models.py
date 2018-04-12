@@ -13,8 +13,8 @@ class InvestmentStatementQuerySet(models.QuerySet):
     #     return self.filter(Q(payment=column) | Q(category=column) |
     #                        Q(description=column)).filter(~Q(category__startswith='transfer'))
 
-    # def total(self):
-    #     return self.aggregate(Sum('money'))
+    def total(self):
+        return self.aggregate(Sum('money'))
 
 
 class BasicData(models.Model):
@@ -42,6 +42,7 @@ class Investment(BasicData):
     objects = models.Manager.from_queryset(InvestmentStatementQuerySet)()
 
     def save(self, **kwargs):
+        print(self.user_name)
         super(Investment, self).save(**kwargs)
 
         data = {
