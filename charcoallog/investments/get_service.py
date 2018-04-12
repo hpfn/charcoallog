@@ -9,6 +9,6 @@ class MethodGet:
         :param query_user: Investment objects from ..models.py
         """
         self.month_01 = date.today().strftime('%Y-%m-01')
-        self.query_user = query_user
-        self.query_default = self.query_user.filter(date__gte=self.month_01)
-        self.selectextractform = InvestmentForm()
+        # self.query_user = query_user
+        self.query_default = query_user.filter(date__gte=self.month_01)
+        # self.selectextractform = InvestmentForm()
