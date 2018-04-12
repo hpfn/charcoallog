@@ -3,6 +3,7 @@
     <form action="." method="post">
         {% csrf_token %}
         <p>
+            <input type="hidden" name="user_name" id="id_user_name" value="you">
             <label for="{{ form.date.id_for_label }}">{{ form.date.label }}</label>
             {{ form.date.errors }}
             {{ form.date }}

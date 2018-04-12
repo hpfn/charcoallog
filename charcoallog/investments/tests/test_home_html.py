@@ -28,7 +28,8 @@ class InvestmentHomeOkTest(TestCase):
     def test_html(self):
         """ Must contain input tags """
         self.assertContains(self.response, '<form')
-        self.assertContains(self.response, '<input', 8)
+        self.assertContains(self.response, '<input', 9)
+        self.assertContains(self.response, 'type="hidden"', 1)
         self.assertContains(self.response, 'type="text"', 4)
         self.assertContains(self.response, 'type="number"', 2)
         self.assertContains(self.response, 'type="submit"')
