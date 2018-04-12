@@ -14,7 +14,7 @@ class ValidPostMethod(TestCase):
     def setUp(self):
         self.user = 'teste'
         self.data = dict(
-            user_name=self.user,
+            user_name='you',
             date='2018-03-27',
             tx_op=00.00,
             money=94.42,

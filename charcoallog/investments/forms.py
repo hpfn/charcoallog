@@ -16,3 +16,12 @@ class InvestmentForm(forms.ModelForm):
         model = Investment
         fields = ['user_name', 'date', 'money', 'kind',
                   'which_target', 'tx_op', 'brokerage']
+
+    def save(self, commit=True):
+        form = super(InvestmentForm, self).save(commit=False)
+        form.user_name = self.cleaned_data['user_name']
+
+        if commit:
+            form.save()
+
+        return form

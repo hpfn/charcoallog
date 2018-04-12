@@ -22,8 +22,8 @@ class MethodPost:
         self.form = self.investmentform(self.request_post)
 
         if self.form.is_valid():
-            self.form.cleaned_data['user_name'] = self.request_user
             self.insert_by_post()
 
     def insert_by_post(self):
+        self.form.cleaned_data['user_name'] = self.request_user
         self.form.save()
