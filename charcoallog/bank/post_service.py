@@ -22,15 +22,16 @@ class MethodPost:
 
     def method_post(self):
         self.form = self.editextractform(self.request_post)
-        if self.form.is_valid():
-            del self.form.cleaned_data['update_rm']
-            del self.form.cleaned_data['pk']
-            self.form.cleaned_data['user_name'] = self.request_user
 
+        if self.form.is_valid():
             self.insert_by_post()
             self.transfer_between_accounts()
 
     def insert_by_post(self):
+        del self.form.cleaned_data['update_rm']
+        del self.form.cleaned_data['pk']
+        self.form.cleaned_data['user_name'] = self.request_user
+
         self.form.save()
 
     def transfer_between_accounts(self):

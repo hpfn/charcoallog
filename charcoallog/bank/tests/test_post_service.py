@@ -10,7 +10,7 @@ class ValidPostMethod(TestCase):
     def setUp(self):
         self.user = 'teste'
         self.data = dict(
-            user_name=self.user,
+            user_name='you',
             date='2017-12-21',
             money=10.00,
             description='test',
@@ -44,6 +44,7 @@ class ValidPostMethod(TestCase):
             update_rm='',
             pk=''
         )
+        self.data['user_name'] = self.user
         self.assertDictEqual(self.data, select_dict)
 
 
