@@ -6,6 +6,10 @@ from charcoallog.bank.get_service import MethodGet
 from charcoallog.bank.models import Extract
 
 
+class RQST:
+    pass
+
+
 class InvalidGetMethod(TestCase):
     def test_no_get_method(self):
         """ Send a POST must keep get_form attribute as 'None' """
@@ -15,7 +19,9 @@ class InvalidGetMethod(TestCase):
                     category='test',
                     payment='principal')
         query_user = Extract.objects.user_logged('teste')
-        response = MethodGet('POST', data, query_user)
+        RQST.method = "POST"
+        RQST.GET = data
+        response = MethodGet(RQST, query_user)
         self.assertEqual(response.get_form, None)
 
 
@@ -34,7 +40,9 @@ class ValidGetMethod(TestCase):
 
         query_user = Extract.objects.user_logged('teste')
         search_data = dict(column='all', from_date='2017-12-01', to_date='2017-12-31')
-        self.response = MethodGet('GET', search_data, query_user)
+        RQST.method = "GET"
+        RQST.GET = search_data
+        self.response = MethodGet(RQST, query_user)
 
     def test_send_get_method(self):
         """
@@ -65,10 +73,12 @@ class InvalidSearch(TestCase):
             payment='principal'
         )
         Extract.objects.create(**self.data)
-        self.query_user = Extract.objects.user_logged('teste')
+        query_user = Extract.objects.user_logged('teste')
+        search_data = dict(column='all', from_date='2017-01-01', to_date='2017-01-01')
+        RQST.method = "GET"
+        RQST.GET = search_data
+        self.response = MethodGet(RQST, query_user)
 
     def test_invalid_search(self):
         """ Invalid search must set query_default attribute as 'None' """
-        search_data = dict(column='all', from_date='2017-01-01', to_date='2017-01-01')
-        response = MethodGet('GET', search_data, self.query_user)
-        self.assertEqual(response.query_default, None)
+        self.assertEqual(self.response.query_default, None)

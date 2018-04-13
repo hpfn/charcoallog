@@ -3,21 +3,19 @@ from .forms import EditExtractForm
 
 
 class MethodPost:
-    def __init__(self, request_method, request_post, request_user, query_user):
+    def __init__(self, request, query_user):
         """
-        :param request_method: POST or GET
-        :param request_post: dict()
-        :param request_user: request.user
+        :param request: request from views
         :param query_user: Extract models instance
         """
         # self.request_method = request_method
-        self.request_post = request_post
-        self.request_user = request_user
+        self.request_post = request.POST
+        self.request_user = request.user
         self.query_user = query_user
         self.editextractform = EditExtractForm
         self.form = None
 
-        if request_method == 'POST':
+        if request.method == 'POST':
             self.method_post()
 
     def method_post(self):

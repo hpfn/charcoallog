@@ -6,6 +6,9 @@ from charcoallog.bank.models import Extract
 from charcoallog.bank.post_service import MethodPost
 
 
+class RQST:
+    pass
+
 class ValidPostMethod(TestCase):
     def setUp(self):
         self.user = 'teste'
@@ -21,7 +24,10 @@ class ValidPostMethod(TestCase):
         )
 
         self.query_user = Extract.objects.user_logged(self.user)
-        self.response = MethodPost('POST', self.data, self.user, self.query_user)
+        RQST.method = 'POST'
+        RQST.POST = self.data
+        RQST.user = self.user
+        self.response = MethodPost(RQST, self.query_user)
 
     def test_editextractform_instance(self):
         """
@@ -65,7 +71,10 @@ class TransferBetweenAccounts(TestCase):
         )
 
         self.query_user = Extract.objects.user_logged(self.user)
-        self.response = MethodPost('POST', self.data, self.user, self.query_user)
+        RQST.method = "POST"
+        RQST.POST = self.data
+        RQST.user = self.user
+        self.response = MethodPost(RQST, self.query_user)
 
     def test_negative_transfer_name(self):
         p_data = self.query_user.get(id=1)

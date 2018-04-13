@@ -4,13 +4,12 @@ from charcoallog.bank.forms import SelectExtractForm
 
 
 class MethodGet:
-    def __init__(self, request_method, request_get, query_user):
+    def __init__(self, request, query_user):
         """
-        :param request_method: should be 'GET' or 'POST'
-        :param request_get: request.GET from view home
+        :param request: request from views
         :param query_user: Extract objects from ..models.py
         """
-        self.request_get = request_get
+        self.request_get = request.GET
         self.month_01 = date.today().strftime('%Y-%m-01')
         self.query_user = query_user
         self.query_default = self.query_user.filter(date__gte=self.month_01)
@@ -18,7 +17,7 @@ class MethodGet:
         self.selectextractform = SelectExtractForm
         self.get_form = None
 
-        if request_method == "GET":
+        if request.method == "GET":
             self.method_get()
 
     def method_get(self):

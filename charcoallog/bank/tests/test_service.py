@@ -11,6 +11,10 @@ from charcoallog.bank.post_service import MethodPost
 from charcoallog.bank.service import ShowData
 
 
+class RQST:
+    pass
+
+
 class ServiceLayerTest(TestCase):
     def setUp(self):
         user_name = 'teste'
@@ -35,7 +39,11 @@ class ServiceLayerTest(TestCase):
         Extract.objects.create(**data)
         Extract.objects.create(**others_data)
         search_data = dict(column='all', from_date='2017-12-01', to_date='2017-12-31')
-        self.response = ShowData('GET', search_data, dict(), user_name)
+        RQST.method = "GET"
+        RQST.GET = search_data
+        RQST.POST = dict()
+        RQST.user = user_name
+        self.response = ShowData(RQST)
 
     def test_query_user_instance(self):
         self.assertIsInstance(self.response.query_user, QuerySet)

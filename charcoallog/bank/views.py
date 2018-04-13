@@ -12,7 +12,7 @@ from .service import ShowData
 @login_required
 def home(request):
     context = {
-        'show_data': ShowData(request.method, request.GET, request.POST, request.user),
+        'show_data': ShowData(request),
     }
     return render(request, "bank/home.html", context)
 
