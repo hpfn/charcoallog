@@ -46,6 +46,6 @@ class MethodGet:
             # self.query_default = None
             messages.error(
                 self.request,
-                "' %s ' Nothing for these dates or invalid search." % column
+                "' %s ' - Invalid search or nothing for these dates." % column
             )
 
