@@ -1,16 +1,11 @@
 <div id="bank_box_line3" class="scroll">
-	{# {% if messages %} #}
-	{# <ul class="messages"> #}
-	{# 	{% for message in messages %} #}
-	{# 	{% if message.tags %} #}
-    {#         <li class="{{ message.tags }}"> #}
-    {#     {% else%} #}
-    {#             <li> #}
-    {#     {% endif %} #}
-    {#                 {{ message }}</li> #}
-	{# 	{% endfor %} #}
-	{# </ul> #}
-	{# {% else %} #}
+	{% if messages %}
+        <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+	 	{% endfor %}
+	    </ul>
+	{% else %}
         <br />
         <b>Total</b>:
         <div id="total">
@@ -18,13 +13,10 @@
         <font color="red">
             {{ show_data.form2.query_default.total.money__sum }}
         </font>
-        {% elif show_data.form2.query_default.total.money__sum >= 0 %}
-            {{ show_data.form2.query_default.total.money__sum }}
         {% else %}
-            <font color="red">
-            Nothing for these dates or invalid search.
-            </font>
-        {% endif %}
+            {{ show_data.form2.query_default.total.money__sum }}
+
+            {% endif %}
         </div>
         <br />
         {% for b in show_data.form2.query_default %}
@@ -70,5 +62,5 @@
     </form>
     {% endfor %}
 	<br />
-	{# {% endif %} #}
+	{% endif %}
 </div>
