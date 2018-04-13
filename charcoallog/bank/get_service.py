@@ -1,5 +1,7 @@
 from datetime import date
 
+from django.contrib import messages
+
 from charcoallog.bank.forms import SelectExtractForm
 
 
@@ -9,6 +11,7 @@ class MethodGet:
         :param request: request from views
         :param query_user: Extract objects from ..models.py
         """
+        self.request = request
         self.request_get = request.GET
         self.month_01 = date.today().strftime('%Y-%m-01')
         self.query_user = query_user
@@ -40,8 +43,9 @@ class MethodGet:
             # print('bills exists')
             self.query_default = bills
         else:
-            self.query_default = None
-            # messages.error(
-            #    self.request,
-            #    "' %s ' is an Invalid search or wrong date!" % column
-            # )
+            # self.query_default = None
+            messages.error(
+                self.request,
+                "' %s ' Nothing for these dates or invalid search." % column
+            )
+
