@@ -1,4 +1,6 @@
 from django.test import TestCase
+
+from charcoallog.bank.models import Extract
 from charcoallog.investments.models import Investment, InvestmentDetails
 
 
@@ -33,3 +35,21 @@ class InvestmentModelTest(TestCase):
         obj.save(update_fields=['segment', 'tx_or_price', 'quant'])
 
         self.assertTrue(InvestmentDetails.objects.filter(segment='Selic 2023').exists())
+
+
+class DataFromBankTest(TestCase):
+    def setUp(self):
+        self.user = 'teste'
+        self.data = dict(
+            user_name='you',
+            date='2018-04-20',
+            money=10.00,
+            description='Ativa',
+            category='investments',
+            payment='principal',
+        )
+        Extract.objects.create(**self.data)
+
+    def test_data_in_investments(self):
+        data = Investment.objects.filter(brokerage='Ativa').exists()
+        self.assertTrue(data)
