@@ -25,8 +25,8 @@ class BriefInvestmentTest(TestCase):
         self.assertIsInstance(self.brief._query_user, QuerySet)
 
     def test_briefinvestments(self):
-        self.assertIsInstance(self.brief.brokerage_or_invest_type('brokerage'), OrderedDict)
+        self.assertIsInstance(self.brief.brokerage_or_invest_type(), OrderedDict)
 
     def test_dict_key(self):
-        dict_from_brief = self.brief.brokerage_or_invest_type('brokerage')
+        dict_from_brief = self.brief.brokerage_or_invest_type()
         self.assertIn('Ativa', dict_from_brief.keys())
