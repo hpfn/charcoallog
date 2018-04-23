@@ -4,8 +4,8 @@ from charcoallog.investments.models import Investment
 
 
 class BriefInvestment:
-    def __init__(self, user_name):
-        self._query_user = Investment.objects.user_logged(user_name)
+    def __init__(self, query_user):
+        self._query_user = query_user
 
     def brokerage_or_invest_type(self):
         brk_knd = self._brokerage()
@@ -15,6 +15,7 @@ class BriefInvestment:
 
     def _brokerage(self):
         names_iterator = set(self._query_user.values_list('brokerage'))
+
         brk = {
             k[0]: self._query_user.filter(brokerage=k[0]).total()
             for k in names_iterator

@@ -20,8 +20,8 @@ class BriefInvestmentTest(TestCase):
         )
 
         Investment.objects.create(**data)
-        #query_user = Extract.objects.user_logged(user_name)
-        self.response = BriefInvestment(user_name)
+        query_user = Investment.objects.user_logged(user_name)
+        self.response = BriefInvestment(query_user)
         self.brief_investment_brokerage = self.response.brokerage_or_invest_type()
         self.brief_investment_type = self.response.brokerage_or_invest_type()
 

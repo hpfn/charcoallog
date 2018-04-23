@@ -19,7 +19,8 @@ class BriefInvestmentTest(TestCase):
             brokerage='Ativa'
         )
         Investment.objects.create(**self.data)
-        self.brief = BriefInvestment('you')
+        query_set = Investment.objects.user_logged('you')
+        self.brief = BriefInvestment(query_set)
 
     def test_check_query_user(self):
         self.assertIsInstance(self.brief._query_user, QuerySet)
