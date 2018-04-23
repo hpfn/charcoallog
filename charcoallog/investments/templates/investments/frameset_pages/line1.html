@@ -1,0 +1,24 @@
+<div id="invest_box_line1">
+    <table align="left" cellpadding="10">
+        <tr>
+            {% for key, value in show_data.brief_investment.brokerage_or_invest_type.items %}
+            <td align="center">
+                <div class="{{ key }}">
+                    <b>{{ key }}</b> <br>
+                    <div id="{{ key }}">
+                        {% if value.money__sum < 0 %}
+                        <font size="2" color="red">
+                            {{ value.money__sum }}
+                        </font>
+                        {% else %}
+                        <font size="2">
+                            {{ value.money__sum }}
+                        </font>
+                        {% endif %}
+                    </div>
+                </div>
+            </td>
+            {% endfor %}
+        </tr>
+    </table>
+</div>
