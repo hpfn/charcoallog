@@ -28,7 +28,7 @@ class BriefInvestment:
 
         kind = {
             k[0]: self._query_user.filter(kind=k[0]).total()
-            for k in names_iterator
+            for k in names_iterator if k[0] != '---'
         }
 
         return kind
