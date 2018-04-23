@@ -5,23 +5,16 @@ from charcoallog.investments.models import Investment
 
 class BriefInvestment:
     def __init__(self, user_name):
-        self.query_user = Investment.objects.user_logged(user_name)
-        self.account = {}
-        # self.investment_type = {}
+        self._query_user = Investment.objects.user_logged(user_name)
 
     def brokerage_or_invest_type(self, brk_or_invest_t):
-        names_iterator = set(self.query_user.values_list(brk_or_invest_t))
+        names_iterator = set(self._query_user.values_list(brk_or_invest_t))
 
-        self.account = {
-            k[0]: self.query_user.filter(Q(brokerage=k[0]) | Q(kind=k[0])).total()
+        account = {
+            k[0]: self._query_user.filter(Q(brokerage=k[0]) | Q(kind=k[0])).total()
             for k in names_iterator
         }
 
-        # self.account_values = account.values()
+        return OrderedDict(sorted(account.items()))
 
-        return OrderedDict(sorted(self.account.items()))
-
-#    @staticmethod
-#    def total_amount(values):
-#        return sum([resto['money__sum'] for resto in values])
 

@@ -1,6 +1,7 @@
 from django.db.models import QuerySet
 from django.test import TestCase
 
+from charcoallog.investments.brief_investment_service import BriefInvestment
 from charcoallog.investments.get_service import MethodGet
 from charcoallog.investments.post_service import MethodPost
 from charcoallog.investments.service import ShowData
@@ -24,3 +25,6 @@ class ServiceTest(TestCase):
 
     def test_methodpost(self):
         self.assertIsInstance(self.service.methodpost, MethodPost)
+
+    def test_brief_investment(self):
+        self.assertIsInstance(self.service.brief_investment, BriefInvestment)
