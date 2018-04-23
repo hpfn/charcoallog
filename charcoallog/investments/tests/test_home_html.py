@@ -34,6 +34,10 @@ class InvestmentHomeOkTest(TestCase):
         self.assertContains(self.response, 'type="number"', 2)
         self.assertContains(self.response, 'type="submit"')
         self.assertContains(self.response, '</form')
+        self.assertContains(self.response, 'class="invest_row1"')
+        self.assertContains(self.response, 'id="invest_box_line1"')
+        self.assertContains(self.response, 'class="invest_row2"')
+        self.assertContains(self.response, 'id="invest_box_line3"')
 
     def test_csrf(self):
         """ html must contain csrf """
