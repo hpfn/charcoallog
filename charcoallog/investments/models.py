@@ -41,21 +41,21 @@ class Investment(BasicData):
 
     objects = models.Manager.from_queryset(InvestmentStatementQuerySet)()
 
-    def save(self, *args, **kwargs):
-        super(Investment, self).save(*args, **kwargs)
-
-        data = {
-            'user_name': self.user_name,
-            'date': self.date,
-            'money': self.money,
-            'kind': self.kind,
-            'which_target': self.which_target,
-            'segment': '---',
-            'tx_or_price': 00.00,
-            'quant': 00.00
-        }
-
-        InvestmentDetails.objects.create(**data)
+    # def save(self, *args, **kwargs):
+    #     super(Investment, self).save(*args, **kwargs)
+    #
+    #     data = {
+    #         'user_name': self.user_name,
+    #         'date': self.date,
+    #         'money': self.money,
+    #         'kind': self.kind,
+    #         'which_target': self.which_target,
+    #         'segment': '---',
+    #         'tx_or_price': 00.00,
+    #         'quant': 00.00
+    #     }
+    #
+    #     InvestmentDetails.objects.create(**data)
 
 
 
