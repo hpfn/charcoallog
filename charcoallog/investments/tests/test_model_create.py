@@ -53,3 +53,7 @@ class DataFromBankTest(TestCase):
     def test_data_in_investments(self):
         data = Investment.objects.filter(brokerage='Ativa').exists()
         self.assertTrue(data)
+
+    def test_data_not_in_investmentdetails(self):
+        data = InvestmentDetails.objects.filter(kind='---').exists()
+        self.assertFalse(data)
