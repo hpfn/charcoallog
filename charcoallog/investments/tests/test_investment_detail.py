@@ -24,7 +24,7 @@ class InvestmentDetailTest(TestCase):
         )
 
         self.obj = InvestmentDetails.objects.create(**self.data)
-        self.resp = self.client.get(r('investments:detail', self.obj.pk))
+        self.resp = self.client.get(r('investments:detail', 'Títulos Públicos'))
 
     def test_login(self):
         """ Must login to access html file"""
@@ -43,7 +43,10 @@ class InvestmentDetailTest(TestCase):
 
     def test_context(self):
         data = self.resp.context['d']
-        self.assertEqual(data.kind, self.data['kind'])
-        self.assertEqual(data.which_target, self.data['which_target'])
+        for i in data:
+            self.assertIn(i.kind, 'Títulos Públicos')
+            self.assertIn(i.which_target, 'Tesouro Direto')
+
+
 
 

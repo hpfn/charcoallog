@@ -34,6 +34,8 @@ class InvestmentDetails(BasicData):
     tx_or_price = models.DecimalField(max_digits=8, decimal_places=2)
     quant = models.DecimalField(max_digits=8, decimal_places=2)
 
+    objects = models.Manager.from_queryset(InvestmentStatementQuerySet)()
+
 
 class Investment(BasicData):
     tx_op = models.DecimalField(max_digits=4, decimal_places=2)

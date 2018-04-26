@@ -14,8 +14,9 @@ def home(request):
 
 
 @login_required
-def detail(request, pk):
+def detail(request, kind):
+
     context = {
-        'd': InvestmentDetails.objects.get(pk=pk),
+        'd': InvestmentDetails.objects.user_logged(request.user).filter(kind=kind),
     }
     return render(request, 'investments/detail.html', context)

@@ -1,14 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-pk       - {{ d.pk }} <br />
-user     - {{ d.user_name }} <br />
-date     - {{ d.date }} <br />
-money    - {{ d.money }} <br />
-kind     - {{ d.kind }} <br />
-w_target - {{ d.which_target }} <br />
-segment  - {{ d.segment }} <br />
-tx-price - {{ d.tx_or_price }} <br />
-quant    - {{ d.quant }} <br />
+
+{% for item in d %}
+    {{ item.date }} <br />
+    {{ item.money }} <br />
+    {{ item.kind }} <br />
+    {{ item.which_target }} <br />
+{% endfor %}
+
 
 {% endblock %}
