@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from charcoallog.investments.forms import InvestmentForm
+from charcoallog.investments.models import InvestmentDetails
 from charcoallog.investments.service import ShowData
 
 
@@ -14,4 +15,7 @@ def home(request):
 
 @login_required
 def detail(request, pk):
-    return render(request, 'investments/detail.html', {})
+    context = {
+        'd': InvestmentDetails.objects.get(pk=pk),
+    }
+    return render(request, 'investments/detail.html', context)
