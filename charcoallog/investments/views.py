@@ -4,6 +4,7 @@ from charcoallog.investments.forms import InvestmentForm
 from charcoallog.investments.service import ShowData
 
 
+@login_required
 def home(request):
     context = {
         'form': InvestmentForm(),
