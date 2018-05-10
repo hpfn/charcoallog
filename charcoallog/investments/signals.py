@@ -28,7 +28,7 @@ def populate_investments_details(sender, created, instance, **kwargs):
         data = {
             'user_name': instance.user_name,
             'date': instance.date,
-            'money': instance.money,
+            'money': instance.money * -1,
             'kind': instance.kind,
             'which_target': instance.which_target,
             'segment': '---',
