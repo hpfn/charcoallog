@@ -3,9 +3,9 @@
 {% block content %}
 
 {% for item in d %}
-    {{ item.date }} <br />
-    {{ item.money }} <br />
-    {{ item.kind }} <br />
+    {{ item.date|date:"Y-m-d" }}
+    {{ item.money }}
+    {{ item.kind }}
     {{ item.which_target }} <br />
 {% endfor %}
 
