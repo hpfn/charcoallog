@@ -17,7 +17,7 @@ class BriefInvestment:
         names_iterator = set(self._query_user.values_list('brokerage'))
 
         brk = {
-            k[0]: self._query_user.filter(brokerage=k[0]).total()
+            k[0]: self._query_user.filter(brokerage=k[0]).total()['money__sum']
             for k in names_iterator
         }
 
@@ -27,7 +27,7 @@ class BriefInvestment:
         names_iterator = set(self._query_user.values_list('kind'))
 
         kind = {
-            k[0]: self._query_user.filter(kind=k[0]).total()
+            k[0]: self._query_user.filter(kind=k[0]).total()['money__sum'] * -1
             for k in names_iterator if k[0] != '---'
         }
 
