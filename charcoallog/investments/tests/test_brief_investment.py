@@ -4,7 +4,7 @@ from django.db.models import QuerySet
 from django.test import TestCase
 
 from charcoallog.investments.brief_investment_service import BriefInvestment
-from charcoallog.investments.models import Investment
+from charcoallog.investments.models import Investment, InvestmentDetails
 
 
 class BriefInvestmentTest(TestCase):
@@ -19,11 +19,15 @@ class BriefInvestmentTest(TestCase):
             brokerage='Ativa'
         )
         Investment.objects.create(**self.data)
-        query_set = Investment.objects.user_logged('you')
-        self.brief = BriefInvestment(query_set)
+        query_set_invest = Investment.objects.user_logged('you')
+        query_set_investdetail = InvestmentDetails.objects.user_logged('you')
+        self.brief = BriefInvestment(query_set_invest, query_set_investdetail)
 
-    def test_check_query_user(self):
-        self.assertIsInstance(self.brief._query_user, QuerySet)
+    def test_check_query_user_invest(self):
+        self.assertIsInstance(self.brief._query_user_invest, QuerySet)
+
+    def test_check_query_user_invest(self):
+        self.assertIsInstance(self.brief._query_user_invest, QuerySet)
 
     def test_briefinvestments(self):
         self.assertIsInstance(self.brief.brokerage_or_invest_type(), OrderedDict)

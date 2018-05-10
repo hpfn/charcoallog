@@ -4,8 +4,9 @@ from charcoallog.investments.models import Investment
 
 
 class BriefInvestment:
-    def __init__(self, query_user):
-        self._query_user = query_user
+    def __init__(self, query_user_invest, query_user_investdetail):
+        self._query_user_invest = query_user_invest
+        self._query_user_investdetail = query_user_investdetail
 
     def brokerage_or_invest_type(self):
         brk_knd = self._brokerage()
@@ -14,22 +15,22 @@ class BriefInvestment:
         return OrderedDict(sorted(brk_knd.items()))
 
     def _brokerage(self):
-        names_iterator = set(self._query_user.values_list('brokerage'))
+        names_iterator = set(self._query_user_invest.values_list('brokerage'))
 
         brk = {
-            k[0]: self._query_user.filter(brokerage=k[0]).total()['money__sum']
+            k[0]: self._query_user_invest.filter(brokerage=k[0]).total()['money__sum']
             for k in names_iterator
         }
 
         return brk
 
     def _kind_investment(self):
-        names_iterator = set(self._query_user.values_list('kind'))
+        names_iterator = set(self._query_user_investdetail.values_list('kind'))
 
         # Show value from brokerage to investment as positive
         kind = {
-            k[0]: self._query_user.filter(kind=k[0]).total()['money__sum'] * -1
-            for k in names_iterator if k[0] != '---'
+            k[0]: self._query_user_investdetail.filter(kind=k[0]).total()['money__sum']
+            for k in names_iterator
         }
 
         return kind

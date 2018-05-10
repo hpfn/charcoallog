@@ -18,7 +18,10 @@ class ServiceTest(TestCase):
         self.service = ShowData(RQST)
 
     def test_query_set(self):
-        self.assertIsInstance(self.service.query_user, QuerySet)
+        self.assertIsInstance(self.service.query_user_invest, QuerySet)
+
+    def test_query_set(self):
+        self.assertIsInstance(self.service.query_user_investdetail, QuerySet)
 
     def test_methodget(self):
         self.assertIsInstance(self.service.methodget, MethodGet)
