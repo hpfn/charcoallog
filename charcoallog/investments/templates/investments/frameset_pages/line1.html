@@ -1,21 +1,34 @@
 <div id="invest_box_line1">
     <table align="left" cellpadding="10">
         <tr>
-            {% for key, value in show_data.brief_investment.brokerage_or_invest_type.items %}
+            {% for key, value in show_data.brief_investment.brokerage.items %}
             <td align="center">
                 <div class="{{ key }}">
                     <b>{{ key }}</b> <br>
-                    <div id="{{ key }}">
-                        {% if value.money__sum < 0 %}
-                        <font size="2" color="red">
-                            {{ value }}
-                        </font>
-                        {% else %}
-                        <font size="2">
-                            {{ value }}
-                        </font>
-                        {% endif %}
-                    </div>
+                    {% if value.money__sum < 0 %}
+                    <font size="2" color="red">
+                        {{ value }}
+                    </font>
+                    {% else %}
+                    <font size="2">
+                        {{ value }}
+                    </font>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            {% for key, value in show_data.brief_investment.kind_investment.items %}
+            <td align="center">
+                <div class="{{ key }}">
+                    <a href="{% url 'investments:detail' key %}"> <b>{{ key }}</b></a><br>
+                    {% if value.money__sum < 0 %}
+                    <font size="2" color="red">
+                        {{ value }}
+                    </font>
+                    {% else %}
+                    <font size="2">
+                        {{ value }}
+                    </font>
+                    {% endif %}
                 </div>
             </td>
             {% endfor %}

@@ -26,12 +26,19 @@ class BriefInvestmentTest(TestCase):
     def test_check_query_user_invest(self):
         self.assertIsInstance(self.brief._query_user_invest, QuerySet)
 
-    def test_check_query_user_invest(self):
-        self.assertIsInstance(self.brief._query_user_invest, QuerySet)
+    def test_check_query_user_invest_detail(self):
+        self.assertIsInstance(self.brief._query_user_investdetail, QuerySet)
 
-    def test_briefinvestments(self):
-        self.assertIsInstance(self.brief.brokerage_or_invest_type(), OrderedDict)
+    def test_briefinvestments_brokerage(self):
+        self.assertIsInstance(self.brief.brokerage(), OrderedDict)
 
-    def test_dict_key(self):
-        dict_from_brief = self.brief.brokerage_or_invest_type()
+    def test_dict_key_brokerage(self):
+        dict_from_brief = self.brief.brokerage()
+        self.assertIn('Ativa', dict_from_brief.keys())
+
+    def test_briefinvestments_kind_invest(self):
+        self.assertIsInstance(self.brief.brokerage(), OrderedDict)
+
+    def test_dict_key_kind_invest(self):
+        dict_from_brief = self.brief.brokerage()
         self.assertIn('Ativa', dict_from_brief.keys())

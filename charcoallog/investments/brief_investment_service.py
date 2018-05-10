@@ -8,13 +8,13 @@ class BriefInvestment:
         self._query_user_invest = query_user_invest
         self._query_user_investdetail = query_user_investdetail
 
-    def brokerage_or_invest_type(self):
-        brk_knd = self._brokerage()
-        brk_knd.update(self._kind_investment())
+    # def brokerage_or_invest_type(self):
+    #     brk_knd = self._brokerage()
+    #     brk_knd.update(self._kind_investment())
+    #
+    #     return OrderedDict(sorted(brk_knd.items()))
 
-        return OrderedDict(sorted(brk_knd.items()))
-
-    def _brokerage(self):
+    def brokerage(self):
         names_iterator = set(self._query_user_invest.values_list('brokerage'))
 
         brk = {
@@ -22,9 +22,9 @@ class BriefInvestment:
             for k in names_iterator
         }
 
-        return brk
+        return OrderedDict(sorted(brk.items()))
 
-    def _kind_investment(self):
+    def kind_investment(self):
         names_iterator = set(self._query_user_investdetail.values_list('kind'))
 
         # Show value from brokerage to investment as positive
@@ -33,5 +33,5 @@ class BriefInvestment:
             for k in names_iterator
         }
 
-        return kind
+        return OrderedDict(sorted(kind.items()))
 
