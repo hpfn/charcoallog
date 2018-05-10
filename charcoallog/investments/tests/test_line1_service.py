@@ -13,7 +13,7 @@ class BriefInvestmentTest(TestCase):
             user_name=user_name,
             date='2018-03-27',
             tx_op=00.00,
-            money='10.00',
+            money=10.00,
             kind=self.kind,
             which_target='Tesouro Direto',
             brokerage=self.brokerage_name
