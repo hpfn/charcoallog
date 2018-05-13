@@ -58,9 +58,3 @@ class Investment(BasicData):
     #     }
     #
     #     InvestmentDetails.objects.create(**data)
-
-
-
-
-
-
