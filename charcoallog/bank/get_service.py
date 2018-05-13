@@ -48,4 +48,3 @@ class MethodGet:
                 self.request,
                 "' %s ' - Invalid search or nothing for these dates." % column
             )
-
