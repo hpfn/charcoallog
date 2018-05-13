@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.db.models import QuerySet
 from django.test import TestCase
 from django.shortcuts import resolve_url as r
 from charcoallog.investments.models import InvestmentDetails
@@ -39,7 +40,7 @@ class InvestmentDetailTest(TestCase):
 
     def test_context_instance(self):
         data = self.resp.context['d']
-        self.assertIsInstance(data, InvestmentDetails)
+        self.assertIsInstance(data, QuerySet)
 
     def test_context(self):
         data = self.resp.context['d']
