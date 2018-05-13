@@ -10,6 +10,6 @@ class InvestmentConfig(AppConfig):
 
     def ready(self):
         # using @receiver decorator
-        import charcoallog.investments.signals
+        import charcoallog.investments.signals  # noqa: F401
 
         # post_save.connect(populate_investments, sender=Extract)
