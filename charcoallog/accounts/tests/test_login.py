@@ -42,4 +42,3 @@ class LoginPageTest(TestCase):
         """ Context must have register form """
         form = self.response.context['form']
         self.assertIsInstance(form, AuthenticationForm)
-
