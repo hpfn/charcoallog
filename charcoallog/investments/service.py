@@ -11,6 +11,6 @@ class ShowData:
         self.methodpost = MethodPost(request, self.query_user_invest)
         self.methodget = MethodGet(self.query_user_invest)
         self.brief_investment = BriefInvestment(self.query_user_invest, self.query_user_investdetail)
-        #self.brief_invest_total = self.brief_investment.brokerage_or_invest_type()
+        # self.brief_invest_total = self.brief_investment.brokerage_or_invest_type()
         # self.account_names = self.line1.account_names()
         # self.whats_left = self.line1.whats_left()
