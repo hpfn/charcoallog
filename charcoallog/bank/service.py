@@ -12,5 +12,3 @@ class ShowData:
         self.brief_bank = BriefBank(self.query_user)
         # self.account_names = self.line1.account_names()
         # self.whats_left = self.line1.whats_left()
-
-
