@@ -9,6 +9,7 @@ from charcoallog.bank.post_service import MethodPost
 class RQST:
     pass
 
+
 class ValidPostMethod(TestCase):
     def setUp(self):
         self.user = 'teste'
@@ -91,4 +92,3 @@ class TransferBetweenAccounts(TestCase):
     def test_positive_transfer_value(self):
         c_c_data = self.query_user.get(id=2)
         self.assertEqual(c_c_data.money, Decimal(self.value_after_transfer))
-
