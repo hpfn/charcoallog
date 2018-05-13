@@ -1,9 +1,10 @@
 # from bs4 import BeautifulSoup
 from django.test import TestCase
-from charcoallog.core.scrap_line3_service import Scrap
 
-class FakeScrap():
+
+class FakeScrap:
     """ Evitando testes. Aprender mock """
+
     def __init__(self):
         self.selic_address = 'https://www.bcb.gov.br/Pec/Copom/Port/taxaSelic.asp'
         self.ibov_address = 'https://br.advfn.com/bolsa-de-valores/bovespa/ibovespa-IBOV/historico'
