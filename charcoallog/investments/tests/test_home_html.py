@@ -59,5 +59,3 @@ class InvestmentHomeOkTest(TestCase):
     def test_show_data(self):
         data = self.response.context['show_data']
         self.assertIsInstance(data, ShowData)
-
-
