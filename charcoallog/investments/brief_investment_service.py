@@ -1,6 +1,4 @@
 from collections import OrderedDict
-from django.db.models import Q
-from charcoallog.investments.models import Investment
 
 
 class BriefInvestment:
@@ -34,4 +32,3 @@ class BriefInvestment:
         }
 
         return OrderedDict(sorted(kind.items()))
-
