@@ -1,7 +1,5 @@
 from datetime import date
 
-from charcoallog.investments.forms import InvestmentForm
-
 
 class MethodGet:
     def __init__(self, query_user):
