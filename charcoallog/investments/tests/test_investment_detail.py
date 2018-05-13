@@ -31,13 +31,13 @@ class InvestmentDetailTest(TestCase):
         self.assertTrue(self.login_in)
 
     def test_get_status_code(self):
-         """ Must return status code 200 """
-         self.assertEqual(200, self.resp.status_code)
+        """ Must return status code 200 """
+        self.assertEqual(200, self.resp.status_code)
 
     def test_template_used(self):
         self.assertTemplateUsed(self.resp, 'investments/detail.html')
 
-    def test_context(self):
+    def test_context_instance(self):
         data = self.resp.context['d']
         self.assertIsInstance(data, InvestmentDetails)
 
@@ -46,7 +46,3 @@ class InvestmentDetailTest(TestCase):
         for i in data:
             self.assertIn(i.kind, 'Títulos Públicos')
             self.assertIn(i.which_target, 'Tesouro Direto')
-
-
-
-
