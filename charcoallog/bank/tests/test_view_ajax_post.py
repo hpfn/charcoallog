@@ -58,7 +58,7 @@ class AjaxPostTest(TestCase):
         self.assertJSONEqual(
             response.content,
             {'accounts': {'principal': {'money__sum': '20.00'}},
-            'whats_left': '20.00'}
+             'whats_left': '20.00'}
         )
 
     def test_ajax_remove(self):
@@ -68,7 +68,7 @@ class AjaxPostTest(TestCase):
         self.assertJSONEqual(
             response.content,
             {'accounts': {'cartao credito': {'money__sum': '10.00'}},
-            'whats_left': '10.00'}
+             'whats_left': '10.00'}
         )
 
     def test_ajax_fail_update(self):
@@ -79,5 +79,5 @@ class AjaxPostTest(TestCase):
         self.assertJSONEqual(
             response.content,
             {'no_account': True,
-            'message': 'You can not set a new account name from here'}
+             'message': 'You can not set a new account name from here'}
         )
