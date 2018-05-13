@@ -1,4 +1,3 @@
-from decimal import Decimal
 from django.test import TestCase
 
 from charcoallog.investments.forms import InvestmentForm
