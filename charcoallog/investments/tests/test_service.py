@@ -10,6 +10,7 @@ from charcoallog.investments.service import ShowData
 class RQST:
     pass
 
+
 class ServiceTest(TestCase):
     def setUp(self):
         RQST.method = None
@@ -17,10 +18,10 @@ class ServiceTest(TestCase):
         RQST.user = 'teste'
         self.service = ShowData(RQST)
 
-    def test_query_set(self):
+    def test_query_set_invest(self):
         self.assertIsInstance(self.service.query_user_invest, QuerySet)
 
-    def test_query_set(self):
+    def test_query_set_investdetail(self):
         self.assertIsInstance(self.service.query_user_investdetail, QuerySet)
 
     def test_methodget(self):
