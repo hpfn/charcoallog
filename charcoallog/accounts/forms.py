@@ -8,10 +8,10 @@ class RegisterForm(UserCreationForm):
 
     def clean_email(self):
         email = self.cleaned_data['email']
-        
+
         if User.objects.filter(email=email).exists():
             raise forms.ValidationError('Já existe usuário com este E-mail')
-        
+
         return email
 
     def save(self, commit=True):
@@ -21,4 +21,4 @@ class RegisterForm(UserCreationForm):
         if commit:
             user.save()
 
-        return user         
+        return user
