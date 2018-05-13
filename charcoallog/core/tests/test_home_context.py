@@ -8,7 +8,7 @@ from charcoallog.bank.models import Extract
 # from charcoallog.core.service import BuildHome
 
 
-class FakeScrap():
+class FakeScrap:
     """ Evitando testes. Aprender mock """
     def __init__(self):
         self.selic_address = 'https://www.bcb.gov.br/Pec/Copom/Port/taxaSelic.asp'
@@ -70,4 +70,3 @@ class HomeContextTest(TestCase):
     def test_context_only_instance(self):
         build_home = self.response.context_data['build_home']
         self.assertIsInstance(build_home, FakeBuildHome)
-
