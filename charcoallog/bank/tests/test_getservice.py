@@ -1,6 +1,5 @@
 from django.contrib.auth.models import User
 from django.db.models import QuerySet
-from django.http import HttpRequest
 from django.test import TestCase
 
 from charcoallog.bank.forms import SelectExtractForm
