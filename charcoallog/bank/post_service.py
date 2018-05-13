@@ -45,5 +45,3 @@ class MethodPost:
                 category=self.form.cleaned_data.get('category'),
                 payment=payment_f
             )
-
-
