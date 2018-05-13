@@ -16,7 +16,6 @@ from decouple import config, Csv
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
@@ -24,12 +23,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
+# DEBUG = True
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-#ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default=[], cast=Csv())
-
 
 # Application definition
 
@@ -79,7 +77,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'charcoallog.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
@@ -89,7 +86,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -109,7 +105,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
@@ -123,16 +118,15 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'charcoallog', 'media')                      
-MEDIA_URL = '/media/' 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'charcoallog', 'media')
+MEDIA_URL = '/media/'
 
-# Auth                                                                          
-LOGIN_URL = 'accounts:login'                                                    
-LOGIN_REDIRECT_URL = 'core:home'                                                
+# Auth
+LOGIN_URL = 'accounts:login'
+LOGIN_REDIRECT_URL = 'core:home'
 LOGOUT_URL = 'accounts:logout'
