@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Investment',
             fields=[
-                ('basicdata_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='investments.BasicData')),
+                ('basicdata_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='investments.BasicData')),  # noqa: E501
                 ('tx_op', models.DecimalField(decimal_places=2, max_digits=4)),
                 ('brokerage', models.CharField(max_length=15)),
             ],
@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='InvestmentDetails',
             fields=[
-                ('basicdata_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='investments.BasicData')),
+                ('basicdata_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='investments.BasicData')),  # noqa: 501
                 ('segment', models.CharField(max_length=10)),
                 ('tx_or_price', models.DecimalField(decimal_places=2, max_digits=8)),
                 ('quant', models.DecimalField(decimal_places=2, max_digits=8)),
