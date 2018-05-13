@@ -8,4 +8,4 @@ urlpatterns = [
         url(r'^sair/', logout,
             {'next_page': 'core:home'}, name='logout'),
         url(r'^cadastre-se/', register, name='register'),
-]   
+]
