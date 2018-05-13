@@ -41,5 +41,3 @@ class BriefInvestmentTest(TestCase):
     #  def test_investment_type_total_amount(self):
     #      """ How much money by investment """
     #      self.assertEqual(self.response.total_amount(self.brief_investment_type.values()), Decimal('10.00'))
-
-
