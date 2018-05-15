@@ -1,0 +1,14 @@
+[run]
+source = charcoallog
+omit =
+    .project_env
+    charcoallog/accounts/migrations/*.py
+    charcoallog/bank/migrations/*.py
+    charcoallog/core/migrations/*.py
+    charcoallog/investments/migrations/*.py
+    charcoallog/accounts/tests/*.py
+    charcoallog/bank/tests/*.py
+    charcoallog/core/tests/*.py
+    charcoallog/investments/tests/*.py
+    charcoallog/wsgi.py
+
