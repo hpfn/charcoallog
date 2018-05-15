@@ -1,6 +1,9 @@
 languge: python
 python:
  - 3.6
+addons:
+ apt:
+   update: true
 install:
  - pip install -q -r requirements-dev.txt
 script:
