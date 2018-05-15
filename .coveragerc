@@ -1,5 +1,5 @@
 [run]
-source = charcoallog
+source = ./charcoallog
 omit =
     .project_env
     charcoallog/accounts/migrations/*.py
