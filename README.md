@@ -1,5 +1,6 @@
 [![Build Status](https://www.travis-ci.org/hpfn/charcoallog.svg?branch=master)](https://www.travis-ci.org/hpfn/charcoallog)
-
+[![Updates](https://pyup.io/repos/github/hpfn/charcoallog/shield.svg)](https://pyup.io/repos/github/hpfn/charcoallog/)
+[![Python 3](https://pyup.io/repos/github/hpfn/charcoallog/python-3-shield.svg)](https://pyup.io/repos/github/hpfn/charcoallog/)
 
 # charcoallog
 Financial-accounting. Domestic use.
