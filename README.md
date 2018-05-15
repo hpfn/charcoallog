@@ -1,3 +1,6 @@
+[![Build Status](https://www.travis-ci.org/hpfn/charcoallog.svg?branch=master)](https://www.travis-ci.org/hpfn/charcoallog)
+
+
 # charcoallog
 Financial-accounting. Domestic use.
 
