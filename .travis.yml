@@ -6,6 +6,5 @@ install:
  - pip install -q -r requirements-dev.txt
 script:
  - flake8
- - coverage run manage.py test -v 3
-after-success:
- - coverage report
+ - python3 manage.py test -t ./
+
