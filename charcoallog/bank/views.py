@@ -46,12 +46,15 @@ def update_data(query_user, id_for_update, form):
                 'message': 'You can not set a new account name from here'}
     else:
         obj = query_user.get(id=id_for_update)  # , user_name=self.request_user)
-        obj.date = form.cleaned_data.get('date')
-        obj.money = form.cleaned_data.get('money')
-        obj.description = form.cleaned_data.get('description')
-        obj.category = form.cleaned_data.get('category')
-        obj.payment = form.cleaned_data.get('payment')
-        obj.save(update_fields=['date', 'money', 'description', 'category', 'payment'])
+        new_form = EditExtractForm(form.cleaned_data, instance=obj)
+        if new_form.is_valid():
+            new_form.save()
+        #obj.date = form.cleaned_data.get('date')
+        #obj.money = form.cleaned_data.get('money')
+        #obj.description = form.cleaned_data.get('description')
+        #obj.category = form.cleaned_data.get('category')
+        #obj.payment = form.cleaned_data.get('payment')
+        #obj.save(update_fields=['date', 'money', 'description', 'category', 'payment'])
 
 
 def prepare_action(form, request_user):
