@@ -2,6 +2,8 @@
 [![Updates](https://pyup.io/repos/github/hpfn/charcoallog/shield.svg)](https://pyup.io/repos/github/hpfn/charcoallog/)
 [![Python 3](https://pyup.io/repos/github/hpfn/charcoallog/python-3-shield.svg)](https://pyup.io/repos/github/hpfn/charcoallog/)
 [![Code Health](https://landscape.io/github/hpfn/charcoallog/master/landscape.svg?style=flat)](https://landscape.io/github/hpfn/charcoallog/master)
+[![codecov](https://codecov.io/gh/hpfn/charcoallog/branch/master/graph/badge.svg)](https://codecov.io/gh/hpfn/charcoallog)
+
 
 # charcoallog
 Financial-accounting. Domestic use.
