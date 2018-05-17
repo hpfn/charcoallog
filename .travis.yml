@@ -3,8 +3,11 @@ python:
  - 3.6
 install:
  - cp contrib/env-sample .env
- - pip install -q -r requirements-dev.txt
+ - pip install -q -r requirements-dev.txt codecov
 script:
  - flake8
- - python3 manage.py test -t ./
+ - coverage run manage.py test -t ./
+ - coverage report
+after_success:
+ - codecov
 
