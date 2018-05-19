@@ -1,39 +1,17 @@
-<div id="invest_box_line3" class="scroll">
-    {% for b in show_data.methodget.query_default %}
-    <form action="." method="post">
-        {% csrf_token %}
-        <table align="center" cellpadding="2" >
-            <tr>
-                {# <td> #}
-                    {# <input type="hidden" name="pk" id="id" value="{{ b.id }}" /> #}
-                {# </td> #}
-                <td>
-                    {{ b.date }}
-                </td>
-                <td>
-                    {{ b.money }}
-                </td>
-                <td>
-                    {{ b.kind }}
-                </td>
-                <td>
-                    {{ b.which_target }}
-                </td>
-                <td>
-                    {{ b.tx_op }}
-                </td>
-                <td>
-                    {{ b.brokerage }}
-                </td>
-                <td>
-                    <font size="2">
-                        <button type='submit' style="font-size:9px" >Send</button>
-                    </font>
-                </td>
-            </tr>
-        </table>
-    </form>
-    {% endfor %}
-    <br />
-    {# {% endif %} #}
-</div>
+{% for b in show_data.methodget.query_default %}
+<form action="." method="post">
+    {% csrf_token %}
+
+
+        <div class="form-inline">
+            <input type="date" id="date" name="date" class="form-inline" size="8" style="font-size:10px" value="{{ b.date }}">
+            <input type="text" id="money" name="money" class="form-inline" style="font-size:10px" value="{{ b.money }}" size="8">
+            <input type="text"  id="kind" name="kind" class="form-inline" size="15" value="{{ b.kind }}" style="font-size:10px">
+            <input type="text" id="which_target" name="which_target" class="form-inline" size="15" value="{{ b.which_target }}" style="font-size:10px">
+            <input type="number" id="tx_op" name="tx_op" class="form-inline" size="8" value="{{ b.tx_op }}" style="font-size:10px">
+            <input type="text" id="brokerage" name="brokerage" class="form-inline" size="15" value="{{ b.brokerage }}" style="font-size:10px">
+            <button type="submit" class="btn btn-primary" size="8">Submit</button>
+            <button type="submit" class="btn btn-primary" size="8">Submit</button>
+        </div>
+</form>
+{% endfor %}

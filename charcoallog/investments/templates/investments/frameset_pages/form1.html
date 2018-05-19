@@ -1,43 +1,41 @@
-<div id="invest_box_form1">
-    <form action="." method="post">
-        {% csrf_token %}
-        <p>
-            <input type="hidden" name="user_name" id="id_user_name" value="you">
-            <label for="{{ form.date.id_for_label }}">{{ form.date.label }}</label>
-            {{ form.date.errors }}
-            {{ form.date }}
-        </p>
-
-        <p>
-            <label for="{{ form.money.id_for_label }}">{{ form.money.label }}</label>
-            {{ form.money.errors }}
-            {{ form.money }}
-        </p>
-
-        <p>
-            <label for="{{ form.kind.id_for_label }}">{{ form.kind.label }}</label>
-            {{ form.kind.errors }}
-            {{ form.kind }}
-        </p>
-
-        <p>
-            <label for="{{ form.which_target.id_for_label }}">{{ form.which_target.label }}</label>
-            {{ form.which_target.errors }}
-            {{ form.which_target }}
-        </p>
-
-        <p>
-            <label for="{{ form.tx_op.id_for_label }}">{{ form.tx_op.label }}</label>
-            {{ form.tx_op.errors }}
-            {{ form.tx_op }}
-        </p>
-
-        <p>
-            <label for="{{form.brokerage.id_for_label }}">{{ form.brokerage.label }}</label>
-            {{ form.brokerage.errors }}
-            {{ form.brokerage }}
-        </p>
-
-        <input type="submit" value="Submit" />
-    </form>
-</div>
+<form action="." method="post" class="">
+    {% csrf_token %}
+    <div class="form-group">
+        <input type="hidden" name="user_name" id="id_user_name" value="you">
+        {{ form.date.errors }}
+        <input type="date" name="date" id="datepicker"
+               class="form-control form-control-sm" placeholder="date"
+               required="True">
+    </div>
+    <div class="form-group">
+        {{ form.money.errors }}
+        <input type="text" name="money" id="money"
+               class="form-control form-control-sm" placeholder="money"
+               required="True">
+    </div>
+    <div class="form-group">
+        {{ form.kind.errors }}
+        <input type="text" name="kind" id="kind"
+               class="form-control form-control-sm" placeholder="kind"
+               required="True">
+    </div>
+    <div class="form-group">
+        {{ from.which_target.errors }}
+        <input type="text" name="which_target" id="which_target"
+               class="form-control form-control-sm" placeholder="which_target"
+               required="True">
+    </div>
+    <div class="form-group">
+        {{ from.tx_op.errors }}
+        <input type="text" name="tx_op" id="tx_op"
+               class="form-control form-control-sm" placeholder="tx_op"
+               required="True">
+    </div>
+    <div class="form-group">
+        {{ form.brokerage.errors }}
+        <input type="text" name="brokerage" id="brokerage"
+               class="form-control form-control-sm" placeholder="brokerage"
+               required="True">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
