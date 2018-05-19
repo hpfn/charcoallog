@@ -1,10 +1,15 @@
 <div class="col-md-12">
     <ul class="nav nav-pills">
-        <li class="nav-item">
-            <a class="nav-link" href="#">Item</a>
-        </li>
-        <li class="nav-item">
-            <a href="#" class="nav-link">Item</a>
-        </li>
+        {% for key, value in show_data.brief_investment.brokerage.items %}
+            <li class="nav-item">
+                <a class="nav-link" href="#">{{ key }}</a>{{ value }}
+            </li>
+        {% endfor %}
+
+        {% for key, value in show_data.brief_investment.kind_investment.items %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'investments:detail' key %}">{{ key }}</a>{{ value }}
+            </li>
+        {% endfor %}
     </ul>
 </div>
