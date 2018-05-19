@@ -1,17 +1,26 @@
-{% extends "base.html" %}
-
+{% extends "./blank.html" %}
 
 {% block content %}
-<div id="invest_central">
-    <div class="invest_col1">
-        {% include 'investments/frameset_pages/form1.html' %}
-    </div>
-    <div class="invest_col2">
-        <div class="invest_row1">
-            {% include 'investments/frameset_pages/line1.html' %}
-        </div>
-        <div class="invest_row2">
-            {% include 'investments/frameset_pages/line3.html' %}
+<div class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 align-self-left">
+                <div class="container">
+                    {% include 'investments/frameset_pages/form1.html' %}
+                </div>
+                <div class="container"></div>
+                <div class="container">
+                    {% include 'investments/frameset_pages/form2.html' %}
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="row">
+                    {% include 'investments/frameset_pages/line1.html' %}
+                </div>
+                <div class="row">
+                    {% include 'investments/frameset_pages/line3.html' %}
+                </div>
+            </div>
         </div>
     </div>
 </div>

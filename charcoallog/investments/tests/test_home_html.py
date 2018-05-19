@@ -30,14 +30,14 @@ class InvestmentHomeOkTest(TestCase):
         self.assertContains(self.response, '<form')
         self.assertContains(self.response, '<input', 9)
         self.assertContains(self.response, 'type="hidden"', 1)
-        self.assertContains(self.response, 'type="text"', 4)
-        self.assertContains(self.response, 'type="number"', 2)
+        self.assertContains(self.response, 'type="text"', 6)
+        # self.assertContains(self.response, 'type="number"', 2)
         self.assertContains(self.response, 'type="submit"')
         self.assertContains(self.response, '</form')
-        self.assertContains(self.response, 'class="invest_row1"')
-        self.assertContains(self.response, 'id="invest_box_line1"')
-        self.assertContains(self.response, 'class="invest_row2"')
-        self.assertContains(self.response, 'id="invest_box_line3"')
+        self.assertContains(self.response, 'class="row"')
+        self.assertContains(self.response, 'method="get"')
+        self.assertContains(self.response, 'method="post"')
+        # self.assertContains(self.response, 'id="invest_box_line3"')
 
     def test_csrf(self):
         """ html must contain csrf """
