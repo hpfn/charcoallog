@@ -1,9 +1,9 @@
-<form action="." method="post" class="">
+<form action="." method="post">
     {% csrf_token %}
     <div class="form-group">
         <input type="hidden" name="user_name" id="id_user_name" value="you">
         {{ form.date.errors }}
-        <input type="date" name="date" id="datepicker"
+        <input type="date" name="date"
                class="form-control form-control-sm" placeholder="date"
                required="True">
     </div>

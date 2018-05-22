@@ -1,29 +1,32 @@
+<div class="scroll">
 {% for b in show_data.methodget.query_default %}
-<form action="." method="post">
+<form action="." method="post" id="{{ b.pk }}">
     {% csrf_token %}
-
-
-        <div class="form-inline">
-            <input type="date" id="date" name="date" class="form-inline"
+        <div class="form-inline m-0 p-0">
+            <input type="date" id="date" name="date" class="form-inline m-0 p-0 bg-light"
                    size="11" style="font-size:10px;border:none"
-                   value='{{ b.date|date:"Y-m-d" }}'>
-            <input type="text" id="money" name="money" class="form-inline"
+                   value='{{ b.date|date:"Y-m-d" }}' disabled>
+            <input type="text" id="money" name="money" class="form-inline m-0 p-0 bg-light"
                    size="11" style="font-size:10px;border:none"
-                   value="{{ b.money }}">
-            <input type="text"  id="kind" name="kind" class="form-inline"
+                   value="{{ b.money }}" disabled>
+            <input type="text"  id="kind" name="kind" class="form-inline m-0 p-0 bg-light"
                    size="15" style="font-size:10px;border:none"
-                   value="{{ b.kind }}">
-            <input type="text" id="which_target" name="which_target" class="form-inline"
+                   value="{{ b.kind }}" disabled>
+            <input type="text" id="which_target" name="which_target" class="form-inline m-0 p-0 bg-light"
                    size="15" style="font-size:10px;border:none"
-                   value="{{ b.which_target }}">
-            <input type="text" id="tx_op" name="tx_op" class="form-inline"
+                   value="{{ b.which_target }}" disabled>
+            <input type="text" id="tx_op" name="tx_op" class="form-inline m-0 p-0 bg-light"
                    size="8" style="font-size:10px;border:none"
-                   value="{{ b.tx_op }}">
-            <input type="text" id="brokerage" name="brokerage" class="form-inline"
+                   value="{{ b.tx_op }}" disabled>
+            <input type="text" id="brokerage" name="brokerage" class="form-inline m-0 p-0 bg-light"
                    size="15" style="font-size:10px;border:none"
-                   value="{{ b.brokerage }}">
-            <button type="submit" class="btn btn-primary" size="8">Submit</button>
-            <button type="submit" class="btn btn-primary" size="8">Submit</button>
+                   value="{{ b.brokerage }}" disabled>
+            <!--<button type="submit" class="btn btn-primary" size="8">Submit</button>-->
+            <input type="checkbox" id="checkbox" value="update" name="update">
+            <span class="form-text text-muted" style="font-size:9px">update</span>
+
+            <button type="submit" class="btn btn-sm m-0 p-0 btn-link" size="8">Submit</button>
         </div>
 </form>
 {% endfor %}
+</div>

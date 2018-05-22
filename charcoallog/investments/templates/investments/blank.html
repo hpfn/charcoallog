@@ -22,9 +22,6 @@
           <ul class="nav nav-pills">
             {% if user.is_authenticated %}
             <li class="nav-item">
-              Hi {{ user.username }},
-            </li>
-            <li class="nav-item">
               <a href="{% url 'core:home' %}" class="active nav-link">
                 <i class="fa fa-home fa-home"></i>&nbsp;Initial</a>
             </li>
@@ -35,7 +32,7 @@
               <a href="{% url 'investments:home' %}" class="nav-link">investments</a>
             </li>
             <li class="nav-item">
-              <a href="{% url 'accounts:logout' %}" class="nav-link">sign out</a>
+              <a href="{% url 'accounts:logout' %}" class="nav-link">sign out {{ user.username }}?</a>
             </li>
             {% else %}
             <li class="nav-item">
@@ -49,6 +46,7 @@
         </div>
       </div>
     </div>
+    <hr>
   </div>
   {% block content %}{% endblock %}
   <!-- footer -->
