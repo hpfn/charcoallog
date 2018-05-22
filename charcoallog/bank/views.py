@@ -65,3 +65,19 @@ def prepare_action(form, request_user):
     form.cleaned_data['user_name'] = request_user
 
     return what_to_do, id_for_update, form
+
+
+def delete(request):
+    form = EditExtractForm(request.POST)
+    if form.is_valid() and request.is_ajax():
+        # this should be removed after new JS -  ajax
+        _, pk, form = prepare_action(form, request.user)
+
+        query_user = Extract.objects.user_logged(request.user)
+        # query_user.filter(**form.cleaned_data).delete()
+        query_user.filter(pk=pk).delete()
+
+        line1 = BriefBank(query_user)
+        data = {'accounts': line1.account_names(),
+                'whats_left': line1.whats_left()}
+        return JsonResponse(data)
