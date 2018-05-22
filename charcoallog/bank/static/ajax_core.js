@@ -1,6 +1,29 @@
 $(function() {
     var old_money = 0;
     var old_account = 0;
+    // aqui o valor padrão deve ser 'delete/'
+    // e ajax_post sera renoamedo para 'update/'
+    var url_ajax = 'ajax_post/';
+
+    var checked = function() {
+        var n = $("input:checked").length;
+        console.log(n);
+        if ( n === 1 ) {
+            // como definir qual botao?
+            $("#botao").attr('value', 'Update');
+            url_ajax = 'update';
+            $(this).parents("table").find('input').removeAttr('readonly');
+        }
+        else {
+            $("#botao").attr('value', 'Delete');
+            url_ajax = 'delete';
+            $(this).parents("table").find('input').attr('readonly', true);
+        }
+
+    };
+    $("input[type=checkbox]").on('click', checked);
+
+    // isso vai ser substituido por checked - acima
     $("#bank_box_line3 input").bind('click', function() {
         if ( $(this).val() == 'update') {
             $(this).parents("table").find('input').removeAttr('readonly');
@@ -32,7 +55,7 @@ $(function() {
         var data_v = $(this).serializeArray();
 
         $.post({
-            url: 'ajax_post/',
+            url: url_ajax,
             data: data_v,
             success: function(content, data) {
                 function red_css(number, id_name) {

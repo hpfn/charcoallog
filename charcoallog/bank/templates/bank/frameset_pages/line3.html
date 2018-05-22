@@ -50,11 +50,16 @@
                     <input name="payment" id="payment" value="{{ b.payment }}" size="15" style="font-size:9px" readonly />
                 </td>
                 <td>
+                    {# isso sera removido #}
                     <input type="radio" name="update_rm" value="update" />update
                     <input type="radio" name="update_rm" value="remove" checked  />remove
+                    {# esse sera o substituto #}
+                    <input type='checkbox' id='checkbox' value='update' name='update'>update
                 <td>
                     <font size="2">
-                    <button type='submit' style="font-size:9px" >Send</button>
+                    {# tem que colocar uma identificação aqui no botao #}
+                    {# ou usar o inverso de .parent(s) do JS #}
+                    <button type='submit' style="font-size:9px" >Delete</button>
 		            </font>
                 </td>
             </tr>
