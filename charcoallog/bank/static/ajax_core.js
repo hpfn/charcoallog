@@ -54,7 +54,7 @@ $(function() {
                      //$("#botao").attr('value', 'Update');
                      url_ajax = 'ajax_post/';
                      $(this).parents("table").find('input').removeAttr('readonly');
-                     $(this).attr('checked', 'checked');
+                     //$(this).attr('checked', 'checked');
 
                  }
                  else {
@@ -170,8 +170,8 @@ $(function() {
 //                        $('#'+data_v[2].value + ' input:radio[name=update_rm]')[1].checked = true;
                         $('#'+data_v[2].value + " input").attr('readonly', 'true');
                         $('#'+data_v[2].value + ' input:checkbox[name=update]').removeAttr('readonly');
-                        $('#'+data_v[2].value + ' input:checkbox[name=update]').removeAttr('checked');
-                        $('#'+data_v[2].value + ' input:checkbox[name=update]').checked = false;
+                        //$('#'+data_v[2].value + ' input:checkbox[name=update]').removeAttr('checked');
+                        $('#'+data_v[2].value + ' input:checkbox[name=update]').prop('checked', false);
                         $('#'+data_v[2].value + ' button').text('Delete');
 
 
