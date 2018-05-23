@@ -27,16 +27,17 @@ def update_data(request):
     data = {'no_account': True,
             'message': 'Form is not valid'}
 
-    query_user = Extract.objects.user_logged(request.user)
+    # query_user = Extract.objects.user_logged(request.user)
 
     form = EditExtractForm(request.POST)
     if form.is_valid() and request.is_ajax():
+        query_user = Extract.objects.user_logged(request.user)
         payment = form.cleaned_data.get('payment')
         if not query_user.filter(payment=payment).first():
             data = {'no_account': True,
                     'message': 'You can not set a new account name from here'}
         else:
-            _, id_for_update, form = prepare_action(form, request.user)
+            id_for_update, form = prepare_action(form, request.user)
             obj = query_user.get(id=id_for_update)  # , user_name=self.request_user)
             new_form = EditExtractForm(form.cleaned_data, instance=obj)
             if new_form.is_valid():
@@ -49,22 +50,21 @@ def update_data(request):
     return data
 
 
-
 def prepare_action(form, request_user):
-    what_to_do = form.cleaned_data.get('update_rm')
+    # what_to_do = form.cleaned_data.get('update_rm')
     id_for_update = form.cleaned_data.get('pk')
-    del form.cleaned_data['update_rm']
+    # del form.cleaned_data['update_rm']
     del form.cleaned_data['pk']
     form.cleaned_data['user_name'] = request_user
 
-    return what_to_do, id_for_update, form
+    return id_for_update, form
 
 
 def delete(request):
     form = EditExtractForm(request.POST)
     if form.is_valid() and request.is_ajax():
         # this should be removed after new JS -  ajax
-        _, pk, form = prepare_action(form, request.user)
+        pk, form = prepare_action(form, request.user)
 
         query_user = Extract.objects.user_logged(request.user)
         # query_user.filter(**form.cleaned_data).delete()

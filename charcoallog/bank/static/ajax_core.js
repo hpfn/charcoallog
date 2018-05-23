@@ -33,15 +33,15 @@ $(function() {
 
     // isso vai ser substituido por checked - acima
     $("#bank_box_line3 input").bind('click', function() {
-        if ( $(this).val() == 'update') {
-            $(this).parents("table").find('input').removeAttr('readonly');
-            url_ajax = 'ajax_post/'
-        }
-        if ( $(this).val() == 'remove') {
-            $(this).parents("table").find('input').attr('readonly', true);
-            url_ajax = 'delete/'
-        }
-        console.log(url_ajax);
+        //if ( $(this).val() == 'update') {
+        //    $(this).parents("table").find('input').removeAttr('readonly');
+        //    url_ajax = 'ajax_post/'
+        //}
+        //if ( $(this).val() == 'remove') {
+        //    $(this).parents("table").find('input').attr('readonly', true);
+        //    url_ajax = 'delete/'
+        //}
+        //console.log(url_ajax);
 
         if ( $(this).attr("id") == 'checkbox') {
                  console.log('checked');
@@ -85,11 +85,26 @@ $(function() {
 
     $("#bank_box_line3 form").on('submit', function(e) {
         e.preventDefault();
+
         var data_v = $(this).serializeArray();
 
-        var last_field =  data_v['' + data_v.length-1 + ''];
-        //if ( last_field.value == 'update' ) {
-        //delete data_v['' + data_v.length-1 + ''];
+        //var last_field =  data_v['' + data_v.length-1 + ''];
+        if ( data_v.length == 9 ) {
+            $('#'+data_v[2].value + " input").attr('readonly', 'true');
+            $('#'+data_v[2].value + ' input:checkbox[name=update]').removeAttr('readonly');
+            $('#'+data_v[2].value + ' button').text('Delete');
+            $('#'+data_v[2].value + ' input:checkbox[name=update]').prop('checked', false);
+            if ( old_money ) {
+                total_value(old_money, data_v[4].value);
+            }
+            var update = data_v.pop();
+        }
+        else {
+            var update = 'no';
+        }
+        //    console.log(last_field);
+            // delete data_v['9'];
+            //delete data_v['' + data_v.length-1 + ''];
             //delete txt.update;
         //}
         console.log(data_v.length);
@@ -160,27 +175,27 @@ $(function() {
                     // isto deve ser removido após checkbox ser totalmente implementado
                     // atenção com o que é feito dentro dos dois if para fazer adaptação
                     // por enquanto alterado de 'remove' para length
-                    if ( data_v.length == 8 ) {
+                    if ( update == 'no' ) {
                         $('#'+data_v[2].value).remove();
                         total_value(data_v[4].value, 0);
                     }
                     // rever esses attr - desmarcar checkbox não funciona
-                    if ( data_v.length != 8 ) {
+                    //if ( data_v.length != 8 ) {
                         // form back to default
 //                        $('#'+data_v[2].value + ' input:radio[name=update_rm]')[1].checked = true;
-                        $('#'+data_v[2].value + " input").attr('readonly', 'true');
-                        $('#'+data_v[2].value + ' input:checkbox[name=update]').removeAttr('readonly');
+                        // $('#'+data_v[2].value + " input").attr('readonly', 'true');
+                        // $('#'+data_v[2].value + ' input:checkbox[name=update]').removeAttr('readonly');
                         //$('#'+data_v[2].value + ' input:checkbox[name=update]').removeAttr('checked');
-                        $('#'+data_v[2].value + ' input:checkbox[name=update]').prop('checked', false);
-                        $('#'+data_v[2].value + ' button').text('Delete');
+                        //$('#'+data_v[2].value + ' input:checkbox[name=update]').prop('checked', false);
+                        //$('#'+data_v[2].value + ' button').text('Delete');
 
 
 
                         //console.log(old_money);
-                        if ( old_money ) {
-                            total_value(old_money, data_v[4].value);
-                        }
-                    }
+                    //if ( old_money ) {
+                    //    total_value(old_money, data_v[4].value);
+                    //}
+                    //}
                 }
             },
             error: function(content) {
