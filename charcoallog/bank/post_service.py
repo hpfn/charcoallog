@@ -26,7 +26,7 @@ class MethodPost:
             self.transfer_between_accounts()
 
     def insert_by_post(self):
-        del self.form.cleaned_data['update_rm']
+        # del self.form.cleaned_data['update_rm']
         del self.form.cleaned_data['pk']
         self.form.cleaned_data['user_name'] = self.request_user
 
