@@ -5,6 +5,7 @@ $(function() {
     // e ajax_post sera renoamedo para 'update/'
     var url_ajax = 'delete/';
 
+    // isto esta dentro de bank_box_line3
     var checked = function() {
         var n = $("input:checked").length;
         console.log(n);
@@ -21,7 +22,14 @@ $(function() {
         }
 
     };
-    $("input[type=checkbox]").on('click', checked);
+    //$("input:[type=checkbox]").on('click', checked);
+    // if ( $(this).attr("id") == 'checkbox') {
+    //     console.log('checked');
+    // }
+    //$("input:checkbox[name=update]").on('click', checked);
+    // ate aqui
+
+
 
     // isso vai ser substituido por checked - acima
     $("#bank_box_line3 input").bind('click', function() {
@@ -32,6 +40,29 @@ $(function() {
         if ( $(this).val() == 'remove') {
             $(this).parents("table").find('input').attr('readonly', true);
             url_ajax = 'delete/'
+        }
+        console.log(url_ajax);
+
+        if ( $(this).attr("id") == 'checkbox') {
+                 console.log('checked');
+                 //$(this).attr('checked', 'true');
+                 var n = $("input:checked").length;
+                 console.log(n);
+                 if ( n === 1 ) {
+                     // como definir qual botao?
+                     $(this).parents("table").find('button').text('Update');
+                     //$("#botao").attr('value', 'Update');
+                     url_ajax = 'ajax_post/';
+                     $(this).parents("table").find('input').removeAttr('readonly');
+                     $(this).attr('checked', 'checked');
+
+                 }
+                 else {
+                     $(this).parents("table").find('button').text('Delete');
+                     // $("#botao").attr('value', 'Delete');
+                     url_ajax = 'delete/';
+                     $(this).parents("table").find('input').attr('readonly', true);
+                 }
         }
     });
     $("#bank_box_line3 input").focusin(function() {
@@ -57,10 +88,12 @@ $(function() {
         var data_v = $(this).serializeArray();
 
         var last_field =  data_v['' + data_v.length-1 + ''];
-        if ( last_field.value == 'update' ) {
-            delete data_v['' + data_v.length-1 + ''];
+        //if ( last_field.value == 'update' ) {
+        //delete data_v['' + data_v.length-1 + ''];
             //delete txt.update;
-        }
+        //}
+        console.log(data_v.length);
+        console.log(data_v);
 
         $.post({
             url: url_ajax,
@@ -101,7 +134,7 @@ $(function() {
 
                     //console.log(old_account);
                     //console.log(data_v[7].value);
-                    console.log(not_present);
+                    //console.log(not_present);
                     if ( not_present ) {
                         if ( old_account) {
                             $("[class='"+old_account+"']").remove();
@@ -124,15 +157,25 @@ $(function() {
                         red_css(new_total_value, "#total");
                     }
 
-                    if ( data_v[8].value == 'remove' ) {
+                    // isto deve ser removido após checkbox ser totalmente implementado
+                    // atenção com o que é feito dentro dos dois if para fazer adaptação
+                    // por enquanto alterado de 'remove' para length
+                    if ( data_v.length == 8 ) {
                         $('#'+data_v[2].value).remove();
                         total_value(data_v[4].value, 0);
                     }
-
-                    if ( data_v[8].value == 'update' ) {
+                    // rever esses attr - desmarcar checkbox não funciona
+                    if ( data_v.length != 8 ) {
                         // form back to default
-                        $('#'+data_v[2].value + ' input:radio[name=update_rm]')[1].checked = true;
+//                        $('#'+data_v[2].value + ' input:radio[name=update_rm]')[1].checked = true;
                         $('#'+data_v[2].value + " input").attr('readonly', 'true');
+                        $('#'+data_v[2].value + ' input:checkbox[name=update]').removeAttr('readonly');
+                        $('#'+data_v[2].value + ' input:checkbox[name=update]').removeAttr('checked');
+                        $('#'+data_v[2].value + ' input:checkbox[name=update]').checked = false;
+                        $('#'+data_v[2].value + ' button').text('Delete');
+
+
+
                         //console.log(old_money);
                         if ( old_money ) {
                             total_value(old_money, data_v[4].value);
