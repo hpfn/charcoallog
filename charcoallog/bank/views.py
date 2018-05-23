@@ -27,50 +27,53 @@ def update_data(request):
     data = {'no_account': True,
             'message': 'Form is not valid'}
 
-    # query_user = Extract.objects.user_logged(request.user)
-
+    query_user = Extract.objects.user_logged(request.user)
     form = EditExtractForm(request.POST)
     if form.is_valid() and request.is_ajax():
-        query_user = Extract.objects.user_logged(request.user)
-        payment = form.cleaned_data.get('payment')
-        if not query_user.filter(payment=payment).first():
-            data = {'no_account': True,
-                    'message': 'You can not set a new account name from here'}
-        else:
+        data = new_account(form, query_user)
+
+        if not data:
             id_for_update, form = prepare_action(form, request.user)
-            obj = query_user.get(id=id_for_update)  # , user_name=self.request_user)
+            obj = query_user.get(id=id_for_update)
             new_form = EditExtractForm(form.cleaned_data, instance=obj)
             if new_form.is_valid():
                 new_form.save()
 
-            line1 = BriefBank(query_user)
-            data = {'accounts': line1.account_names(),
-                    'whats_left': line1.whats_left()}
+            data = build_json_data(query_user)
 
     return data
 
 
 def prepare_action(form, request_user):
-    # what_to_do = form.cleaned_data.get('update_rm')
     id_for_update = form.cleaned_data.get('pk')
-    # del form.cleaned_data['update_rm']
     del form.cleaned_data['pk']
     form.cleaned_data['user_name'] = request_user
 
     return id_for_update, form
 
 
+@login_required
+@require_POST
 def delete(request):
+    query_user = Extract.objects.user_logged(request.user)
     form = EditExtractForm(request.POST)
     if form.is_valid() and request.is_ajax():
-        # this should be removed after new JS -  ajax
         pk, form = prepare_action(form, request.user)
-
-        query_user = Extract.objects.user_logged(request.user)
-        # query_user.filter(**form.cleaned_data).delete()
         query_user.filter(pk=pk).delete()
 
-        line1 = BriefBank(query_user)
-        data = {'accounts': line1.account_names(),
-                'whats_left': line1.whats_left()}
-        return JsonResponse(data)
+    data = build_json_data(query_user)
+
+    return JsonResponse(data)
+
+
+def build_json_data(query_user):
+    line1 = BriefBank(query_user)
+    return {'accounts': line1.account_names(),
+            'whats_left': line1.whats_left()}
+
+
+def new_account(form, query_user):
+    payment = form.cleaned_data.get('payment')
+    if not query_user.filter(payment=payment).first():
+        return {'no_account': True,
+                'message': 'You can not set a new account name from here'}
