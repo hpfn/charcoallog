@@ -3,7 +3,7 @@ $(function() {
     var old_account = 0;
     // aqui o valor padrão deve ser 'delete/'
     // e ajax_post sera renoamedo para 'update/'
-    var url_ajax = 'ajax_post/';
+    var url_ajax = 'delete/';
 
     var checked = function() {
         var n = $("input:checked").length;
@@ -11,12 +11,12 @@ $(function() {
         if ( n === 1 ) {
             // como definir qual botao?
             $("#botao").attr('value', 'Update');
-            url_ajax = 'update';
+            url_ajax = 'ajax_post/';
             $(this).parents("table").find('input').removeAttr('readonly');
         }
         else {
             $("#botao").attr('value', 'Delete');
-            url_ajax = 'delete';
+            url_ajax = 'delete/';
             $(this).parents("table").find('input').attr('readonly', true);
         }
 
@@ -27,9 +27,11 @@ $(function() {
     $("#bank_box_line3 input").bind('click', function() {
         if ( $(this).val() == 'update') {
             $(this).parents("table").find('input').removeAttr('readonly');
+            url_ajax = 'ajax_post/'
         }
         if ( $(this).val() == 'remove') {
             $(this).parents("table").find('input').attr('readonly', true);
+            url_ajax = 'delete/'
         }
     });
     $("#bank_box_line3 input").focusin(function() {
