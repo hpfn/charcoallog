@@ -56,6 +56,12 @@ $(function() {
         e.preventDefault();
         var data_v = $(this).serializeArray();
 
+        var last_field =  data_v['' + data_v.length-1 + ''];
+        if ( last_field.value == 'update' ) {
+            delete data_v['' + data_v.length-1 + ''];
+            //delete txt.update;
+        }
+
         $.post({
             url: url_ajax,
             data: data_v,
