@@ -20,41 +20,34 @@ def home(request):
 @login_required
 @require_POST
 def ajax_post(request):
-    data = dict()
+    return JsonResponse(update_data(request))
+
+
+def update_data(request):
+    data = {'no_account': True,
+            'message': 'Form is not valid'}
+
+    query_user = Extract.objects.user_logged(request.user)
+
     form = EditExtractForm(request.POST)
     if form.is_valid() and request.is_ajax():
-        query_user = Extract.objects.user_logged(request.user)
-        what_to_do, id_for_update, form = prepare_action(form, request.user)
+        payment = form.cleaned_data.get('payment')
+        if not query_user.filter(payment=payment).first():
+            data = {'no_account': True,
+                    'message': 'You can not set a new account name from here'}
+        else:
+            _, id_for_update, form = prepare_action(form, request.user)
+            obj = query_user.get(id=id_for_update)  # , user_name=self.request_user)
+            new_form = EditExtractForm(form.cleaned_data, instance=obj)
+            if new_form.is_valid():
+                new_form.save()
 
-        if what_to_do == 'remove':
-            query_user.filter(**form.cleaned_data).delete()
-        elif what_to_do == 'update':
-            data = update_data(query_user, id_for_update, form)
-
-        if not data:
             line1 = BriefBank(query_user)
             data = {'accounts': line1.account_names(),
                     'whats_left': line1.whats_left()}
 
-    return JsonResponse(data)
+    return data
 
-
-def update_data(query_user, id_for_update, form):
-    payment = form.cleaned_data.get('payment')
-    if not query_user.filter(payment=payment).first():
-        return {'no_account': True,
-                'message': 'You can not set a new account name from here'}
-    else:
-        obj = query_user.get(id=id_for_update)  # , user_name=self.request_user)
-        new_form = EditExtractForm(form.cleaned_data, instance=obj)
-        if new_form.is_valid():
-            new_form.save()
-        # obj.date = form.cleaned_data.get('date')
-        # obj.money = form.cleaned_data.get('money')
-        # obj.description = form.cleaned_data.get('description')
-        # obj.category = form.cleaned_data.get('category')
-        # obj.payment = form.cleaned_data.get('payment')
-        # obj.save(update_fields=['date', 'money', 'description', 'category', 'payment'])
 
 
 def prepare_action(form, request_user):
