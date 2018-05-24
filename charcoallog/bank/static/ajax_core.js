@@ -10,7 +10,7 @@ $(function() {
                  console.log(n);
                  if ( n === 1 ) {
                      $(this).parents("table").find('button').text('Update');
-                     url_ajax = 'ajax_post/';
+                     url_ajax = 'update/';
                      $(this).parents("table").find('input').removeAttr('readonly');
                  }
                  else {

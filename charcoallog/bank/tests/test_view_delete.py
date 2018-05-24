@@ -41,7 +41,7 @@ class AjaxPostTest(TestCase):
     def test_ajax_remove(self):
         obj = Extract.objects.get(**self.data)
 
-        self.data['update_rm'] = 'remove'
+        # self.data['update_rm'] = 'remove'
         self.data['pk'] = obj.pk
         # response = self.client.post('/bank/delete/', self.data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         response = self.client.post(r('bank:delete'), self.data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
