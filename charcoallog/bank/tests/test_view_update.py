@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
-
+from django.shortcuts import resolve_url as r
 from charcoallog.bank.models import Extract
 
 
@@ -41,7 +41,7 @@ class AjaxPostTest(TestCase):
            GET method must return 405
            method not allowed
         """
-        self.assertEqual(405, self.client.get('/bank/ajax_post/').status_code)
+        self.assertEqual(405, self.client.get(r('bank:update')).status_code)
 
     def test_ajax_update(self):
         to_update = dict(
@@ -54,28 +54,18 @@ class AjaxPostTest(TestCase):
             # update_rm='update',
             pk=2
         )
-        response = self.client.post('/bank/ajax_post/', to_update, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        response = self.client.post(r('bank:update'), to_update, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertJSONEqual(
             response.content,
             {'accounts': {'principal': {'money__sum': '20.00'}},
              'whats_left': '20.00'}
         )
 
-    # def test_ajax_remove(self):
-    #     # self.data['update_rm'] = 'remove'
-    #    self.data['pk'] = ''
-    #    response = self.client.post('/bank/ajax_post/', self.data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-    #    self.assertJSONEqual(
-    #        response.content,
-    #        {'accounts': {'cartao credito': {'money__sum': '10.00'}},
-    #         'whats_left': '10.00'}
-    #    )
-
     def test_ajax_fail_update(self):
         self.data['payment'] = 'blablabla'
         # self.data['update_rm'] = 'update'
         self.data['pk'] = ''
-        response = self.client.post('/bank/ajax_post/', self.data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        response = self.client.post(r('bank:update'), self.data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertJSONEqual(
             response.content,
             {'no_account': True,

@@ -17,31 +17,33 @@ def home(request):
     return render(request, "bank/home.html", context)
 
 
+# @login_required
+# @require_POST
+# def ajax_post(request):
+#    return JsonResponse(update_data(request))
+
 @login_required
 @require_POST
-def ajax_post(request):
-    return JsonResponse(update_data(request))
-
-
-def update_data(request):
+def update(request):
     data = {'no_account': True,
             'message': 'Form is not valid'}
 
     query_user = Extract.objects.user_logged(request.user)
     form = EditExtractForm(request.POST)
     if form.is_valid() and request.is_ajax():
+        # return?
         data = new_account(form, query_user)
 
         if not data:
             id_for_update, form = prepare_action(form, request.user)
             obj = query_user.get(id=id_for_update)
             new_form = EditExtractForm(form.cleaned_data, instance=obj)
-            if new_form.is_valid():
-                new_form.save()
+            # if new_form.is_valid():
+            new_form.save()
 
             data = build_json_data(query_user)
 
-    return data
+    return JsonResponse(data)
 
 
 def prepare_action(form, request_user):
