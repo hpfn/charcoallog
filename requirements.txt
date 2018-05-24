@@ -9,3 +9,8 @@ pytz==2017.3
 six==1.11.0
 #static3==0.7.0
 webencodings==0.5.1
+amqp==2.2.2
+billiard==3.5.0.3
+celery==4.1.1
+kombu==4.2.0
+vine==1.1.4
