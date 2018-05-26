@@ -25,7 +25,7 @@ class EditExtractForm(forms.ModelForm):
     # CHOICES = (('update', '1',), ('remove', '2',))
     # update_rm = forms.ChoiceField(widget=forms.RadioSelect, choices=CHOICES, required=False)
     pk = forms.IntegerField(widget=forms.HiddenInput, required=False)
-    user_name = forms.CharField(required=False)
+    # user_name = forms.CharField(required=False)
 
     class Meta:
         model = Extract
@@ -41,9 +41,10 @@ class EditExtractForm(forms.ModelForm):
                 'placeholder': 'account used'})
         }
 
-    def save(self, commit=True):
+    def save(self, request_user, commit=True):
         form = super(EditExtractForm, self).save(commit=False)
-        form.user_name = self.cleaned_data['user_name']
+        # form.user_name = self.cleaned_data['user_name']
+        form.user_name = str(request_user)
 
         if commit:
             form.save()

@@ -9,5 +9,5 @@ class Form1Test(TestCase):
 
     def test_form1_has_fields(self):
         expected = ['date', 'money', 'description',
-                    'category', 'payment', 'pk', 'user_name']
+                    'category', 'payment', 'pk']
         self.assertSequenceEqual(expected, list(self.form1.fields))

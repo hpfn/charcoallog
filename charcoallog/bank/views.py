@@ -35,21 +35,21 @@ def update(request):
         data = new_account(form, query_user)
 
         if not data:
-            id_for_update, form = prepare_action(form, request.user)
+            id_for_update, form = prepare_action(form)
             obj = query_user.get(id=id_for_update)
             new_form = EditExtractForm(form.cleaned_data, instance=obj)
             # if new_form.is_valid():
-            new_form.save()
+            new_form.save(request.user)
 
             data = build_json_data(query_user)
 
     return JsonResponse(data)
 
 
-def prepare_action(form, request_user):
+def prepare_action(form):
     id_for_update = form.cleaned_data.get('pk')
     del form.cleaned_data['pk']
-    form.cleaned_data['user_name'] = request_user
+    # form.cleaned_data['user_name'] = request_user
 
     return id_for_update, form
 
@@ -60,7 +60,7 @@ def delete(request):
     query_user = Extract.objects.user_logged(request.user)
     form = EditExtractForm(request.POST)
     if form.is_valid() and request.is_ajax():
-        pk, form = prepare_action(form, request.user)
+        pk, form = prepare_action(form)
         query_user.filter(pk=pk).delete()
 
     data = build_json_data(query_user)
