@@ -68,7 +68,7 @@ $(function() {
                     }
                 }
 
-                if (content.no_account) {
+                if (content.js_alert) {
                     alert(content.message);
                 } else {
                     var not_present = true;
