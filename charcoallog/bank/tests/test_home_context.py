@@ -31,7 +31,7 @@ class HomeContextTest(TestCase):
         """" Html must contain input tags at first time """
         tags = (
             ('<form', 2),
-            ('<input', 9),
+            ('<input', 8),
             ('<select', 6),
             ('type="text"', 5),
             ('type="number"', 1),

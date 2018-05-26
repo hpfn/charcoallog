@@ -45,7 +45,7 @@ class AjaxPostTest(TestCase):
 
     def test_ajax_update(self):
         to_update = dict(
-            user_name='teste',
+            # user_name='teste',
             date='2017-12-21',
             money='10.00',
             description='test',

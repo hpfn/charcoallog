@@ -8,6 +8,6 @@ class Form1Test(TestCase):
         self.form1 = EditExtractForm()
 
     def test_form1_has_fields(self):
-        expected = ['user_name', 'date', 'money', 'description',
-                    'category', 'payment', 'pk']
+        expected = ['date', 'money', 'description',
+                    'category', 'payment', 'pk', 'user_name']
         self.assertSequenceEqual(expected, list(self.form1.fields))
