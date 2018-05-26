@@ -68,8 +68,18 @@ class AjaxPostTest(TestCase):
         response = self.client.post(r('bank:update'), self.data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertJSONEqual(
             response.content,
-            {'no_account': True,
+            {'js_alert': True,
              'message': 'You can not set a new account name from here'}
+        )
+
+    def test_form_not_valid(self):
+        self.data['payment'] = ''
+        self.data['pk'] = ''
+        response = self.client.post(r('bank:update'), self.data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertJSONEqual(
+            response.content,
+            {'js_alert': True,
+             'message': 'Form is not valid'}
         )
 
     def test_user_name(self):

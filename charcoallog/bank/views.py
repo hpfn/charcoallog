@@ -25,13 +25,9 @@ def home(request):
 @login_required
 @require_POST
 def update(request):
-    data = {'no_account': True,
-            'message': 'Form is not valid'}
-
-    query_user = Extract.objects.user_logged(request.user)
     form = EditExtractForm(request.POST)
     if form.is_valid() and request.is_ajax():
-        # return?
+        query_user = Extract.objects.user_logged(request.user)
         data = new_account(form, query_user)
 
         if not data:
@@ -40,8 +36,9 @@ def update(request):
             new_form = EditExtractForm(form.cleaned_data, instance=obj)
             # if new_form.is_valid():
             new_form.save(request.user)
-
             data = build_json_data(query_user)
+    else:
+        data = {'js_alert': True, 'message': 'Form is not valid'}
 
     return JsonResponse(data)
 
@@ -77,5 +74,5 @@ def build_json_data(query_user):
 def new_account(form, query_user):
     payment = form.cleaned_data.get('payment')
     if not query_user.filter(payment=payment).first():
-        return {'no_account': True,
+        return {'js_alert': True,
                 'message': 'You can not set a new account name from here'}
