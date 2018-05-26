@@ -45,7 +45,10 @@ $(function() {
 
         var data_v = $(this).serializeArray();
 
-        if ( data_v.length == 9 ) {
+        console.log(data_v.length);
+        console.log(data_v);
+
+        if ( data_v.length == 8 ) {
             var update = data_v.pop();
         }
         else {
@@ -76,7 +79,7 @@ $(function() {
                                 not_present = false;
                             }
                         } else {
-                            if ( index == data_v[7].value ) {
+                            if ( index == data_v[6].value ) {
                                 //console.log('false para data_v');
                                 not_present = false;
                             }
@@ -94,7 +97,7 @@ $(function() {
                         if ( old_account) {
                             $("[class='"+old_account+"']").remove();
                         } else {
-                            $("[class='"+data_v[7].value+"").remove();
+                            $("[class='"+data_v[6].value+"").remove();
                         }
 
                     }
@@ -113,19 +116,19 @@ $(function() {
                     }
 
                     if ( update == 'no' ) {
-                        $('#'+data_v[2].value).remove();
-                        total_value(data_v[4].value, 0);
+                        $('#'+data_v[1].value).remove();
+                        total_value(data_v[3].value, 0);
                     }
                     else {
-                        $('#'+data_v[2].value + " input").attr('readonly', 'true');
-                        $('#'+data_v[2].value + ' input:checkbox[name=update]').removeAttr('readonly');
-                        $('#'+data_v[2].value + ' input:checkbox[name=update]').prop('checked', false);
-                        $('#'+data_v[2].value + ' button').text('Delete');
+                        $('#'+data_v[1].value + " input").attr('readonly', 'true');
+                        $('#'+data_v[1].value + ' input:checkbox[name=update]').removeAttr('readonly');
+                        $('#'+data_v[1].value + ' input:checkbox[name=update]').prop('checked', false);
+                        $('#'+data_v[1].value + ' button').text('Delete');
                         url_ajax = 'delete/';
 
                         //console.log(old_money);
                         if ( old_money ) {
-                            total_value(old_money, data_v[4].value);
+                            total_value(old_money, data_v[3].value);
                         }
                     }
                 }
