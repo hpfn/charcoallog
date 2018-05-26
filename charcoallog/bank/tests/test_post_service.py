@@ -14,7 +14,7 @@ class ValidPostMethod(TestCase):
     def setUp(self):
         self.user = 'teste'
         self.data = dict(
-            user_name='you',
+            # user_name='you',
             date='2017-12-21',
             money=10.00,
             description='test',
@@ -63,7 +63,7 @@ class TransferBetweenAccounts(TestCase):
         self.value = '-10.00'
         self.value_after_transfer = '10.00'
         self.data = dict(
-            user_name=self.user,
+            # user_name=self.user,
             date='2017-12-21',
             money=self.value,
             description=self.account_2,

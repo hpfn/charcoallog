@@ -71,3 +71,8 @@ class AjaxPostTest(TestCase):
             {'no_account': True,
              'message': 'You can not set a new account name from here'}
         )
+
+    def test_user_name(self):
+        all_records = Extract.objects.all().count()
+        one_user_records = Extract.objects.filter(user_name='teste').count()
+        self.assertEqual(all_records, one_user_records)
