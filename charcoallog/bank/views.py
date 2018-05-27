@@ -1,10 +1,11 @@
+import json
+
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render
-from django.views.decorators.http import require_POST
 
-from charcoallog.bank.forms import EditExtractForm
 from charcoallog.bank.brief_bank_service import BriefBank
+from charcoallog.bank.forms import EditExtractForm
 from charcoallog.bank.models import Extract
 from .service import ShowData
 
@@ -23,41 +24,48 @@ def home(request):
 #    return JsonResponse(update_data(request))
 
 @login_required
-@require_POST
+# @require_POST
 def update(request):
-    form = EditExtractForm(request.POST)
-    if form.is_valid() and request.is_ajax():
+    data = {}
+    if request.is_ajax() and request.method == 'PUT':
+        body = request.body.decode('utf-8')
+        form_data = json.loads(body)
+        payment = form_data.get('payment')
         query_user = Extract.objects.user_logged(request.user)
-        data = new_account(form, query_user)
+        data = new_account(payment, query_user)
 
         if not data:
-            id_for_update, form = prepare_action(form)
-            obj = query_user.get(id=id_for_update)
-            new_form = EditExtractForm(form.cleaned_data, instance=obj)
-            # if new_form.is_valid():
-            new_form.save(request.user)
-            data = build_json_data(query_user)
-    else:
-        data = {'js_alert': True, 'message': 'Form is not valid'}
+            form = EditExtractForm(form_data)
+            if form.is_valid():
+                id_for_update = form_data['pk']
+                del form_data['pk']
+                obj = query_user.get(id=id_for_update)
+                new_form = EditExtractForm(form.cleaned_data, instance=obj)
+                new_form.save(request.user)
+                data = build_json_data(query_user)
+            else:
+                data = {"js_alert": True, "message": 'Form is not valid'}
 
     return JsonResponse(data)
 
 
-def prepare_action(form):
-    id_for_update = form.cleaned_data.get('pk')
-    del form.cleaned_data['pk']
-    # form.cleaned_data['user_name'] = request_user
-
-    return id_for_update, form
+# def prepare_action(form):
+#     id_for_update = form.cleaned_data.get('pk')
+#     del form.cleaned_data['pk']
+#     # form.cleaned_data['user_name'] = request_user
+#
+#     return id_for_update, form
 
 
 @login_required
-@require_POST
+# @require_POST
 def delete(request):
     query_user = Extract.objects.user_logged(request.user)
-    form = EditExtractForm(request.POST)
-    if form.is_valid() and request.is_ajax():
-        pk, form = prepare_action(form)
+    # form = EditExtractForm(request.POST)
+    if request.is_ajax() and request.method == 'DELETE':
+        body = request.body.decode('utf-8')
+        form_data = json.loads(body)
+        pk = form_data['pk']
         query_user.filter(pk=pk).delete()
 
     data = build_json_data(query_user)
@@ -67,12 +75,12 @@ def delete(request):
 
 def build_json_data(query_user):
     line1 = BriefBank(query_user)
-    return {'accounts': line1.account_names(),
-            'whats_left': line1.whats_left()}
+    return {"accounts": line1.account_names(),
+            "whats_left": line1.whats_left()}
 
 
-def new_account(form, query_user):
-    payment = form.cleaned_data.get('payment')
+def new_account(payment, query_user):
+    # payment = form.cleaned_data.get('payment')
     if not query_user.filter(payment=payment).first():
-        return {'js_alert': True,
-                'message': 'You can not set a new account name from here'}
+        return {"js_alert": True,
+                "message": 'You can not set a new account name from here'}

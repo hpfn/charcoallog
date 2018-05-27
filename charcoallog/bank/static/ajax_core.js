@@ -2,6 +2,7 @@ $(function() {
     var old_money = 0;
     var old_account = 0;
     var url_ajax = 'delete/';
+    var form_method = 'DELETE';
 
     $("#bank_box_line3 input").bind('click', function() {
         if ( $(this).attr("id") == 'checkbox') {
@@ -11,11 +12,13 @@ $(function() {
                  if ( n === 1 ) {
                      $(this).parents("table").find('button').text('Update');
                      url_ajax = 'update/';
+                     form_method = 'PUT';
                      $(this).parents("table").find('input').removeAttr('readonly');
                  }
                  else {
                      $(this).parents("table").find('button').text('Delete');
                      url_ajax = 'delete/';
+                     form_method = 'DELETE';
                      $(this).parents("table").find('input').attr('readonly', true);
                  }
         }
@@ -44,9 +47,17 @@ $(function() {
         e.preventDefault();
 
         var data_v = $(this).serializeArray();
+        var dict_form = {};
+        // substituir totalmente uso de data_v?
+        $.each(data_v,
+            function(i, v) {
+                dict_form[v.name] = v.value;
+            }
+        );
 
-        console.log(data_v.length);
-        console.log(data_v);
+        //console.log(data_v.length);
+        //console.log(data_v);
+        //console.log(dict_form);
 
         if ( data_v.length == 8 ) {
             var update = data_v.pop();
@@ -56,9 +67,10 @@ $(function() {
         }
 
 
-        $.post({
+        $.ajax({
             url: url_ajax,
-            data: data_v,
+            type: form_method,
+            data: JSON.stringify(dict_form),
             success: function(content, data) {
                 function red_css(number, id_name) {
                     if (Number(number) < 0) {
@@ -125,6 +137,7 @@ $(function() {
                         $('#'+data_v[1].value + ' input:checkbox[name=update]').prop('checked', false);
                         $('#'+data_v[1].value + ' button').text('Delete');
                         url_ajax = 'delete/';
+                        form_method = 'DELETE';
 
                         //console.log(old_money);
                         if ( old_money ) {

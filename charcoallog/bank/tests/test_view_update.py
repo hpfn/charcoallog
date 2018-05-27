@@ -1,3 +1,5 @@
+import json
+
 from django.contrib.auth.models import User
 from django.test import TestCase
 from django.shortcuts import resolve_url as r
@@ -36,12 +38,12 @@ class AjaxPostTest(TestCase):
     def test_login(self):
         self.assertTrue(self.login_in)
 
-    def test_post(self):
-        """
-           GET method must return 405
-           method not allowed
-        """
-        self.assertEqual(405, self.client.get(r('bank:update')).status_code)
+    # def test_post(self):
+    #     """
+    #        GET method must return 405
+    #        method not allowed
+    #     """
+    #     self.assertEqual(405, self.client.get(r('bank:update')).status_code)
 
     def test_ajax_update(self):
         to_update = dict(
@@ -54,7 +56,7 @@ class AjaxPostTest(TestCase):
             # update_rm='update',
             pk=2
         )
-        response = self.client.post(r('bank:update'), to_update, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        response = self.client.put(r('bank:update'), json.dumps(to_update), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertJSONEqual(
             response.content,
             {'accounts': {'principal': {'money__sum': '20.00'}},
@@ -65,7 +67,7 @@ class AjaxPostTest(TestCase):
         self.data['payment'] = 'blablabla'
         # self.data['update_rm'] = 'update'
         self.data['pk'] = ''
-        response = self.client.post(r('bank:update'), self.data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        response = self.client.put(r('bank:update'), json.dumps(self.data), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertJSONEqual(
             response.content,
             {'js_alert': True,
@@ -73,9 +75,15 @@ class AjaxPostTest(TestCase):
         )
 
     def test_form_not_valid(self):
-        self.data['payment'] = ''
-        self.data['pk'] = ''
-        response = self.client.post(r('bank:update'), self.data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        not_valid = dict(
+            date='2017-12-212',
+            money='10.00',
+            description='test',
+            category='test',
+            payment='principal',
+            pk='does not matter, data is invalid'
+        )
+        response = self.client.put(r('bank:update'), json.dumps(not_valid), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertJSONEqual(
             response.content,
             {'js_alert': True,
