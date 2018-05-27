@@ -27,11 +27,12 @@ def home(request):
 # @require_POST
 def update(request):
     data = {}
+    query_user = Extract.objects.user_logged(request.user)
+    body = request.body.decode('utf-8')
+    form_data = json.loads(body)
+
     if request.is_ajax() and request.method == 'PUT':
-        body = request.body.decode('utf-8')
-        form_data = json.loads(body)
         payment = form_data.get('payment')
-        query_user = Extract.objects.user_logged(request.user)
         data = new_account(payment, query_user)
 
         if not data:
