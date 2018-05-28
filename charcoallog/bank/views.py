@@ -32,18 +32,19 @@ def update(request):
     form_data = json.loads(body)
 
     if request.is_ajax() and request.method == 'PUT':
-        payment = form_data.get('payment')
-        data = new_account(payment, query_user)
+        # payment = form_data.get('payment')
+        data = new_account(form_data, query_user)
 
         if not data:
             form = EditExtractForm(form_data)
             # what is not on forms.py '.is_valid()' remove - update field in .html file
             if form.is_valid():
-                id_for_update = form_data['pk']
-                del form_data['pk']
-                obj = query_user.get(id=id_for_update)
-                new_form = EditExtractForm(form.cleaned_data, instance=obj)
-                new_form.save(request.user)
+                update_data(form, form_data, query_user, request.user)
+                # id_for_update = form_data['pk']
+                # del form_data['pk']
+                # obj = query_user.get(id=id_for_update)
+                # new_form = EditExtractForm(form.cleaned_data, instance=obj)
+                # new_form.save(request.user)
                 data = build_json_data(query_user)
             else:
                 data = {"js_alert": True, "message": 'Form is not valid'}
@@ -81,8 +82,17 @@ def build_json_data(query_user):
             "whats_left": line1.whats_left()}
 
 
-def new_account(payment, query_user):
+def new_account(form_data, query_user):
     # payment = form.cleaned_data.get('payment')
+    payment = form_data.get('payment')
     if not query_user.filter(payment=payment).first():
         return {"js_alert": True,
                 "message": 'You can not set a new account name from here'}
+
+
+def update_data(form, form_data, query_user, request_user):
+    id_for_update = form_data['pk']
+    del form_data['pk']
+    obj = query_user.get(id=id_for_update)
+    new_form = EditExtractForm(form.cleaned_data, instance=obj)
+    new_form.save(request_user)
