@@ -26,7 +26,7 @@ def home(request):
 @login_required
 # @require_POST
 def update(request):
-    data = {}
+    data = {"js_alert": True, "message": 'Not a valid request'}
     query_user = Extract.objects.user_logged(request.user)
     body = request.body.decode('utf-8')
     form_data = json.loads(body)
