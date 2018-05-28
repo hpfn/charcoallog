@@ -18,33 +18,21 @@ def home(request):
     return render(request, "bank/home.html", context)
 
 
-# @login_required
-# @require_POST
-# def ajax_post(request):
-#    return JsonResponse(update_data(request))
-
 @login_required
-# @require_POST
 def update(request):
     data = {"js_alert": True, "message": 'Not a valid request'}
     query_user = Extract.objects.user_logged(request.user)
-    body = request.body.decode('utf-8')
-    form_data = json.loads(body)
+    # body = request.body.decode('utf-8')
+    form_data = form_data_from_body(request.body)
 
     if request.is_ajax() and request.method == 'PUT':
-        # payment = form_data.get('payment')
         data = new_account(form_data, query_user)
 
         if not data:
             form = EditExtractForm(form_data)
-            # what is not on forms.py '.is_valid()' remove - update field in .html file
+            # what is not on forms.py '.is_valid()' remove - the update field in .html file
             if form.is_valid():
-                update_data(form, form_data, query_user, request.user)
-                # id_for_update = form_data['pk']
-                # del form_data['pk']
-                # obj = query_user.get(id=id_for_update)
-                # new_form = EditExtractForm(form.cleaned_data, instance=obj)
-                # new_form.save(request.user)
+                update_db(form, query_user, request.user)
                 data = build_json_data(query_user)
             else:
                 data = {"js_alert": True, "message": 'Form is not valid'}
@@ -52,28 +40,24 @@ def update(request):
     return JsonResponse(data)
 
 
-# def prepare_action(form):
-#     id_for_update = form.cleaned_data.get('pk')
-#     del form.cleaned_data['pk']
-#     # form.cleaned_data['user_name'] = request_user
-#
-#     return id_for_update, form
-
-
 @login_required
-# @require_POST
 def delete(request):
     query_user = Extract.objects.user_logged(request.user)
-    # form = EditExtractForm(request.POST)
     if request.is_ajax() and request.method == 'DELETE':
-        body = request.body.decode('utf-8')
-        form_data = json.loads(body)
+        # body = request.body.decode('utf-8')
+        form_data = form_data_from_body(request.body)
         pk = form_data['pk']
         query_user.filter(pk=pk).delete()
 
     data = build_json_data(query_user)
 
     return JsonResponse(data)
+
+
+# helpers for update and delete views
+def form_data_from_body(request_body):
+    body = request_body.decode('utf-8')
+    return json.loads(body)
 
 
 def build_json_data(query_user):
@@ -83,16 +67,13 @@ def build_json_data(query_user):
 
 
 def new_account(form_data, query_user):
-    # payment = form.cleaned_data.get('payment')
     payment = form_data.get('payment')
     if not query_user.filter(payment=payment).first():
         return {"js_alert": True,
                 "message": 'You can not set a new account name from here'}
 
 
-def update_data(form, form_data, query_user, request_user):
-    id_for_update = form_data['pk']
-    del form_data['pk']
-    obj = query_user.get(id=id_for_update)
+def update_db(form, query_user, request_user):
+    obj = query_user.get(id=form.cleaned_data['pk'])
     new_form = EditExtractForm(form.cleaned_data, instance=obj)
     new_form.save(request_user)
