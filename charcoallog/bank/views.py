@@ -37,6 +37,7 @@ def update(request):
 
         if not data:
             form = EditExtractForm(form_data)
+            # what is not on forms.py '.is_valid()' remove - update field in .html file
             if form.is_valid():
                 id_for_update = form_data['pk']
                 del form_data['pk']

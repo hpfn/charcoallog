@@ -49,23 +49,25 @@ $(function() {
         var data_v = $(this).serializeArray();
         var dict_form = {};
         // substituir totalmente uso de data_v?
+        // o campo update é removido no Django
+        // pela '.is_valid()' se passado o dict_form
+        // e fica mais claro aqui que usar index aqui
         $.each(data_v,
             function(i, v) {
                 dict_form[v.name] = v.value;
             }
         );
 
-        //console.log(data_v.length);
-        //console.log(data_v);
+        console.log(data_v.length);
+        console.log(data_v);
         //console.log(dict_form);
 
-        if ( data_v.length == 8 ) {
-            var update = data_v.pop();
-        }
-        else {
-            var update = 'no';
-        }
-
+        //if ( data_v.length == 8 ) {
+        //    var update = data_v.pop();
+        //}
+        //else {
+        //    var update = 'no';
+        //}
 
         $.ajax({
             url: url_ajax,
@@ -91,7 +93,8 @@ $(function() {
                                 not_present = false;
                             }
                         } else {
-                            if ( index == data_v[6].value ) {
+                            //if ( index == data_v[6].value ) {
+                            if ( index == dict_form["payment"] ) {
                                 //console.log('false para data_v');
                                 not_present = false;
                             }
@@ -109,7 +112,8 @@ $(function() {
                         if ( old_account) {
                             $("[class='"+old_account+"']").remove();
                         } else {
-                            $("[class='"+data_v[6].value+"").remove();
+                            //$("[class='"+data_v[6].value+"").remove();
+                            $("[class='"+dict_form["payment"]+"").remove();
                         }
 
                     }
@@ -127,15 +131,25 @@ $(function() {
                         red_css(new_total_value, "#total");
                     }
 
-                    if ( update == 'no' ) {
-                        $('#'+data_v[1].value).remove();
-                        total_value(data_v[3].value, 0);
+                    //if ( update == 'no' ) {
+                    if ( typeof dict_form["update"] == "undefined" ) {
+                        //$('#'+data_v[1].value).remove();
+                        $('#'+dict_form["pk"]).remove();
+                        //total_value(data_v[3].value, 0);
+                        total_value(dict_form["money"], 0);
+
                     }
                     else {
-                        $('#'+data_v[1].value + " input").attr('readonly', 'true');
-                        $('#'+data_v[1].value + ' input:checkbox[name=update]').removeAttr('readonly');
-                        $('#'+data_v[1].value + ' input:checkbox[name=update]').prop('checked', false);
-                        $('#'+data_v[1].value + ' button').text('Delete');
+                        //$('#'+data_v[1].value + " input").attr('readonly', 'true');
+                        //$('#'+data_v[1].value + ' input:checkbox[name=update]').removeAttr('readonly');
+                        //$('#'+data_v[1].value + ' input:checkbox[name=update]').prop('checked', false);
+                        //$('#'+data_v[1].value + ' button').text('Delete');
+
+                        $('#'+dict_form["pk"] + " input").attr('readonly', 'true');
+                        $('#'+dict_form["pk"] + ' input:checkbox[name=update]').removeAttr('readonly');
+                        $('#'+dict_form["pk"] + ' input:checkbox[name=update]').prop('checked', false);
+                        $('#'+dict_form["pk"] + ' button').text('Delete');
+
                         url_ajax = 'delete/';
                         form_method = 'DELETE';
 
