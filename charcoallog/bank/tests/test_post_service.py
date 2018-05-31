@@ -20,8 +20,8 @@ class ValidPostMethod(TestCase):
             description='test',
             category='test',
             payment='principal',
-            update_rm='',
-            pk=''
+            # update_rm='',
+            # pk=''
         )
 
         self.query_user = Extract.objects.user_logged(self.user)
@@ -48,8 +48,8 @@ class ValidPostMethod(TestCase):
             description=select_data.description,
             category=select_data.category,
             payment=select_data.payment,
-            update_rm='',
-            pk=''
+            # update_rm='',
+            # pk=''
         )
         self.data['user_name'] = self.user
         self.assertDictEqual(self.data, select_dict)

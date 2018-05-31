@@ -24,7 +24,7 @@ class EditExtractForm(forms.ModelForm):
     """
     # CHOICES = (('update', '1',), ('remove', '2',))
     # update_rm = forms.ChoiceField(widget=forms.RadioSelect, choices=CHOICES, required=False)
-    pk = forms.IntegerField(widget=forms.HiddenInput, required=False)
+    # pk = forms.IntegerField(widget=forms.HiddenInput, required=False)
     # user_name = forms.CharField(required=False)
 
     class Meta:

@@ -30,9 +30,10 @@ def update(request):
 
         if not data:
             form = EditExtractForm(form_data)
-            # what is not on forms.py '.is_valid()' remove - the update field in .html file
+            # what is not on forms.py '.is_valid()' remove
+            # - the update and pk fields in .html file
             if form.is_valid():
-                update_db(form, query_user, request.user)
+                update_db(form_data['pk'], form.cleaned_data, query_user, request.user)
                 data = build_json_data(query_user)
             else:
                 data = {"js_alert": True, "message": 'Form is not valid'}
@@ -73,7 +74,7 @@ def new_account(form_data, query_user):
                 "message": 'You can not set a new account name from here'}
 
 
-def update_db(form, query_user, request_user):
-    obj = query_user.get(id=form.cleaned_data['pk'])
-    new_form = EditExtractForm(form.cleaned_data, instance=obj)
+def update_db(pk, form_cleaned_data, query_user, request_user):
+    obj = query_user.get(id=pk)
+    new_form = EditExtractForm(form_cleaned_data, instance=obj)
     new_form.save(request_user)
