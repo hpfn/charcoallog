@@ -1,3 +1,6 @@
+import json
+import os
+
 import re
 from urllib import request
 from urllib.error import HTTPError
@@ -12,6 +15,12 @@ class Scrap:
         self.ipca_address = 'http://www.indiceseindicadores.com.br/ipca/'
 
     def selic_info(self):
+        if os.path.isfile('./charcoallog/core/selic.json'):
+            with open('./charcoallog/core/selic.json', 'r') as selic:
+                selic = json.load(selic)
+
+            return selic['selic']
+
         data = date.today()
         this_year = data.strftime("%Y")
         last_year = str(int(this_year) - 1)
@@ -31,17 +40,24 @@ class Scrap:
         return tabela_dict
 
     def ibov_info(self):
+        if os.path.isfile('./charcoallog/core/ibov.json'):
+            with open('./charcoallog/core/ibov.json', 'r') as ibov:
+                ibov = json.load(ibov)
+
+            return ibov['ibov']
+
         try:
             hdr = {
-                'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) '
-                              'AppleWebKit/537.11 (KHTML, like Gecko) '
-                              'Chrome/23.0.1271.64 Safari/537.11',
-                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-                # 'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
-                # 'Accept-Encoding': 'none',
-                # 'Accept-Language': 'en-US,en;q=0.8',
-                # 'Connection': 'keep-alive'
+                 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) '
+                               'AppleWebKit/537.11 (KHTML, like Gecko) '
+                               'Chrome/23.0.1271.64 Safari/537.11',
+                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                 # 'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
+                 # 'Accept-Encoding': 'none',
+                 # 'Accept-Language': 'en-US,en;q=0.8',
+                 # 'Connection': 'keep-alive'
             }
+
             req = request.Request(self.ibov_address, headers=hdr)
             html_doc = request.urlopen(req)
             soup = BeautifulSoup(html_doc, 'html.parser')
@@ -66,6 +82,12 @@ class Scrap:
             return ['http error']
 
     def ipca_info(self):
+        if os.path.isfile('./charcoallog/core/ipca.json'):
+            with open('./charcoallog/core/ipca.json', 'r') as ipca:
+                ipca = json.load(ipca)
+
+            return ipca['ipca']
+
         html_doc = request.urlopen(self.ipca_address)
         soup = BeautifulSoup(html_doc, 'html.parser')
 
