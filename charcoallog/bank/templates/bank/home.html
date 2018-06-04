@@ -1,22 +1,34 @@
-{% extends "base.html" %}
+{% extends "./blank.html" %}
 {% load static %}
 
 {% block content %}
-<div id="bank_central">
-	<div class="bank_col1">
-		{% include 'bank/frameset_pages/form1.html' %}
-		<br /><br />
-		{% include 'bank/frameset_pages/form2.html' %}
-	</div>
-	<div class="bank_col2">
-		<div class="bank_row1">
-			{% include 'bank/frameset_pages/line1.html' %}
+		<div class="py-5">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-3 align-self-left">
+						<div class="container">
+							{% include 'bank/frameset_pages/form1.html' %}
+						</div>
+						<div class="container"></div>
+						<div class="container">
+							{% include 'bank/frameset_pages/form2.html' %}
+						</div>
+					</div>
+					<div class="col-md-9">
+						<div class="container">
+							<div class="row">
+								{% include 'bank/frameset_pages/line1.html' %}
+							</div>
+						</div>
+						<div class="container">
+							<div class="row justify-content-center align-center m-0 bg-light">
+								{% include 'bank/frameset_pages/line3.html' %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class="bank_row2">
-			{% include 'bank/frameset_pages/line3.html' %}
-		</div>
-	</div>
-</div>
 {% endblock %}
 
 {% block head_javascript %}
