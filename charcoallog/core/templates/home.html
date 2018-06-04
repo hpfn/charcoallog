@@ -1,19 +1,15 @@
-{% extends "base.html" %}
-
+{% extends "./blank.html" %}
 
 {% block content %}
-<div id="central">
-    <hr>
-	<div align="center" class="col2">
-		<div class="row1">
-            {% include 'frameset_pages/line1.html' %}
-		</div>
-		<div class="row2">
-            {% include 'frameset_pages/line2.html' %}
-		</div>
-		<div class="row3">
-			{% include 'frameset_pages/line3.html' %}
-		</div>
-	</div>
+<div class="container" align="center">
+    <div class="row bg-light text-muted">
+        {% include 'frameset_pages/line1.html' %}
+    </div>
+    <div class="row bg-light text-muted">
+        {% include 'frameset_pages/line2.html' %}
+    </div>
+    <div class="row bg-light text-muted">
+        {% include 'frameset_pages/line3.html' %}
+    </div>
 </div>
 {% endblock %}
