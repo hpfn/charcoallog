@@ -1,10 +1,11 @@
-<div class="col-md-12">
+ <div class="col-md-12">
 	<ul class="nav nav-pills border">
 		{% for key, value in show_data.brief_bank.account_names.items %}
 		<li class="nav-item nav-link text-muted">
 			<!--<a class="nav-link" href="#">-->
-				{{ key }}<br>
-				{% if value.money__sum < 0 %}
+			    {{ key }}<br>
+			    <div id="{{ key }}">
+				 {% if value.money__sum < 0 %}
 				<font size="2" color="red">
 					{{ value.money__sum }}
 				</font>
@@ -12,6 +13,7 @@
 				<font size="2">
 					{{ value.money__sum }}
 				</font>
+				</div>
 				{% endif %}
 			<!--</a>-->
 		</li>
@@ -30,51 +32,5 @@
 			</font>
 		</div>
 		</li>
-
-
-
-
-
-
-<!--
-
 	</ul>
 </div>
-	<table align="left" cellpadding="10">
-            <tr>
-            {% for key, value in show_data.brief_bank.account_names.items %}
-                <td align="center">
-					<div class="{{ key }}">
-					<b>{{ key }}</b> <br>
-					<div id="{{ key }}">
-						{% if value.money__sum < 0 %}
-						<font size="2" color="red">
-							{{ value.money__sum }}
-						</font>
-						{% else %}
-						<font size="2">
-							{{ value.money__sum }}
-						</font>
-						{% endif %}
-					</div>
-					</div>
-		        </td>
-            {% endfor %}
-                <td align="center">
-				<font size="2"><b>what's left</b></font> <br>
-			    <div id="left">
-					<font size="2">
-			    {% if show_data.brief_bank.whats_left < 0 %}
-	                <font color="red">
-				    {{ show_data.brief_bank.whats_left }}
-		            </font>
-			    {% else %}
-			        {{ show_data.brief_bank.whats_left }}
-			    {% endif %}
-		        </font>
-				</div>
-		        </td>
-            </tr>
-       </table>
-</div>
--->

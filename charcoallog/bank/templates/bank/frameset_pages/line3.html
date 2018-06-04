@@ -9,51 +9,73 @@
         <br />
         <b>Total</b>:
         <div id="total">
-        {% if show_data.form2.query_default.total.money__sum < 0 %}
-        <font color="red">
-            {{ show_data.form2.query_default.total.money__sum }}
-        </font>
-        {% else %}
-            {{ show_data.form2.query_default.total.money__sum }}
+            {% if show_data.form2.query_default.total.money__sum < 0 %}
+            <font color="red">
+                {{ show_data.form2.query_default.total.money__sum }}
+            </font>
+            {% else %}
+                {{ show_data.form2.query_default.total.money__sum }}
 
             {% endif %}
         </div>
         <br />
+        <div class="container bg-white">
+            <ul class="nav nav-pills">
+                <li class="nav-item nav-link text-muted"><small>date</small></li>
+                <li class="nav-item nav-link text-muted"><small>money</small></li>
+                <li class="nav-item nav-link text-muted"><small>despcription</small></li>
+                <li class="nav-item nav-link text-muted"><small>category</small></li>
+                <li class="nav-item nav-link text-muted"><small>payment</small></li>
+                <li class="nav-item nav-link text-muted"><small>upadate</small></li>
+                <li class="nav-item nav-link text-muted"><small>send</small></li>
+            </ul>
+        </div>
+
+
         {% for b in show_data.form2.query_default %}
         <form method="post" id="{{ b.id }}">
         {% csrf_token %}
-        <table align="center" cellpadding="2" >
+        <div class="form-inline m-0 p-0">
+
+        <table>
             <tr>
-                {# <td> #}
-                    {# <input type="hidden" name="user_name" id="user_name" value="{{ b.user_name }}" /> #}
-                {# </td> #}
                 <td>
                     <input type="hidden" name="pk" id="id" value="{{ b.id }}" />
                 </td>
                 <td>
-                    <input name="date" id="date" value='{{ b.date|date:"Y-m-d" }}' size="8" style="font-size:9px" readonly />
+                    <input type="date" id="date" name="date"
+                           class="form-inline m-0 p-0 bg-light"
+                           size="11" style="font-size:10px;border:none"
+                           value='{{ b.date|date:"Y-m-d" }}' readonly>
                 </td>
                 <td>
-                    {% if b.money < 0 %}
-                    <input name="money" id="money" value="{{ b.money }}" size="8" style="font-size:9px;color:red" readonly />
-                   {% else %}
-                   <input name="money" value="{{ b.money }}" size="8" style="font-size:9px" readonly />
-                   {% endif %}
+                    <input type="text" id="money" name="money" id="id_money"
+                           class="form-inline m-0 p-0 bg-light"
+                           size="11"
+                           {% if b.money < 0 %} style="font-size:10px;color:red;border:none"
+                           {% else %} style="font-size:10px;border:none"
+                           {% endif %}
+                           value="{{ b.money }}" readonly>
                 </td>
                 <td>
-                    <input name="description" id="description" value="{{ b.description }}" size="30" style="font-size:9px" readonly />
+                    <input type="text" id="description" name="description"
+                           class="form-inline m-0 p-0 bg-light"
+                           size="15" style="font-size:10px;border:none"
+                           value="{{ b.description }}" readonly>
                 </td>
                 <td>
-		            <input name="category" id="category" value="{{ b.category }}" size="15"  style="font-size:9px" readonly />
+                    <input type="text" id="category" name="category"
+                           class="form-inline m-0 p-0 bg-light"
+                           size="15" style="font-size:10px;border:none"
+                           value="{{ b.category }}" readonly>
                 </td>
                 <td>
-                    <input name="payment" id="payment" value="{{ b.payment }}" size="15" style="font-size:9px" readonly />
+                    <input type="text" id="payment" name="payment"
+                           class="form-inline m-0 p-0 bg-light"
+                           size="15" style="font-size:10px;border:none"
+                           value="{{ b.payment }}" readonly>
                 </td>
                 <td>
-                    {# isso sera removido #}
-                    {# <input type="radio" name="update_rm" value="update" />update #}
-                    {# <input type="radio" name="update_rm" value="remove" />remove #}
-                    {# esse sera o substituto #}
                     <input type='checkbox' id='checkbox' value='update' name='update'>update
                 <td>
                     <font size="2">
@@ -64,9 +86,10 @@
                 </td>
             </tr>
         </table>
+        </div>
     </form>
     {% endfor %}
-	<br />
+    <br />
 
     {% endif %}
 </div>

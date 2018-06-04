@@ -16,7 +16,7 @@
 					</div>
 					<div class="col-md-9">
 						<div class="container">
-							<div class="row">
+                            <div class="row">
 								{% include 'bank/frameset_pages/line1.html' %}
 							</div>
 						</div>
@@ -38,11 +38,5 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript" src="{% static 'django_csrf.js' %}"></script>
 <script type="text/javascript" src="{% static 'ajax_core.js' %}"></script>
-{# <script src="{% static 'click.js' %}"></script> #}
-<script>
-        $( function() {
-            $( "#datepicker" ).datepicker();
-        } );
-</script>
 {% endblock %}
 
