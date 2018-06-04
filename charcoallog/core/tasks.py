@@ -22,7 +22,7 @@ def ibov():
     logger.info('fim de core/ibov.json')
 
 
-@periodic_task(run_every=(crontab(day_of_month='14-15-16', hour='6', minute='10')), name='selic')
+@periodic_task(run_every=(crontab(day_of_month='14-16', hour='6', minute='10')), name='selic')
 def selic():
     logger.info('inicio de core/selic.json')
 
@@ -35,7 +35,7 @@ def selic():
     logger.info('fim de core/selic.json')
 
 
-@periodic_task(run_every=(crontab(day_of_month='14-15-16', hour='6', minute='20')), name='ipca')
+@periodic_task(run_every=(crontab(day_of_month='14-16', hour='6', minute='20')), name='ipca')
 def ipca():
     logger.info('inicio de core/ipca.json')
 
