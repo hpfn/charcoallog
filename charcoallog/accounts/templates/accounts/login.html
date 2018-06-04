@@ -1,31 +1,39 @@
-{% extends "base.html" %}                                                       
-                                                                                
+{% extends "./blank.html" %}
+
+
 {% block content %}
-<div class="pure-g-r content-ribbon">
-  <div class="pure-u-1">
-	  <h2></h2>
-    <form class="pure-form pure-form-aligned" method="post">
-    {% csrf_token %}
-    <fieldset>
-      {{ form.non_field_errors }}
+<div class="py-5" align="center">
+    <div class="container">
+        <div class="col-md-2">
+            <form method="post" class="">
+            {% csrf_token %}
+              {# {% for field in form %} #}
+              <div class="form-group">
+                  {# <label>{{ form.username.label_tag }}</label> #}
+                  <input type="text" class="form-control form-control-sm"
+                         placeholder="{{ form.username.name }}"
+                         name="{{ form.username.name }}"
+                         autofocus
+                         required
+                  >
+                  <small class="form-text text-muted">{{ form.username.errors }}</small>
+	          </div>
+              <div class="form-group">
+                  {# <label>{{ form.password.label_tag }}</label> #}
+                  <input type="password" class="form-control form-control-sm"
+                         placeholder="{{ form.password.name }}"
+                         name="{{ form.password.name }}"
+                         required
+                  >
+                  <small class="form-text text-muted">{{ form.password.errors }}</small>
+              </div>
+              {# {% endfor %}        #}
 
-      {% for field in form %}
-      <div align="center" class="pure-control-group">
-	      <ul>
-		      {{ field.label_tag }}
-		      {{ field }}
-		      {{ field.errors }}
-	      </ul>
-      </div>
-      {% endfor %}
-
-      <div align="center" class="pure-controls">
-        <button type="submit" class="pure-button pure-button-primary">
-		Submit
-	</button>
-      </div>
-    </fieldset>
-    </form>
-  </div>                                                                      
-</div>                                                                          
-{% endblock %}    
+              <div align="center">
+                  <button type="submit" class="btn m-0 p-0 btn-link">Submit</button>
+              </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
