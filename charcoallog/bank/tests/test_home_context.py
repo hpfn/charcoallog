@@ -34,9 +34,9 @@ class HomeContextTest(TestCase):
             ('<input', 8),
             ('<select', 6),
             ('type="text"', 5),
-            ('type="number"', 1),
+            # ('type="number"', 1),
             ('<button', 2),
-            ('type=\'submit\'', 2)
+            ('type="submit"', 2)
         )
         for text, count in tags:
             with self.subTest():
@@ -58,4 +58,4 @@ class HomeContextTest(TestCase):
         self.assertEqual(zero.brief_bank.whats_left(), 0)
 
     def test_bottom_id(self):
-        self.assertContains(self.response, '<b>charcoallog released under GPL-3+</b>')
+        self.assertContains(self.response, 'Charcoalog License - GPL-3+')
