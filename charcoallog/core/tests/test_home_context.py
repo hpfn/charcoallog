@@ -65,7 +65,7 @@ class HomeContextTest(TestCase):
     #    self.assertTemplateUsed(self.response, 'home.html')
 
     def test_html_link(self):
-        self.assertContains(self.response, '<a href', 4)
+        self.assertContains(self.response, '<a href', 3)
 
     def test_context_only_instance(self):
         build_home = self.response.context_data['build_home']

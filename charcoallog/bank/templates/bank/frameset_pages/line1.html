@@ -2,7 +2,7 @@
 	<ul class="nav nav-pills border">
 		{% for key, value in show_data.brief_bank.account_names.items %}
 		<li class="nav-item nav-link text-muted">
-			<!--<a class="nav-link" href="#">-->
+			<div class="{{ key }}">
 			    {{ key }}<br>
 			    <div id="{{ key }}">
 				 {% if value.money__sum < 0 %}
@@ -15,7 +15,7 @@
 				</font>
 				</div>
 				{% endif %}
-			<!--</a>-->
+			</div>
 		</li>
 		{% endfor %}
 		<li class="nav-item nav-link text-muted">
