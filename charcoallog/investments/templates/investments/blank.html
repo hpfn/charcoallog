@@ -19,27 +19,32 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <ul class="nav nav-pills">
             {% if user.is_authenticated %}
+          <ul class="nav nav-pills">
             <li class="nav-item">
-              <a href="{% url 'core:home' %}" class="active nav-link">
-                <i class="fa fa-home fa-home"></i>&nbsp;Initial</a>
+                <a href="{% url 'core:home' %}" class="nav-link text-success">
+                    <i class="fa fa-home"></i>&nbsp;Initial </a>
             </li>
             <li class="nav-item">
-              <a href="{% url 'bank:home' %}" class="nav-link">bank</a>
+                <a href="{% url 'bank:home' %}" class="nav-link text-success"> bank </a>
             </li>
             <li class="nav-item">
-              <a href="{% url 'investments:home' %}" class="nav-link">investments</a>
+                <a href="{% url 'investments:home' %}" class="nav-link text-success"> investments </a>
             </li>
             <li class="nav-item">
-              <a href="{% url 'accounts:logout' %}" class="nav-link">sign out {{ user.username }}?</a>
+                <a href="{% url 'accounts:logout' %}" class="nav-link text-success"> sign out {{ user.username }}? </a>
             </li>
+          </ul>
             {% else %}
+
+            <h1 align="center"><a href="{% url 'core:home' %}" class="text-success">Charcoallog</a></h1>
+            <br />
+          <ul class="nav nav-pills">
             <li class="nav-item">
-              <a href="{% url 'accounts:logout' %}">sign out</a>
+                <a href="{% url 'accounts:register' %}" class="nav-link text-success"> sign up </a>
             </li>
             <li class="nav-item">
-            <a href="" title="">forgot password</a>
+                <a href="#" class="nav-link text-success">forgot password</a>
             </li>
             {% endif %}
           </ul>
@@ -51,9 +56,12 @@
   {% block content %}{% endblock %}
   <!-- footer -->
   <div class="container">
+    <hr>
     <div class="row">
       <div class="col-md-12 mt-3 text-center">
-        <p class="filter-light">Charcoalog License - GPL-3+</p>
+        {# <p class="bg-light text-success">Charcoalog License - GPL-3+</p> #}
+        <p class="fa fa-copyright text-success">Charcoalog License - GPL-3+</p>
+
       </div>
     </div>
   </div>
@@ -65,11 +73,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script>
-        $( function() {
-            $( "#datepicker" ).datepicker();
-        } );
-  </script>
+  {% block head_javascript %}{% endblock %}
 
 </body>
 </html>
