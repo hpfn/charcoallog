@@ -6,9 +6,9 @@ $(function() {
 
     $("#bank_box_line3 input").bind('click', function() {
         if ( $(this).attr("id") == 'checkbox') {
-                 console.log('checked');
+                 //console.log('checked');
                  var n = $("input:checked").length;
-                 console.log(n);
+                 //console.log(n);
                  if ( n === 1 ) {
                      $(this).parents("table").find('button').text('Update');
                      url_ajax = 'update/';
@@ -48,26 +48,12 @@ $(function() {
 
         var data_v = $(this).serializeArray();
         var dict_form = {};
-        // substituir totalmente uso de data_v?
-        // o campo update é removido no Django
-        // pela '.is_valid()' se passado o dict_form
-        // e fica mais claro aqui que usar index aqui
+
         $.each(data_v,
             function(i, v) {
                 dict_form[v.name] = v.value;
             }
         );
-
-        console.log(data_v.length);
-        console.log(data_v);
-        //console.log(dict_form);
-
-        //if ( data_v.length == 8 ) {
-        //    var update = data_v.pop();
-        //}
-        //else {
-        //    var update = 'no';
-        //}
 
         $.ajax({
             url: url_ajax,
@@ -81,12 +67,18 @@ $(function() {
                         $(id_name).css('color', 'black');
                     }
                 }
-
+                console.log(content);
                 if (content.js_alert) {
                     alert(content.message);
                 } else {
                     var not_present = true;
+                    console.log(form_method);
+                    //if (form_method == 'DELETE'){
+                        $("[class='"+ dict_form['payment'] +"").remove();
+                    //}
+
                     $.each(content.accounts, function(index, value) {
+                        console.log('iniciando loop');
                         if ( old_account ) {
                             if ( index == old_account ) {
                                 //console.log('false para old_account');
@@ -100,6 +92,17 @@ $(function() {
                             }
                         }
 
+                        //var myElem = document.getElementById("[id='"+index+"']");
+                        if ($("[class='"+index+"").length < 1) {
+                            var new_account = document.createElement('li');
+                            new_account.className = 'nav-item nav-link text-muted';
+                            var text = '<div class="' + index + '">' + index + '<br><div id="' + index +'"><font size="2">' + value['money__sum'] + '</font></div></div>'
+                            new_account.innerHTML = text;
+                            var t = document.getElementsByTagName('ul')[1].appendChild(new_account);
+                            //red_css(value['money__sum'], "[id='"+index+"']");
+
+                        }
+
                         $("[id='"+index+"']").text(value['money__sum']);
                         red_css(value['money__sum'], "[id='"+index+"']");
 
@@ -108,21 +111,26 @@ $(function() {
                     $("#left").text(content.whats_left);
                     red_css(content.whats_left, "#left");
 
-                    if ( not_present ) {
-                        if ( old_account) {
-                            $("[class='"+old_account+"']").remove();
-                        } else {
-                            //$("[class='"+data_v[6].value+"").remove();
-                            $("[class='"+dict_form["payment"]+"").remove();
+                    if (form_method == 'PUT') {
+                        console.log('update');
+                        if (not_present) {
+                           if ( old_account) {
+                                console.log('old');
+                                $("[class='"+old_account+"']").remove();
+                            }
                         }
-
                     }
+
 
                     //var new_total_value = content.total_line3;
                     //$("#total").text(new_total_value);
                     //red_css(new_total_value, "#total");
 
                     function total_value(old_v, new_v) {
+                        //var new_total_value = content.total_line3;
+                        //$("#total").text(new_total_value);
+                        //red_css(new_total_value, "#total");
+
                         // update Total in line3.html
                         var old_total_value = $("#total").text().trim();
                         var old_total_value_less_old_money = Number(old_total_value) - Number(old_v);
@@ -131,20 +139,13 @@ $(function() {
                         red_css(new_total_value, "#total");
                     }
 
-                    //if ( update == 'no' ) {
-                    if ( typeof dict_form["update"] == "undefined" ) {
-                        //$('#'+data_v[1].value).remove();
+                    //if ( typeof dict_form["update"] == "undefined" ) {
+                    if ( form_method == 'DELETE') {
                         $('#'+dict_form["pk"]).remove();
-                        //total_value(data_v[3].value, 0);
                         total_value(dict_form["money"], 0);
 
                     }
                     else {
-                        //$('#'+data_v[1].value + " input").attr('readonly', 'true');
-                        //$('#'+data_v[1].value + ' input:checkbox[name=update]').removeAttr('readonly');
-                        //$('#'+data_v[1].value + ' input:checkbox[name=update]').prop('checked', false);
-                        //$('#'+data_v[1].value + ' button').text('Delete');
-
                         $('#'+dict_form["pk"] + " input").attr('readonly', 'true');
                         $('#'+dict_form["pk"] + ' input:checkbox[name=update]').removeAttr('readonly');
                         $('#'+dict_form["pk"] + ' input:checkbox[name=update]').prop('checked', false);
@@ -155,7 +156,8 @@ $(function() {
 
                         //console.log(old_money);
                         if ( old_money ) {
-                            total_value(old_money, data_v[3].value);
+                            //total_value(old_money, data_v[3].value);
+                            total_value(old_money, dict_form['money']);
                         }
                     }
                 }

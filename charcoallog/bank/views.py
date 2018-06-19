@@ -26,17 +26,17 @@ def update(request):
     form_data = form_data_from_body(request.body)
 
     if request.is_ajax() and request.method == 'PUT':
-        data = new_account(form_data, query_user)
+        # data = new_account(form_data, query_user)
 
-        if not data:
-            form = EditExtractForm(form_data)
-            # what is not on forms.py '.is_valid()' remove
-            # - the update and pk fields in .html file
-            if form.is_valid():
-                update_db(form_data['pk'], form.cleaned_data, query_user, request.user)
-                data = build_json_data(query_user)
-            else:
-                data = {"js_alert": True, "message": 'Form is not valid'}
+        # if not data:
+        form = EditExtractForm(form_data)
+        # what is not on forms.py '.is_valid()' remove
+        # - the update and pk fields in .html file
+        if form.is_valid():
+            update_db(form_data['pk'], form.cleaned_data, query_user, request.user)
+            data = build_json_data(query_user)
+        else:
+            data = {"js_alert": True, "message": 'Form is not valid'}
 
     return JsonResponse(data)
 
