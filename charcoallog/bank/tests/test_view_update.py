@@ -66,12 +66,13 @@ class AjaxPostTest(TestCase):
     def test_ajax_fail_update(self):
         self.data['payment'] = 'blablabla'
         # self.data['update_rm'] = 'update'
-        self.data['pk'] = ''
+        self.data['pk'] = 1
         response = self.client.put(r('bank:update'), json.dumps(self.data), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertJSONEqual(
             response.content,
-            {'js_alert': True,
-             'message': 'You can not set a new account name from here'}
+            {'accounts': {'blablabla': {'money__sum': '10.00'},
+                          'cartao credito': {'money__sum': '10.00'}},
+             'whats_left': '20.00'}
         )
 
     def test_form_not_valid(self):
