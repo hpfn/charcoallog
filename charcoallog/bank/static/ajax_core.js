@@ -75,6 +75,9 @@ $(function() {
                     console.log(form_method);
                     //if (form_method == 'DELETE'){
                         $("[class='"+ dict_form['payment'] +"").remove();
+                        $("li[id='"+ dict_form['payment'] + dict_form['payment'] +"").remove();
+
+
                     //}
 
                     $.each(content.accounts, function(index, value) {
@@ -95,6 +98,7 @@ $(function() {
                         //var myElem = document.getElementById("[id='"+index+"']");
                         if ($("[class='"+index+"").length < 1) {
                             var new_account = document.createElement('li');
+                            new_account.id = index+index;
                             new_account.className = 'nav-item nav-link text-muted';
                             var text = '<div class="' + index + '">' + index + '<br><div id="' + index +'"><font size="2">' + value['money__sum'] + '</font></div></div>'
                             new_account.innerHTML = text;
@@ -117,6 +121,7 @@ $(function() {
                            if ( old_account) {
                                 console.log('old');
                                 $("[class='"+old_account+"']").remove();
+                                $("li[id='"+old_account+old_account+"']").remove();
                             }
                         }
                     }
