@@ -14,8 +14,8 @@
       href="{% static 'css/theme.scss' %}" />
   <title>Charcoallog</title>
 </head>
-<body>
-  <div class="py-5">
+<body style="overflow:hidden" >
+  <div class="py-0">
     <div class="container">
       <div class="row">
         <div class="col-md-12">
@@ -55,7 +55,7 @@
   </div>
   {% block content %}{% endblock %}
   <!-- footer -->
-  <div class="container">
+  <div class="container" style="height:10px">
     <hr>
     <div class="row">
       <div class="col-md-12 mt-3 text-center">
