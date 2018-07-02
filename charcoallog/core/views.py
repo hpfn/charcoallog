@@ -6,4 +6,4 @@ from charcoallog.core.service import BuildHome
 @login_required
 def home(request):
     context = {'build_home': BuildHome(request.user)}
-    return render(request, "home.html", context)
+    return render(request, "core/home.html", context)
