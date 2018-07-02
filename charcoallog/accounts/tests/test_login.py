@@ -1,5 +1,6 @@
 from django.contrib.auth.forms import AuthenticationForm
 from django.test import TestCase
+from django.shortcuts import resolve_url as r
 
 
 class LoginPageTest(TestCase):
@@ -7,7 +8,7 @@ class LoginPageTest(TestCase):
         success login test is done in core/tests
     """
     def setUp(self):
-        self.response = self.client.get('/', follow=True)
+        self.response = self.client.get(r('core:home'), follow=True)
 
     def test_login_fail(self):
         """ Login should be false. We did not make a login """

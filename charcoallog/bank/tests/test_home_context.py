@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
-
 from charcoallog.bank.service import ShowData
+from django.shortcuts import resolve_url as r
 
 
 class HomeContextTest(TestCase):
@@ -11,7 +11,7 @@ class HomeContextTest(TestCase):
         user.save()
 
         self.login_in = self.client.login(username='teste', password='1qa2ws3ed')
-        self.response = self.client.get('/bank/')
+        self.response = self.client.get(r('bank:home'))  # ('/bank/')
 
     def test_status_code(self):
         """ status code must be 200 """

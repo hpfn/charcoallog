@@ -1,5 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
+from django.shortcuts import resolve_url as r
+
 from charcoallog.investments.forms import InvestmentForm
 from charcoallog.investments.service import ShowData
 
@@ -11,7 +13,7 @@ class InvestmentHomeOkTest(TestCase):
         user.save()
 
         self.login_in = self.client.login(username='teste', password='1qa2ws3ed')
-        self.response = self.client.get('/investments/')
+        self.response = self.client.get(r('investments:home'))
 
     def test_login(self):
         """ Must login to access html file"""

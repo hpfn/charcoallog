@@ -1,10 +1,11 @@
 from django.test import TestCase
 from charcoallog.accounts.forms import RegisterForm
+from django.shortcuts import resolve_url as r
 
 
 class RegisterPageTest(TestCase):
     def setUp(self):
-        self.response = self.client.get('/conta/cadastre-se/')
+        self.response = self.client.get(r('accounts:register'))
 
     def test_status_code(self):
         """ status code must be 200 """
