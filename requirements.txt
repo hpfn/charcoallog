@@ -1,4 +1,4 @@
-beautifulsoup4==4.6.0
+beautifulsoup4==4.6.1
 dj-static==0.0.6
 Django==1.11.13
 django-extensions==2.0.6
