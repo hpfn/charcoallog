@@ -1,32 +1,32 @@
 <form action="." method="post">
     {% csrf_token %}
     <div class="form-group">
-        <input type="hidden" name="user_name" id="id_user_name" value="you">
-        {{ form.date.errors }}
+        {# <input type="hidden" name="user_name" id="id_user_name" value="you"> #}
+        {{ basic_data.date.errors }}
         <input type="date" name="date"
                class="form-control form-control-sm" placeholder="date"
                required="True">
     </div>
     <div class="form-group">
-        {{ form.money.errors }}
+        {{ basic_data.money.errors }}
         <input type="text" name="money" id="money"
                class="form-control form-control-sm" placeholder="money"
                required="True">
     </div>
     <div class="form-group">
-        {{ form.kind.errors }}
+        {{ basic_data.kind.errors }}
         <input type="text" name="kind" id="kind"
                class="form-control form-control-sm" placeholder="kind"
                required="True">
     </div>
     <div class="form-group">
-        {{ from.which_target.errors }}
+        {{ basic_data.which_target.errors }}
         <input type="text" name="which_target" id="which_target"
                class="form-control form-control-sm" placeholder="which_target"
                required="True">
     </div>
     <div class="form-group">
-        {{ from.tx_op.errors }}
+        {{ form.tx_op.errors }}
         <input type="text" name="tx_op" id="tx_op"
                class="form-control form-control-sm" placeholder="tx_op"
                required="True">

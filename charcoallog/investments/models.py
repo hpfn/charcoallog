@@ -4,7 +4,7 @@ from django.db.models import Sum
 
 class InvestmentStatementQuerySet(models.QuerySet):
     def user_logged(self, user_name):
-        return self.filter(user_name=user_name)
+        return self.filter(basic_data__user_name=user_name)
 
     # def date_range(self, from_date, to_date):
     #     return self.filter(date__gte=from_date, date__lte=to_date)
@@ -14,7 +14,7 @@ class InvestmentStatementQuerySet(models.QuerySet):
     #                        Q(description=column)).filter(~Q(category__startswith='transfer'))
 
     def total(self):
-        return self.aggregate(Sum('money'))
+        return self.aggregate(Sum('basic_data__money'))
 
 
 class BasicData(models.Model):
@@ -27,19 +27,31 @@ class BasicData(models.Model):
     which_target = models.CharField(max_length=20)
 
 
-class InvestmentDetails(BasicData):
+class InvestmentDetails(models.Model):
     # PN|ON, NTNB|SELIC|LTF, carencia CDB, sobre FII
     segment = models.CharField(max_length=10)
     # VALOR cada acao, taxa Tesouro, taxa CDB, valor de compra|venda FII
     tx_or_price = models.DecimalField(max_digits=8, decimal_places=2)
     quant = models.DecimalField(max_digits=8, decimal_places=2)
+    basic_data = models.OneToOneField(
+        BasicData,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
 
     objects = models.Manager.from_queryset(InvestmentStatementQuerySet)()
 
 
-class Investment(BasicData):
+class Investment(models.Model):
     tx_op = models.DecimalField(max_digits=4, decimal_places=2)
     brokerage = models.CharField(max_length=15)
+    basic_data = models.OneToOneField(
+        BasicData,
+        on_delete=models.CASCADE,
+        primary_key=True,
+        # default=0
+        # null=True
+    )
 
     objects = models.Manager.from_queryset(InvestmentStatementQuerySet)()
 
