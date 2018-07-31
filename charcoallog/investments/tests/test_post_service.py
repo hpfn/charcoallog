@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from charcoallog.investments.forms import InvestmentForm
+from charcoallog.investments.forms import InvestmentForm, BasicDataForm
 from charcoallog.investments.models import Investment
 from charcoallog.investments.post_service import MethodPost
 
@@ -22,7 +22,7 @@ class ValidPostMethod(TestCase):
             brokerage='Ativa'
         )
 
-        self.query_user = Investment.objects.user_logged(self.user)
+        self.query_user = Investment.objects.select_related('basic_data').user_logged(self.user)
         RQST.method = 'POST'
         RQST.POST = self.data
         RQST.user = self.user
@@ -34,23 +34,31 @@ class ValidPostMethod(TestCase):
         """
         self.assertIsInstance(self.response.investmentform(), InvestmentForm)
 
+    def test_basicdataform_instance(self):
+        """
+            investmentform attr must be a InvestmentForm instance.
+        """
+        self.assertIsInstance(self.response.basicdataform(), BasicDataForm)
+
     def test_form_is_valid(self):
         self.assertTrue(self.response.form.is_valid())
 
-    def test_form_save(self):
-        select_data = Investment.objects.get(id=1)
+    def test_basic_data_is_valid(self):
+        self.assertTrue(self.response.basic_data.is_valid())
+
+    def test_basicdata_form_save(self):
+        select_data = Investment.objects.select_related('basic_data').get(basic_data_id=1)
         select_dict = dict(
-            user_name=select_data.user_name,
-            date=select_data.date.strftime('%Y-%m-%d'),
+            user_name=select_data.basic_data.user_name,
+            date=select_data.basic_data.date.strftime('%Y-%m-%d'),
             tx_op=float(select_data.tx_op),
-            money=float(select_data.money),
-            kind=select_data.kind,
-            which_target=select_data.which_target,
+            money=float(select_data.basic_data.money),
+            kind=select_data.basic_data.kind,
+            which_target=select_data.basic_data.which_target,
             brokerage=select_data.brokerage
         )
         self.data['user_name'] = self.user
         self.assertDictEqual(self.data, select_dict)
-
 
 # class TransferBetweenAccounts(TestCase):
 #     def setUp(self):

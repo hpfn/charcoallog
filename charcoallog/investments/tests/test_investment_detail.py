@@ -1,8 +1,9 @@
 from django.contrib.auth.models import User
 from django.db.models import QuerySet
-from django.test import TestCase
 from django.shortcuts import resolve_url as r
-from charcoallog.investments.models import InvestmentDetails
+from django.test import TestCase
+
+from charcoallog.investments.models import InvestmentDetails, BasicData
 
 
 class InvestmentDetailTest(TestCase):
@@ -12,16 +13,20 @@ class InvestmentDetailTest(TestCase):
         user.save()
 
         self.login_in = self.client.login(username='teste', password='1qa2ws3ed')
-
-        self.data = dict(
+        b_data = dict(
             user_name='teste',
             date='2018-03-27',
             money=94.42,
             kind='Títulos Públicos',
             which_target='Tesouro Direto',
+        )
+        b_data = BasicData.objects.create(**b_data)
+
+        self.data = dict(
             segment='Selic 2023',
             tx_or_price=0.01,
-            quant=1.00
+            quant=1.00,
+            basic_data=b_data
         )
 
         self.obj = InvestmentDetails.objects.create(**self.data)
@@ -45,5 +50,5 @@ class InvestmentDetailTest(TestCase):
     def test_context(self):
         data = self.resp.context['d']
         for i in data:
-            self.assertIn(i.kind, 'Títulos Públicos')
-            self.assertIn(i.which_target, 'Tesouro Direto')
+            self.assertIn(i.basic_data.kind, 'Títulos Públicos')
+            self.assertIn(i.basic_data.which_target, 'Tesouro Direto')

@@ -4,23 +4,29 @@ from django.db.models import QuerySet
 from django.test import TestCase
 
 from charcoallog.investments.brief_investment_service import BriefInvestment
-from charcoallog.investments.models import Investment, InvestmentDetails
+from charcoallog.investments.models import Investment, InvestmentDetails, BasicData
 
 
 class BriefInvestmentTest(TestCase):
     def setUp(self):
-        self.data = dict(
+        b_data = dict(
             user_name='you',
             date='2018-03-27',
-            tx_op=00.00,
             money=94.42,
             kind='---',
             which_target='---',
-            brokerage='Ativa'
         )
+        b_data = BasicData.objects.create(**b_data)
+
+        self.data = dict(
+            tx_op=00.00,
+            brokerage='Ativa',
+            basic_data=b_data
+        )
+
         Investment.objects.create(**self.data)
-        query_set_invest = Investment.objects.user_logged('you')
-        query_set_investdetail = InvestmentDetails.objects.user_logged('you')
+        query_set_invest = Investment.objects.select_related('basic_data').user_logged('you')
+        query_set_investdetail = InvestmentDetails.objects.select_related('basic_data').user_logged('you')
         self.brief = BriefInvestment(query_set_invest, query_set_investdetail)
 
     def test_check_query_user_invest(self):
