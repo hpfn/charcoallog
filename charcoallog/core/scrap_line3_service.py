@@ -12,7 +12,7 @@ class Scrap:
     def __init__(self):
         self.selic_address = 'https://www.bcb.gov.br/Pec/Copom/Port/taxaSelic.asp'
         self.ibov_address = 'https://br.advfn.com/bolsa-de-valores/bovespa/ibovespa-IBOV/historico'
-        self.ipca_address = 'http://www.indiceseindicadores.com.br/ipca/'
+        self.ipca_address = 'http://www.portalbrasil.net/ipca.htm'
 
     def selic_info(self):
         if os.path.isfile('./charcoallog/core/selic.json'):
@@ -90,23 +90,28 @@ class Scrap:
             return ['http error']
 
     def ipca_webscrapping(self):
+        year = str(date.today().year - 1)
+
         html_doc = request.urlopen(self.ipca_address)
         soup = BeautifulSoup(html_doc, 'html.parser')
+        tabela_bd = soup.find_all('table')
 
-        tabela_bd = soup.find("tbody")
+        font_tag = tabela_bd[3].find_all('font')
+        count = 0
+        prt_str = ''
+        final_r = []
+        for i in list(font_tag):
+            if year in str(i.string):
+                break
 
-        ano = re.compile(r'<strong>\b(?P<ano>[0-9]{4})\b</strong>')
-        get_ano = re.findall(ano, str(tabela_bd))
+            if count == 4:
+                final_r.append(prt_str)
+                prt_str = ''
+                count = 0
+                continue
 
-        # taxas = re.compile(r'<(strong|b)>\b(?P<indice>[0-9]{,2},[0-9]{2})\b</(strong|b)>')
-        taxas = re.compile(
-            r'<td style="text-align: right; width: [0-9.]{3,}px; height: [0-9.]{2,}px;">'
-            r'(<span style="font-size: 10pt;">)?(<(strong|b)>)?\b(?P<indice>[0-9]{,2},[0-9]{2})\b'
-            r'(</(strong|b)>)?(</span>)?</td>')
+            prt_str += str(i.string).strip() + ' '
+            count += 1
 
-        get_tx = re.findall(taxas, str(tabela_bd))
-        get_tx = [i[3] for i in get_tx]
-
-        tx_ano_dict = [[ano, tx] for ano, tx in zip(get_ano[:10], get_tx[:10])]
-
-        return tx_ano_dict
+        final_r[0] = 'M/A  Mes  Ano  12meses'
+        return final_r

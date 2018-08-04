@@ -29,10 +29,10 @@
 
             <td>
                 <table cellpadding="5">
-                {% for ano, tx in build_home.ipca_info %}
+                {% for ano in build_home.ipca_info %}
                     <tr>
                         <td>{{ ano }}</td>
-                        <td>{{ tx }}</td>
+                        {# <td>{{ tx }}</td> #}
                     </tr>
                 {% endfor %}
                 </table>
