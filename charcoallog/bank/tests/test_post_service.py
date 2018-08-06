@@ -1,8 +1,9 @@
 from decimal import Decimal
+
 from django.test import TestCase
 
 from charcoallog.bank.forms import EditExtractForm
-from charcoallog.bank.models import Extract
+from charcoallog.bank.models import Extract, Schedule
 from charcoallog.bank.post_service import MethodPost
 
 
@@ -92,3 +93,30 @@ class TransferBetweenAccounts(TestCase):
     def test_positive_transfer_value(self):
         c_c_data = self.query_user.get(id=2)
         self.assertEqual(c_c_data.money, Decimal(self.value_after_transfer))
+
+
+class ScheduleTest(TestCase):
+    def setUp(self):
+        self.user = 'teste'
+        self.value = '-10.00'
+        self.data = dict(
+            date='2018-09-01',
+            money='100.00',
+            description='shedule',
+            category='test',
+            payment='principal',
+            schedule=True,
+        )
+
+        self.query_user = Extract.objects.user_logged(self.user)
+        RQST.method = "POST"
+        RQST.POST = self.data
+        RQST.user = self.user
+        self.response = MethodPost(RQST, self.query_user)
+
+    def test_schedule_models(self):
+        # self.assertTrue(Extract.objects.get(id=1))
+        p_data = Extract.objects.all().count()
+        s = Schedule.objects.filter(user_name=self.user).count()
+        self.assertEqual(p_data, 0)
+        self.assertEqual(s, 1)

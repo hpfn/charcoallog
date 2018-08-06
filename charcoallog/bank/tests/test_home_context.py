@@ -1,7 +1,8 @@
 from django.contrib.auth.models import User
-from django.test import TestCase
-from charcoallog.bank.service import ShowData
 from django.shortcuts import resolve_url as r
+from django.test import TestCase
+
+from charcoallog.bank.service import ShowData
 
 
 class HomeContextTest(TestCase):
@@ -31,7 +32,7 @@ class HomeContextTest(TestCase):
         """" Html must contain input tags at first time """
         tags = (
             ('<form', 2),
-            ('<input', 8),
+            ('<input', 9),
             ('<select', 6),
             ('type="text"', 5),
             # ('type="number"', 1),

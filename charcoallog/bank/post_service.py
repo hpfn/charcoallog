@@ -1,4 +1,4 @@
-from charcoallog.bank.models import Extract
+from charcoallog.bank.models import Extract, Schedule
 from .forms import EditExtractForm
 
 
@@ -26,11 +26,11 @@ class MethodPost:
             self.transfer_between_accounts()
 
     def insert_by_post(self):
-        # del self.form.cleaned_data['update_rm']
-        # del self.form.cleaned_data['pk']
-        # self.form.cleaned_data['user_name'] = self.request_user
-
-        self.form.save(self.request_user)
+        if not self.form.cleaned_data['schedule']:
+            self.form.save(self.request_user)
+        else:
+            del self.form.cleaned_data['schedule']
+            Schedule.objects.create(user_name=self.request_user, **self.form.cleaned_data)
 
     def transfer_between_accounts(self):
         if self.form.cleaned_data.get('category').startswith('transfer'):
