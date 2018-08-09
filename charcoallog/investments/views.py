@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from charcoallog.investments.forms import InvestmentForm, BasicDataForm
+
+from charcoallog.investments.forms import BasicDataForm, InvestmentForm
 from charcoallog.investments.models import InvestmentDetails
 from charcoallog.investments.service import ShowData
 

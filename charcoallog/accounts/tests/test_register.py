@@ -1,6 +1,7 @@
-from django.test import TestCase
-from charcoallog.accounts.forms import RegisterForm
 from django.shortcuts import resolve_url as r
+from django.test import TestCase
+
+from charcoallog.accounts.forms import RegisterForm
 
 
 class RegisterPageTest(TestCase):

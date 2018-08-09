@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db.models import QuerySet
-from django.test import TestCase
 from django.shortcuts import resolve_url as r
+from django.test import TestCase
 
 from charcoallog.bank.forms import SelectExtractForm
 from charcoallog.bank.get_service import MethodGet

@@ -1,8 +1,8 @@
 import json
 
 from celery.schedules import crontab
-from celery.utils.log import get_task_logger
 from celery.task import periodic_task
+from celery.utils.log import get_task_logger
 
 from charcoallog.core.scrap_line3_service import Scrap
 

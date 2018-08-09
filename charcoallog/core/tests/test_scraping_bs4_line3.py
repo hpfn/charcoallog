@@ -1,8 +1,8 @@
 # from bs4 import BeautifulSoup
 import os
+from unittest.mock import patch
 
 from django.test import TestCase
-from unittest.mock import patch
 
 from charcoallog.core.scrap_line3_service import Scrap
 

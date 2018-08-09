@@ -4,8 +4,8 @@
 from django.db.models import QuerySet
 from django.test import TestCase
 
-from charcoallog.bank.get_service import MethodGet
 from charcoallog.bank.brief_bank_service import BriefBank
+from charcoallog.bank.get_service import MethodGet
 from charcoallog.bank.models import Extract
 from charcoallog.bank.post_service import MethodPost
 from charcoallog.bank.service import ShowData

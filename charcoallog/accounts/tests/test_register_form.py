@@ -1,4 +1,5 @@
 from django.test import TestCase
+
 from charcoallog.accounts.forms import RegisterForm
 
 

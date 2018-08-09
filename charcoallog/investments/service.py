@@ -1,7 +1,7 @@
+from charcoallog.investments.brief_investment_service import BriefInvestment
 from charcoallog.investments.get_service import MethodGet
 from charcoallog.investments.models import Investment, InvestmentDetails
 from charcoallog.investments.post_service import MethodPost
-from charcoallog.investments.brief_investment_service import BriefInvestment
 
 
 class ShowData:

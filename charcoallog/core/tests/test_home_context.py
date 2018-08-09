@@ -5,7 +5,6 @@ from django.shortcuts import resolve_url as r
 # from django.template.response import SimpleTemplateResponse
 from django.test import TestCase
 
-
 # from charcoallog.bank.brief_bank_service import BriefBank
 # from charcoallog.bank.models import Extract
 

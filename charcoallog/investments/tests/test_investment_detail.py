@@ -3,7 +3,7 @@ from django.db.models import QuerySet
 from django.shortcuts import resolve_url as r
 from django.test import TestCase
 
-from charcoallog.investments.models import InvestmentDetails, BasicData
+from charcoallog.investments.models import BasicData, InvestmentDetails
 
 
 class InvestmentDetailTest(TestCase):
