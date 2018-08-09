@@ -1,5 +1,6 @@
 from django.conf.urls import url
-from charcoallog.bank.views import home, update, delete
+
+from charcoallog.bank.views import delete, home, update
 
 urlpatterns = [
     url(r'^$', home, name='home'),

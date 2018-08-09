@@ -4,7 +4,6 @@ from django import forms
 
 from .models import Extract
 
-
 # more recent
 # https://codedump.io/share/3seZkm5xb6mu/1/using-django-timedate-widgets-in-custom-form
 # very old

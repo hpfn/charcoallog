@@ -1,4 +1,4 @@
-from charcoallog.investments.forms import InvestmentForm, BasicDataForm
+from charcoallog.investments.forms import BasicDataForm, InvestmentForm
 
 
 class MethodPost:

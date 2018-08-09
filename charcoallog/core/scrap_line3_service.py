@@ -1,10 +1,10 @@
 import json
 import os
-
 import re
+from datetime import date
 from urllib import request
 from urllib.error import HTTPError
-from datetime import date
+
 from bs4 import BeautifulSoup
 
 

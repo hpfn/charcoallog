@@ -1,4 +1,5 @@
 from charcoallog.bank.models import Extract, Schedule
+
 from .forms import EditExtractForm
 
 

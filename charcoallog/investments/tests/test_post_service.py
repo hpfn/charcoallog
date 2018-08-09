@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from charcoallog.investments.forms import InvestmentForm, BasicDataForm
+from charcoallog.investments.forms import BasicDataForm, InvestmentForm
 from charcoallog.investments.models import Investment
 from charcoallog.investments.post_service import MethodPost
 

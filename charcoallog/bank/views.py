@@ -7,6 +7,7 @@ from django.shortcuts import render
 from charcoallog.bank.brief_bank_service import BriefBank
 from charcoallog.bank.forms import EditExtractForm
 from charcoallog.bank.models import Extract
+
 from .service import ShowData
 
 

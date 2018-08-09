@@ -3,7 +3,7 @@ from celery.task import periodic_task
 from celery.utils.log import get_task_logger
 from django.utils import timezone
 
-from charcoallog.bank.models import Schedule, Extract
+from charcoallog.bank.models import Extract, Schedule
 
 logger = get_task_logger(__name__)
 
