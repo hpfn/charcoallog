@@ -4,8 +4,9 @@ from django.db.models import QuerySet
 from django.test import TestCase
 
 from charcoallog.investments.brief_investment_service import BriefInvestment
-from charcoallog.investments.models import (BasicData, Investment,
-                                            InvestmentDetails)
+from charcoallog.investments.models import (
+    BasicData, Investment, InvestmentDetails
+)
 
 
 class BriefInvestmentTest(TestCase):

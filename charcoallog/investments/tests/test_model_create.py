@@ -1,8 +1,9 @@
 from django.test import TestCase
 
 from charcoallog.bank.models import Extract
-from charcoallog.investments.models import (BasicData, Investment,
-                                            InvestmentDetails)
+from charcoallog.investments.models import (
+    BasicData, Investment, InvestmentDetails
+)
 
 
 class InvestmentModelTest(TestCase):

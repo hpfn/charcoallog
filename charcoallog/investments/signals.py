@@ -2,8 +2,9 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from charcoallog.bank.models import Extract
-from charcoallog.investments.models import (BasicData, Investment,
-                                            InvestmentDetails)
+from charcoallog.investments.models import (
+    BasicData, Investment, InvestmentDetails
+)
 
 
 @receiver(post_save, sender=Extract)
