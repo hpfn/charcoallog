@@ -100,12 +100,13 @@ class Scrap:
 
         # taxas = re.compile(r'<(strong|b)>\b(?P<indice>[0-9]{,2},[0-9]{2})\b</(strong|b)>')
         taxas = re.compile(
-            r'<td style="text-align: right; width: [0-9.]{3,}px; height: [0-9.]{2,}px;">'
-            r'(<span style="font-size: 10pt;">)?(<(strong|b)>)?\b(?P<indice>[0-9]{,2},[0-9]{2})\b'
-            r'(</(strong|b)>)?(</span>)?</td>')
-
+            r'<td style="text-align: right; width: [0-9.]{7,}px; height: [0-9.]{2}px;">'
+            r'<.*?>(<.*?>)?'
+            r'([0-9]{,2}.[0-9]{2})'  # rate I want
+            r'<.*>'
+        )
         get_tx = re.findall(taxas, str(tabela_bd))
-        get_tx = [i[3] for i in get_tx]
+        get_tx = [i[1] for i in get_tx]
 
         tx_ano_dict = [[ano, tx] for ano, tx in zip(get_ano[:10], get_tx[:10])]
 
