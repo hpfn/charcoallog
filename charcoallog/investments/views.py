@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import Http404, render
 from rest_framework import status
 from rest_framework.response import Response
@@ -31,7 +32,9 @@ def detail(request, kind):
     return render(request, 'investments/detail.html', context)
 
 
-class FormDeals(APIView):
+class FormDeals(LoginRequiredMixin, APIView):
+    raise_exception = True
+
     def get_object(self, pk):
         try:
             return Investment.objects.get(pk=pk)
