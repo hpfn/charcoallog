@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'charcoallog.accounts',
     'charcoallog.bank',
     'charcoallog.investments',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
