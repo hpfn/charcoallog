@@ -47,7 +47,7 @@ class FormDeals(APIView):
         investment = self.get_object(pk)
         serializer = InvestmentSerializer(investment, data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.update(investment, serializer.validated_data)
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
