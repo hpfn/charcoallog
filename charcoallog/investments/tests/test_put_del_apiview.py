@@ -1,29 +1,62 @@
 import json
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.shortcuts import resolve_url as r
 from django.test import TestCase
+from rest_framework.views import APIView
 
 from charcoallog.investments.models import BasicData, Investment
+from charcoallog.investments.views import FormDeals
+
+b_data = dict(
+    user_name="teste",
+    date="2018-08-30",
+    money=1000,
+    kind="Títulos Públicos",
+    which_target="selic"
+)
+
+i_data = dict(
+    tx_op=10.00,
+    brokerage="ALTA",
+    basic_data=""
+)
+
+
+class AttrTest(TestCase):
+    def setUp(self):
+        self.attrs = FormDeals()
+
+    def test_get_object_attr(self):
+        self.assertTrue(hasattr(self.attrs, 'get_object'))
+
+    def test_out_attr(self):
+        self.assertTrue(hasattr(self.attrs, 'put'))
+
+    def test_delete_attr(self):
+        self.assertTrue(hasattr(self.attrs, 'delete'))
+
+    def test_get_attr(self):
+        self.assertFalse(hasattr(self.attrs, 'get'))
+
+    def test_post_attr(self):
+        self.assertFalse(hasattr(self.attrs, 'post'))
+
+    def test_inheritance(self):
+        self.assertTrue(issubclass(FormDeals, APIView))
+
+    def test_inheritance_1(self):
+        self.assertTrue(issubclass(FormDeals, LoginRequiredMixin))
 
 
 class AccessAPIView(TestCase):
     def setUp(self):
-        b_data = dict(
-            user_name="teste",
-            date="2018-08-30",
-            money=1000,
-            kind="Títulos Públicos",
-            which_target="selic"
-        )
         bsc_data = BasicData.objects.create(**b_data)
-        i_data = dict(
-            tx_op=10.00,
-            brokerage="ALTA",
-            basic_data=bsc_data
-        )
+        i_data['basic_data'] = bsc_data
         Investment.objects.create(**i_data)
-        self.to_update = {}
+
+        self.to_update = dict()
         self.to_update['basic_data'] = b_data
         self.to_update['brokerage'] = 'baixa'
         self.to_update['tx_op'] = 10.00
@@ -41,9 +74,38 @@ class PutDeleteAPIView(TestCase):
         user.set_password('1qa2ws3ed')
         user.save()
 
+        bsc_data = BasicData.objects.create(**b_data)
+        i_data['basic_data'] = bsc_data
+        Investment.objects.create(**i_data)
+
         self.login_in = self.client.login(username='teste', password='1qa2ws3ed')
 
     def test_method_not_permitted(self):
         """ Method not Allowed """
         response = self.client.get(r('investments:update', 1))
         self.assertEqual(405, response.status_code)
+
+    def test_good_data(self):
+        """ Send good data to PUT"""
+        to_put = dict()
+        to_put['basic_data'] = b_data
+        to_put['brokerage'] = "TO PUT"
+        to_put['tx_op'] = 10.00
+        response = self.client.put(r('investments:update', 1), json.dumps(to_put),
+                                   content_type='application/json')
+        self.assertEqual(200, response.status_code)
+
+    def test_invalid_data(self):
+        """ Send invalid data to PUT """
+        to_put = dict()
+        to_put['basic_data'] = b_data
+        to_put['brokerage'] = "TO PUT"
+        # No 'tx_op' makes data .is_valid() False
+        response = self.client.put(r('investments:update', 1), json.dumps(to_put),
+                                   content_type='application/json')
+        self.assertEqual(400, response.status_code)
+
+    def test_delete_data(self):
+        """ DELETE data in DB"""
+        response = self.client.delete(r('investments:update', 1))
+        self.assertEqual(204, response.status_code)
