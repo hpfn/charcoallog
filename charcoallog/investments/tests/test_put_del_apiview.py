@@ -94,6 +94,8 @@ class PutDeleteAPIView(TestCase):
         response = self.client.put(r('investments:update', 1), json.dumps(to_put),
                                    content_type='application/json')
         self.assertEqual(200, response.status_code)
+        # 'TO PUT' replaces 'ALTA'
+        self.assertIn(to_put["brokerage"], response.content.decode())
 
     def test_invalid_data(self):
         """ Send invalid data to PUT """
@@ -104,6 +106,8 @@ class PutDeleteAPIView(TestCase):
         response = self.client.put(r('investments:update', 1), json.dumps(to_put),
                                    content_type='application/json')
         self.assertEqual(400, response.status_code)
+        # No updated data
+        self.assertNotIn(to_put["brokerage"], response.content.decode())
 
     def test_delete_data(self):
         """ DELETE data in DB"""
