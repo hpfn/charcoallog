@@ -22,7 +22,7 @@ djangorestframework==3.8.2
 html5lib==1.0.1
 httpie==0.9.9
 idna==2.7
-#Pygments==2.2.0  # see sqlformatter -dev.txt
+Pygments==2.2.0
 requests==2.19.1
 urllib3==1.23
 webencodings==0.5.1
