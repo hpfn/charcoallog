@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.db.models import QuerySet
 from django.shortcuts import resolve_url as r
 from django.test import TestCase
 
@@ -21,9 +22,13 @@ class HomeContextTest(TestCase):
     def test_template(self):
         self.assertTemplateUsed(self.response, 'bank/home.html')
 
-    def test_context_only_instance(self):
+    def test_showdata_instance(self):
         show_data = self.response.context['show_data']
         self.assertIsInstance(show_data, ShowData)
+
+    def test_schedule_instance(self):
+        schedule = self.response.context['Schedule']
+        self.assertIsInstance(schedule, QuerySet)
 
     def test_number_of_href(self):
         self.assertContains(self.response, '<a href', 4)
