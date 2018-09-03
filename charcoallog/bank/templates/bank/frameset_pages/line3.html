@@ -31,6 +31,14 @@
             </ul>
         </div>
 
+        {% for bills in Schedule %}
+             <font color="blue" class="light blue">
+            " {{ bills.date|date:"Y-m-d" }} " - " {{ bills.money }} " - " {{ bills.description }} " -
+            " {{ bills.category }} " - " {{ bills.payment }} "
+             </font>
+             <br>
+        {% endfor %}
+
 
         {% for b in show_data.form2.query_default %}
         <form method="post" id="{{ b.id }}">

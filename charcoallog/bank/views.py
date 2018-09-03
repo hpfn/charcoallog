@@ -6,7 +6,7 @@ from django.shortcuts import render
 
 from charcoallog.bank.brief_bank_service import BriefBank
 from charcoallog.bank.forms import EditExtractForm
-from charcoallog.bank.models import Extract
+from charcoallog.bank.models import Extract, Schedule
 
 from .service import ShowData
 
@@ -15,6 +15,7 @@ from .service import ShowData
 def home(request):
     context = {
         'show_data': ShowData(request),
+        'Schedule': Schedule.objects.all(),
     }
     return render(request, "bank/home.html", context)
 
