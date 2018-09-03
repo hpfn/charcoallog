@@ -13,9 +13,10 @@ from .service import ShowData
 
 @login_required
 def home(request):
+    # user_logged instead of a .filter()
     context = {
         'show_data': ShowData(request),
-        'Schedule': Schedule.objects.all(),
+        'Schedule': Schedule.objects.filter(user_name=request.user).all(),
     }
     return render(request, "bank/home.html", context)
 
