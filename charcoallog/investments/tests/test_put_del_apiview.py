@@ -63,7 +63,7 @@ class AccessAPIView(TestCase):
 
     def test_no_access(self):
         """ No login yet. No access to the APIView"""
-        response = self.client.put(r('investments:update', 1), json.dumps(self.to_update),
+        response = self.client.put(r('investments:api', 1), json.dumps(self.to_update),
                                    content_type='application/json')
         self.assertEqual(403, response.status_code)
 
@@ -82,20 +82,29 @@ class PutDeleteAPIView(TestCase):
 
     def test_method_not_permitted(self):
         """ Method not Allowed """
-        response = self.client.get(r('investments:update', 1))
+        response = self.client.get(r('investments:api', 1))
         self.assertEqual(405, response.status_code)
 
     def test_good_data(self):
         """ Send good data to PUT"""
         to_put = dict()
+        b_data['money'] = 3000.00
         to_put['basic_data'] = b_data
         to_put['brokerage'] = "TO PUT"
         to_put['tx_op'] = 10.00
-        response = self.client.put(r('investments:update', 1), json.dumps(to_put),
+        response = self.client.put(r('investments:api', 1), json.dumps(to_put),
                                    content_type='application/json')
         self.assertEqual(200, response.status_code)
         # 'TO PUT' replaces 'ALTA'
-        self.assertIn(to_put["brokerage"], response.content.decode())
+        expected = [
+            "TO PUT",
+            '3000.00'
+        ]
+        for value in expected:
+            with self.subTest():
+                self.assertIn(value, response.content.decode())
+        # self.assertIn('3000.00', response.content.decode())
+        b_data['money'] = 1000.00
 
     def test_invalid_data(self):
         """ Send invalid data to PUT """
@@ -103,7 +112,7 @@ class PutDeleteAPIView(TestCase):
         to_put['basic_data'] = b_data
         to_put['brokerage'] = "TO PUT"
         # No 'tx_op' makes data .is_valid() False
-        response = self.client.put(r('investments:update', 1), json.dumps(to_put),
+        response = self.client.put(r('investments:api', 1), json.dumps(to_put),
                                    content_type='application/json')
         self.assertEqual(400, response.status_code)
         # No updated data
@@ -111,5 +120,5 @@ class PutDeleteAPIView(TestCase):
 
     def test_delete_data(self):
         """ DELETE data in DB"""
-        response = self.client.delete(r('investments:update', 1))
+        response = self.client.delete(r('investments:api', 1))
         self.assertEqual(204, response.status_code)
