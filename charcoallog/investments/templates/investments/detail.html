@@ -1,6 +1,17 @@
 {% extends "blank.html" %}
 
 {% block content %}
+<div class="container bg-white">
+    <ul class="nav nav-pills">
+        <li class="nav-item nav-link text-muted"><small>date</small></li>
+        <li class="nav-item nav-link text-muted"><small>money</small></li>
+        <li class="nav-item nav-link text-muted"><small>kind</small></li>
+        <li class="nav-item nav-link text-muted"><small>which target</small></li>
+        <li class="nav-item nav-link text-muted"><small>segment</small></li>
+        <li class="nav-item nav-link text-muted"><small>tx_or_price</small></li>
+        <li class="nav-item nav-link text-muted"><small>quant</small></li>
+    </ul>
+</div>
 
 {% for item in d %}
 <form action="." method="post">
@@ -18,8 +29,17 @@
         <input type="text" id="which_target" name="which_target" class="form-inline"
                size="15" style="font-size:10px;border:none"
                value="{{ item.basic_data.which_target }}">
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <input type="text" id="segment" name="segment" class="form-inline"
+               size="15" style="font-size:10px;border:none"
+               value="{{ item.segment }}">
+        <input type="text" id="tx_or_price" name="tx_or_price" class="form-inline"
+               size="15" style="font-size:10px;border:none"
+               value="{{ item.tx_or_price }}">
+        <input type="text" id="quant" name="quant" class="form-inline"
+               size="15" style="font-size:10px;border:none"
+               value="{{ item.quant }}">
+
+        <button type="text" class="btn btn-sm m-0 p-0 btn-link" size="8" id="button">waiting JS</button>
     </div>
 </form>
 {% endfor %}

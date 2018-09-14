@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.contrib.auth.models import User
 from django.db.models import QuerySet
 from django.shortcuts import resolve_url as r
@@ -8,24 +10,34 @@ from charcoallog.investments.models import BasicData, InvestmentDetails
 
 class InvestmentDetailTest(TestCase):
     def setUp(self):
-        user = User.objects.create(username='teste')
+        user_n = 'teste'
+        user = User.objects.create(username=user_n)
         user.set_password('1qa2ws3ed')
         user.save()
 
-        self.login_in = self.client.login(username='teste', password='1qa2ws3ed')
+        self.date = '2018-03-27'
+        self.money = 94.42
+        self.kind = 'Títulos Públicos'
+        self.which_target = 'Tesouro Direto'
+
+        self.login_in = self.client.login(username=user_n, password='1qa2ws3ed')
         b_data = dict(
-            user_name='teste',
-            date='2018-03-27',
-            money=94.42,
-            kind='Títulos Públicos',
-            which_target='Tesouro Direto',
+            user_name=user_n,
+            date=self.date,
+            money=self.money,
+            kind=self.kind,
+            which_target=self.which_target,
         )
         b_data = BasicData.objects.create(**b_data)
 
+        self.segment = 'Selic 2023'
+        self.tx_or_price = 0.01
+        self.quant = 1.00
+
         self.data = dict(
-            segment='Selic 2023',
-            tx_or_price=0.01,
-            quant=1.00,
+            segment=self.segment,
+            tx_or_price=self.tx_or_price,
+            quant=self.quant,
             basic_data=b_data
         )
 
@@ -49,6 +61,16 @@ class InvestmentDetailTest(TestCase):
 
     def test_context(self):
         data = self.resp.context['d']
-        for i in data:
-            self.assertIn(i.basic_data.kind, 'Títulos Públicos')
-            self.assertIn(i.basic_data.which_target, 'Tesouro Direto')
+        expected = [
+            (str(data[0].basic_data.date), self.date),
+            (data[0].basic_data.money, Decimal(str(self.money))),
+            (data[0].basic_data.kind, self.kind),
+            (data[0].basic_data.which_target, self.which_target),
+            (data[0].segment, self.segment),
+            (data[0].tx_or_price, Decimal(str(self.tx_or_price))),
+            (data[0].quant, self.quant)
+        ]
+
+        for know, e in expected:
+            with self.subTest():
+                self.assertEqual(know, e)
