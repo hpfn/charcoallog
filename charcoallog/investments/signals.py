@@ -1,10 +1,16 @@
-from django.db.models.signals import post_save
+from django.db.models.signals import post_delete, post_save
 from django.dispatch import receiver
 
 from charcoallog.bank.models import Extract
 from charcoallog.investments.models import (
     BasicData, Investment, InvestmentDetails
 )
+
+# for two 'def'
+# populate_investments
+# delete_transfer_from_bank
+kind = '---'
+which_target = '---'
 
 
 @receiver(post_save, sender=Extract)
@@ -15,8 +21,8 @@ def populate_investments(sender, created, instance, **kwargs):
             user_name=instance.user_name,
             date=instance.date,
             money=instance.money * -1,
-            kind='---',
-            which_target='----',
+            kind=kind,
+            which_target=which_target,
         )
         b_data = BasicData.objects.create(**data)
 
@@ -52,3 +58,21 @@ def populate_investments_details(sender, created, instance, **kwargs):
             'basic_data': basic_data
         }
         InvestmentDetails.objects.create(**data)
+
+
+@receiver(post_delete, sender=Extract)
+def delete_transfer_from_bank(sender, instance, using, **kwargs):
+    if instance.category == 'investments':
+        user_name = instance.user_name
+        date = instance.date
+        money = instance.money
+        brokerage = instance.description
+        # tx_op = 0.00
+
+        Investment.objects.select_related('basic_data').filter(
+            brokerage=brokerage,
+            basic_data__user_name=user_name,
+            basic_data__date=date,
+            basic_data__money=money * -1,
+            basic_data__kind=kind,
+            basic_data__which_target=which_target).delete()
