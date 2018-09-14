@@ -65,3 +65,9 @@ class DataFromBankTest(TestCase):
     def test_data_not_in_investmentdetails(self):
         data = InvestmentDetails.objects.select_related('basic_data').filter(basic_data__kind='---').exists()
         self.assertFalse(data)
+
+    def test_bank_enty_delete(self):
+        """ Delete Bank entry, delete Investment entry too """
+        Extract.objects.get(pk=1).delete()
+        qs = Investment.objects.all().count()
+        self.assertEqual(0, qs)
