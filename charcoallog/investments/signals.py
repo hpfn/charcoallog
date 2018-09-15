@@ -76,3 +76,21 @@ def delete_transfer_from_bank(sender, instance, using, **kwargs):
             basic_data__money=money * -1,
             basic_data__kind=kind,
             basic_data__which_target=which_target).delete()
+
+
+@receiver(post_delete, sender=Investment)
+def delete_transfer_from_investment(sender, instance, using, **kwargs):
+    data = dict(
+        basic_data__user_name=instance.basic_data.user_name,
+        basic_data__date=instance.basic_data.date,
+        basic_data__money=instance.basic_data.money * -1,
+        basic_data__kind=instance.basic_data.kind,
+        basic_data__which_target=instance.basic_data.which_target,
+        segment='---',
+        tx_or_price=00.00,
+        quant=00.00
+    )
+    qs = InvestmentDetails.objects.filter(**data)
+    if qs.exists():
+        # make sure to delete one record
+        qs.first().delete()

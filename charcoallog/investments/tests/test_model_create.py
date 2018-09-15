@@ -10,21 +10,21 @@ class InvestmentModelTest(TestCase):
     """ M3A03 - WTTD """
 
     def setUp(self):
-        data = dict(
+        self.data_b = dict(
             user_name='teste',
             date='2018-03-27',
             money=94.42,
             kind='Títulos Públicos',
             which_target='Tesouro Direto',
         )
-        b_data = BasicData.objects.create(**data)
+        b_data = BasicData.objects.create(**self.data_b)
 
-        data = dict(
+        self.data_i = dict(
             tx_op=00.00,
             brokerage='Ativa',
             basic_data=b_data
         )
-        Investment.objects.create(**data)
+        Investment.objects.create(**self.data_i)
 
     def test_investments_exists(self):
         """ Test if investment is created"""
@@ -43,6 +43,21 @@ class InvestmentModelTest(TestCase):
         obj.save(update_fields=['segment', 'tx_or_price', 'quant'])
 
         self.assertTrue(InvestmentDetails.objects.select_related('basic_data').filter(segment='Selic 2023').exists())
+
+    def test_delete_data(self):
+        """
+        If delete a record in Investment
+        Must delete that record in Details too
+        """
+        Investment.objects.get(pk=1).delete()
+
+        expected = [
+            Investment.objects.exists(),
+            InvestmentDetails.objects.exists()
+        ]
+        for x in expected:
+            with self.subTest():
+                self.assertFalse(x)
 
 
 class DataFromBankTest(TestCase):
