@@ -69,13 +69,16 @@ def delete_transfer_from_bank(sender, instance, using, **kwargs):
         brokerage = instance.description
         # tx_op = 0.00
 
-        Investment.objects.select_related('basic_data').filter(
+        qs = Investment.objects.select_related('basic_data').filter(
             brokerage=brokerage,
             basic_data__user_name=user_name,
             basic_data__date=date,
             basic_data__money=money * -1,
             basic_data__kind=kind,
-            basic_data__which_target=which_target).delete()
+            basic_data__which_target=which_target)
+
+        if qs.exists():
+            qs.first().delete()
 
 
 @receiver(post_delete, sender=Investment)
