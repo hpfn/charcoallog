@@ -37,31 +37,16 @@ class MethodPost:
 
     def transfer_between_accounts(self, no_schedule=True):
         if self.form.cleaned_data.get('category').startswith('transfer'):
-            money_f = self.form.cleaned_data.get('money') * -1
-            payment_f = self.form.cleaned_data.get('description')
-            description_f = 'credit from ' + self.form.cleaned_data.get('payment')
+            data = dict(
+                user_name=self.request_user,
+                date=self.form.cleaned_data.get('date'),
+                money=self.form.cleaned_data.get('money') * -1,
+                category=self.form.cleaned_data.get('category'),
+                description='credit from ' + self.form.cleaned_data.get('payment'),
+                payment=self.form.cleaned_data.get('description')
+            )
 
             if no_schedule:
-                self.transfer_in_extract(money_f, description_f, payment_f)
+                Extract.objects.create(**data)
             else:
-                self.transfer_by_schedule(money_f, description_f, payment_f)
-
-    def transfer_in_extract(self, money_f, description_f, payment_f):
-        Extract.objects.create(
-            user_name=self.request_user,
-            date=self.form.cleaned_data.get('date'),
-            money=money_f,
-            description=description_f,
-            category=self.form.cleaned_data.get('category'),
-            payment=payment_f
-        )
-
-    def transfer_by_schedule(self, money_f, description_f, payment_f):
-        Schedule.objects.create(
-            user_name=self.request_user,
-            date=self.form.cleaned_data.get('date'),
-            money=money_f,
-            description=description_f,
-            category=self.form.cleaned_data.get('category'),
-            payment=payment_f
-        )
+                Schedule.objects.create(**data)

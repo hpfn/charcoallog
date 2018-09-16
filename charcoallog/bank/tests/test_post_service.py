@@ -158,3 +158,19 @@ class TransferScheduleTest(TestCase):
     def test_records_in_schedule(self):
         n_record = Schedule.objects.all().count()
         self.assertEqual(n_record, 2)
+
+    def test_check_tranfer(self):
+        qs = Schedule.objects.get(pk=2)
+        expected = [
+            # payment was in description
+            (qs.payment, 'cartao credito'),
+            # positive value now
+            (qs.money, Decimal(str(self.value_after_transfer)))
+        ]
+
+        for k, v in expected:
+            with self.subTest():
+                self.assertEqual(k, v)
+
+        # description startswith
+        self.assertIn('credit from', qs.description)
