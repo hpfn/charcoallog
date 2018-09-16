@@ -27,26 +27,38 @@ class MethodPost:
             # self.transfer_between_accounts()
 
     def insert_by_post(self):
-        if not self.form.cleaned_data['schedule']:
+        category = self.form.cleaned_data.get('category')
+        schedule = self.form.cleaned_data['schedule']
+        del self.form.cleaned_data['schedule']
+
+        if not schedule:
             self.form.save(self.request_user)
-            self.transfer_between_accounts()
         else:
-            del self.form.cleaned_data['schedule']
             Schedule.objects.create(user_name=self.request_user, **self.form.cleaned_data)
-            self.transfer_between_accounts(no_schedule=False)
 
-    def transfer_between_accounts(self, no_schedule=True):
-        if self.form.cleaned_data.get('category').startswith('transfer'):
-            data = dict(
-                user_name=self.request_user,
-                date=self.form.cleaned_data.get('date'),
-                money=self.form.cleaned_data.get('money') * -1,
-                category=self.form.cleaned_data.get('category'),
-                description='credit from ' + self.form.cleaned_data.get('payment'),
-                payment=self.form.cleaned_data.get('description')
-            )
+        if category.startswith('transfer'):
+            transfer = TransferBetweenAccounts(self.request_user, self.form)
 
-            if no_schedule:
-                Extract.objects.create(**data)
+            if schedule:
+                transfer.to_schedule()
             else:
-                Schedule.objects.create(**data)
+                transfer.to_extract()
+
+
+class TransferBetweenAccounts:
+    def __init__(self, user, form):
+        self.data = dict(
+            user_name=user,
+            date=form.cleaned_data.get('date'),
+            money=form.cleaned_data.get('money') * -1,
+            category=form.cleaned_data.get('category'),
+            description='credit from ' + form.cleaned_data.get('payment'),
+            payment=form.cleaned_data.get('description')
+        )
+        self.category = form.cleaned_data.get('category')
+
+    def to_extract(self):
+        Extract.objects.create(**self.data)
+
+    def to_schedule(self):
+        Schedule.objects.create(**self.data)
