@@ -6,7 +6,7 @@ from charcoallog.investments.models import (
     BasicData, Investment, InvestmentDetails
 )
 
-# for two 'def'
+# for two 'def' about Extract - bank app
 # populate_investments
 # delete_transfer_from_bank
 kind = '---'
@@ -35,31 +35,6 @@ def populate_investments(sender, created, instance, **kwargs):
         Investment.objects.create(**data)
 
 
-@receiver(post_save, sender=Investment)
-def populate_investments_details(sender, created, instance, **kwargs):
-    # update_fields ?
-    if created and instance.basic_data.kind != '---':
-        b_data = {
-            'user_name': instance.basic_data.user_name,
-            'date': instance.basic_data.date,
-            'money': instance.basic_data.money * -1,
-            'kind': instance.basic_data.kind,
-            'which_target': instance.basic_data.which_target,
-            # 'segment': '---',
-            # 'tx_or_price': 00.00,
-            # 'quant': 00.00
-        }
-        basic_data = BasicData.objects.create(**b_data)
-
-        data = {
-            'segment': '---',
-            'tx_or_price': 00.00,
-            'quant': 00.00,
-            'basic_data': basic_data
-        }
-        InvestmentDetails.objects.create(**data)
-
-
 @receiver(post_delete, sender=Extract)
 def delete_transfer_from_bank(sender, instance, using, **kwargs):
     if instance.category == 'investments':
@@ -67,7 +42,6 @@ def delete_transfer_from_bank(sender, instance, using, **kwargs):
         date = instance.date
         money = instance.money
         brokerage = instance.description
-        # tx_op = 0.00
 
         qs = Investment.objects.select_related('basic_data').filter(
             brokerage=brokerage,
@@ -78,7 +52,38 @@ def delete_transfer_from_bank(sender, instance, using, **kwargs):
             basic_data__which_target=which_target)
 
         if qs.exists():
+            # make sure to delete one record
             qs.first().delete()
+
+
+# two 'def' about Investment
+# populate investments details
+# delete_transfer_from_investment
+segment = '---'
+tx_or_price = 00.00
+quant = 00.00
+
+
+@receiver(post_save, sender=Investment)
+def populate_investments_details(sender, created, instance, **kwargs):
+    # update_fields ?
+    if created and instance.basic_data.kind != '---':
+        b_data = dict(
+            user_name=instance.basic_data.user_name,
+            date=instance.basic_data.date,
+            money=instance.basic_data.money * -1,
+            kind=instance.basic_data.kind,
+            which_target=instance.basic_data.which_target
+        )
+        basic_data = BasicData.objects.create(**b_data)
+
+        data = dict(
+            segment=segment,
+            tx_or_price=tx_or_price,
+            quant=quant,
+            basic_data=basic_data
+        )
+        InvestmentDetails.objects.create(**data)
 
 
 @receiver(post_delete, sender=Investment)
@@ -89,9 +94,9 @@ def delete_transfer_from_investment(sender, instance, using, **kwargs):
         basic_data__money=instance.basic_data.money * -1,
         basic_data__kind=instance.basic_data.kind,
         basic_data__which_target=instance.basic_data.which_target,
-        segment='---',
-        tx_or_price=00.00,
-        quant=00.00
+        segment=segment,
+        tx_or_price=tx_or_price,
+        quant=quant
     )
     qs = InvestmentDetails.objects.filter(**data)
     if qs.exists():
