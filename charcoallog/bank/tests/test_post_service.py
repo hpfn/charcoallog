@@ -114,9 +114,47 @@ class ScheduleTest(TestCase):
         RQST.user = self.user
         self.response = MethodPost(RQST, self.query_user)
 
-    def test_schedule_models(self):
+    def test_record_in_models(self):
         # self.assertTrue(Extract.objects.get(id=1))
-        p_data = Extract.objects.all().count()
-        s = Schedule.objects.filter(user_name=self.user).count()
-        self.assertEqual(p_data, 0)
-        self.assertEqual(s, 1)
+        extract_record = Extract.objects.all().count()
+        shedule_record = Schedule.objects.filter(user_name=self.user).count()
+        expected = [
+            (extract_record, 0),
+            (shedule_record, 1)
+        ]
+
+        for r, x in expected:
+            with self.subTest():
+                self.assertEqual(r, x)
+        # self.assertEqual(s, 1)
+
+
+class TransferScheduleTest(TestCase):
+    def setUp(self):
+        self.user = 'teste'
+        self.account_1 = 'principal'
+        self.account_2 = 'cartao credito'
+        self.value = '-10.00'
+        self.value_after_transfer = '10.00'
+        self.data = dict(
+            # user_name=self.user,
+            date='2017-12-21',
+            money=self.value,
+            description=self.account_2,
+            category='transfer',
+            payment=self.account_1,
+            schedule=True
+        )
+        self.query_user = Extract.objects.user_logged(self.user)
+        RQST.method = "POST"
+        RQST.POST = self.data
+        RQST.user = self.user
+        self.response = MethodPost(RQST, self.query_user)
+
+    def test_no_extract_record(self):
+        n_record = Extract.objects.all().count()
+        self.assertEqual(n_record, 0)
+
+    def test_records_in_schedule(self):
+        n_record = Schedule.objects.all().count()
+        self.assertEqual(n_record, 2)
