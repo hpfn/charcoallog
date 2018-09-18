@@ -24,41 +24,40 @@ class MethodPost:
 
         if self.form.is_valid():
             self.insert_by_post()
-            # self.transfer_between_accounts()
 
     def insert_by_post(self):
-        category = self.form.cleaned_data.get('category')
+        transfer = self.form.cleaned_data.get('category').startswith('transfer')
         schedule = self.form.cleaned_data['schedule']
+        to_model = 'to_schedule' if schedule else 'to_extract'
         del self.form.cleaned_data['schedule']
 
-        if not schedule:
-            self.form.save(self.request_user)
-        else:
-            Schedule.objects.create(user_name=self.request_user, **self.form.cleaned_data)
+        insert_to[to_model](self.request_user, self.form.cleaned_data)
 
-        if category.startswith('transfer'):
-            transfer = TransferBetweenAccounts(self.request_user, self.form)
-
-            if schedule:
-                transfer.to_schedule()
-            else:
-                transfer.to_extract()
+        if transfer:
+            data_transfer = build_data_transfer(self.form.cleaned_data)
+            insert_to[to_model](self.request_user, data_transfer)
 
 
-class TransferBetweenAccounts:
-    def __init__(self, user, form):
-        self.data = dict(
-            user_name=user,
-            date=form.cleaned_data.get('date'),
-            money=form.cleaned_data.get('money') * -1,
-            category=form.cleaned_data.get('category'),
-            description='credit from ' + form.cleaned_data.get('payment'),
-            payment=form.cleaned_data.get('description')
-        )
-        self.category = form.cleaned_data.get('category')
+def build_data_transfer(form):
+    return dict(
+        # user_name=user,
+        date=form.get('date'),
+        money=form.get('money') * -1,
+        category=form.get('category'),
+        description='credit from ' + form.get('payment'),
+        payment=form.get('description')
+    )
 
-    def to_extract(self):
-        Extract.objects.create(**self.data)
 
-    def to_schedule(self):
-        Schedule.objects.create(**self.data)
+def to_extract(user, data):
+    Extract.objects.create(user_name=user, **data)
+
+
+def to_schedule(user, data):
+    Schedule.objects.create(user_name=user, **data)
+
+
+insert_to = dict(
+    to_extract=to_extract,
+    to_schedule=to_schedule
+)
