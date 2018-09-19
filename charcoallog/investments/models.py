@@ -24,10 +24,12 @@ class BasicData(models.Model):
     # Acao, Titulo Publico, CDB, FII
     kind = models.CharField(max_length=20)
     # Qual acao, titulo publico, banco(CDB), cod FII
-    which_target = models.CharField(max_length=20)
+    # which_target = models.CharField(max_length=20)
 
 
 class InvestmentDetails(models.Model):
+    # Qual acao, titulo publico, banco(CDB), cod FII
+    which_target = models.CharField(max_length=20, default='---')
     # PN|ON, NTNB|SELIC|LTF, carencia CDB, sobre FII
     segment = models.CharField(max_length=10)
     # VALOR cada acao, taxa Tesouro, taxa CDB, valor de compra|venda FII

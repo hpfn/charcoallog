@@ -8,6 +8,6 @@ class BasicDataTest(TestCase):
         """ Form must have 4 fields"""
         basic_data = BasicDataForm()
         self.assertSequenceEqual(
-            ['date', 'money', 'kind', 'which_target'],
+            ['date', 'money', 'kind'],
             list(basic_data.fields)
-            )
+        )

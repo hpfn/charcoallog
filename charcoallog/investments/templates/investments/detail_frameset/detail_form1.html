@@ -19,24 +19,28 @@
                class="form-control form-control-sm" placeholder="kind"
                required="True">
     </div>
-
-    {# <div class="form-group"> #}
-    {#     {{ basic_data.which_target.errors }} #}
-    {#     <input type="text" name="which_target" id="which_target" #}
-    {#            class="form-control form-control-sm" placeholder="which_target" #}
-    {#            required="True"> #}
-    {# </div> #}
-
     <div class="form-group">
-        {{ form.tx_op.errors }}
-        <input type="text" name="tx_op" id="tx_op"
-               class="form-control form-control-sm" placeholder="tx_op"
+        {{ form.which_target.errors }}
+        <input type="text" name="which_target" id="which_target"
+               class="form-control form-control-sm" placeholder="which_target"
                required="True">
     </div>
     <div class="form-group">
-        {{ form.brokerage.errors }}
-        <input type="text" name="brokerage" id="brokerage"
-               class="form-control form-control-sm" placeholder="brokerage"
+        {{ form.segment.errors }}
+        <input type="text" name="segment" id="segment"
+               class="form-control form-control-sm" placeholder="segment"
+               required="True">
+    </div>
+    <div class="form-group">
+        {{ form.tx_or_price.errors }}
+        <input type="text" name="tx_or_price" id="tx_or_price"
+               class="form-control form-control-sm" placeholder="tx_or_price"
+               required="True">
+    </div>
+    <div class="form-group">
+        {{ form.quant.errors }}
+        <input type="text" name="quant" id="quant"
+               class="form-control form-control-sm" placeholder="quant"
                required="True">
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>

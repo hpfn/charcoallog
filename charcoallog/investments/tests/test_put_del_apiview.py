@@ -14,7 +14,7 @@ b_data = dict(
     date="2018-08-30",
     money=1000,
     kind="Títulos Públicos",
-    which_target="selic"
+    # which_target="selic"
 )
 
 i_data = dict(
