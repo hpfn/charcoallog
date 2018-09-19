@@ -29,22 +29,25 @@ class InvestmentHomeOkTest(TestCase):
 
     def test_html(self):
         """ Must contain input tags """
-        self.assertContains(self.response, '<form')
-        self.assertContains(self.response, '<input', 10)
-        self.assertContains(self.response, 'type="hidden"', 0)
-        self.assertContains(self.response, 'type="text"', 6)
-        self.assertContains(self.response, 'type="date"', 3)
-        # self.assertContains(self.response, 'type="number"', 2)
-        self.assertContains(self.response, 'type="submit"')
-        self.assertContains(self.response, '</form')
-        self.assertContains(self.response, 'class="row"')
-        self.assertContains(self.response, 'method="get"')
-        self.assertContains(self.response, 'method="post"')
-        # self.assertContains(self.response, 'id="invest_box_line3"')
+        expected = [
+            ('<form', 2),
+            ('<input', 10),
+            ("type='hidden'", 1),
+            ('type="text"', 6),
+            ('type="date"', 3),
+            ('type="submit"', 2),
+            ('</form', 2),
+            ('class="row"', 4),
+            ('method="get"', 1),
+            ('method="post"', 1)
+        ]
+        for tag, x in expected:
+            with self.subTest():
+                self.assertContains(self.response, tag, x)
 
     def test_csrf(self):
         """ html must contain csrf """
-        self.assertContains(self.response, 'csrfmiddlewaretoken')
+        self.assertContains(self.response, 'csrfmiddlewaretoken', 1)
 
     def test_has_form(self):
         """ Context must have Investment form """
