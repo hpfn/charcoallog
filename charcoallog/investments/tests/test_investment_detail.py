@@ -30,7 +30,7 @@ class InvestmentDetailTest(TestCase):
         )
         b_data = BasicData.objects.create(**b_data)
 
-        self.segment = 'Selic 2023'
+        self.segment = 'Selic'
         self.tx_or_price = 0.01
         self.quant = 1.00
 
@@ -55,9 +55,32 @@ class InvestmentDetailTest(TestCase):
     def test_template_used(self):
         self.assertTemplateUsed(self.resp, 'investments/detail.html')
 
+    def test_html(self):
+        """ Must contain input tags """
+        expected = [
+            ('<form', 3),
+            ('<input', 11),
+            ("type='hidden'", 2),
+            ('type="text"', 6),
+            ('type="date"', 3),
+            ('type="submit"', 2),
+            ('</form>', 3),
+            ('class="row"', 4),
+            ('method="get"', 1),
+            ('method="post"', 1),
+            ('id="vue_ajax_detail"', 1),
+        ]
+        for tag, x in expected:
+            with self.subTest():
+                self.assertContains(self.resp, tag, x)
+
+    def test_csrf(self):
+        """ html must contain csrf """
+        self.assertContains(self.resp, 'csrfmiddlewaretoken', 2)
+
     def test_context_instance(self):
-        data = self.resp.context['d']
-        self.assertIsInstance(data, QuerySet)
+        form3 = self.resp.context['d']
+        self.assertIsInstance(form3, QuerySet)
 
     def test_context(self):
         data = self.resp.context['d']
