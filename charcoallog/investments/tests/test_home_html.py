@@ -31,9 +31,9 @@ class InvestmentHomeOkTest(TestCase):
         """ Must contain input tags """
         expected = [
             ('<form', 2),
-            ('<input', 10),
+            ('<input', 9),
             ("type='hidden'", 1),
-            ('type="text"', 6),
+            ('type="text"', 5),
             ('type="date"', 3),
             ('type="submit"', 2),
             ('</form', 2),

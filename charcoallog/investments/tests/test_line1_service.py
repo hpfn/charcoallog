@@ -18,7 +18,7 @@ class BriefInvestmentTest(TestCase):
             date='2018-03-27',
             money=10.00,
             kind=self.kind,
-            which_target='Tesouro Direto',
+            # which_target='Tesouro Direto',
         )
         b_data = BasicData.objects.create(**data)
 

@@ -6,7 +6,7 @@ from charcoallog.investments.models import BasicData, Investment
 class BasicDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = BasicData
-        fields = ('pk', 'date', 'money', 'kind', 'which_target')
+        fields = ('pk', 'date', 'money', 'kind')
 
 
 class InvestmentSerializer(serializers.ModelSerializer):
@@ -31,7 +31,7 @@ class InvestmentSerializer(serializers.ModelSerializer):
         b_d.date = basic_d.get('date', instance.basic_data.date)
         b_d.money = basic_d.get('money', instance.basic_data.money)
         b_d.kind = basic_d.get('kind', instance.basic_data.kind)
-        b_d.which_target = basic_d.get('which_target', instance.basic_data.which_target)
+        # b_d.which_target = basic_d.get('which_target', instance.basic_data.which_target)
         b_d.save()
 
         instance.basic_data = b_d

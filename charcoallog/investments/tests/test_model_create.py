@@ -15,7 +15,7 @@ class InvestmentModelTest(TestCase):
             date='2018-03-27',
             money=94.42,
             kind='Títulos Públicos',
-            which_target='Tesouro Direto',
+            # which_target='Tesouro Direto',
         )
         b_data = BasicData.objects.create(**self.data_b)
 
@@ -34,13 +34,19 @@ class InvestmentModelTest(TestCase):
         """ Test if details is created """
         self.assertTrue(InvestmentDetails.objects.exists())
 
+    def test_created_fields_in_details(self):
+        qs = InvestmentDetails.objects.get(pk=2)
+        self.assertEqual(qs.which_target, '---')
+        self.assertEqual(qs.segment, '---')
+
     def test_update_investment_details(self):
         """ Test if created details object can be updated """
         obj = InvestmentDetails.objects.select_related('basic_data').get()
+        obj.which_target = 'tesouro'
         obj.segment = 'Selic 2023'
         obj.tx_or_price = 0.01
         obj.quant = 1.00
-        obj.save(update_fields=['segment', 'tx_or_price', 'quant'])
+        obj.save(update_fields=['which_target', 'segment', 'tx_or_price', 'quant'])
 
         self.assertTrue(InvestmentDetails.objects.select_related('basic_data').filter(segment='Selic 2023').exists())
 

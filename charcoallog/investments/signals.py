@@ -10,7 +10,7 @@ from charcoallog.investments.models import (
 # populate_investments
 # delete_transfer_from_bank
 kind = '---'
-which_target = '---'
+# which_target = '---'
 
 
 @receiver(post_save, sender=Extract)
@@ -22,7 +22,7 @@ def populate_investments(sender, created, instance, **kwargs):
             date=instance.date,
             money=instance.money * -1,
             kind=kind,
-            which_target=which_target,
+            # which_target=which_target,
         )
         b_data = BasicData.objects.create(**data)
 
@@ -49,7 +49,8 @@ def delete_transfer_from_bank(sender, instance, using, **kwargs):
             basic_data__date=date,
             basic_data__money=money * -1,
             basic_data__kind=kind,
-            basic_data__which_target=which_target)
+            # basic_data__which_target=which_target
+        )
 
         if qs.exists():
             # make sure to delete one record
@@ -59,6 +60,7 @@ def delete_transfer_from_bank(sender, instance, using, **kwargs):
 # two 'def' about Investment
 # populate investments details
 # delete_transfer_from_investment
+which_target = '---'
 segment = '---'
 tx_or_price = 00.00
 quant = 00.00
@@ -73,11 +75,12 @@ def populate_investments_details(sender, created, instance, **kwargs):
             date=instance.basic_data.date,
             money=instance.basic_data.money * -1,
             kind=instance.basic_data.kind,
-            which_target=instance.basic_data.which_target
+            # which_target=instance.basic_data.which_target
         )
         basic_data = BasicData.objects.create(**b_data)
 
         data = dict(
+            which_target=which_target,
             segment=segment,
             tx_or_price=tx_or_price,
             quant=quant,
@@ -93,7 +96,7 @@ def delete_transfer_from_investment(sender, instance, using, **kwargs):
         basic_data__date=instance.basic_data.date,
         basic_data__money=instance.basic_data.money * -1,
         basic_data__kind=instance.basic_data.kind,
-        basic_data__which_target=instance.basic_data.which_target,
+        which_target=which_target,
         segment=segment,
         tx_or_price=tx_or_price,
         quant=quant

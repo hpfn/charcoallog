@@ -18,7 +18,7 @@ class ValidPostMethod(TestCase):
             tx_op=00.00,
             money=94.42,
             kind='Títulos Públicos',
-            which_target='Tesouro Direto',
+            # which_target='Tesouro Direto',
             brokerage='Ativa'
         )
 
@@ -54,7 +54,7 @@ class ValidPostMethod(TestCase):
             tx_op=float(select_data.tx_op),
             money=float(select_data.basic_data.money),
             kind=select_data.basic_data.kind,
-            which_target=select_data.basic_data.which_target,
+            # which_target=select_data.basic_data.which_target,
             brokerage=select_data.brokerage
         )
         self.data['user_name'] = self.user

@@ -1,3 +1,4 @@
+// No API yet
 Vue.component('all-detail-forms', {
     props: ['pk', 'date', 'money', 'kind', 'which_target', 'segment', 'tx_or_price', 'quant'],
     template:`
@@ -114,11 +115,12 @@ new Vue({
             form['quant'] = Number(event.target.quant.value);
             form["tx_or_price"] = Number(event.target.tx_or_price.value);
             form["segment"] = event.target.segment.value;
+            form["which_target"] = event.target.which_target.value;
             form["basic_data"] = {
                  "date": event.target.date.value,
                  "money": Number(event.target.money.value),
                  "kind": event.target.kind.value,
-                 "which_target": event.target.which_target.value,
+                 // "which_target": event.target.which_target.value,
                  //pk': pk
             }
 

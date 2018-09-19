@@ -18,7 +18,7 @@ class InvestmentDetailTest(TestCase):
         self.date = '2018-03-27'
         self.money = 94.42
         self.kind = 'Títulos Públicos'
-        self.which_target = 'Tesouro Direto'
+        # self.which_target = 'Tesouro Direto'
 
         self.login_in = self.client.login(username=user_n, password='1qa2ws3ed')
         b_data = dict(
@@ -26,15 +26,17 @@ class InvestmentDetailTest(TestCase):
             date=self.date,
             money=self.money,
             kind=self.kind,
-            which_target=self.which_target,
+            # which_target=self.which_target,
         )
         b_data = BasicData.objects.create(**b_data)
 
+        self.which_target = 'Tesouro Direto'
         self.segment = 'Selic'
         self.tx_or_price = 0.01
         self.quant = 1.00
 
         self.data = dict(
+            which_target=self.which_target,
             segment=self.segment,
             tx_or_price=self.tx_or_price,
             quant=self.quant,
@@ -59,9 +61,9 @@ class InvestmentDetailTest(TestCase):
         """ Must contain input tags """
         expected = [
             ('<form', 3),
-            ('<input', 11),
+            ('<input', 12),
             ("type='hidden'", 2),
-            ('type="text"', 6),
+            ('type="text"', 7),
             ('type="date"', 3),
             ('type="submit"', 2),
             ('</form>', 3),
@@ -88,7 +90,7 @@ class InvestmentDetailTest(TestCase):
             (str(data[0].basic_data.date), self.date),
             (data[0].basic_data.money, Decimal(str(self.money))),
             (data[0].basic_data.kind, self.kind),
-            (data[0].basic_data.which_target, self.which_target),
+            (data[0].which_target, self.which_target),
             (data[0].segment, self.segment),
             (data[0].tx_or_price, Decimal(str(self.tx_or_price))),
             (data[0].quant, self.quant)

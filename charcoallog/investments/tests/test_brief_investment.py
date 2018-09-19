@@ -16,7 +16,7 @@ class BriefInvestmentTest(TestCase):
             date='2018-03-27',
             money=94.42,
             kind='---',
-            which_target='---',
+            # which_target='---',
         )
         b_data = BasicData.objects.create(**b_data)
 
