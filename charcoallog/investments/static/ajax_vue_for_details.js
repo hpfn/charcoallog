@@ -110,8 +110,9 @@ Vue.component('all-detail-forms', {
 new Vue({
     el: "#vue_ajax_detail",
     methods: {
-        submitForm: function(pk, old_money, event) {
+        submitForm: function(old_money, event) {
             var form = {}
+            form["pk"] = event.target.pk.value;
             form['quant'] = Number(event.target.quant.value);
             form["tx_or_price"] = Number(event.target.tx_or_price.value);
             form["segment"] = event.target.segment.value;
@@ -137,12 +138,12 @@ new Vue({
             // tem que ser put e delete
             axios({
                 method: http_verb,
-                url: 'api/' + pk + '/',
+                url: '/investments/detail_api/' + form["pk"] + '/',
                 data: form
             }).then(response => {
                 console.log("HERE")
                 if ( http_verb == 'delete') {
-                    document.getElementById(pk).remove()
+                    document.getElementById(form["pk"]).remove()
                 }
             })
             // .catch errors
