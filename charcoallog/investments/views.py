@@ -9,7 +9,7 @@ from charcoallog.investments.forms import (
     BasicDataForm, InvestmentDetailsForm, InvestmentForm
 )
 from charcoallog.investments.models import Investment, InvestmentDetails
-from charcoallog.investments.serializers import InvestmentSerializer
+# from charcoallog.investments.serializers import InvestmentSerializer
 from charcoallog.investments.service import ShowData
 
 
@@ -57,13 +57,13 @@ class FormDeals(LoginRequiredMixin, APIView):
     #     serializer = InvestmentSerializer(investment)
     #     return Response(serializer.data)
 
-    def put(self, request, pk, format=None):
-        investment = self.get_object(pk)
-        serializer = InvestmentSerializer(investment, data=request.data)
-        if serializer.is_valid():
-            serializer.update(investment, serializer.validated_data)
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    # def put(self, request, pk, format=None):
+    #     investment = self.get_object(pk)
+    #     serializer = InvestmentSerializer(investment, data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.update(investment, serializer.validated_data)
+    #         return Response(serializer.data)
+    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
         investment = self.get_object(pk)

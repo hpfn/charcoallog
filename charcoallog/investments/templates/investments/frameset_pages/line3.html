@@ -1,6 +1,6 @@
 <div class="scroll" id="vue_ajax">
 {% for b in show_data.methodget.query_default %}
-    <form @submit.prevent="submitForm({{ b.pk }}, {{ b.basic_data.money }}, $event)" id="{{ b.pk }}">
+    <form @submit.prevent="submitForm($event)" id="{{ b.pk }}">
         {% csrf_token %}
         <all-reg-forms
                 pk="{{ b.pk }}"
