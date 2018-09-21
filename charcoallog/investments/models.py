@@ -16,6 +16,12 @@ class InvestmentStatementQuerySet(models.QuerySet):
     def total_money(self):
         return self.aggregate(Sum('basic_data__money'))['basic_data__money__sum']
 
+    def brokerage(self):
+        return self.values_list('brokerage')
+
+    def kind(self):
+        return self.values_list('basic_data__kind')
+
 
 class BasicData(models.Model):
     user_name = models.CharField(max_length=30)

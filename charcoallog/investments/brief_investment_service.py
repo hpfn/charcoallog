@@ -13,7 +13,7 @@ class BriefInvestment:
     #     return OrderedDict(sorted(brk_knd.items()))
 
     def brokerage(self):
-        names_iterator = set(self._query_user_invest.values_list('brokerage'))
+        names_iterator = set(self._query_user_invest.brokerage())
 
         brk = {
             k[0]: self._query_user_invest.filter(brokerage=k[0]).total_money()
@@ -23,7 +23,7 @@ class BriefInvestment:
         return OrderedDict(sorted(brk.items()))
 
     def kind_investmentdetail(self):
-        names_iterator = set(self._query_user_investdetail.values_list('basic_data__kind'))
+        names_iterator = set(self._query_user_investdetail.kind())
 
         # Show value from brokerage to investment as positive
         kind = {
