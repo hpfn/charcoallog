@@ -5,6 +5,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from charcoallog.investments.detail_post_service import DetailPost
 from charcoallog.investments.forms import (
     BasicDataForm, InvestmentDetailsForm, InvestmentForm
 )
@@ -25,12 +26,7 @@ def home(request):
 
 @login_required
 def detail(request, kind):
-    if request.method == 'POST':
-        form = InvestmentDetailsForm(request.POST)
-        basic_data = BasicDataForm(request.POST)
-        if form.is_valid() and basic_data.is_valid():
-            basic_data = basic_data.save(request.user)
-            form.save(basic_data)
+    post = DetailPost(request)  # noqa F841
 
     qs = InvestmentDetails.objects.select_related(
         'basic_data').user_logged(request.user).filter(
