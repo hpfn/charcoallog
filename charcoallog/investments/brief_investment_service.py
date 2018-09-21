@@ -16,7 +16,7 @@ class BriefInvestment:
         names_iterator = set(self._query_user_invest.values_list('brokerage'))
 
         brk = {
-            k[0]: self._query_user_invest.filter(brokerage=k[0]).total()['basic_data__money__sum']
+            k[0]: self._query_user_invest.filter(brokerage=k[0]).total_money()
             for k in names_iterator
         }
 
@@ -27,7 +27,7 @@ class BriefInvestment:
 
         # Show value from brokerage to investment as positive
         kind = {
-            k[0]: self._query_user_investdetail.filter(basic_data__kind=k[0]).total()['basic_data__money__sum']
+            k[0]: self._query_user_investdetail.filter(basic_data__kind=k[0]).total_money()
             for k in names_iterator
         }
 
