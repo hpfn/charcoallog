@@ -13,8 +13,8 @@ class InvestmentStatementQuerySet(models.QuerySet):
     #     return self.filter(Q(payment=column) | Q(category=column) |
     #                        Q(description=column)).filter(~Q(category__startswith='transfer'))
 
-    def total(self):
-        return self.aggregate(Sum('basic_data__money'))
+    def total_money(self):
+        return self.aggregate(Sum('basic_data__money'))['basic_data__money__sum']
 
 
 class BasicData(models.Model):
