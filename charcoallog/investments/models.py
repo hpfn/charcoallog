@@ -4,7 +4,7 @@ from django.db.models import Sum
 
 class InvestmentStatementQuerySet(models.QuerySet):
     def user_logged(self, user_name):
-        return self.filter(basic_data__user_name=user_name)
+        return self.select_related('basic_data').filter(basic_data__user_name=user_name)
 
     # def date_range(self, from_date, to_date):
     #     return self.filter(date__gte=from_date, date__lte=to_date)

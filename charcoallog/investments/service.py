@@ -6,8 +6,8 @@ from charcoallog.investments.post_service import MethodPost
 
 class ShowData:
     def __init__(self, request):
-        self.query_user_invest = Investment.objects.select_related('basic_data').user_logged(request.user)
-        self.query_user_investdetail = InvestmentDetails.objects.select_related('basic_data').user_logged(request.user)
+        self.query_user_invest = Investment.objects.user_logged(request.user)
+        self.query_user_investdetail = InvestmentDetails.objects.user_logged(request.user)
         self.methodpost = MethodPost(request, self.query_user_invest)
         self.methodget = MethodGet(self.query_user_invest)
         self.brief_investment = BriefInvestment(self.query_user_invest, self.query_user_investdetail)
