@@ -47,10 +47,10 @@ class BriefInvestmentTest(TestCase):
         self.assertEqual(Decimal('-94.42'), list(dict_from_brief.values())[0])
 
     def test_briefinvestments_kind_invest(self):
-        self.assertIsInstance(self.brief.kind_investment(), OrderedDict)
+        self.assertIsInstance(self.brief.kind_investmentdetail(), OrderedDict)
 
     def test_dict_key_kind(self):
-        dict_kind = self.brief.kind_investment()
+        dict_kind = self.brief.kind_investmentdetail()
         expected = [
             ('CDB', dict_kind.keys()),
             (Decimal('94.42'), dict_kind.values())
@@ -67,7 +67,7 @@ class BriefInvestmentTest(TestCase):
         self.data['basic_data'] = b_data
         Investment.objects.create(**self.data)
 
-        dict_kind = self.brief.kind_investment()
+        dict_kind = self.brief.kind_investmentdetail()
         dict__brokerage = self.brief.brokerage()
 
         expected = [

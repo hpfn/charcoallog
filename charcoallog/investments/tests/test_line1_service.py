@@ -29,11 +29,11 @@ class BriefInvestmentTest(TestCase):
 
         )
         Investment.objects.create(**data)
-        query_user_invest = Investment.objects.select_related('basic_data').user_logged(user_name)
-        query_user_investdetail = InvestmentDetails.objects.select_related('basic_data').user_logged(user_name)
+        query_user_invest = Investment.objects.user_logged(user_name)
+        query_user_investdetail = InvestmentDetails.objects.user_logged(user_name)
         self.response = BriefInvestment(query_user_invest, query_user_investdetail)
         self.brief_investment_brokerage = self.response.brokerage()
-        self.brief_investment_type = self.response.kind_investment()
+        self.brief_investment_type = self.response.kind_investmentdetail()
 
     def test_line1_borkerage_names(self):
         """ Brokerage Name """
