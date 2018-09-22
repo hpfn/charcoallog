@@ -27,7 +27,14 @@ class Extract(models.Model):
     category = models.CharField('Category', max_length=70)
     payment = models.CharField('Payment', max_length=70)
 
-    objects = models.Manager.from_queryset(ExtractStatementQuerySet)()
+    # both a custom Manager and a custom QuerySet
+    # https://docs.djangoproject.com/en/1.11/topics/db/managers/#from-queryset
+    # objects = models.Manager.from_queryset(ExtractStatementQuerySet)()
+    #
+    # to create an instance of Manager with a copy of a custom QuerySet’s
+    # https://docs.djangoproject.com/en/1.11/topics/
+    # db/managers/#creating-a-manager-with-queryset-methods
+    objects = ExtractStatementQuerySet.as_manager()
 
     class Meta:
         ordering = ['-date']
