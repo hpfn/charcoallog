@@ -45,8 +45,10 @@ class BriefInvestmentTest(TestCase):
 
     #  def test_line1_brokerage_total_amount(self):
     #      """ How much money at brokerage """
-    #      self.assertEqual(self.response.total_amount(self.brief_investment_brokerage.values()), Decimal('10.00'))
+    #      self.assertEqual(self.response.total_amount(self.brief_investment_brokerage.values()),
+    #                       Decimal('10.00'))
     #
     #  def test_investment_type_total_amount(self):
     #      """ How much money by investment """
-    #      self.assertEqual(self.response.total_amount(self.brief_investment_type.values()), Decimal('10.00'))
+    #      self.assertEqual(self.response.total_amount(self.brief_investment_type.values()),
+    #                       Decimal('10.00'))

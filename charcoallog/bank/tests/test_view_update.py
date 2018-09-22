@@ -57,7 +57,9 @@ class AjaxPostTest(TestCase):
             # update_rm='update',
             pk=2
         )
-        response = self.client.put(r('bank:update'), json.dumps(to_update), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        response = self.client.put(r('bank:update'),
+                                   json.dumps(to_update),
+                                   HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertJSONEqual(
             response.content,
             {'accounts': {'principal': {'money__sum': '20.00'}},
@@ -68,7 +70,9 @@ class AjaxPostTest(TestCase):
         self.data['payment'] = 'blablabla'
         # self.data['update_rm'] = 'update'
         self.data['pk'] = 1
-        response = self.client.put(r('bank:update'), json.dumps(self.data), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        response = self.client.put(r('bank:update'),
+                                   json.dumps(self.data),
+                                   HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertJSONEqual(
             response.content,
             {'accounts': {'blablabla': {'money__sum': '10.00'},
@@ -85,7 +89,9 @@ class AjaxPostTest(TestCase):
             payment='principal',
             pk='does not matter, data is invalid'
         )
-        response = self.client.put(r('bank:update'), json.dumps(not_valid), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        response = self.client.put(r('bank:update'),
+                                   json.dumps(not_valid),
+                                   HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertJSONEqual(
             response.content,
             {'js_alert': True,

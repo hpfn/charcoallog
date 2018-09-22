@@ -47,8 +47,11 @@ class InvestmentModelTest(TestCase):
         obj.tx_or_price = 0.01
         obj.quant = 1.00
         obj.save(update_fields=['which_target', 'segment', 'tx_or_price', 'quant'])
+        segment_update = InvestmentDetails.objects
+        segment_update.select_related('basic_data')
+        segment_update.filter(segment='Selic 2023')
 
-        self.assertTrue(InvestmentDetails.objects.select_related('basic_data').filter(segment='Selic 2023').exists())
+        self.assertTrue(segment_update.exists())
 
     def test_delete_data(self):
         """
@@ -80,12 +83,14 @@ class DataFromBankTest(TestCase):
         Extract.objects.create(**self.data)
 
     def test_data_in_investments(self):
-        data = Investment.objects.select_related('basic_data').filter(brokerage='Ativa').exists()
-        self.assertTrue(data)
+        ativa = Investment.objects.select_related('basic_data')
+        ativa.filter(brokerage='Ativa')
+        self.assertTrue(ativa.exists())
 
     def test_data_not_in_investmentdetails(self):
-        data = InvestmentDetails.objects.select_related('basic_data').filter(basic_data__kind='---').exists()
-        self.assertFalse(data)
+        kind = InvestmentDetails.objects.select_related('basic_data')
+        kind.filter(basic_data__kind='---')
+        self.assertFalse(kind.exists())
 
     def test_bank_enty_delete(self):
         """ Delete Bank entry, delete Investment entry too """
