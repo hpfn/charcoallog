@@ -47,7 +47,14 @@ class InvestmentDetails(models.Model):
         primary_key=True,
     )
 
-    objects = models.Manager.from_queryset(InvestmentStatementQuerySet)()
+    # both a custom Manager and a custom QuerySet
+    # https://docs.djangoproject.com/en/1.11/topics/db/managers/#from-queryset
+    # objects = models.Manager.from_queryset(InvestmentStatementQuerySet)()
+    #
+    # to create an instance of Manager with a copy of a custom QuerySet’s
+    # https://docs.djangoproject.com/en/1.11/topics/
+    # db/managers/#creating-a-manager-with-queryset-methods
+    objects = InvestmentStatementQuerySet.as_manager()
 
 
 class Investment(models.Model):
