@@ -65,6 +65,7 @@ class InvestmentDetailTest(TestCase):
             ("type='hidden'", 2),
             ('type="text"', 6),
             ('type="number"', 1),
+            ('step="0.01"', 1),
             ('type="date"', 3),
             ('type="submit"', 2),
             ('</form>', 3),

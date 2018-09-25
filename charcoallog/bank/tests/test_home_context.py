@@ -41,6 +41,7 @@ class HomeContextTest(TestCase):
             ('<select', 6),
             ('type="text"', 4),
             ('type="number"', 1),
+            ('step="0.01"', 1),
             ('<button', 2),
             ('type="submit"', 2)
         )
