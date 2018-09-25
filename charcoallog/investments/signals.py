@@ -96,10 +96,10 @@ def delete_transfer_from_investment(sender, instance, using, **kwargs):
         basic_data__date=instance.basic_data.date,
         basic_data__money=instance.basic_data.money * -1,
         basic_data__kind=instance.basic_data.kind,
-        which_target=which_target,
-        segment=segment,
-        tx_or_price=tx_or_price,
-        quant=quant
+        # which_target=which_target,
+        # segment=segment,
+        # tx_or_price=tx_or_price,
+        # quant=quant
     )
     qs = InvestmentDetails.objects.filter(**data)
     if qs.exists():
