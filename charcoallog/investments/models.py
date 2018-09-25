@@ -29,6 +29,7 @@ class BasicData(models.Model):
     money = models.DecimalField(max_digits=8, decimal_places=2)
     # Acao, Titulo Publico, CDB, FII
     kind = models.CharField(max_length=20)
+
     # Qual acao, titulo publico, banco(CDB), cod FII
     # which_target = models.CharField(max_length=20)
 
@@ -56,6 +57,9 @@ class InvestmentDetails(models.Model):
     # db/managers/#creating-a-manager-with-queryset-methods
     objects = InvestmentStatementQuerySet.as_manager()
 
+    class Meta:
+        ordering = ['-basic_data__date']
+
 
 class Investment(models.Model):
     tx_op = models.DecimalField(max_digits=4, decimal_places=2)
@@ -69,6 +73,9 @@ class Investment(models.Model):
     )
 
     objects = models.Manager.from_queryset(InvestmentStatementQuerySet)()
+
+    class Meta:
+        ordering = ['-basic_data__date']
 
     # def save(self, *args, **kwargs):
     #     super(Investment, self).save(*args, **kwargs)
