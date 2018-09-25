@@ -35,6 +35,7 @@ class InvestmentHomeOkTest(TestCase):
             ("type='hidden'", 1),
             ('type="text"', 4),
             ('type="number"', 1),
+            ('step="0.01"', 1),
             ('type="date"', 3),
             ('type="submit"', 2),
             ('</form', 2),

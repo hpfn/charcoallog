@@ -13,7 +13,7 @@ Vue.component('all-detail-forms', {
                 </div>
 
                 <div @input="n_mn">
-                <input type="text" id="money" class="form-inline m-0 p-0 bg-light"
+                <input type="text" id="money" step="0.01" class="form-inline m-0 p-0 bg-light"
                        size="11" style="font-size:10px;border:none"
                        :value="mn"
                        :disabled="edit">
