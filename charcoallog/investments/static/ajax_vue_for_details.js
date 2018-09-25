@@ -7,7 +7,7 @@ Vue.component('all-detail-forms', {
 
                 <div>
                 <input type="date" id="date" class="form-inline m-0 p-0 bg-light"
-                       size="11" style="font-size:10px;border:none"
+                       size="10" style="font-size:10px;border:none"
                        :value="date"
                        disabled=true>
                 </div>
@@ -28,27 +28,27 @@ Vue.component('all-detail-forms', {
 
                 <div @input="n_whch_trgt">
                 <input type="text" id="which_target" class="form-inline m-0 p-0 bg-light"
-                       size="15" style="font-size:10px;border:none"
+                       size="20" style="font-size:10px;border:none"
                        :value="whch_trgt"
                        :disabled="edit">
                 </div>
 
                 <div @input="n_sgmnt">
                 <input type="text" id="segment" class="form-inline m-0 p-0 bg-light"
-                       size="15" style="font-size:10px;border:none"
+                       size="20" style="font-size:10px;border:none"
                        :value="sgmnt"
                        :disabled="edit">
                 </div>
 
                 <div @input="n_tx_r_prc">
                 <input type="text" id="tx_or_price" class="form-inline m-0 p-0 bg-light"
-                       size="15" style="font-size:10px;border:none"
+                       size="10" style="font-size:10px;border:none"
                        :value="tx_r_prc"
                        :disabled="edit">
                 </div>
                 <div @input="n_qunt">
                 <input type="text" id="quant" class="form-inline m-0 p-0 bg-light"
-                       size="15" style="font-size:10px;border:none"
+                       size="10" style="font-size:10px;border:none"
                        :value="qunt"
                        :disabled="edit">
                 </div>
