@@ -54,17 +54,18 @@ Vue.component('all-detail-forms', {
                 </div>
 
                 <div class="form-inline m-0 p-0">
-                <input type="checkbox" id="checkbox" v-model:value="chk" v-bind="label()" >
-                </div>
-                <div class="form-inline m-0 p-0">
+                <input type="checkbox" id="checkbox" v-model:value="chk" v-bind="label()">
                 <span class="form-text text-muted" style="font-size:9px">update</span>
-                <button type="submit" class="btn btn-sm m-0 p-0 btn-link" size="8" id="button" @click="dflt()">{{ method }}</button>
+                </div>
+
+                <div v-if="chk == true" class="form-inline m-0 p-0">
+                <button type="submit" class="btn btn-sm m-0 p-0 btn-link" size="8" id="button" @click="dflt()">update</button>
                 </div>
             </div>
     `,
      data: function() {
          return {
-             method: 'delete',
+             // method: 'delete',
              edit: true,
              chk: false,
              qunt: this.quant,
@@ -103,8 +104,8 @@ Vue.component('all-detail-forms', {
         },
 
         label: function(){
-            this.method = this.chk ? 'update' : 'delete';
-            this.edit = this.chk == false ? true : false
+        //     this.method = this.chk ? 'update' : 'delete';
+             this.edit = this.chk == false ? true : false
         },
     },
 });
@@ -129,9 +130,9 @@ new Vue({
 
             event.target.checkbox.checked = false
 
-            http_verb = event.target.button.innerText
-            http_verb = http_verb == 'delete' ? 'delete' : 'put'
-            event.target.button.innerText = 'delete'
+            // http_verb = event.target.button.innerText
+            // http_verb = http_verb == 'delete' ? 'delete' : 'put'
+            // event.target.button.innerText = 'delete'
 
             axios.defaults.xsrfHeaderName = "X-CSRFToken";
             axios.defaults.xsrfCookieName = "csrftoken";
@@ -139,14 +140,14 @@ new Vue({
 
             // tem que ser put e delete
             axios({
-                method: http_verb,
+                method: 'put',
                 url: '/investments/detail_api/' + form["pk"] + '/',
                 data: form
             }).then(response => {
                 console.log("HERE")
-                if ( http_verb == 'delete') {
-                    document.getElementById(form["pk"]).remove()
-                }
+                // if ( http_verb == 'delete') {
+                //     document.getElementById(form["pk"]).remove()
+                // }
             })
             // .catch errors
         }

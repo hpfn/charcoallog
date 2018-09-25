@@ -91,7 +91,8 @@ class DetailAPI(LoginRequiredMixin, APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, pk, format=None):
-        investment_d = self.get_object(pk)
-        investment_d.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+#    def delete(self, request, pk, format=None):
+#        investment_d = self.get_object(pk)
+#        investment_d.delete()
+#        return Response(status=status.HTTP_204_NO_CONTENT)
+#

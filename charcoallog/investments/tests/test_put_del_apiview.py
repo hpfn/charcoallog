@@ -88,7 +88,7 @@ class DetailAPIAttrTest(TestCase):
         self.assertTrue(hasattr(self.attrs, 'put'))
 
     def test_delete_attr(self):
-        self.assertTrue(hasattr(self.attrs, 'delete'))
+        self.assertFalse(hasattr(self.attrs, 'delete'))
 
     def test_get_attr(self):
         self.assertFalse(hasattr(self.attrs, 'get'))
@@ -189,7 +189,7 @@ class DetailAPITest(TestCase):
         # No updated data
         self.assertNotIn(to_put["segment"], response.content.decode())
 
-    def test_delete_data(self):
-        """ DELETE data in DB"""
-        response = self.client.delete(r('investments:detail_api', 1))
-        self.assertEqual(204, response.status_code)
+#     def test_delete_data(self):
+#         """ DELETE data in DB"""
+#         response = self.client.delete(r('investments:detail_api', 1))
+#         self.assertEqual(204, response.status_code)
