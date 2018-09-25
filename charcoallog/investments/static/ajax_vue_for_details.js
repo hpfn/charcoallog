@@ -5,25 +5,25 @@ Vue.component('all-detail-forms', {
             <div class="form-inline m-0 p-0">
                 <input type="hidden" id="pk" name="pk" :value="pk">
 
-                <div @input="n_dt">
+                <div>
                 <input type="date" id="date" class="form-inline m-0 p-0 bg-light"
                        size="11" style="font-size:10px;border:none"
-                       :value="dt"
-                       :disabled="edit">
+                       :value="date"
+                       disabled=true>
                 </div>
 
-                <div @input="n_mn">
+                <div>
                 <input type="text" id="money" step="0.01" class="form-inline m-0 p-0 bg-light"
                        size="11" style="font-size:10px;border:none"
-                       :value="mn"
-                       :disabled="edit">
+                       :value="money"
+                       disabled=true>
                 </div>
 
-                <div @input="n_knd">
+                <div>
                 <input type="text"  id="kind" name="kind" class="form-inline m-0 p-0 bg-light"
                        size="15" style="font-size:10px;border:none"
-                       :value="knd"
-                       :disabled="edit">
+                       :value="kind"
+                       disabled=true>
                 </div>
 
                 <div @input="n_whch_trgt">
@@ -53,8 +53,10 @@ Vue.component('all-detail-forms', {
                        :disabled="edit">
                 </div>
 
-                <div v-if= "segment != '---' && tx_or_price != 0.00 && quant != 0.00" class="form-inline m-0 p-0">
+                <div class="form-inline m-0 p-0">
                 <input type="checkbox" id="checkbox" v-model:value="chk" v-bind="label()" >
+                </div>
+                <div class="form-inline m-0 p-0">
                 <span class="form-text text-muted" style="font-size:9px">update</span>
                 <button type="submit" class="btn btn-sm m-0 p-0 btn-link" size="8" id="button" @click="dflt()">{{ method }}</button>
                 </div>
@@ -69,9 +71,9 @@ Vue.component('all-detail-forms', {
              tx_r_prc: this.tx_or_price,
              sgmnt: this.segment,
              whch_trgt: this.which_target,
-             knd: this.kind,
-             mn: this.money,
-             dt: this.date
+             // knd: this.kind,
+             // mn: this.money,
+             // dt: this.date
          }
     },
     methods:{
@@ -87,15 +89,15 @@ Vue.component('all-detail-forms', {
         n_whch_trgt: function(event) {
             this.whch_trgt = event.target.value
         },
-        n_knd: function(event) {
-            this.knd = event.target.value
-        },
-        n_mn: function(event) {
-            this.mn = event.target.value
-        },
-        n_dt: function(event) {
-            this.dt = event.target.value
-        },
+        // n_knd: function(event) {
+        //     this.knd = event.target.value
+        // },
+        // n_mn: function(event) {
+        //     this.mn = event.target.value
+        // },
+        // n_dt: function(event) {
+        //     this.dt = event.target.value
+        // },
         dflt: function() {
             this.chk = false
         },
