@@ -10,8 +10,9 @@ class InvestmentModelTest(TestCase):
     """ M3A03 - WTTD """
 
     def setUp(self):
+        self.user = 'teste'
         self.data_b = dict(
-            user_name='teste',
+            user_name=self.user,
             date='2018-03-27',
             money=94.42,
             kind='Títulos Públicos',
@@ -41,14 +42,13 @@ class InvestmentModelTest(TestCase):
 
     def test_update_investment_details(self):
         """ Test if created details object can be updated """
-        obj = InvestmentDetails.objects.select_related('basic_data').get()
+        obj = InvestmentDetails.objects.user_logged(self.user).get()
         obj.which_target = 'tesouro'
         obj.segment = 'Selic 2023'
         obj.tx_or_price = 0.01
         obj.quant = 1.00
         obj.save(update_fields=['which_target', 'segment', 'tx_or_price', 'quant'])
-        segment_update = InvestmentDetails.objects
-        segment_update.select_related('basic_data')
+        segment_update = InvestmentDetails.objects.user_logged(self.user)
         segment_update.filter(segment='Selic 2023')
 
         self.assertTrue(segment_update.exists())
@@ -71,9 +71,9 @@ class InvestmentModelTest(TestCase):
 
 class DataFromBankTest(TestCase):
     def setUp(self):
-        self.user = 'teste'
+        self.user = 'you'
         self.data = dict(
-            user_name='you',
+            user_name=self.user,
             date='2018-04-20',
             money=10.00,
             description='Ativa',
@@ -83,12 +83,12 @@ class DataFromBankTest(TestCase):
         Extract.objects.create(**self.data)
 
     def test_data_in_investments(self):
-        ativa = Investment.objects.select_related('basic_data')
+        ativa = Investment.objects.user_logged('you')
         ativa.filter(brokerage='Ativa')
         self.assertTrue(ativa.exists())
 
     def test_data_not_in_investmentdetails(self):
-        kind = InvestmentDetails.objects.select_related('basic_data')
+        kind = InvestmentDetails.objects.user_logged(self.user)
         kind.filter(basic_data__kind='---')
         self.assertFalse(kind.exists())
 

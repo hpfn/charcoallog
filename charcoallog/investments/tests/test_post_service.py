@@ -22,7 +22,7 @@ class ValidPostMethod(TestCase):
             brokerage='Ativa'
         )
 
-        self.query_user = Investment.objects.select_related('basic_data').user_logged(self.user)
+        self.query_user = Investment.objects.user_logged(self.user)
         RQST.method = 'POST'
         RQST.POST = self.data
         RQST.user = self.user
@@ -47,7 +47,7 @@ class ValidPostMethod(TestCase):
         self.assertTrue(self.response.basic_data.is_valid())
 
     def test_basicdata_form_save(self):
-        select_data = Investment.objects.select_related('basic_data').get(basic_data_id=1)
+        select_data = self.query_user.get(basic_data_id=1)
         select_dict = dict(
             user_name=select_data.basic_data.user_name,
             date=select_data.basic_data.date.strftime('%Y-%m-%d'),

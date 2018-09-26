@@ -43,9 +43,8 @@ def delete_transfer_from_bank(sender, instance, using, **kwargs):
         money = instance.money
         brokerage = instance.description
 
-        qs = Investment.objects.select_related('basic_data').filter(
+        qs = Investment.objects.user_logged(user_name).filter(
             brokerage=brokerage,
-            basic_data__user_name=user_name,
             basic_data__date=date,
             basic_data__money=money * -1,
             basic_data__kind=kind,
