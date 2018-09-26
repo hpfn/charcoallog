@@ -28,8 +28,7 @@ def home(request):
 def detail(request, kind):
     post = DetailPost(request)  # noqa F841
 
-    qs = InvestmentDetails.objects.select_related(
-        'basic_data').user_logged(request.user).filter(
+    qs = InvestmentDetails.objects.user_logged(request.user).filter(
         basic_data__kind=kind)
 
     context = {
