@@ -120,36 +120,31 @@ new Vue({
             form["tx_or_price"] = Number(event.target.tx_or_price.value);
             form["segment"] = event.target.segment.value;
             form["which_target"] = event.target.which_target.value;
-            form["basic_data"] = {
-                 "date": event.target.date.value,
-                 "money": Number(event.target.money.value),
-                 "kind": event.target.kind.value,
-                 // "which_target": event.target.which_target.value,
-                 //pk': pk
-            }
+            form["kind"] = event.target.kind.value;
+            form["money"] = Number(event.target.money.value);
+            form["date"] = event.target.date.value;
 
             event.target.checkbox.checked = false
-
-            // http_verb = event.target.button.innerText
-            // http_verb = http_verb == 'delete' ? 'delete' : 'put'
-            // event.target.button.innerText = 'delete'
 
             axios.defaults.xsrfHeaderName = "X-CSRFToken";
             axios.defaults.xsrfCookieName = "csrftoken";
 
 
-            // tem que ser put e delete
+            // tem que ser put
             axios({
                 method: 'put',
                 url: '/investments/detail_api/' + form["pk"] + '/',
                 data: form
-            }).then(response => {
+            })
+            .then(response => {
                 console.log("HERE")
                 // if ( http_verb == 'delete') {
                 //     document.getElementById(form["pk"]).remove()
                 // }
             })
-            // .catch errors
+            .catch(function (err) {
+               console.log(err.message);
+            })
         }
     }
 })

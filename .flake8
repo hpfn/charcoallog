@@ -1,3 +1,5 @@
 [flake8]
-exclude=.project_env, migrations
+exclude=
+    .project_env,
+    migrations,
 max-line-length=100

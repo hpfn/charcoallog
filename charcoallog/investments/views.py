@@ -6,10 +6,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from charcoallog.investments.detail_post_service import DetailPost
-from charcoallog.investments.forms import (
-    BasicDataForm, InvestmentDetailsForm, InvestmentForm
-)
-from charcoallog.investments.models import Investment, InvestmentDetails
+from charcoallog.investments.forms import InvestmentDetailsForm, InvestmentForm
+from charcoallog.investments.models import NewInvestment, NewInvestmentDetails
 # from charcoallog.investments.serializers import InvestmentSerializer
 from charcoallog.investments.serializers import InvestmentDetailsSerializer
 from charcoallog.investments.service import ShowData
@@ -18,7 +16,6 @@ from charcoallog.investments.service import ShowData
 @login_required
 def home(request):
     context = {
-        'basic_data': BasicDataForm(),
         'form': InvestmentForm(),
         'show_data': ShowData(request)}
     return render(request, 'investments/home.html', context)
@@ -28,12 +25,11 @@ def home(request):
 def detail(request, kind):
     post = DetailPost(request)  # noqa F841
 
-    qs = InvestmentDetails.objects.user_logged(request.user).filter(
-        basic_data__kind=kind)
+    qs = NewInvestmentDetails.objects.user_logged(request.user).filter(
+        kind=kind)
 
     context = {
         'd': qs,
-        'basic_data': BasicDataForm,
         'form': InvestmentDetailsForm()
     }
     return render(request, 'investments/detail.html', context)
@@ -44,8 +40,8 @@ class FormDeals(LoginRequiredMixin, APIView):
 
     def get_object(self, pk):
         try:
-            return Investment.objects.get(pk=pk)
-        except Investment.DoesNotExist:
+            return NewInvestment.objects.get(pk=pk)
+        except NewInvestment.DoesNotExist:
             raise Http404
 
     # def get(self, request, pk, format=None):
@@ -73,8 +69,8 @@ class DetailAPI(LoginRequiredMixin, APIView):
 
     def get_object(self, pk):
         try:
-            return InvestmentDetails.objects.get(pk=pk)
-        except InvestmentDetails.DoesNotExist:
+            return NewInvestmentDetails.objects.get(pk=pk)
+        except NewInvestmentDetails.DoesNotExist:
             raise Http404
 
         # def get(self, request, pk, format=None):

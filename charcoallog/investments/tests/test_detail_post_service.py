@@ -1,8 +1,8 @@
 from django.test import TestCase
 
 from charcoallog.investments.detail_post_service import DetailPost
-from charcoallog.investments.forms import BasicDataForm, InvestmentDetailsForm
-from charcoallog.investments.models import BasicData, InvestmentDetails
+from charcoallog.investments.forms import InvestmentDetailsForm
+from charcoallog.investments.models import NewInvestmentDetails
 
 
 class RQST:
@@ -31,7 +31,6 @@ class DetailPostTest(TestCase):
         expected = [
             'request',
             'i_detail',
-            'basic_data',
             'insert_data'
         ]
 
@@ -45,40 +44,23 @@ class DetailPostTest(TestCase):
         """
         self.assertIsInstance(self.c.i_detail(), InvestmentDetailsForm)
 
-    def test_basicdata_instance(self):
-        """
-        basic_data attr must be a BasicDataForm instance.
-        """
-        self.assertIsInstance(self.c.basic_data(), BasicDataForm)
-
     def test_valid_form(self):
         expected = [
             self.c.i_d_form.is_valid(),
-            self.c.b_d_form.is_valid()
         ]
 
         for e in expected:
             with self.subTest():
                 self.assertTrue(e)
 
-    def test_basic_data_db(self):
-        qs = BasicData.objects.get(pk=1)
+    def test_investment_detail_db(self):
+        qs = NewInvestmentDetails.objects.get(pk=1)
 
         expected = [
             (qs.user_name, 'teste'),
             (str(qs.date), self.post_data['date']),
             (qs.money, self.post_data['money']),
-            (qs.kind, self.post_data['kind'])
-        ]
-
-        for q, e in expected:
-            with self.subTest():
-                self.assertEqual(q, e)
-
-    def test_investment_detail_db(self):
-        qs = InvestmentDetails.objects.get(pk=1)
-
-        expected = [
+            (qs.kind, self.post_data['kind']),
             (qs.which_target, self.post_data['which_target']),
             (qs.segment, self.post_data['segment']),
             (qs.tx_or_price, self.post_data['tx_or_price']),

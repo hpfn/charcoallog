@@ -6,12 +6,10 @@ from django.shortcuts import resolve_url as r
 from django.test import TestCase
 from rest_framework.views import APIView
 
-from charcoallog.investments.models import (
-    BasicData, Investment, InvestmentDetails
-)
+from charcoallog.investments.models import NewInvestment, NewInvestmentDetails
 from charcoallog.investments.views import DetailAPI, FormDeals
 
-b_data = dict(
+data = dict(
     user_name="teste",
     date="2018-08-30",
     money=1000,
@@ -47,13 +45,12 @@ class FormDealsAttrTest(TestCase):
 
 class NoAccessFormDealsAPIView(TestCase):
     def setUp(self):
-        bsc_data = BasicData.objects.create(**b_data)
-        i_data = dict(
-            tx_op=10.00,
-            brokerage="ALTA",
-            basic_data=bsc_data,
-        )
-        Investment.objects.create(**i_data)
+        i_data = {}
+        i_data.update(data)
+        i_data['tx_op'] = 10.00
+        i_data['brokerage'] = "ALTA"
+
+        NewInvestment.objects.create(**i_data)
 
     def test_no_access(self):
         """ No login yet. No access to the APIView"""
@@ -98,6 +95,7 @@ class DetailAPIAttrTest(TestCase):
 
 
 to_put = dict()
+to_put.update(data)
 to_put['which_target'] = "NO"
 to_put['segment'] = "INSERT"
 to_put['tx_or_price'] = 0.00
@@ -106,9 +104,7 @@ to_put['quant'] = 0.00
 
 class NoAccessDetailAPI(TestCase):
     def setUp(self):
-        bsc_data = BasicData.objects.create(**b_data)
-        to_put['basic_data'] = bsc_data
-        InvestmentDetails.objects.create(**to_put)
+        NewInvestmentDetails.objects.create(**to_put)
 
     def test_no_access(self):
         """ No login yet. No access to the APIView"""
@@ -122,9 +118,7 @@ class DetailAPITest(TestCase):
         user.set_password('1qa2ws3ed')
         user.save()
 
-        bsc_data = BasicData.objects.create(**b_data)
-        to_put['basic_data'] = bsc_data
-        InvestmentDetails.objects.create(**to_put)
+        NewInvestmentDetails.objects.create(**to_put)
 
         self.login_in = self.client.login(username='teste', password='1qa2ws3ed')
 
@@ -133,7 +127,7 @@ class DetailAPITest(TestCase):
 
     def test_data_in_db(self):
         """ Data saved in DB showed in html"""
-        response = self.client.get(r('investments:detail', b_data['kind']))
+        response = self.client.get(r('investments:detail', data['kind']))
         self.assertEqual(200, response.status_code)
         expected = [
             "NO",
@@ -147,15 +141,15 @@ class DetailAPITest(TestCase):
     def test_good_data(self):
         """ Send good data to PUT"""
         l_put = dict()
-        b_data['money'] = 3000.00
-        l_put['basic_data'] = b_data
+        l_put.update(data)
+        l_put['money'] = 3000.00
         l_put['which_target'] = "TO GO"
         l_put['segment'] = "TO PUT"
         l_put['tx_or_price'] = 10.00
         l_put['quant'] = 10.00
 
-        self.assertTrue(InvestmentDetails.objects.filter(pk=1).exists())
-        self.assertEqual(InvestmentDetails.objects.all().count(), 1)
+        self.assertTrue(NewInvestmentDetails.objects.filter(pk=1).exists())
+        self.assertEqual(NewInvestmentDetails.objects.all().count(), 1)
 
         response = self.client.put(r('investments:detail_api', 1),
                                    json.dumps(l_put),
@@ -171,15 +165,14 @@ class DetailAPITest(TestCase):
         for value in expected:
             with self.subTest():
                 self.assertIn(value, response.content.decode())
-        b_data['money'] = 1000.00
+        data['money'] = 1000.00
 
-        self.assertTrue(InvestmentDetails.objects.filter(pk=1).exists())
-        self.assertEqual(InvestmentDetails.objects.all().count(), 1)
+        self.assertTrue(NewInvestmentDetails.objects.filter(pk=1).exists())
+        self.assertEqual(NewInvestmentDetails.objects.all().count(), 1)
 
     def test_invalid_data(self):
         """ Send invalid data to PUT """
         l_put = dict()
-        l_put['basic_data'] = b_data
         l_put['segment'] = "TO PUT"
         # No fields makes data .is_valid() False
         response = self.client.put(r('investments:detail_api', 1),
@@ -188,8 +181,3 @@ class DetailAPITest(TestCase):
         self.assertEqual(400, response.status_code)
         # No updated data
         self.assertNotIn(to_put["segment"], response.content.decode())
-
-#     def test_delete_data(self):
-#         """ DELETE data in DB"""
-#         response = self.client.delete(r('investments:detail_api', 1))
-#         self.assertEqual(204, response.status_code)

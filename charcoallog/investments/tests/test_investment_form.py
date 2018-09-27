@@ -8,6 +8,6 @@ class InvestmentFormTest(TestCase):
         """ Form must have 2 fields. The third field is in test_basicdata_form"""
         form = InvestmentForm()
         self.assertSequenceEqual(
-            ['tx_op', 'brokerage'],
+            ['date', 'money', 'kind', 'tx_op', 'brokerage'],
             list(form.fields)
         )

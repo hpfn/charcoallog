@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import resolve_url as r
 from django.test import TestCase
 
-from charcoallog.investments.forms import BasicDataForm, InvestmentForm
+from charcoallog.investments.forms import InvestmentForm
 from charcoallog.investments.service import ShowData
 
 
@@ -55,11 +55,6 @@ class InvestmentHomeOkTest(TestCase):
         """ Context must have Investment form """
         form = self.response.context['form']
         self.assertIsInstance(form, InvestmentForm)
-
-    def test_has_basicdata(self):
-        """ Context must have Investment form """
-        form = self.response.context['basic_data']
-        self.assertIsInstance(form, BasicDataForm)
 
     def test_show_data(self):
         data = self.response.context['show_data']

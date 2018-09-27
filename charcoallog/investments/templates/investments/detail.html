@@ -7,8 +7,8 @@
         <div class="row">
             <div class="col-md-3 align-self-left">
                 <div class="container">
-                    raw view - method post in it
-                    {% include 'investments/detail_frameset/detail_form1.html' %}
+                    {# raw view - method post in it #}
+                    {# {% include 'investments/detail_frameset/detail_form1.html' %} #}
                 </div>
                 <div class="container"></div>
                 <div class="container">
@@ -41,13 +41,13 @@
                     {# VUE build this fine. That's all #}
                     <div class="scroll" id="vue_ajax_detail">
                     {% for item in d %}
-                        <form @submit.prevent="submitForm({{ item.basic_data.money }}, $event)" id="{{ item.pk }}">
+                        <form @submit.prevent="submitForm({{ item.money }}, $event)" id="{{ item.pk }}">
                             {% csrf_token %}
                             <all-detail-forms
                                     pk="{{ item.pk }}"
-                                    date="{{ item.basic_data.date|date:'Y-m-d' }}"
-                                    money="{{ item.basic_data.money }}"
-                                    kind="{{ item.basic_data.kind }}"
+                                    date="{{ item.date|date:'Y-m-d' }}"
+                                    money="{{ item.money }}"
+                                    kind="{{ item.kind }}"
                                     which_target="{{ item.which_target }}"
                                     segment="{{ item.segment }}"
                                     tx_or_price="{{ item.tx_or_price }}"
