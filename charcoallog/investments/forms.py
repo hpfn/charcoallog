@@ -1,8 +1,6 @@
 from django import forms
 
-from charcoallog.investments.models import (
-    BasicData, Investment, InvestmentDetails
-)
+from charcoallog.investments.models import NewInvestment, NewInvestmentDetails
 
 
 class InvestmentForm(forms.ModelForm):
@@ -16,28 +14,12 @@ class InvestmentForm(forms.ModelForm):
     # brokerage = forms.CharField()
 
     class Meta:
-        model = Investment
-        fields = ['tx_op', 'brokerage']
+        model = NewInvestment
+        fields = ['date', 'money', 'kind', 'tx_op', 'brokerage']
 
-    def save(self, basic_data, commit=True):
+    def save(self, user, commit=True):
         form = super(InvestmentForm, self).save(commit=False)
-        # form.user_name = self.cleaned_data['user_name']
-        form.basic_data = basic_data
-
-        if commit:
-            form.save()
-
-        return form
-
-
-class BasicDataForm(forms.ModelForm):
-    class Meta:
-        model = BasicData
-        fields = ['date', 'money', 'kind']
-
-    def save(self, request_user, commit=True):
-        form = super(BasicDataForm, self).save(commit=False)
-        form.user_name = request_user
+        form.user_name = user
 
         if commit:
             form.save()
@@ -47,13 +29,12 @@ class BasicDataForm(forms.ModelForm):
 
 class InvestmentDetailsForm(forms.ModelForm):
     class Meta:
-        model = InvestmentDetails
-        fields = ['which_target', 'segment', 'tx_or_price', 'quant']
+        model = NewInvestmentDetails
+        fields = ['date', 'money', 'kind', 'which_target', 'segment', 'tx_or_price', 'quant']
 
-    def save(self, basic_data, commit=True):
+    def save(self, user, commit=True):
         form = super(InvestmentDetailsForm, self).save(commit=False)
-        # form.user_name = self.cleaned_data['user_name']
-        form.basic_data = basic_data
+        form.user_name = user
 
         if commit:
             form.save()

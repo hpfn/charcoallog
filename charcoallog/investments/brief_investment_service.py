@@ -27,7 +27,7 @@ class BriefInvestment:
 
         # Show value from brokerage to investment as positive
         kind = {
-            k[0]: self._query_user_investdetail.filter(basic_data__kind=k[0]).total_money()
+            k[0]: self._query_user_investdetail.filter(kind=k[0]).total_money()
             for k in names_iterator
         }
 

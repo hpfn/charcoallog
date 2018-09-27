@@ -2,9 +2,7 @@
 from django.test import TestCase
 
 from charcoallog.investments.brief_investment_service import BriefInvestment
-from charcoallog.investments.models import (
-    BasicData, Investment, InvestmentDetails
-)
+from charcoallog.investments.models import NewInvestment, NewInvestmentDetails
 
 
 class BriefInvestmentTest(TestCase):
@@ -18,19 +16,13 @@ class BriefInvestmentTest(TestCase):
             date='2018-03-27',
             money=10.00,
             kind=self.kind,
-            # which_target='Tesouro Direto',
-        )
-        b_data = BasicData.objects.create(**data)
-
-        data = dict(
             tx_op=00.00,
             brokerage=self.brokerage_name,
-            basic_data=b_data
-
         )
-        Investment.objects.create(**data)
-        query_user_invest = Investment.objects.user_logged(user_name)
-        query_user_investdetail = InvestmentDetails.objects.user_logged(user_name)
+
+        NewInvestment.objects.create(**data)
+        query_user_invest = NewInvestment.objects.user_logged(user_name)
+        query_user_investdetail = NewInvestmentDetails.objects.user_logged(user_name)
         self.response = BriefInvestment(query_user_invest, query_user_investdetail)
         self.brief_investment_brokerage = self.response.brokerage()
         self.brief_investment_type = self.response.kind_investmentdetail()
@@ -42,13 +34,3 @@ class BriefInvestmentTest(TestCase):
     def test_investment_type(self):
         """ Type of investment """
         self.assertIn(self.kind, self.brief_investment_type.keys())
-
-    #  def test_line1_brokerage_total_amount(self):
-    #      """ How much money at brokerage """
-    #      self.assertEqual(self.response.total_amount(self.brief_investment_brokerage.values()),
-    #                       Decimal('10.00'))
-    #
-    #  def test_investment_type_total_amount(self):
-    #      """ How much money by investment """
-    #      self.assertEqual(self.response.total_amount(self.brief_investment_type.values()),
-    #                       Decimal('10.00'))
