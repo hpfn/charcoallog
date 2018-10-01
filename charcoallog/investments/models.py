@@ -28,7 +28,7 @@ class NewBasicData(models.Model):
     date = models.DateField()
     money = models.DecimalField(max_digits=8, decimal_places=2)
     # Acao, Titulo Publico, CDB, FII
-    kind = models.CharField(max_length=20)
+    kind = models.CharField(max_length=35)
 
     # both a custom Manager and a custom QuerySet
     # https://docs.djangoproject.com/en/1.11/topics/db/managers/#from-queryset
