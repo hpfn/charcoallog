@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.db.models.signals import post_delete, post_save
 from django.dispatch import receiver
 
@@ -59,11 +61,15 @@ quant = 00.00
 def populate_investments_details(sender, created, instance, **kwargs):
     # update_fields ?
     if created and instance.kind != '---':
+        kind = instance.kind.partition('transfer to')
+        if kind[1] != 'transfer to':
+            instance.money = Decimal(instance.money * -1)
+
         data = dict(
             user_name=instance.user_name,
             date=instance.date,
-            money=instance.money * -1,
-            kind=instance.kind,
+            money=instance.money,
+            kind=kind[0].strip(),
             which_target=which_target,
             segment=segment,
             tx_or_price=tx_or_price,
@@ -73,14 +79,34 @@ def populate_investments_details(sender, created, instance, **kwargs):
 
 
 @receiver(post_delete, sender=NewInvestment)
-def delete_transfer_from_investment(sender, instance, using, **kwargs):
+def delete_transfer_from_investment_to_detail(sender, instance, using, **kwargs):
+    kind = instance.kind.partition('transfer to')
+    if kind[1] != 'transfer to':
+        instance.money = Decimal(instance.money * -1)
+
     data = dict(
         user_name=instance.user_name,
         date=instance.date,
-        money=instance.money * -1,
-        kind=instance.kind,
+        money=instance.money,
+        kind=kind[0].strip(),
     )
     qs = NewInvestmentDetails.objects.filter(**data)
     if qs.exists():
         # make sure to delete one record
         qs.first().delete()
+
+
+@receiver(post_save, sender=NewInvestment)
+def populate_bank(sender, created, instance, **kwargs):
+    # update_fields ?
+    if created and 'transfer to' in instance.kind:
+        invest, bank = instance.kind.split('transfer to')
+        data = dict(
+            user_name=instance.user_name,
+            date=instance.date,
+            money=instance.money * -1,
+            description='credit from ' + invest.strip(),
+            category='---',
+            payment=bank.strip(),
+        )
+        Extract.objects.create(**data)
