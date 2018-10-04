@@ -3,6 +3,8 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 from charcoallog.investments.views import DetailAPI, FormDeals, detail, home
 
+app_name = 'investments'
+
 urlpatterns = [
     url(r'^$', home, name='home'),
     url(r'^([\w ]+)/$', detail, name='detail'),
