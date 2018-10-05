@@ -1,5 +1,3 @@
-from decimal import Decimal
-
 from django.db.models.signals import post_delete, post_save
 from django.dispatch import receiver
 
@@ -63,7 +61,7 @@ def populate_investments_details(sender, created, instance, **kwargs):
     if created and instance.kind != '---':
         kind = instance.kind.partition('transfer to')
         if kind[1] != 'transfer to':
-            instance.money = Decimal(instance.money * -1)
+            instance.money = instance.money * -1
 
         data = dict(
             user_name=instance.user_name,
@@ -82,7 +80,7 @@ def populate_investments_details(sender, created, instance, **kwargs):
 def delete_transfer_from_investment_to_detail(sender, instance, using, **kwargs):
     kind = instance.kind.partition('transfer to')
     if kind[1] != 'transfer to':
-        instance.money = Decimal(instance.money * -1)
+        instance.money = instance.money * -1
 
     data = dict(
         user_name=instance.user_name,
@@ -94,19 +92,3 @@ def delete_transfer_from_investment_to_detail(sender, instance, using, **kwargs)
     if qs.exists():
         # make sure to delete one record
         qs.first().delete()
-
-
-@receiver(post_save, sender=NewInvestment)
-def populate_bank(sender, created, instance, **kwargs):
-    # update_fields ?
-    if created and 'transfer to' in instance.kind:
-        invest, bank = instance.kind.split('transfer to')
-        data = dict(
-            user_name=instance.user_name,
-            date=instance.date,
-            money=instance.money * -1,
-            description='credit from ' + invest.strip(),
-            category='---',
-            payment=bank.strip(),
-        )
-        Extract.objects.create(**data)
