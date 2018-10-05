@@ -19,7 +19,7 @@ Vue.component('all-reg-forms', {
 
                 <div>
                 <input type="text"  id="kind" name="kind" class="form-inline m-0 p-0 bg-light"
-                       size="35" style="font-size:10px;border:none"
+                       size="40" style="font-size:10px;border:none"
                        :value="kind"
                        disabled="true">
                 </div>
