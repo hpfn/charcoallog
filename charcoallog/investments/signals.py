@@ -4,11 +4,6 @@ from django.dispatch import receiver
 from charcoallog.bank.models import Extract
 from charcoallog.investments.models import NewInvestment, NewInvestmentDetails
 
-# for two 'def' about Extract - bank app
-# populate_investments
-# delete_transfer_from_bank
-kind = '---'
-
 
 @receiver(post_save, sender=Extract)
 def populate_investments(sender, created, instance, **kwargs):
@@ -18,7 +13,7 @@ def populate_investments(sender, created, instance, **kwargs):
             user_name=instance.user_name,
             date=instance.date,
             money=instance.money * -1,
-            kind=kind,
+            # kind=kind,  # has default value
             tx_op=00.00,
             brokerage=instance.description,
         )
@@ -38,21 +33,12 @@ def delete_transfer_from_bank(sender, instance, using, **kwargs):
             brokerage=brokerage,
             date=date,
             money=money * -1,
-            kind=kind,
+            # kind=kind,  # has default value
         )
 
         if qs.exists():
             # make sure to delete one record
             qs.first().delete()
-
-
-# two 'def' about Investment
-# populate investments details
-# delete_transfer_from_investment
-which_target = '---'
-segment = '---'
-tx_or_price = 00.00
-quant = 00.00
 
 
 @receiver(post_save, sender=NewInvestment)
@@ -68,10 +54,10 @@ def populate_investments_details(sender, created, instance, **kwargs):
             date=instance.date,
             money=instance.money,
             kind=kind[0].strip(),
-            which_target=which_target,
-            segment=segment,
-            tx_or_price=tx_or_price,
-            quant=quant,
+            # which_target=which_target,  # has default value
+            # segment=segment,  # has default value
+            # tx_or_price=tx_or_price,  # has default value
+            # quant=quant,  # has default value
         )
         NewInvestmentDetails.objects.create(**data)
 

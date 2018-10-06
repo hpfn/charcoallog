@@ -28,7 +28,7 @@ class NewBasicData(models.Model):
     date = models.DateField()
     money = models.DecimalField(max_digits=8, decimal_places=2)
     # Acao, Titulo Publico, CDB, FII
-    kind = models.CharField(max_length=40)
+    kind = models.CharField(max_length=40, default='---')
 
     # both a custom Manager and a custom QuerySet
     # https://docs.djangoproject.com/en/1.11/topics/db/managers/#from-queryset
@@ -48,10 +48,10 @@ class NewInvestmentDetails(NewBasicData):
     # Qual acao, titulo publico, banco(CDB), cod FII
     which_target = models.CharField(max_length=20, default='---')
     # PN|ON, NTNB|SELIC|LTF, carencia CDB, sobre FII
-    segment = models.CharField(max_length=20)
+    segment = models.CharField(max_length=20, default='---')
     # VALOR cada acao, taxa Tesouro, taxa CDB, valor de compra|venda FII
-    tx_or_price = models.DecimalField(max_digits=8, decimal_places=2)
-    quant = models.DecimalField(max_digits=8, decimal_places=2)
+    tx_or_price = models.DecimalField(max_digits=8, decimal_places=2, default=00.00)
+    quant = models.DecimalField(max_digits=8, decimal_places=2, default=00.00)
 
 
 class NewInvestment(NewBasicData):
