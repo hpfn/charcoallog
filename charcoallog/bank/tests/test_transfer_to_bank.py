@@ -19,20 +19,14 @@ class FromInvestToBank(TestCase):
     def test_newinvest_exists(self):
         self.assertTrue(NewInvestment.objects.exists())
 
-    def test_details_exists(self):
-        self.assertTrue(NewInvestmentDetails.objects.exists())
-
     def test_bank_exists(self):
         self.assertTrue(Extract.objects.exists())
 
     def test_money_transfer(self):
-        detail = NewInvestmentDetails.objects.get(pk=1)
         invest = NewInvestment.objects.get(pk=1)
         bank = Extract.objects.get(pk=1)
 
         expected = [
-            (detail.money, -100.00),
-            (detail.kind, 'CDB'),
             (invest.money, -100.00),
             (bank.money, 100.00),
             (bank.description, 'credit from CDB'),
@@ -63,7 +57,6 @@ class DeleteTransferToBank(TestCase):
     def test_record_exists(self):
         expected = [
             NewInvestment.objects.exists(),
-            NewInvestmentDetails.objects.exists(),
             Extract.objects.exists(),
         ]
 
@@ -76,7 +69,6 @@ class DeleteTransferToBank(TestCase):
 
         expected = [
             NewInvestment.objects.exists(),
-            NewInvestmentDetails.objects.exists(),
             Extract.objects.exists(),
         ]
 

@@ -2,12 +2,26 @@
 # Investment only DELETE
 from rest_framework import serializers
 
-from charcoallog.investments.models import NewInvestmentDetails
+from charcoallog.investments.models import NewInvestment, NewInvestmentDetails
 
-# class BasicDataSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = BasicData
-#         fields = ('pk', 'date', 'money', 'kind')
+
+class InvestmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NewInvestment
+        fields = ('tx_op', 'brokerage', 'kind', 'money', 'date', 'pk')
+
+    def update(self, instance, validated_data):
+        instance.pk = validated_data.get('pk', instance.pk)
+        instance.date = validated_data.get('date', instance.date)
+        instance.money = validated_data.get('money', instance.money)
+        instance.kind = validated_data.get('kind', instance.kind)
+        instance.tx_op = validated_data.get('tx_op', instance.tx_op)
+        instance.brokerage = validated_data.get('brokerage', instance.brokerage)
+        instance.user_name = validated_data.get('user_name', instance.user_name)
+
+        instance.save()
+
+        return instance
 
 
 class InvestmentDetailsSerializer(serializers.ModelSerializer):

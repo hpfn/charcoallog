@@ -16,6 +16,8 @@ class DetailPostTest(TestCase):
             date='2018-09-21',
             money=1000.00,
             kind='NO',
+            tx_op=0.00,
+            brokerage='A',
             which_target='NO P',
             segment='NO S',
             tx_or_price=0.00,
@@ -52,6 +54,9 @@ class DetailPostTest(TestCase):
         for e in expected:
             with self.subTest():
                 self.assertTrue(e)
+
+    def test_data_in_db(self):
+        self.assertTrue(NewInvestmentDetails.objects.exists())
 
     def test_investment_detail_db(self):
         qs = NewInvestmentDetails.objects.get(pk=1)

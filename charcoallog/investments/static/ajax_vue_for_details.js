@@ -5,30 +5,30 @@ Vue.component('all-detail-forms', {
             <div class="form-inline m-0 p-0">
                 <input type="hidden" id="pk" name="pk" :value="pk">
 
-                <div>
-                <input type="date" id="date" class="form-inline m-0 p-0 bg-light"
+                <div @input="n_dt">
+                <input type="date" id="date" class="form-inline bg-light"
                        size="10" style="font-size:10px;border:none"
-                       :value="date"
-                       disabled=true>
+                       :value="dt"
+                       :disabled="edit">
                 </div>
 
-                <div>
-                <input type="text" id="money" step="0.01" class="form-inline m-0 p-0 bg-light"
+                <div @input="n_mn">
+                <input type="text" id="money"class="form-inline m-0 p-0 bg-light"
                        size="11" style="font-size:10px;border:none"
-                       :value="money"
-                       disabled=true>
+                       :value="mn"
+                       :disabled="edit">
                 </div>
 
-                <div>
+                <div @input="n_knd">
                 <input type="text"  id="kind" name="kind" class="form-inline m-0 p-0 bg-light"
-                       size="15" style="font-size:10px;border:none"
-                       :value="kind"
-                       disabled=true>
+                       size="25" style="font-size:10px;border:none"
+                       :value="knd"
+                       :disabled="edit">
                 </div>
 
                 <div @input="n_whch_trgt">
                 <input type="text" id="which_target" class="form-inline m-0 p-0 bg-light"
-                       size="20" style="font-size:10px;border:none"
+                       size="15" style="font-size:10px;border:none"
                        :value="whch_trgt"
                        :disabled="edit">
                 </div>
@@ -42,13 +42,13 @@ Vue.component('all-detail-forms', {
 
                 <div @input="n_tx_r_prc">
                 <input type="text" id="tx_or_price" class="form-inline m-0 p-0 bg-light"
-                       size="10" style="font-size:10px;border:none"
+                       size="6" style="font-size:10px;border:none"
                        :value="tx_r_prc"
                        :disabled="edit">
                 </div>
                 <div @input="n_qunt">
                 <input type="text" id="quant" class="form-inline m-0 p-0 bg-light"
-                       size="10" style="font-size:10px;border:none"
+                       size='4' style="font-size:10px;border:none"
                        :value="qunt"
                        :disabled="edit">
                 </div>
@@ -58,23 +58,23 @@ Vue.component('all-detail-forms', {
                 <span class="form-text text-muted" style="font-size:9px">update</span>
                 </div>
 
-                <div v-if="chk == true" class="form-inline m-0 p-0">
-                <button type="submit" class="btn btn-sm m-0 p-0 btn-link" size="8" id="button" @click="dflt()">update</button>
+                <!--<div v-if="chk == true" class="form-inline m-0 p-0">-->
+                <button type="submit" class="btn btn-sm m-0 p-0 btn-link" size="8" id="button" @click="dflt()">{{ method }}</button>
                 </div>
             </div>
     `,
      data: function() {
          return {
-             // method: 'delete',
+             method: 'delete',
              edit: true,
              chk: false,
              qunt: this.quant,
              tx_r_prc: this.tx_or_price,
              sgmnt: this.segment,
              whch_trgt: this.which_target,
-             // knd: this.kind,
-             // mn: this.money,
-             // dt: this.date
+             knd: this.kind,
+             mn: this.money,
+             dt: this.date
          }
     },
     methods:{
@@ -90,21 +90,21 @@ Vue.component('all-detail-forms', {
         n_whch_trgt: function(event) {
             this.whch_trgt = event.target.value
         },
-        // n_knd: function(event) {
-        //     this.knd = event.target.value
-        // },
-        // n_mn: function(event) {
-        //     this.mn = event.target.value
-        // },
-        // n_dt: function(event) {
-        //     this.dt = event.target.value
-        // },
+        n_knd: function(event) {
+             this.knd = event.target.value
+        },
+        n_mn: function(event) {
+             this.mn = event.target.value
+        },
+        n_dt: function(event) {
+            this.dt = event.target.value
+        },
         dflt: function() {
             this.chk = false
         },
 
         label: function(){
-        //     this.method = this.chk ? 'update' : 'delete';
+             this.method = this.chk ? 'update' : 'delete';
              this.edit = this.chk == false ? true : false
         },
     },
@@ -125,6 +125,10 @@ new Vue({
             form["date"] = event.target.date.value;
 
             event.target.checkbox.checked = false
+            http_verb = event.target.button.innerText
+            console.log(http_verb)
+            http_verb = http_verb == 'delete' ? 'delete' : 'put'
+
 
             axios.defaults.xsrfHeaderName = "X-CSRFToken";
             axios.defaults.xsrfCookieName = "csrftoken";
@@ -132,15 +136,15 @@ new Vue({
 
             // tem que ser put
             axios({
-                method: 'put',
+                method: http_verb,
                 url: '/investments/detail_api/' + form["pk"] + '/',
                 data: form
             })
             .then(response => {
                 console.log("HERE")
-                // if ( http_verb == 'delete') {
-                //     document.getElementById(form["pk"]).remove()
-                // }
+                if ( http_verb == 'delete') {
+                    document.getElementById(form["pk"]).remove()
+                }
             })
             .catch(function (err) {
                console.log(err.message);

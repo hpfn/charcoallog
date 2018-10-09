@@ -30,7 +30,11 @@ class InvestmentForm(forms.ModelForm):
 class InvestmentDetailsForm(forms.ModelForm):
     class Meta:
         model = NewInvestmentDetails
-        fields = ['date', 'money', 'kind', 'which_target', 'segment', 'tx_or_price', 'quant']
+        fields = [
+            'date', 'money', 'kind', 'tx_op',
+            'brokerage', 'which_target', 'segment',
+            'tx_or_price', 'quant'
+        ]
 
     def save(self, user, commit=True):
         form = super(InvestmentDetailsForm, self).save(commit=False)

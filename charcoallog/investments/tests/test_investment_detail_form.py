@@ -12,8 +12,9 @@ class InvestmentDetailsFormTest(TestCase):
         """ Form must have 3 fields. The third field is in test_basicdata_form"""
         form = InvestmentDetailsForm()
         self.assertSequenceEqual(
-            ['date', 'money', 'kind', 'which_target',
-             'segment', 'tx_or_price', 'quant'],
+            ['date', 'money', 'kind', 'tx_op',
+             'brokerage', 'which_target', 'segment',
+             'tx_or_price', 'quant'],
             list(form.fields)
         )
 
@@ -25,6 +26,8 @@ class InvestmentDetailSave(TestCase):
             date='2018-09-19',
             money='10.00',
             kind='tesouro',
+            tx_op=0.00,
+            brokerage='A',
             which_target='selic',
             segment='2023',
             tx_or_price=0.00,
@@ -50,8 +53,11 @@ class InvestmentDetailSave(TestCase):
             (qs[0].user_name, 'teste'),
             (qs[0].date, date(2018, 9, 19)),
             (qs[0].money, Decimal('10.00')),
-            (qs[0].kind, 'tesouro')
+            (qs[0].kind, 'tesouro'),
+            (qs[0].tx_op, Decimal('0.00')),
+            (qs[0].brokerage, 'A'),
         ]
+
         for obj, v in expected:
             with self.subTest():
                 self.assertEqual(obj, v)

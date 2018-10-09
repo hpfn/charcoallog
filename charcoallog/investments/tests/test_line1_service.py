@@ -21,6 +21,15 @@ class BriefInvestmentTest(TestCase):
         )
 
         NewInvestment.objects.create(**data)
+
+        data['money'] = -10.00
+        data['which_target'] = 'lft'
+        data['segment'] = 'ipca 2035'
+        data['tx_or_price'] = 0.00
+        data['quant'] = 0.00
+
+        NewInvestmentDetails.objects.create(**data)
+
         query_user_invest = NewInvestment.objects.user_logged(user_name)
         query_user_investdetail = NewInvestmentDetails.objects.user_logged(user_name)
         self.response = BriefInvestment(query_user_invest, query_user_investdetail)

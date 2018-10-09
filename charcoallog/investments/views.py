@@ -6,17 +6,19 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from charcoallog.investments.detail_post_service import DetailPost
-from charcoallog.investments.forms import InvestmentDetailsForm, InvestmentForm
+from charcoallog.investments.forms import InvestmentDetailsForm
 from charcoallog.investments.models import NewInvestment, NewInvestmentDetails
 # from charcoallog.investments.serializers import InvestmentSerializer
-from charcoallog.investments.serializers import InvestmentDetailsSerializer
+from charcoallog.investments.serializers import (
+    InvestmentDetailsSerializer, InvestmentSerializer
+)
 from charcoallog.investments.service import ShowData
 
 
 @login_required
 def home(request):
     context = {
-        'form': InvestmentForm(),
+        'form': InvestmentDetailsForm(),
         'show_data': ShowData(request)}
     return render(request, 'investments/home.html', context)
 
@@ -49,13 +51,13 @@ class FormDeals(LoginRequiredMixin, APIView):
     #     serializer = InvestmentSerializer(investment)
     #     return Response(serializer.data)
 
-    # def put(self, request, pk, format=None):
-    #     investment = self.get_object(pk)
-    #     serializer = InvestmentSerializer(investment, data=request.data)
-    #     if serializer.is_valid():
-    #         serializer.update(investment, serializer.validated_data)
-    #         return Response(serializer.data)
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def put(self, request, pk, format=None):
+        investment = self.get_object(pk)
+        serializer = InvestmentSerializer(investment, data=request.data)
+        if serializer.is_valid():
+            serializer.update(investment, serializer.validated_data)
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
         investment = self.get_object(pk)
@@ -86,8 +88,7 @@ class DetailAPI(LoginRequiredMixin, APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-#    def delete(self, request, pk, format=None):
-#        investment_d = self.get_object(pk)
-#        investment_d.delete()
-#        return Response(status=status.HTTP_204_NO_CONTENT)
-#
+    def delete(self, request, pk, format=None):
+        investment_d = self.get_object(pk)
+        investment_d.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
