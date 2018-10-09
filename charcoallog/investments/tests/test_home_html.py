@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import resolve_url as r
 from django.test import TestCase
 
-from charcoallog.investments.forms import InvestmentForm
+from charcoallog.investments.forms import InvestmentDetailsForm
 from charcoallog.investments.service import ShowData
 
 
@@ -31,11 +31,14 @@ class InvestmentHomeOkTest(TestCase):
         """ Must contain input tags """
         expected = [
             ('<form', 2),
-            ('<input', 9),
+            ('<input', 14),
             ("type='hidden'", 1),
-            ('type="text"', 4),
-            ('type="number"', 1),
-            ('step="0.01"', 1),
+            ('type="text"', 5),
+            ('type="checkbox"', 1),
+            ('<template', 1),
+            ('</template>', 1),
+            ('type="number"', 4),
+            ('step="0.01"', 4),
             ('type="date"', 3),
             ('type="submit"', 2),
             ('</form', 2),
@@ -54,7 +57,7 @@ class InvestmentHomeOkTest(TestCase):
     def test_has_form(self):
         """ Context must have Investment form """
         form = self.response.context['form']
-        self.assertIsInstance(form, InvestmentForm)
+        self.assertIsInstance(form, InvestmentDetailsForm)
 
     def test_show_data(self):
         data = self.response.context['show_data']

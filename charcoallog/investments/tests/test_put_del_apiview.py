@@ -13,7 +13,9 @@ data = dict(
     user_name="teste",
     date="2018-08-30",
     money=1000,
-    kind="Títulos Públicos"
+    kind="Títulos Públicos",
+    tx_op=0.00,
+    brokerage='A'
 )
 
 
@@ -25,7 +27,7 @@ class FormDealsAttrTest(TestCase):
         self.assertTrue(hasattr(self.attrs, 'get_object'))
 
     def test_out_attr(self):
-        self.assertFalse(hasattr(self.attrs, 'put'))
+        self.assertTrue(hasattr(self.attrs, 'put'))
 
     def test_delete_attr(self):
         self.assertTrue(hasattr(self.attrs, 'delete'))
@@ -68,6 +70,32 @@ class NoAccessFormDealsAPIView(TestCase):
         self.assertEqual(204, response.status_code)
 
 
+class FormDealsAPIAttrTest(TestCase):
+    def setUp(self):
+        self.attrs = FormDeals()
+
+    def test_inheritance(self):
+        self.assertTrue(issubclass(FormDeals, APIView))
+
+    def test_inheritance_1(self):
+        self.assertTrue(issubclass(FormDeals, LoginRequiredMixin))
+
+    def test_get_object_attr(self):
+        self.assertTrue(hasattr(self.attrs, 'get_object'))
+
+    def test_out_attr(self):
+        self.assertTrue(hasattr(self.attrs, 'put'))
+
+    def test_delete_attr(self):
+        self.assertTrue(hasattr(self.attrs, 'delete'))
+
+    def test_get_attr(self):
+        self.assertFalse(hasattr(self.attrs, 'get'))
+
+    def test_post_attr(self):
+        self.assertFalse(hasattr(self.attrs, 'post'))
+
+
 class DetailAPIAttrTest(TestCase):
     def setUp(self):
         self.attrs = DetailAPI()
@@ -85,7 +113,7 @@ class DetailAPIAttrTest(TestCase):
         self.assertTrue(hasattr(self.attrs, 'put'))
 
     def test_delete_attr(self):
-        self.assertFalse(hasattr(self.attrs, 'delete'))
+        self.assertTrue(hasattr(self.attrs, 'delete'))
 
     def test_get_attr(self):
         self.assertFalse(hasattr(self.attrs, 'get'))
@@ -110,6 +138,51 @@ class NoAccessDetailAPI(TestCase):
         """ No login yet. No access to the APIView"""
         response = self.client.delete(r('investments:detail_api', 1))
         self.assertEqual(403, response.status_code)
+
+
+class NoAccessFormDealsAPI(TestCase):
+    def test_no_access(self):
+        """ No login yet. No access to the APIView"""
+        response = self.client.delete(r('investments:api', 1))
+        self.assertEqual(403, response.status_code)
+
+
+class FormDealsTest(TestCase):
+    def setUp(self):
+        user = User.objects.create(username='teste')
+        user.set_password('1qa2ws3ed')
+        user.save()
+
+        NewInvestment.objects.create(**data)
+
+        self.login_in = self.client.login(username='teste', password='1qa2ws3ed')
+
+    def test_login(self):
+        self.assertTrue(self.login_in)
+
+    def test_send_data_to_put(self):
+        data['brokerage'] = "B"
+        data['kind'] = "BLABLA"
+        response = self.client.put(r('investments:api', 1), json.dumps(data),
+                                   content_type='application/json')
+
+        self.assertEqual(200, response.status_code)
+
+        expected = [
+            'B',
+            'BLABLA'
+        ]
+
+        for value in expected:
+            with self.subTest():
+                self.assertIn(value, response.content.decode())
+
+        data['brokerage'] = "A"
+        data['kind'] = "Títulos Públicos"
+
+    def test_delete(self):
+        response = self.client.delete(r('investments:api', 1))  # noqa
+        self.assertFalse(NewInvestment.objects.exists())
 
 
 class DetailAPITest(TestCase):
@@ -181,3 +254,7 @@ class DetailAPITest(TestCase):
         self.assertEqual(400, response.status_code)
         # No updated data
         self.assertNotIn(to_put["segment"], response.content.decode())
+
+    def test_delete(self):
+        response = self.client.delete(r('investments:detail_api', 1))  # noqa
+        self.assertFalse(NewInvestmentDetails.objects.exists())

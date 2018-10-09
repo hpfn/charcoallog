@@ -1,8 +1,8 @@
-from django.db.models import QuerySet
 from django.test import TestCase
 
 from charcoallog.investments.brief_investment_service import BriefInvestment
 from charcoallog.investments.get_service import MethodGet
+from charcoallog.investments.models import InvestmentStatementQuerySet
 from charcoallog.investments.post_service import MethodPost
 from charcoallog.investments.service import ShowData
 
@@ -19,10 +19,10 @@ class ServiceTest(TestCase):
         self.service = ShowData(RQST)
 
     def test_query_set_invest(self):
-        self.assertIsInstance(self.service.query_user_invest, QuerySet)
+        self.assertIsInstance(self.service.query_user_invest, InvestmentStatementQuerySet)
 
     def test_query_set_investdetail(self):
-        self.assertIsInstance(self.service.query_user_investdetail, QuerySet)
+        self.assertIsInstance(self.service.query_user_investdetail, InvestmentStatementQuerySet)
 
     def test_methodget(self):
         self.assertIsInstance(self.service.methodget, MethodGet)

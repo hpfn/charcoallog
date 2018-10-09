@@ -5,7 +5,10 @@ from django.db.models import QuerySet
 from django.shortcuts import resolve_url as r
 from django.test import TestCase
 
-from charcoallog.investments.models import NewInvestmentDetails
+from charcoallog.investments.forms import InvestmentDetailsForm
+from charcoallog.investments.models import (
+    InvestmentStatementQuerySet, NewInvestmentDetails
+)
 
 
 class InvestmentDetailTest(TestCase):
@@ -51,6 +54,16 @@ class InvestmentDetailTest(TestCase):
 
     def test_template_used(self):
         self.assertTemplateUsed(self.resp, 'investments/detail.html')
+
+    def test_instances(self):
+        expected = [
+            (self.resp.context['form'], InvestmentDetailsForm),
+            (self.resp.context['d'], InvestmentStatementQuerySet)
+        ]
+
+        for e, cls in expected:
+            with self.subTest():
+                self.assertIsInstance(e, cls)
 
     def test_html(self):
         """
