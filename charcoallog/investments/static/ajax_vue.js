@@ -102,18 +102,17 @@ new Vue({
             form["money"] = Number(event.target.money.value);
             form["date"] = event.target.date.value;
 
-            event.target.checkbox.checked = false
+            if ( form['kind'].search('transfer') == -1 && kind != '---' ) {
+                event.target.checkbox.checked = false
+            }
+
             http_verb = event.target.button.innerText
             console.log(http_verb)
             http_verb = http_verb == 'delete' ? 'delete' : 'put'
 
-
-
             axios.defaults.xsrfHeaderName = "X-CSRFToken";
             axios.defaults.xsrfCookieName = "csrftoken";
 
-
-            // tem que ser delete
             axios({
                 method: http_verb,
                 url: 'api/' + form["pk"] + '/',
