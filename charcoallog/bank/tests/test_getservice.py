@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db.models import QuerySet
+from django.shortcuts import resolve_url as r
 from django.test import TestCase
 
 from charcoallog.bank.forms import SelectExtractForm
@@ -73,7 +74,7 @@ class InvalidSearch(TestCase):
 
         self.login_in = self.client.login(username='teste', password='1qa2ws3ed')
         search_data = dict(column='all', from_date='2017-01-01', to_date='2017-01-01')
-        self.response = self.client.get('/bank/', search_data)
+        self.response = self.client.get(r('bank:home'), search_data)
 
     def test_invalid_search(self):
         """ Invalid search must shows an error message """

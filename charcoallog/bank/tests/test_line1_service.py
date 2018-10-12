@@ -1,4 +1,5 @@
 from decimal import Decimal
+
 from django.test import TestCase
 
 from charcoallog.bank.brief_bank_service import BriefBank

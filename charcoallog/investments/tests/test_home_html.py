@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
+from django.shortcuts import resolve_url as r
 from django.test import TestCase
-from charcoallog.investments.forms import InvestmentForm
+
+from charcoallog.investments.forms import InvestmentDetailsForm
 from charcoallog.investments.service import ShowData
 
 
@@ -11,7 +13,7 @@ class InvestmentHomeOkTest(TestCase):
         user.save()
 
         self.login_in = self.client.login(username='teste', password='1qa2ws3ed')
-        self.response = self.client.get('/investments/')
+        self.response = self.client.get(r('investments:home'))
 
     def test_login(self):
         """ Must login to access html file"""
@@ -27,34 +29,35 @@ class InvestmentHomeOkTest(TestCase):
 
     def test_html(self):
         """ Must contain input tags """
-        self.assertContains(self.response, '<form')
-        self.assertContains(self.response, '<input', 9)
-        self.assertContains(self.response, 'type="hidden"', 1)
-        self.assertContains(self.response, 'type="text"', 6)
-        # self.assertContains(self.response, 'type="number"', 2)
-        self.assertContains(self.response, 'type="submit"')
-        self.assertContains(self.response, '</form')
-        self.assertContains(self.response, 'class="row"')
-        self.assertContains(self.response, 'method="get"')
-        self.assertContains(self.response, 'method="post"')
-        # self.assertContains(self.response, 'id="invest_box_line3"')
+        expected = [
+            ('<form', 2),
+            ('<input', 14),
+            ("type='hidden'", 1),
+            ('type="text"', 5),
+            ('type="checkbox"', 1),
+            ('<template', 1),
+            ('</template>', 1),
+            ('type="number"', 4),
+            ('step="0.01"', 4),
+            ('type="date"', 3),
+            ('type="submit"', 2),
+            ('</form', 2),
+            ('class="row"', 4),
+            ('method="get"', 1),
+            ('method="post"', 1)
+        ]
+        for tag, x in expected:
+            with self.subTest():
+                self.assertContains(self.response, tag, x)
 
     def test_csrf(self):
         """ html must contain csrf """
-        self.assertContains(self.response, 'csrfmiddlewaretoken')
+        self.assertContains(self.response, 'csrfmiddlewaretoken', 1)
 
     def test_has_form(self):
         """ Context must have Investment form """
         form = self.response.context['form']
-        self.assertIsInstance(form, InvestmentForm)
-
-    def test_form_has_fields(self):
-        """ Form must have 7 fields"""
-        form = self.response.context['form']
-        self.assertSequenceEqual(
-            ['user_name', 'date', 'money', 'kind', 'which_target', 'tx_op', 'brokerage'],
-            list(form.fields)
-        )
+        self.assertIsInstance(form, InvestmentDetailsForm)
 
     def test_show_data(self):
         data = self.response.context['show_data']

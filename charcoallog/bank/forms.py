@@ -1,6 +1,8 @@
-from django import forms
-from .models import Extract
 from datetime import datetime
+
+from django import forms
+
+from .models import Extract
 
 # more recent
 # https://codedump.io/share/3seZkm5xb6mu/1/using-django-timedate-widgets-in-custom-form
@@ -22,16 +24,18 @@ class EditExtractForm(forms.ModelForm):
     """
     Form for individual user account
     """
-    CHOICES = (('update', '1',), ('remove', '2',))
-    update_rm = forms.ChoiceField(widget=forms.RadioSelect, choices=CHOICES, required=False)
-    pk = forms.IntegerField(widget=forms.HiddenInput, required=False)
+    # CHOICES = (('update', '1',), ('remove', '2',))
+    # update_rm = forms.ChoiceField(widget=forms.RadioSelect, choices=CHOICES, required=False)
+    # pk = forms.IntegerField(widget=forms.HiddenInput, required=False)
+    # user_name = forms.CharField(required=False)
+    schedule = forms.BooleanField(required=False)
 
     class Meta:
         model = Extract
-        fields = ['user_name', 'date', 'money', 'description',
+        fields = ['date', 'money', 'description',
                   'category', 'payment']
         widgets = {
-            'user_name': forms.HiddenInput(),
+            # 'user_name': forms.HiddenInput(),
             'description': forms.TextInput(attrs={
                 'placeholder': 'description'}),
             'category': forms.TextInput(attrs={
@@ -40,9 +44,10 @@ class EditExtractForm(forms.ModelForm):
                 'placeholder': 'account used'})
         }
 
-    def save(self, commit=True):
+    def save(self, request_user, commit=True):
         form = super(EditExtractForm, self).save(commit=False)
-        form.user_name = self.cleaned_data['user_name']
+        # form.user_name = self.cleaned_data['user_name']
+        form.user_name = str(request_user)
 
         if commit:
             form.save()
@@ -56,7 +61,7 @@ class SelectExtractForm(forms.Form):
     #                            required=True)
     d = datetime.now()
     year = int(d.strftime("%Y"))
-    years = [x for x in range(year-5, year+10)]
+    years = [x for x in range(year - 5, year + 10)]
     column = forms.CharField(max_length=70, required=True)
     from_date = forms.DateField(widget=forms.SelectDateWidget(years=years), required=True)
     to_date = forms.DateField(widget=forms.SelectDateWidget, required=True)

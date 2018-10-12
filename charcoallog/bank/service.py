@@ -1,7 +1,7 @@
-from charcoallog.bank.models import Extract
-from charcoallog.bank.get_service import MethodGet
-from charcoallog.bank.post_service import MethodPost
 from charcoallog.bank.brief_bank_service import BriefBank
+from charcoallog.bank.get_service import MethodGet
+from charcoallog.bank.models import Extract
+from charcoallog.bank.post_service import MethodPost
 
 
 class ShowData:

@@ -1,4 +1,4 @@
-from charcoallog.investments.forms import InvestmentForm
+from charcoallog.investments.forms import InvestmentDetailsForm, InvestmentForm
 
 
 class MethodPost:
@@ -13,17 +13,19 @@ class MethodPost:
         self.request_user = request.user
         self.query_user = query_user
         self.investmentform = InvestmentForm
-        self.form = None
+        self.i_form = None
+
+        self.detailsform = InvestmentDetailsForm
+        self.d_form = None
 
         if request.method == 'POST':
             self.method_post()
 
     def method_post(self):
-        self.form = self.investmentform(self.request_post)
+        self.i_form = self.investmentform(self.request_post)
+        self.d_form = self.detailsform(self.request_post)
 
-        if self.form.is_valid():
-            self.insert_by_post()
-
-    def insert_by_post(self):
-        self.form.cleaned_data['user_name'] = self.request_user
-        self.form.save()
+        if self.d_form.is_valid():
+            self.d_form.save(self.request_user)
+        elif self.i_form.is_valid():
+            self.i_form.save(self.request_user)

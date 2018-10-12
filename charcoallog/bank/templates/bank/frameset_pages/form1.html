@@ -1,16 +1,43 @@
-<div id="bank_box_form1">
+<div>
 	<form method="post">
-			{% csrf_token %}
-			{{ show_data.form1.editextracform.non_field_errors }}
-			<input id="id_user_name" type="hidden" name="user_name" value="{{ user.username }}">
-			{# <!-- {{ show_data.date }} --> #}
-		    <input type="text" id="datepicker" name="date" required="True"/>
-			{{ show_data.form1.editextractform.money }}
-			{{ show_data.form1.editextractform.description }}
-			{{ show_data.form1.editextractform.category }}
-			{{ show_data.form1.editextractform.payment }}
+		{% csrf_token %}
+        {{ show_data.form1.editextracform.non_field_errors }}
+
+		<div class="form-group">
+			{{ form.date.errors }}
+			<input type="date" name="date"
+				   class="form-control form-control-sm" placeholder="date"
+				   required>
+		</div>
+		<div class="form-group">
+			{{ form.money.errors }}
+			<input type="number" name="money" id="money" step="0.01"
+				   class="form-control form-control-sm" placeholder="money"
+				   required>
+		</div>
+		<div class="form-group">
+			{{ form.description.errors }}
+			<input type="text" name="description" id="description"
+				   class="form-control form-control-sm" placeholder="description"
+				   required>
+		</div>
+		<div class="form-group">
+			{{ form.category.errors }}
+			<input type="text" name="category" id="category"
+				   class="form-control form-control-sm" placeholder="category"
+				   required>
+		</div>
+		<div class="form-group">
+			{{ form.payment.errors }}
+			<input type="text" name="payment" id="payment"
+				   class="form-control form-control-sm" placeholder="payment"
+				   required>
+		</div>
 			{{ show_data.form1.editextractform.errors }}
-			<button type='submit'>Submit</button>
-			</form>
+			<button type="submit" class="btn btn-primary">Submit</button>
+		    <input type='checkbox' id='checkbox' value='schedule' name='schedule'>schedule
+
+
+	</form>
 </div>
 

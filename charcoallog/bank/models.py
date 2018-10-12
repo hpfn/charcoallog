@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import Sum, Q
+from django.db.models import Q, Sum
 
 # from .manager import ExtractManager
 
@@ -27,7 +27,28 @@ class Extract(models.Model):
     category = models.CharField('Category', max_length=70)
     payment = models.CharField('Payment', max_length=70)
 
-    objects = models.Manager.from_queryset(ExtractStatementQuerySet)()
+    # both a custom Manager and a custom QuerySet
+    # https://docs.djangoproject.com/en/1.11/topics/db/managers/#from-queryset
+    # objects = models.Manager.from_queryset(ExtractStatementQuerySet)()
+    #
+    # to create an instance of Manager with a copy of a custom QuerySet’s
+    # https://docs.djangoproject.com/en/1.11/topics/
+    # db/managers/#creating-a-manager-with-queryset-methods
+    objects = ExtractStatementQuerySet.as_manager()
+
+    class Meta:
+        ordering = ['-date']
+
+
+class Schedule(models.Model):
+    user_name = models.CharField('Name', max_length=30)
+    date = models.DateField('Date')
+    money = models.DecimalField('Money', max_digits=12, decimal_places=2, null=False, blank=False)
+    description = models.CharField('Description', max_length=70)
+    category = models.CharField('Category', max_length=70)
+    payment = models.CharField('Payment', max_length=70)
+
+    # objects = models.Manager.from_queryset(ExtractStatementQuerySet)()
 
     class Meta:
         ordering = ['-date']

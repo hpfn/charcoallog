@@ -7,6 +7,8 @@ db.sqlite3
 staticfiles
 charcoallog_nginx.conf
 uwsgi.ini
+celerybeat*
+*.json
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

@@ -1,7 +1,10 @@
+import json
+import os
 import re
+from datetime import date
 from urllib import request
 from urllib.error import HTTPError
-from datetime import date
+
 from bs4 import BeautifulSoup
 
 
@@ -12,25 +15,48 @@ class Scrap:
         self.ipca_address = 'http://www.indiceseindicadores.com.br/ipca/'
 
     def selic_info(self):
-        data = date.today()
-        this_year = data.strftime("%Y")
+        if os.path.isfile('./charcoallog/core/selic.json'):
+            with open('./charcoallog/core/selic.json', 'r') as selic:
+                selic = json.load(selic)
+
+            return selic['selic']
+
+        return self.selic_webscrapping()
+
+    def ibov_info(self):
+        if os.path.isfile('./charcoallog/core/ibov.json'):
+            with open('./charcoallog/core/ibov.json', 'r') as ibov:
+                ibov = json.load(ibov)
+
+            return ibov['ibov']
+
+        return self.ibov_webscrapping()
+
+    def ipca_info(self):
+        if os.path.isfile('./charcoallog/core/ipca.json'):
+            with open('./charcoallog/core/ipca.json', 'r') as ipca:
+                ipca = json.load(ipca)
+
+            return ipca['ipca']
+
+        return self.ipca_webscrapping()
+
+    def selic_webscrapping(self):
+        # data = date.today()
+        this_year = date.today().strftime("%Y")
         last_year = str(int(this_year) - 1)
 
         html_doc = request.urlopen(self.selic_address)
         soup = BeautifulSoup(html_doc, 'html.parser')
         tabela = soup.find_all("td", class_="centralizado")
 
-        #        tabela_dict = {i.string: tabela[x+1].string
-        #                       for x, i in enumerate(tabela)
-        #                       if last_year in i.string or this_year in i.string}
-
-        tabela_dict = ([i.string, tabela[x + 1].string]
+        tabela_dict = [[i.string, tabela[x + 1].string]
                        for x, i in enumerate(tabela)
-                       if last_year in i.string or this_year in i.string)
+                       if str(last_year) in i.string or str(this_year) in i.string]
 
         return tabela_dict
 
-    def ibov_info(self):
+    def ibov_webscrapping(self):
         try:
             hdr = {
                 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) '
@@ -42,6 +68,7 @@ class Scrap:
                 # 'Accept-Language': 'en-US,en;q=0.8',
                 # 'Connection': 'keep-alive'
             }
+
             req = request.Request(self.ibov_address, headers=hdr)
             html_doc = request.urlopen(req)
             soup = BeautifulSoup(html_doc, 'html.parser')
@@ -55,17 +82,14 @@ class Scrap:
             column3 = soup.find_all("td", class_="Numeric Column10 ColumnLast")
             column3.insert(0, tabela_hdr[2])
 
-            # head_dict = {col1.string: [col2.string, col3.string]
-            #             for col1, col2, col3 in zip(column1, column2, column3)}
-
-            head_dict = ([col1.string, [col2.string, col3.string]]
-                         for col1, col2, col3 in zip(column1, column2, column3))
+            head_dict = [[col1.string, [col2.string, col3.string]]
+                         for col1, col2, col3 in zip(column1, column2, column3)]
 
             return head_dict
         except HTTPError:
             return ['http error']
 
-    def ipca_info(self):
+    def ipca_webscrapping(self):
         html_doc = request.urlopen(self.ipca_address)
         soup = BeautifulSoup(html_doc, 'html.parser')
 
@@ -76,17 +100,14 @@ class Scrap:
 
         # taxas = re.compile(r'<(strong|b)>\b(?P<indice>[0-9]{,2},[0-9]{2})\b</(strong|b)>')
         taxas = re.compile(
-            r'<td style="text-align: right; width: [0-9.]{3,}px; height: [0-9.]{2,}px;">'
-            r'(<span style="font-size: 10pt;">)?(<(strong|b)>)?\b(?P<indice>[0-9]{,2},[0-9]{2})\b'
-            r'(</(strong|b)>)?(</span>)?</td>')
-
+            r'<td style="text-align: right; width: [0-9.]{7,}px; height: [0-9.]{2,}px;">'
+            r'<.*?>(<.*?>)?'
+            r'([0-9]{,2}.[0-9]{2})'  # rate I want
+            r'<.*>'
+        )
         get_tx = re.findall(taxas, str(tabela_bd))
-        get_tx = [i[3] for i in get_tx]
-        # get_tx = [i for i in get_tx if float(i) > 0.85]
+        get_tx = [i[1] for i in get_tx]
 
-        # tx_ano_dict = {ano: tx for ano, tx in zip(get_ano[:10], get_tx[:10])}
-        tx_ano_dict = ([ano, tx] for ano, tx in zip(get_ano[:10], get_tx[:10]))
-        # print(get_ano[:10])
-        # print(get_tx[:10])
+        tx_ano_dict = [[ano, tx] for ano, tx in zip(get_ano[:10], get_tx[:10])]
 
         return tx_ano_dict

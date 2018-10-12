@@ -1,15 +1,15 @@
-<form action="." method="post" class="">
+<form action="." method="post">
     {% csrf_token %}
     <div class="form-group">
-        <input type="hidden" name="user_name" id="id_user_name" value="you">
+        {# <input type="hidden" name="user_name" id="id_user_name" value="you"> #}
         {{ form.date.errors }}
-        <input type="date" name="date" id="datepicker"
+        <input type="date" name="date"
                class="form-control form-control-sm" placeholder="date"
                required="True">
     </div>
     <div class="form-group">
         {{ form.money.errors }}
-        <input type="text" name="money" id="money"
+        <input type="number" name="money" id="money" step="0.01"
                class="form-control form-control-sm" placeholder="money"
                required="True">
     </div>
@@ -19,15 +19,11 @@
                class="form-control form-control-sm" placeholder="kind"
                required="True">
     </div>
+
+
     <div class="form-group">
-        {{ from.which_target.errors }}
-        <input type="text" name="which_target" id="which_target"
-               class="form-control form-control-sm" placeholder="which_target"
-               required="True">
-    </div>
-    <div class="form-group">
-        {{ from.tx_op.errors }}
-        <input type="text" name="tx_op" id="tx_op"
+        {{ form.tx_op.errors }}
+        <input type="number" name="tx_op" id="tx_op" step="0.01"
                class="form-control form-control-sm" placeholder="tx_op"
                required="True">
     </div>
@@ -36,6 +32,36 @@
         <input type="text" name="brokerage" id="brokerage"
                class="form-control form-control-sm" placeholder="brokerage"
                required="True">
+    </div>
+    <div id="details">
+        <input type="checkbox" @click="display = !display">details
+        <template v-if="display">
+            <div class="form-group">
+                <input type="text" name="which_target" id="which_target"
+                       class="form-control form-control-sm" placeholder="which_target"
+                       required="True">
+            </div>
+
+            <div class="form-group">
+                <input type="text" name="segment" id="segment"
+                       class="form-control form-control-sm" placeholder="segment"
+                       required="True">
+            </div>
+
+            <div class="form-group">
+
+                <input type="number" name="tx_or_price" id="tx_or_price" step="0.01"
+                       class="form-control form-control-sm" placeholder="tx_or_price"
+                       required="True">
+            </div>
+
+            <div class="form-group">
+                
+                <input type="number" name="quant" id="quant" step="0.01"
+                       class="form-control form-control-sm" placeholder="quant"
+                       required="True">
+            </div>
+        </template>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>

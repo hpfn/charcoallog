@@ -1,18 +1,23 @@
-<div id="bank_box_form2">
+<div>
     <form method="get">
 	{% csrf_token %}
 	{{ show_data.form2.selectextractform.non_field_errors }}
-	{# <input id="id_user_name" type="hidden" name="user_name" value="{{ user.username }}"> #}
-	{{ show_data.form2.selectextractform.column }}
-	{#  <!-- doesn't work, in use already--> #}
-{# 	<!-- <input type="text" id="datepicker" name="from_date" required="True"/> --> #}
-	{{ show_data.form2.selectextractform.from_date }}
-	{# <!-- doesn't work, in use already --> #}
-	{# <!-- <input type="text" id="datepicker" name="to_date" required="True"/> --> #}
-	{{ show_data.form2.selectextractform.to_date }}
+	<div class="form-group">
+			<label></label>
+			<input type="text" class="form-control form-control-sm" placeholder="search for"
+				   name="column" required>
+	</div>
+	<div class="form-group">
+		{{ show_data.form2.selectextractform.from_date }}
+	</div>
+	<div class="form-group">
+		{{ show_data.form2.selectextractform.to_date }}
+	</div>
+	{# {{ show_data.form2.selectextractform.column }} #}
+	{# {{ show_data.form2.selectextractform.from_date }} #}
+	{# {{ show_data.form2.selectextractform.to_date }} #}
 	{{ show_data.form2.selectextractform.errors }}
-	<br />
-	<button type='submit'>Submit</button>
+	<button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
 

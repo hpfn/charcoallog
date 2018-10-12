@@ -1,4 +1,5 @@
-{% extends "./blank.html" %}
+{% extends "blank.html" %}
+{% load static %}
 
 {% block content %}
 <div class="py-5">
@@ -14,14 +15,28 @@
                 </div>
             </div>
             <div class="col-md-9">
+                <div class="container">
                 <div class="row">
                     {% include 'investments/frameset_pages/line1.html' %}
                 </div>
-                <div class="row">
+		</div>
+		<div class="container">
+                <div class="row justify-content-center align-center m-0 bg-light">
                     {% include 'investments/frameset_pages/line3.html' %}
                 </div>
+		</div>
             </div>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block head_javascript %}
+<script src="https://unpkg.com/vue@2.5.17/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="{% static 'ajax_vue.js' %}"></script>
+<script src="{% static 'invest_form1_vue.js' %}"></script>
+
+{# <script src="{% static 'django_csrf.js' %}"></script> #}
+
 {% endblock %}

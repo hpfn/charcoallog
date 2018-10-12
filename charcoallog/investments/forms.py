@@ -1,10 +1,11 @@
 from django import forms
 
-from charcoallog.investments.models import Investment
+from charcoallog.investments.models import NewInvestment, NewInvestmentDetails
 
 
 class InvestmentForm(forms.ModelForm):
     """ Pode passar o argumento 'label'"""
+
     # date = forms.DateField()
     # money = forms.DecimalField()
     # kind = forms.CharField()
@@ -13,13 +14,31 @@ class InvestmentForm(forms.ModelForm):
     # brokerage = forms.CharField()
 
     class Meta:
-        model = Investment
-        fields = ['user_name', 'date', 'money', 'kind',
-                  'which_target', 'tx_op', 'brokerage']
+        model = NewInvestment
+        fields = ['date', 'money', 'kind', 'tx_op', 'brokerage']
 
-    def save(self, commit=True):
+    def save(self, user, commit=True):
         form = super(InvestmentForm, self).save(commit=False)
-        form.user_name = self.cleaned_data['user_name']
+        form.user_name = user
+
+        if commit:
+            form.save()
+
+        return form
+
+
+class InvestmentDetailsForm(forms.ModelForm):
+    class Meta:
+        model = NewInvestmentDetails
+        fields = [
+            'date', 'money', 'kind', 'tx_op',
+            'brokerage', 'which_target', 'segment',
+            'tx_or_price', 'quant'
+        ]
+
+    def save(self, user, commit=True):
+        form = super(InvestmentDetailsForm, self).save(commit=False)
+        form.user_name = user
 
         if commit:
             form.save()

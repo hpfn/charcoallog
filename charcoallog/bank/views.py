@@ -1,67 +1,83 @@
+import json
+
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render
-from django.views.decorators.http import require_POST
 
-from charcoallog.bank.forms import EditExtractForm
 from charcoallog.bank.brief_bank_service import BriefBank
-from charcoallog.bank.models import Extract
+from charcoallog.bank.forms import EditExtractForm
+from charcoallog.bank.models import Extract, Schedule
+
 from .service import ShowData
 
 
 @login_required
 def home(request):
+    # user_logged instead of a .filter()
     context = {
         'show_data': ShowData(request),
+        'Schedule': Schedule.objects.filter(user_name=request.user).all(),
     }
     return render(request, "bank/home.html", context)
 
 
 @login_required
-@require_POST
-def ajax_post(request):
-    data = dict()
-    form = EditExtractForm(request.POST)
-    if form.is_valid() and request.is_ajax():
-        query_user = Extract.objects.user_logged(request.user)
-        what_to_do, id_for_update, form = prepare_action(form, request.user)
+def update(request):
+    data = {"js_alert": True, "message": 'Not a valid request'}
+    query_user = Extract.objects.user_logged(request.user)
+    # body = request.body.decode('utf-8')
+    form_data = form_data_from_body(request.body)
 
-        if what_to_do == 'remove':
-            query_user.filter(**form.cleaned_data).delete()
-        elif what_to_do == 'update':
-            data = update_data(query_user, id_for_update, form)
+    if request.is_ajax() and request.method == 'PUT':
+        # data = new_account(form_data, query_user)
 
-        if not data:
-            line1 = BriefBank(query_user)
-            data = {'accounts': line1.account_names(),
-                    'whats_left': line1.whats_left()}
+        # if not data:
+        form = EditExtractForm(form_data)
+        # what is not on forms.py '.is_valid()' remove
+        # - the update and pk fields in .html file
+        if form.is_valid():
+            update_db(form_data['pk'], form.cleaned_data, query_user, request.user)
+            data = build_json_data(query_user)
+        else:
+            data = {"js_alert": True, "message": 'Form is not valid'}
 
     return JsonResponse(data)
 
 
-def update_data(query_user, id_for_update, form):
-    payment = form.cleaned_data.get('payment')
+@login_required
+def delete(request):
+    query_user = Extract.objects.user_logged(request.user)
+    if request.is_ajax() and request.method == 'DELETE':
+        # body = request.body.decode('utf-8')
+        form_data = form_data_from_body(request.body)
+        pk = form_data['pk']
+        query_user.filter(pk=pk).delete()
+
+    data = build_json_data(query_user)
+
+    return JsonResponse(data)
+
+
+# helpers for update and delete views
+def form_data_from_body(request_body):
+    body = request_body.decode('utf-8')
+    return json.loads(body)
+
+
+def build_json_data(query_user):
+    line1 = BriefBank(query_user)
+    return {"accounts": line1.account_names(),
+            "whats_left": line1.whats_left()}
+
+
+def new_account(form_data, query_user):
+    payment = form_data.get('payment')
     if not query_user.filter(payment=payment).first():
-        return {'no_account': True,
-                'message': 'You can not set a new account name from here'}
-    else:
-        obj = query_user.get(id=id_for_update)  # , user_name=self.request_user)
-        new_form = EditExtractForm(form.cleaned_data, instance=obj)
-        if new_form.is_valid():
-            new_form.save()
-        # obj.date = form.cleaned_data.get('date')
-        # obj.money = form.cleaned_data.get('money')
-        # obj.description = form.cleaned_data.get('description')
-        # obj.category = form.cleaned_data.get('category')
-        # obj.payment = form.cleaned_data.get('payment')
-        # obj.save(update_fields=['date', 'money', 'description', 'category', 'payment'])
+        return {"js_alert": True,
+                "message": 'You can not set a new account name from here'}
 
 
-def prepare_action(form, request_user):
-    what_to_do = form.cleaned_data.get('update_rm')
-    id_for_update = form.cleaned_data.get('pk')
-    del form.cleaned_data['update_rm']
-    del form.cleaned_data['pk']
-    form.cleaned_data['user_name'] = request_user
-
-    return what_to_do, id_for_update, form
+def update_db(pk, form_cleaned_data, query_user, request_user):
+    obj = query_user.get(id=pk)
+    new_form = EditExtractForm(form_cleaned_data, instance=obj)
+    new_form.save(request_user)

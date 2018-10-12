@@ -1,4 +1,6 @@
 from django.contrib.auth.models import User
+from django.db.models import QuerySet
+from django.shortcuts import resolve_url as r
 from django.test import TestCase
 
 from charcoallog.bank.service import ShowData
@@ -11,7 +13,7 @@ class HomeContextTest(TestCase):
         user.save()
 
         self.login_in = self.client.login(username='teste', password='1qa2ws3ed')
-        self.response = self.client.get('/bank/')
+        self.response = self.client.get(r('bank:home'))  # ('/bank/')
 
     def test_status_code(self):
         """ status code must be 200 """
@@ -20,9 +22,13 @@ class HomeContextTest(TestCase):
     def test_template(self):
         self.assertTemplateUsed(self.response, 'bank/home.html')
 
-    def test_context_only_instance(self):
+    def test_showdata_instance(self):
         show_data = self.response.context['show_data']
         self.assertIsInstance(show_data, ShowData)
+
+    def test_schedule_instance(self):
+        schedule = self.response.context['Schedule']
+        self.assertIsInstance(schedule, QuerySet)
 
     def test_number_of_href(self):
         self.assertContains(self.response, '<a href', 4)
@@ -33,10 +39,11 @@ class HomeContextTest(TestCase):
             ('<form', 2),
             ('<input', 9),
             ('<select', 6),
-            ('type="text"', 5),
+            ('type="text"', 4),
             ('type="number"', 1),
+            ('step="0.01"', 1),
             ('<button', 2),
-            ('type=\'submit\'', 2)
+            ('type="submit"', 2)
         )
         for text, count in tags:
             with self.subTest():
@@ -58,4 +65,4 @@ class HomeContextTest(TestCase):
         self.assertEqual(zero.brief_bank.whats_left(), 0)
 
     def test_bottom_id(self):
-        self.assertContains(self.response, '<b>charcoallog released under GPL-3+</b>')
+        self.assertContains(self.response, 'Charcoalog License - GPL-3+')

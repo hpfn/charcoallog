@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.shortcuts import resolve_url as r
 from django.test import TestCase
 
 
@@ -8,8 +9,8 @@ class RedirectOKTest(TestCase):
                     password1='1qa2ws3ed',
                     password2='1qa2ws3ed',
                     email='blablabla@teste.com')
-        resp_post = self.client.post('/conta/cadastre-se/', data)
-        self.assertRedirects(resp_post, '/conta/entrar/')
+        resp_post = self.client.post(r('accounts:register'), data)
+        self.assertRedirects(resp_post, r('accounts:login'))
 
 
 class RedirectFailTest(TestCase):
@@ -26,5 +27,5 @@ class RedirectFailTest(TestCase):
                     password1='1qa2ws3ed',
                     password2='1qa2ws3ed',
                     email='blablabla@teste.com')
-        resp_post = self.client.post('/conta/cadastre-se/', data)
+        resp_post = self.client.post(r('accounts:register'), data)
         self.assertEqual(200, resp_post.status_code)
