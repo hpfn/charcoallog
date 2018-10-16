@@ -1,5 +1,36 @@
 <div id="box_line2">
-    <br />
-        <b>investment</b>
-	<br />
+  <table align="left" cellpadding="10">
+        <tr>
+            {% for key, value in build_home.line2.brokerage.items %}
+            <td align="center">
+                <div>
+                    <b>{{ key }}</b> <br>
+                    <div>
+                        {% if value < 0 %}
+                        <font size="2" color="red">
+                            {{ value }}
+                        </font>
+                        {% else %}
+                        <font size="2">
+                            {{ value }}
+                        </font>
+                        {% endif %}
+                    </div>
+                </div>
+            </td>
+            {% endfor %}
+
+            {% for key, value in build_home.line2.kind_investmentdetail.items %}
+            <td align="center">
+                <div>
+                    <a href="{% url 'investments:detail' key %}">
+                    {{ key }}<br>
+                       in Details
+                    </a>
+                </div>
+            </td>
+            {% endfor %}
+            </td>
+        </tr>
+    </table>
 </div>
