@@ -18,7 +18,7 @@ vine==1.1.4
 # DRF
 certifi==2018.10.15
 chardet==3.0.4
-djangorestframework==3.8.2
+djangorestframework==3.9.0
 html5lib==1.0.1
 httpie==0.9.9
 idna==2.7
