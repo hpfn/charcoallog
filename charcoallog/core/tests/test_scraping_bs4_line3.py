@@ -75,7 +75,7 @@ class ScrapTest(TestCase):
         tx.ipca_address = 'file://' + ipca_file
 
         expected = [
-            ['2018', '0,92'],
+            ['2018', '3,34'],
             ['2017', '2,95'],
             ['2016', '6,29'],
             ['2015', '10,67'],

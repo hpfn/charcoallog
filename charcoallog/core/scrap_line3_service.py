@@ -100,8 +100,8 @@ class Scrap:
 
         # taxas = re.compile(r'<(strong|b)>\b(?P<indice>[0-9]{,2},[0-9]{2})\b</(strong|b)>')
         taxas = re.compile(
-            r'<td style="text-align: right; width: [0-9.]{7,}px; height: [0-9.]{2,}px;">'
-            r'<.*?>(<.*?>)?'
+            r'<td style="text-align: right; width: 76px; height: 21px;">'  # XXpx makes the diff
+            r'<.*?>(<span.*?>|<strong>|<b>)?'  # can be better
             r'([0-9]{,2}.[0-9]{2})'  # rate I want
             r'<.*>'
         )
