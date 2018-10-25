@@ -12,7 +12,8 @@
                 </div>
                 <div class="container"></div>
                 <div class="container">
-                    form a ser implementado
+                    form a ser implementado<br>
+                    esse vem da pag principal de invest
                     {% include 'investments/frameset_pages/form2.html' %}
                 </div>
             </div>
@@ -20,7 +21,7 @@
                 <div class="container">
                 <div class="row">
                     a ser implementado
-                    {% include 'investments/frameset_pages/line1.html' %}
+                    {# {% include 'investments/frameset_pages/line1.html' %} #}
                 </div>
 		</div>
 		<div class="container">
@@ -40,7 +41,7 @@
                     {# there is no API for that yet #}
                     {# VUE build this fine. That's all #}
                     <div class="scroll" id="vue_ajax_detail">
-                    {% for item in d %}
+                    {% for item in kind_details %}
                         <form @submit.prevent="submitForm({{ item.money }}, $event)" id="{{ item.pk }}">
                             {% csrf_token %}
                             <all-detail-forms

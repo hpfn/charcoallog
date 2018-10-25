@@ -31,11 +31,11 @@ class MethodPost:
         to_model = 'to_schedule' if schedule else 'to_extract'
         del self.form.cleaned_data['schedule']
 
-        insert_to[to_model](self.request_user, self.form.cleaned_data)
+        INSERT_TO[to_model](self.request_user, self.form.cleaned_data)
 
         if transfer:
             data_transfer = build_data_transfer(self.form.cleaned_data)
-            insert_to[to_model](self.request_user, data_transfer)
+            INSERT_TO[to_model](self.request_user, data_transfer)
 
 
 def build_data_transfer(form):
@@ -57,7 +57,7 @@ def to_schedule(user, data):
     Schedule.objects.create(user_name=user, **data)
 
 
-insert_to = dict(
+INSERT_TO = dict(
     to_extract=to_extract,
     to_schedule=to_schedule
 )

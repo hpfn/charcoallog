@@ -12,10 +12,10 @@ class MethodGet:
         :param query_user: Extract objects from ..models.py
         """
         self.request = request
-        self.request_get = request.GET
-        self.month_01 = date.today().strftime('%Y-%m-01')
+        # self.request_get = request.GET
+        month_01 = date.today().strftime('%Y-%m-01')
         self.query_user = query_user
-        self.query_default = self.query_user.filter(date__gte=self.month_01)
+        self.query_default = self.query_user.filter(date__gte=month_01)
         self.query_default_total = self.query_default.total()
         self.selectextractform = SelectExtractForm
         self.get_form = None
@@ -24,7 +24,7 @@ class MethodGet:
             self.method_get()
 
     def method_get(self):
-        self.get_form = self.selectextractform(self.request_get)
+        self.get_form = self.selectextractform(self.request.GET)
 
         if self.get_form.is_valid():
             self.search_from_get(self.get_form)

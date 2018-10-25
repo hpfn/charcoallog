@@ -35,8 +35,8 @@ def delete_bank(sender, instance, using, **kwargs):
             payment=bank.strip(),
         )
 
-        qs = Extract.objects.user_logged(instance.user_name).filter(**data)
+        qs_to_del = Extract.objects.user_logged(instance.user_name).filter(**data)
 
-        if qs.exists():
+        if qs_to_del.exists():
             # make sure to delete one record
-            qs.first().delete()
+            qs_to_del.first().delete()
