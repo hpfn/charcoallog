@@ -5,7 +5,6 @@ from django.db.models import QuerySet
 from django.shortcuts import resolve_url as r
 from django.test import TestCase
 
-from charcoallog.investments.forms import InvestmentDetailsForm
 from charcoallog.investments.models import (
     InvestmentStatementQuerySet, NewInvestmentDetails
 )
@@ -57,8 +56,8 @@ class InvestmentDetailTest(TestCase):
 
     def test_instances(self):
         expected = [
-            (self.resp.context['form'], InvestmentDetailsForm),
-            (self.resp.context['d'], InvestmentStatementQuerySet)
+            # (self.resp.context['form'], InvestmentDetailsForm),
+            (self.resp.context['kind_details'], InvestmentStatementQuerySet)
         ]
 
         for e, cls in expected:
@@ -94,11 +93,11 @@ class InvestmentDetailTest(TestCase):
         self.assertContains(self.resp, 'csrfmiddlewaretoken', 1)
 
     def test_context_instance(self):
-        form3 = self.resp.context['d']
+        form3 = self.resp.context['kind_details']
         self.assertIsInstance(form3, QuerySet)
 
     def test_context(self):
-        data = self.resp.context['d']
+        data = self.resp.context['kind_details']
         expected = [
             (str(data[0].date), self.date),
             (data[0].money, Decimal(str(self.money))),

@@ -48,7 +48,7 @@ class Schedule(models.Model):
     category = models.CharField('Category', max_length=70)
     payment = models.CharField('Payment', max_length=70)
 
-    # objects = models.Manager.from_queryset(ExtractStatementQuerySet)()
+    objects = ExtractStatementQuerySet.as_manager()
 
     class Meta:
         ordering = ['-date']

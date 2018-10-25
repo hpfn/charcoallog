@@ -16,7 +16,7 @@ def home(request):
     # user_logged instead of a .filter()
     context = {
         'show_data': ShowData(request),
-        'Schedule': Schedule.objects.filter(user_name=request.user).all(),
+        'Schedule': Schedule.objects.user_logged(request.user).all(),
     }
     return render(request, "bank/home.html", context)
 
@@ -75,6 +75,7 @@ def new_account(form_data, query_user):
     if not query_user.filter(payment=payment).first():
         return {"js_alert": True,
                 "message": 'You can not set a new account name from here'}
+    return None
 
 
 def update_db(pk, form_cleaned_data, query_user, request_user):

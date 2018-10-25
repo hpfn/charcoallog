@@ -27,12 +27,12 @@ def home(request):
 def detail(request, kind):
     post = DetailPost(request)  # noqa F841
 
-    qs = NewInvestmentDetails.objects.user_logged(request.user).filter(
+    qs_kind_details = NewInvestmentDetails.objects.user_logged(request.user).filter(
         kind=kind)
 
     context = {
-        'd': qs,
-        'form': InvestmentDetailsForm()
+        'kind_details': qs_kind_details,
+        # 'form': InvestmentDetailsForm()
     }
     return render(request, 'investments/detail.html', context)
 
