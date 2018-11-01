@@ -31,7 +31,7 @@
             </ul>
         </div>
 
-        {% for bills in Schedule %}
+        {% for bills in schedule %}
              <font color="blue">
             " {{ bills.date|date:"Y-m-d" }} " - " {{ bills.money }} " - " {{ bills.description }} " -
             " {{ bills.category }} " - " {{ bills.payment }} "

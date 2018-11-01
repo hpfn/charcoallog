@@ -5,7 +5,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from charcoallog.investments.detail_post_service import DetailPost
+# from charcoallog.investments.detail_post_service import DetailPost
 from charcoallog.investments.forms import InvestmentDetailsForm
 from charcoallog.investments.models import NewInvestment, NewInvestmentDetails
 # from charcoallog.investments.serializers import InvestmentSerializer
@@ -24,17 +24,17 @@ def home(request):
 
 
 @login_required
-def detail(request, kind):
-    post = DetailPost(request)  # noqa F841
+def newinvestmetdetails_detail(request, kind):
+    # post = DetailPost(request)  # noqa F841
 
     qs_kind_details = NewInvestmentDetails.objects.user_logged(request.user).filter(
         kind=kind)
 
     context = {
-        'kind_details': qs_kind_details,
+        'newinvestmentdetails': qs_kind_details,
         # 'form': InvestmentDetailsForm()
     }
-    return render(request, 'investments/detail.html', context)
+    return render(request, 'investments/newinvestmentdetails_detail.html', context)
 
 
 class FormDeals(LoginRequiredMixin, APIView):

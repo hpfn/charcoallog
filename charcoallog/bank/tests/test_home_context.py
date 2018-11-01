@@ -27,7 +27,7 @@ class HomeContextTest(TestCase):
         self.assertIsInstance(show_data, ShowData)
 
     def test_schedule_instance(self):
-        schedule = self.response.context['Schedule']
+        schedule = self.response.context['schedule']
         self.assertIsInstance(schedule, QuerySet)
 
     def test_number_of_href(self):

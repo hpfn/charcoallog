@@ -41,7 +41,7 @@
                     {# there is no API for that yet #}
                     {# VUE build this fine. That's all #}
                     <div class="scroll" id="vue_ajax_detail">
-                    {% for item in kind_details %}
+                    {% for item in newinvestmentdetails %}
                         <form @submit.prevent="submitForm({{ item.money }}, $event)" id="{{ item.pk }}">
                             {% csrf_token %}
                             <all-detail-forms
