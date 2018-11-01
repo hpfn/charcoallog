@@ -16,7 +16,7 @@ def home(request):
     # user_logged instead of a .filter()
     context = {
         'show_data': ShowData(request),
-        'Schedule': Schedule.objects.user_logged(request.user).all(),
+        'schedule': Schedule.objects.user_logged(request.user).all(),
     }
     return render(request, "bank/home.html", context)
 
@@ -24,20 +24,16 @@ def home(request):
 @login_required
 def update(request):
     data = {"js_alert": True, "message": 'Not a valid request'}
-    query_user = Extract.objects.user_logged(request.user)
-    # body = request.body.decode('utf-8')
-    form_data = form_data_from_body(request.body)
 
     if request.is_ajax() and request.method == 'PUT':
-        # data = new_account(form_data, query_user)
-
-        # if not data:
+        # decode utf-8 not needed
+        form_data = form_data_from_body(request.body)
         form = EditExtractForm(form_data)
-        # what is not on forms.py '.is_valid()' remove
-        # - the update and pk fields in .html file
+
         if form.is_valid():
-            update_db(form_data['pk'], form.cleaned_data, query_user, request.user)
-            data = build_json_data(query_user)
+            extract = Extract.objects.user_logged(request.user)
+            update_db(form_data['pk'], form.cleaned_data, extract, request.user)
+            data = build_json_data(extract)
         else:
             data = {"js_alert": True, "message": 'Form is not valid'}
 
@@ -46,14 +42,14 @@ def update(request):
 
 @login_required
 def delete(request):
-    query_user = Extract.objects.user_logged(request.user)
+    extract = Extract.objects.user_logged(request.user)
     if request.is_ajax() and request.method == 'DELETE':
         # body = request.body.decode('utf-8')
         form_data = form_data_from_body(request.body)
         pk = form_data['pk']
-        query_user.filter(pk=pk).delete()
+        extract.filter(pk=pk).delete()
 
-    data = build_json_data(query_user)
+    data = build_json_data(extract)
 
     return JsonResponse(data)
 
@@ -80,5 +76,5 @@ def new_account(form_data, query_user):
 
 def update_db(pk, form_cleaned_data, query_user, request_user):
     obj = query_user.get(id=pk)
-    new_form = EditExtractForm(form_cleaned_data, instance=obj)
-    new_form.save(request_user)
+    form = EditExtractForm(form_cleaned_data, instance=obj)
+    form.save(request_user)

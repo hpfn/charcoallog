@@ -52,12 +52,12 @@ class InvestmentDetailTest(TestCase):
         self.assertEqual(200, self.resp.status_code)
 
     def test_template_used(self):
-        self.assertTemplateUsed(self.resp, 'investments/detail.html')
+        self.assertTemplateUsed(self.resp, 'investments/newinvestmentdetails_detail.html')
 
     def test_instances(self):
         expected = [
             # (self.resp.context['form'], InvestmentDetailsForm),
-            (self.resp.context['kind_details'], InvestmentStatementQuerySet)
+            (self.resp.context['newinvestmentdetails'], InvestmentStatementQuerySet)
         ]
 
         for e, cls in expected:
@@ -93,11 +93,11 @@ class InvestmentDetailTest(TestCase):
         self.assertContains(self.resp, 'csrfmiddlewaretoken', 1)
 
     def test_context_instance(self):
-        form3 = self.resp.context['kind_details']
+        form3 = self.resp.context['newinvestmentdetails']
         self.assertIsInstance(form3, QuerySet)
 
     def test_context(self):
-        data = self.resp.context['kind_details']
+        data = self.resp.context['newinvestmentdetails']
         expected = [
             (str(data[0].date), self.date),
             (data[0].money, Decimal(str(self.money))),

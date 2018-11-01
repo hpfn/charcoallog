@@ -6,12 +6,14 @@ from charcoallog.investments.post_service import MethodPost
 
 class ShowData:
     def __init__(self, request):
-        self.query_user_invest = NewInvestment.objects.user_logged(request.user)
-        self.query_user_investdetail = NewInvestmentDetails.objects.user_logged(request.user)
-        self.methodpost = MethodPost(request, self.query_user_invest)
-        self.methodget = MethodGet(self.query_user_invest)
-        self.brief_investment = BriefInvestment(self.query_user_invest,
-                                                self.query_user_investdetail)
+        self.newinvestment = NewInvestment.objects.user_logged(request.user)
+        self.newinvestmentdetails = NewInvestmentDetails.objects.user_logged(request.user)
+        self.methodpost = MethodPost(request, self.newinvestment)
+        self.methodget = MethodGet(self.newinvestment)
+        self.brief_investment = BriefInvestment(
+            self.newinvestment,
+            self.newinvestmentdetails
+        )
         # self.brief_invest_total = self.brief_investment.brokerage_or_invest_type()
         # self.account_names = self.line1.account_names()
         # self.whats_left = self.line1.whats_left()
