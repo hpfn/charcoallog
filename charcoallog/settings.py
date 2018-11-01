@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'charcoallog.bank',
     'charcoallog.investments',
     'rest_framework',
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
