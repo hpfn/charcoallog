@@ -5,6 +5,8 @@
 [![codecov](https://codecov.io/gh/hpfn/charcoallog/branch/master/graph/badge.svg)](https://codecov.io/gh/hpfn/charcoallog)
 
 
+tests 'OK' when running version 3.6.7
+
 # charcoallog
 Financial-accounting. Domestic use.
 
