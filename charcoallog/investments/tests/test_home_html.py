@@ -32,7 +32,7 @@ class InvestmentHomeOkTest(TestCase):
         expected = [
             ('<form', 2),
             ('<input', 14),
-            ("type='hidden'", 1),
+            # ("type='hidden'", 1),
             ('type="text"', 5),
             ('type="checkbox"', 1),
             ('<template', 1),
