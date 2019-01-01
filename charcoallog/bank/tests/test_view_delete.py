@@ -53,6 +53,6 @@ class AjaxPostTest(TestCase):
                                       HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertJSONEqual(
             response.content,
-            {'accounts': {'cartao credito': {'money__sum': '10.00'}},
-             'whats_left': '10.00'}
+            {'accounts': {'cartao credito': {'money__sum': '10'}},
+             'whats_left': '10'}
         )

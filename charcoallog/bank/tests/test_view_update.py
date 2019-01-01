@@ -62,8 +62,8 @@ class AjaxPostTest(TestCase):
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertJSONEqual(
             response.content,
-            {'accounts': {'principal': {'money__sum': '20.00'}},
-             'whats_left': '20.00'}
+            {'accounts': {'principal': {'money__sum': '20'}},
+             'whats_left': '20'}
         )
 
     def test_ajax_fail_update(self):
@@ -75,9 +75,9 @@ class AjaxPostTest(TestCase):
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertJSONEqual(
             response.content,
-            {'accounts': {'blablabla': {'money__sum': '10.00'},
-                          'cartao credito': {'money__sum': '10.00'}},
-             'whats_left': '20.00'}
+            {'accounts': {'blablabla': {'money__sum': '10'},
+                          'cartao credito': {'money__sum': '10'}},
+             'whats_left': '20'}
         )
 
     def test_form_not_valid(self):

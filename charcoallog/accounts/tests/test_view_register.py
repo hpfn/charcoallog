@@ -6,8 +6,8 @@ from django.test import TestCase
 class RedirectOKTest(TestCase):
     def test_redirect_to_login(self):
         data = dict(username='blablabla',
-                    password1='1qa2ws3ed',
-                    password2='1qa2ws3ed',
+                    password1='1q4&wshb>',
+                    password2='1q4&wshb>',
                     email='blablabla@teste.com')
         resp_post = self.client.post(r('accounts:register'), data)
         self.assertRedirects(resp_post, r('accounts:login'))

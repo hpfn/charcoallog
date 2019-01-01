@@ -72,7 +72,7 @@ class InvestmentDetailTest(TestCase):
         expected = [
             ('<form', 2),
             ('<input', 4),
-            ("type='hidden'", 1),
+            # ("type='hidden'", 1),
             ('type="text"', 1),
             # ('type="number"', 2),
             # ('step="0.01"', 1),
