@@ -11,7 +11,7 @@
 
         {% for key, value in show_data.brief_investment.kind_investmentdetail.items %}
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'investments:detail' key %}">
+                <a class="nav-link" href="{% url 'investments:new_invest_details' key %}">
                     {{ key }}<br>
                     Details
                     {#  {{ value }}  #}

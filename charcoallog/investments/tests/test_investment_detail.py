@@ -41,7 +41,7 @@ class InvestmentDetailTest(TestCase):
         )
 
         self.obj = NewInvestmentDetails.objects.create(**self.data)
-        self.resp = self.client.get(r('investments:detail', 'Títulos Públicos'))
+        self.resp = self.client.get(r('investments:new_invest_details', 'Títulos Públicos'))
 
     def test_login(self):
         """ Must login to access html file"""
@@ -52,7 +52,7 @@ class InvestmentDetailTest(TestCase):
         self.assertEqual(200, self.resp.status_code)
 
     def test_template_used(self):
-        self.assertTemplateUsed(self.resp, 'investments/newinvestmentdetails_detail.html')
+        self.assertTemplateUsed(self.resp, 'investments/details/newinvestmentdetails_detail.html')
 
     def test_instances(self):
         expected = [

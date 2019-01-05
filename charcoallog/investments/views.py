@@ -34,10 +34,10 @@ def newinvestmetdetails_detail(request, kind):
         'newinvestmentdetails': qs_kind_details,
         # 'form': InvestmentDetailsForm()
     }
-    return render(request, 'investments/newinvestmentdetails_detail.html', context)
+    return render(request, 'investments/details/newinvestmentdetails_detail.html', context)
 
 
-class FormDeals(LoginRequiredMixin, APIView):
+class HomeApi(LoginRequiredMixin, APIView):
     raise_exception = True
 
     def get_object(self, pk):
@@ -66,7 +66,7 @@ class FormDeals(LoginRequiredMixin, APIView):
 
 
 # API for details here
-class DetailAPI(LoginRequiredMixin, APIView):
+class DetailApi(LoginRequiredMixin, APIView):
     raise_exception = True
 
     def get_object(self, pk):
