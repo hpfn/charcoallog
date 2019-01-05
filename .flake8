@@ -1,5 +1,5 @@
 [flake8]
 exclude=
-    .project_env,
+    .tox,
     migrations,
 max-line-length=100

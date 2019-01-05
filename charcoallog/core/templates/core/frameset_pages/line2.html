@@ -23,7 +23,7 @@
             {% for key, value in build_home.line2.kind_investmentdetail.items %}
             <td align="center">
                 <div>
-                    <a href="{% url 'investments:detail' key %}">
+                    <a href="{% url 'investments:new_invest_details' key %}">
                     {{ key }}<br>
                        in Details
                     </a>

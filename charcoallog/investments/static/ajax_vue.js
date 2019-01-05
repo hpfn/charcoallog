@@ -115,7 +115,7 @@ new Vue({
 
             axios({
                 method: http_verb,
-                url: 'api/' + form["pk"] + '/',
+                url: 'home_api/' + form["pk"] + '/',
                 data: form
             }).then(response => {
                 console.log("HERE")

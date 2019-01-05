@@ -137,7 +137,7 @@ new Vue({
             // tem que ser put
             axios({
                 method: http_verb,
-                url: '/investments/detail_api/' + form["pk"] + '/',
+                url: '/investments/details/detail_api/' + form["pk"] + '/',
                 data: form
             })
             .then(response => {

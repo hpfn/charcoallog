@@ -62,7 +62,7 @@ class HomeApi(LoginRequiredMixin, APIView):
     def delete(self, request, pk, format=None):
         investment = self.get_object(pk)
         investment.delete()
-        return Response({}, status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 # API for details here
@@ -91,4 +91,4 @@ class DetailApi(LoginRequiredMixin, APIView):
     def delete(self, request, pk, format=None):
         investment_d = self.get_object(pk)
         investment_d.delete()
-        return Response({}, status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_204_NO_CONTENT)
