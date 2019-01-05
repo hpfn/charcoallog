@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
 
 from charcoallog.investments.views import (
@@ -8,10 +8,10 @@ from charcoallog.investments.views import (
 app_name = 'investments'
 
 urlpatterns = [
-    url(r'^$', home, name='home'),
-    url(r'^([\w ]+)/$', newinvestmetdetails_detail, name='detail'),
-    url(r'^api/(?P<pk>[0-9]+)/$', FormDeals.as_view(), name='api'),
-    url(r'^detail_api/(?P<pk>[0-9]+)/$', DetailAPI.as_view(), name='detail_api'),
+    path('', home, name='home'),
+    path('<str:kind>/', newinvestmetdetails_detail, name='detail'),
+    path('api/<int:pk>/', FormDeals.as_view(), name='api'),
+    path('detail_api/<int:pk>/', DetailAPI.as_view(), name='detail_api'),
 
 ]
 
