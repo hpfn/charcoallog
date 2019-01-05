@@ -1,6 +1,6 @@
 beautifulsoup4==4.7.0
 dj-static==0.0.6
-Django==2.1.4
+Django==2.1.5
 django-extensions==2.1.4
 django-test-without-migrations==0.6
 html5lib==1.0.1
@@ -12,7 +12,7 @@ webencodings==0.5.1
 amqp==2.3.2
 billiard==3.5.0.5
 celery==4.2.1
-kombu==4.2.1
+kombu==4.2.2.post1
 vine==1.1.4
 
 # DRF
@@ -30,5 +30,5 @@ webencodings==0.5.1
 # django-celery-beat
 django-celery-beat==1.4.0
 django-timezone-field==3.0
-python-crontab==2.3.5
+python-crontab==2.3.6
 python-dateutil==2.7.5

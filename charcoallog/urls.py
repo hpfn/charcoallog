@@ -14,16 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf import settings
-from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.urls import include, path
 
 urlpatterns = [
-    url(r'^', include('charcoallog.core.urls', namespace='core')),
-    url(r'^conta/', include('charcoallog.accounts.urls', namespace='accounts')),
-    url(r'^bank/', include('charcoallog.bank.urls', namespace='bank')),
-    url(r'^investments/', include('charcoallog.investments.urls', namespace='investments')),
-    url(r'^admin/', admin.site.urls),
+    path('', include('charcoallog.core.urls', namespace='core')),
+    path('conta/', include('charcoallog.accounts.urls', namespace='accounts')),
+    path('bank/', include('charcoallog.bank.urls', namespace='bank')),
+    path('investments/', include('charcoallog.investments.urls', namespace='investments')),
+    path('admin/', admin.site.urls),
 ]
 
 if settings.DEBUG:

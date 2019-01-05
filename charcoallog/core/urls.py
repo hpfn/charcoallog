@@ -1,9 +1,9 @@
-from django.conf.urls import url
+from django.urls import path
 
 from charcoallog.core.views import home
 
 app_name = 'core'
 
 urlpatterns = [
-    url(r'^$', home, name='home'),
+    path('', home, name='home'),
 ]
