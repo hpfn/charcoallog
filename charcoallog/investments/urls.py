@@ -10,7 +10,7 @@ app_name = 'investments'
 urlpatterns = [
     path('', home, name='home'),
     path('<str:kind>/', newinvestmetdetails_detail, name='new_invest_details'),
-    path('details/api/<int:pk>/', HomeApi.as_view(), name='home_api'),
+    path('home_api/<int:pk>/', HomeApi.as_view(), name='home_api'),
     path('details/detail_api/<int:pk>/', DetailApi.as_view(), name='detail_api'),
 
 ]
