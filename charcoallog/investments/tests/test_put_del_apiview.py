@@ -136,7 +136,7 @@ class NoAccessDetailApi(TestCase):
 
     def test_no_access(self):
         """ No login yet. No access to the APIView"""
-        response = self.client.delete(r('investments:detail_api', 1))
+        response = self.client.delete(r('investments:details_api', 1))
         self.assertEqual(403, response.status_code)
 
 
@@ -200,7 +200,7 @@ class DetailApiTest(TestCase):
 
     def test_data_in_db(self):
         """ Data saved in DB showed in html"""
-        response = self.client.get(r('investments:new_invest_details', data['kind']))
+        response = self.client.get(r('investments:details', data['kind']))
         self.assertEqual(200, response.status_code)
         expected = [
             "NO",
@@ -224,7 +224,7 @@ class DetailApiTest(TestCase):
         self.assertTrue(NewInvestmentDetails.objects.filter(pk=1).exists())
         self.assertEqual(NewInvestmentDetails.objects.all().count(), 1)
 
-        response = self.client.put(r('investments:detail_api', 1),
+        response = self.client.put(r('investments:details_api', 1),
                                    json.dumps(l_put),
                                    content_type='application/json')
 
@@ -248,7 +248,7 @@ class DetailApiTest(TestCase):
         l_put = dict()
         l_put['segment'] = "TO PUT"
         # No fields makes data .is_valid() False
-        response = self.client.put(r('investments:detail_api', 1),
+        response = self.client.put(r('investments:details_api', 1),
                                    json.dumps(l_put),
                                    content_type='application/json')
         self.assertEqual(400, response.status_code)
@@ -256,5 +256,5 @@ class DetailApiTest(TestCase):
         self.assertNotIn(to_put["segment"], response.content.decode())
 
     def test_delete(self):
-        response = self.client.delete(r('investments:detail_api', 1))  # noqa
+        response = self.client.delete(r('investments:details_api', 1))  # noqa
         self.assertFalse(NewInvestmentDetails.objects.exists())
