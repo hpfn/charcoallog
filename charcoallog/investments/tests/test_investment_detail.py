@@ -41,7 +41,7 @@ class InvestmentDetailTest(TestCase):
         )
 
         self.obj = NewInvestmentDetails.objects.create(**self.data)
-        self.resp = self.client.get(r('investments:new_invest_details', 'Títulos Públicos'))
+        self.resp = self.client.get(r('investments:details', 'Títulos Públicos'))
 
     def test_login(self):
         """ Must login to access html file"""
