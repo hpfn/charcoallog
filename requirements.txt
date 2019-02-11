@@ -1,6 +1,6 @@
 beautifulsoup4==4.7.1
 dj-static==0.0.6
-Django==2.1.5
+Django==2.1.7
 django-extensions==2.1.4
 django-test-without-migrations==0.6
 html5lib==1.0.1
