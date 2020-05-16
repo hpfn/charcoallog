@@ -30,5 +30,5 @@ webencodings==0.5.1
 # django-celery-beat
 django-celery-beat==1.4.0
 django-timezone-field==3.0
-python-crontab==2.3.6
+python-crontab==2.5.0
 python-dateutil==2.7.5
