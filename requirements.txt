@@ -3,7 +3,7 @@ dj-static==0.0.6
 Django==2.1.5
 django-extensions==2.1.4
 django-test-without-migrations==0.6
-html5lib==1.0.1
+html5lib==1.1
 python-decouple==3.1
 pytz==2018.9
 six==1.12.0
@@ -19,7 +19,7 @@ vine==1.2.0
 certifi==2018.11.29
 chardet==3.0.4
 djangorestframework==3.9.1
-html5lib==1.0.1
+html5lib==1.1
 httpie==1.0.2
 idna==2.8
 Pygments==2.3.1
