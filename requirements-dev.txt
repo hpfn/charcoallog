@@ -5,7 +5,7 @@ pyflakes==2.0.0
 isort==4.3.4
 
 # For tests
-coverage==4.5.2
+coverage==6.0
 -r requirements.txt
 
 # show sql query
