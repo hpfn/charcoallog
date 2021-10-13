@@ -21,7 +21,7 @@ chardet==3.0.4
 djangorestframework==3.9.1
 html5lib==1.0.1
 httpie==1.0.2
-idna==2.8
+idna==3.3
 Pygments==2.3.1
 requests==2.21.0
 urllib3==1.24.1
