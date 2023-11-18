@@ -16,7 +16,7 @@ kombu==4.2.2.post1
 vine==1.2.0
 
 # DRF
-certifi==2018.11.29
+certifi==2023.11.17
 chardet==3.0.4
 djangorestframework==3.9.1
 html5lib==1.0.1
