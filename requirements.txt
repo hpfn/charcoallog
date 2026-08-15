@@ -8,7 +8,7 @@ python-decouple==3.1
 pytz==2018.9
 six==1.12.0
 #static3==0.7.0
-webencodings==0.5.1
+webencodings==0.6.0
 amqp==2.4.0
 billiard==3.5.0.5
 celery==4.2.1
@@ -25,7 +25,7 @@ idna==2.8
 Pygments==2.3.1
 requests==2.21.0
 urllib3==1.24.1
-webencodings==0.5.1
+webencodings==0.6.0
 
 # django-celery-beat
 django-celery-beat==1.4.0
